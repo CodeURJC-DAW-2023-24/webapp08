@@ -1,18 +1,25 @@
-# webapp08
-# Nombre de la aplicación: GymGuru
+
+# Nombre de la aplicación: GymGuru 🏋️
 
 ## Integrantes: 
-- Rubén Rodríguez Redondo // r.redondo.2020@alumnos.urjc.es // [Ruben-Rodriguez-Redondo](https://github.com/Ruben-Rodriguez-Redondo)
-- Daniel Gómez López // d.gomez.2021@alumnos.urjc.es // [Daniel-Gomez487](https://github.com/Daniel-Gomez487)
-- Victoria Orzáez de la Cruz // v.orzaez.2020@alumnos.urjc.es // [v-orzaez](https://github.com/v-orzaez)
-- Noelia Berzosa Parra // n.berzosa.2020@alumnos.urjc.es // [noeliaberzosa](https://github.com/noeliaberzosa)
+| Name | Email | Github |
+|-----------|-----------|-----------|
+| Rubén Rodríguez Redondo    | r.redondo.2020@alumnos.urjc.es |[Ruben-Rodriguez-Redondo](https://github.com/Ruben-Rodriguez-Redondo) |
+| Daniel Gómez López         | d.gomez.2021@alumnos.urjc.es   | [Daniel-Gomez487](https://github.com/Daniel-Gomez487)               |
+| Victoria Orzáez de la Cruz | v.orzaez.2020@alumnos.urjc.es | [v-orzaez](https://github.com/v-orzaez)                             |
+| Noelia Berzosa Parra       | n.berzosa.2020@alumnos.urjc.es | [noeliaberzosa](https://github.com/noeliaberzosa)                   |
+|Tarek Kheir|t.kheir.2023@alumnos.urjc.es|[tarekkheir](https://github.com/tarekkheir)|
 
-## Herramienta coordinación equipo: 
-GitHub https://github.com/users/Ruben-Rodriguez-Redondo/projects/2
+
+## Herramienta de coordinación del equipo: 
+[Tablero de GitHub](https://github.com/users/Ruben-Rodriguez-Redondo/projects/2)
 
 ## Aspectos principales:
 - **Entidades:** usuario, rutina, ejercicio, comentario.
   - Un usuario entrena un día haciendo una serie de ejercicios y los demás usuarios pueden comentar sobre su día.
+
+  <img src="images\diagram.jpg" width="400" /> 
+
 - **Permisos de usuario:**
   - Usuario registrado: añadir su rutina, comentar, acceder ejercicios, ver progreso.
   - Usuario no registrado: acceder ejercicios y ver comentarios.
