@@ -11,7 +11,7 @@
 GitHub https://github.com/users/Ruben-Rodriguez-Redondo/projects/2
 
 ## Aspectos principales:
-- **Entidades:** usuario, día, ejercicio, comentario.
+- **Entidades:** usuario, rutina, ejercicio, comentario.
   - Un usuario entrena un día haciendo una serie de ejercicios y los demás usuarios pueden comentar sobre su día.
 - **Permisos de usuario:**
   - Usuario registrado: añadir su rutina, comentar, acceder ejercicios, ver progreso.
