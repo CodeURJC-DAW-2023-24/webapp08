@@ -149,6 +149,9 @@ table {
   justify-content:space-between;
   background-color: white;
 }
+a{
+  
+}
 
 .layout_padding {
   padding-top: 90px;
@@ -157,6 +160,20 @@ table {
   background-image: url('/images/fondo1.jpg');
   background-size: cover;
 }
+.layout_paddingF {
+  padding-top: 90px;
+  padding-bottom: 90px;
+  background-color: #000000;
+  background-image: url('/images/formularioEj.jpg');
+  background-size: cover;
+}
+
+form {
+  background-color: rgba(255, 255, 255, 0.197); 
+  padding: 20px;
+  margin-top: 50px; 
+}
+
 .layout_paddingPecho {
   padding-top: 90px;
   padding-bottom: 90px;
