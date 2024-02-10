@@ -24,18 +24,173 @@ body {
 }
 
 
-.navbar {
-    background-color: var(--color-dark); /* Color de fondo de la barra de navegación */
-    padding: 10px 0; /* Añade espacio alrededor del contenido */
-   display: flex;
-   align-items: center;
-}
-.logo img {
-    width: 50px;
-    height: auto;
-}
-  
+.navbar-brand {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
  
+  
+}
+
+.navbar-brand span {
+  font-weight: bold;
+  color: #faf7f7;
+  font-size: 24px;
+}
+
+.navbar {
+  margin-bottom: 20px;
+  /* Agregar margen inferior para separar del contenido */
+  background:linear-gradient(to right, rgb(0, 0, 0), rgba(64, 63, 63, 0.807));
+  position: fixed;
+  background-color: #000000;
+
+}
+
+.i-flex {
+  align-items: center;
+  display: flex;
+}
+
+.d-flex {
+  align-items: center;
+}
+
+.nombre-gym {
+  font-weight: bold;
+  color: #faf7f7;
+  font-size: 20px;
+}
+
+
+.logo  {
+  height: 20px;
+}
+
+
+
+
+
+.search-icon {
+
+  width: 40px;
+  height: 40px;
+  text-align: center;
+}
+
+.search .search-icon {
+  display: inline-block;
+  /* Mostrar el icono */
+  color: var(--color-text-buttons);
+  ;
+  background-color: var(--color-yellow);
+  border-radius: 10px;
+  font-size: 24px;
+}
+
+.search:hover .search-icon {
+  display: none;
+  /* Ocultar el icono cuando se hace hover */
+}
+
+.search .form-control {
+  display: none;
+  /* Ocultar la barra de búsqueda por defecto */
+}
+
+.search:hover .form-control {
+  display: block;
+  /* Mostrar la barra de búsqueda al hacer hover sobre el contenedor de búsqueda */
+}
+
+.search input[type="text"] {
+  background-color: #f0f0f0;
+}
+
+.estadisticas button {
+  background-color: var(--color-yellow);
+  color: var(--color-text-buttons);
+  height: 40px;
+
+}
+
+.estadisticas button:hover {
+  background-color: var(--color-yellow);
+  /* Establece el color de fondo al mismo color que el estado normal */
+  color: var(--color-text-buttons);
+}
+
+
+.dropdown {
+  background-color: var(--color-yellow);
+  border-radius: 10px;
+}
+
+.bi-bell {
+  color: var(--color-text-buttons);
+  /* Cambia 'red' al color que desees */
+}
+
+.comunity {
+  background-color: var(--color-yellow);
+  border-radius: 10px;
+}
+
+.bi.bi-person-plus {
+  color: var(--color-text-buttons);
+}
+
+.estadisticas,
+.dropdown,
+.comunity,
+.search {
+  margin-right: 0.5rem;
+  /* Puedes ajustar el valor según tus necesidades */
+}
+.user button.circular-btn {
+  background-color: var(--color-yellow);
+  color: var(--color-text-buttons);
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+
+}
+
+.news {
+  width: fit-content;
+  margin: auto;
+  background-color: var(--color-yellow);
+  border-radius: 5px;
+  text-align: center;
+  /* Alinea el texto al centro */
+
+}
+
+.news {
+  overflow: hidden; /* Oculta el desbordamiento horizontal */
+}
+
+.scrolling-text {
+  white-space: nowrap; /* Evita que el texto se divida en múltiples líneas */
+  animation: scrollText 5s linear infinite; /* Animación de desplazamiento */
+}
+
+@keyframes scrollText {
+  0% {
+      transform: translateX(100%); /* Inicia fuera del contenedor hacia la derecha */
+  }
+  100% {
+      transform: translateX(-100%); /* Termina fuera del contenedor hacia la izquierda */
+  }
+}
+
   .eslogan{
     flex: 1; /* Expande el espacio restante */
     text-align: center; /* Alinea el texto al centro */
@@ -68,7 +223,7 @@ body {
     
 }
   .container-search{
-
+    padding-top: 70px;
     margin: auto;
     margin-top: 10px;
     margin-bottom: 10px;
@@ -81,7 +236,7 @@ body {
     justify-content: center;
     
   }
-  .search {
+  .search1 {
     background-color: var(--color-grey);
     width: 50%;
     height: 60px;
@@ -89,7 +244,7 @@ body {
     font-size: x-large;
   }
 
-  .search-btn {
+  .search-btn1 {
     
     border-radius: 5px;
     width: 60px;
@@ -98,14 +253,14 @@ body {
   }
 
 
-  .bi-search{
+  .bi-search1{
     color: var(--color-dark);
   }
 
   .container-friendlist {
     margin: auto;
     margin-top: 50px;
-    padding:10px;
+    padding:30px;
     width:  fit-content;
     height: fit-content;
     text-align: center;
