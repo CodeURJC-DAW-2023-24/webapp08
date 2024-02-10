@@ -110,6 +110,23 @@ table {
 
 }
 
+.search-icon {
+
+  width: 40px;
+  height: 40px;
+  text-align: center;
+  
+}
+
+.search .search-icon {
+  display: inline-block;
+  /* Mostrar el icono */
+  color:white;
+  background-color: black;
+  border-radius: 10px;
+  font-size: 24px;
+}
+
 .round-image{
   border-radius: 1000px;
  
@@ -140,7 +157,62 @@ table {
   background-image: url('/images/fondo1.jpg');
   background-size: cover;
 }
-
+.layout_paddingPecho {
+  padding-top: 90px;
+  padding-bottom: 90px;
+  background-color: #000000;
+  background-image: url('/images/pecho.jpg');
+  background-size: cover;
+  height:300px ;
+}
+.layout_paddingEspalda {
+  padding-top: 90px;
+  padding-bottom: 90px;
+  background-color: #000000;
+  background-image: url('/images/espalda.jpg');
+  background-size: cover;
+  height:300px ;
+}
+.layout_paddingBiceps {
+  padding-top: 90px;
+  padding-bottom: 90px;
+  background-color: #000000;
+  background-image: url('/images/biceps.jpg');
+  background-size: cover;
+  height:300px ;
+}
+.layout_paddingTriceps {
+  padding-top: 90px;
+  padding-bottom: 90px;
+  background-color: #000000;
+  background-image: url('/images/triceps.jpg');
+  background-size: cover;
+  height:300px ;
+}
+.layout_paddingCardio {
+  padding-top: 90px;
+  padding-bottom: 90px;
+  background-color: #000000;
+  background-image: url('/images/cardio.jpg');
+  background-size: cover;
+  height:300px ;
+}
+.layout_paddingTorsInf {
+  padding-top: 90px;
+  padding-bottom: 90px;
+  background-color: #000000;
+  background-image: url('/images/torsoInf.jpg');
+  background-size: cover;
+  height:300px ;
+}
+.layout_paddingHombro {
+  padding-top: 90px;
+  padding-bottom: 90px;
+  background-color: #000000;
+  background-image: url('/images/hombro.jpg');
+  background-size: cover;
+  height:300px ;
+}
 .layout_paddingI {
   padding-top: 90px;
   padding-bottom: 90px;
@@ -156,6 +228,11 @@ table {
 .layout_padding2 {
   padding-top: 45px;
   padding-bottom: 45px;
+}
+.layout_padding3 {
+  padding-top: 5px;
+  padding-bottom: 5px;
+  background-color:#f1db25;
 }
 
 .layout_padding2-top {
