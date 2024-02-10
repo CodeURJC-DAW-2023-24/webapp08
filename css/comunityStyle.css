@@ -1,0 +1,168 @@
+:root {
+    --color-yellow: #f1db25;
+    /* Definir la variable */
+    --color-dark: black;
+    --color-text-buttons: white;
+    --color-grey:#dad9d9;
+}
+
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: "Poppins", sans-serif;
+
+    background-image: url('../images/friend.jpg');
+    background-size: cover;
+    /* Ajusta la imagen para cubrir todo el cuerpo */
+    background-position: top;
+    /* Centra la imagen en el cuerpo */
+    background-repeat: no-repeat;
+    height: 100%; /* Establece la altura del html al 100% de la ventana */
+    /* Evita que la imagen se repita */
+
+}
+
+
+.navbar {
+    background-color: var(--color-dark); /* Color de fondo de la barra de navegación */
+    padding: 10px 0; /* Añade espacio alrededor del contenido */
+   display: flex;
+   align-items: center;
+}
+.logo img {
+    width: 50px;
+    height: auto;
+}
+  
+ 
+  .eslogan{
+    flex: 1; /* Expande el espacio restante */
+    text-align: center; /* Alinea el texto al centro */
+    font-size: 24px; /* Tamaño del texto del título */
+    font-weight: bold; /* Peso de la fuente */
+    color: white; /* Color del texto del título */
+ 
+  }
+  
+  
+  .nav-item {
+    list-style: none; /* Elimina los estilos de lista predeterminados */
+    margin-right: 20px; /* Añade espacio entre los elementos de la lista */
+    
+    
+  }
+  
+  .home-link {
+    text-decoration: none; /* Quita el subrayado de los enlaces */
+    color: var(--color-yellow); /* Color de los enlaces */
+    
+  }
+  
+  
+  .container-fluid {
+   
+    display: flex; /* Utiliza el modelo de caja flexible */
+    flex-wrap: wrap; /* Evita que los elementos se envuelvan a la siguiente línea */
+    justify-content: space-between;
+    
+}
+  .container-search{
+
+    margin: auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width: 70%;
+    height: fit-content;
+   
+  }
+
+  .d-flex{
+    justify-content: center;
+    
+  }
+  .search {
+    background-color: var(--color-grey);
+    width: 50%;
+    height: 60px;
+    border-radius: 5px;
+    font-size: x-large;
+  }
+
+  .search-btn {
+    
+    border-radius: 5px;
+    width: 60px;
+    background-color: var(--color-grey);
+
+  }
+
+
+  .bi-search{
+    color: var(--color-dark);
+  }
+
+  .container-friendlist {
+    margin: auto;
+    margin-top: 50px;
+    padding:10px;
+    width:  fit-content;
+    height: fit-content;
+    text-align: center;
+    background-color: rgba(14, 13, 13, 0.5);
+    border-radius: 5px;
+  }
+
+  .titulo-friendlist {
+    color: var(--color-yellow);
+  }
+
+  .list-group{
+    background-color: rgba(243, 242, 242, 0.5);
+    border-radius: 5px;
+  }
+  .list-group-item {
+    color: black;
+    font-weight: 700;
+    background-color: transparent;
+   
+  }
+
+  .friend-container{
+    
+        margin-top: 10px;
+        padding: 10px;
+        border-radius: 5px;
+        display: flex;
+        flex-direction: column; /* Alinea los elementos verticalmente */
+        align-items: center; /* Centra los elementos horizontalmente */
+    width: auto;
+ }
+  
+ .friend-list{
+    width: 40%;
+    padding: 0;
+    margin: 0;
+    background-color:  rgba(14, 13, 13, 0.5);
+ }
+ .user-item{
+    margin:5px;
+    border-radius: 5px;
+    padding: 10px;
+    background-color: rgb(212, 208, 208);
+    list-style: none;
+    border:1px solid black;
+    font-size: larger;
+    font-weight: 600;
+    display: flex;
+    justify-content: space-between ;
+    
+ }
+ .solicitud-btn{
+    border-radius: 5px;
+    font-size: x-small;
+    border: 2px solid green;
+    background-color: rgb(5, 204, 5);
+ }
+
+ 
