@@ -150,7 +150,7 @@ table {
   background-color: white;
 }
 a{
-  
+
 }
 
 .layout_padding {
@@ -175,6 +175,7 @@ form {
 }
 
 .layout_paddingPecho {
+  margin-top: 60px;
   padding-top: 90px;
   padding-bottom: 90px;
   background-color: #000000;
