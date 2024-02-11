@@ -28,3 +28,21 @@
 - **Gráficos:** de progreso y de ejercicios específicos.
 - **Tecnología complementaria:** descargar tu rutina en PDF.
 - **Algoritmo o consulta avanzada:** en base a rutinas pasadas que se den consejos de ejercicios o de la propia rutina.
+
+## Capturas de pantalla: 
+
+- **Página Principal:** 
+
+<img src="images\mainPage.png" width="1000" /> 
+
+**Descripción**: En la barra superior de izquierda a derecha se encuentran los botones para: buscar ejercicio, página de estadísticas, notificaciones, comunidad y perfil de usuario.
+
+Debajo se encuentran un calendario con los últimos 7 días en los que puedes ver las rutinas que has subido. A su derecha se encuentra un botón para añadir rutina.
+
+Por último aparece una sección de novedades relacionadas con rutinas que han subido otras personas, nuevos ejercicios añadidos, etc.
+
+- **Página de tu Comunidad:**
+
+<img src="images\comunityPage.png" width="1000" /> 
+
+**Descripción**: Barra superior similar a la Página Principal, un buscador para buscar usuarios a los que se podrá enviar una solicitud de amista y en la zona derecha aparecerá tu lista de amigos.
