@@ -41,11 +41,18 @@ Debajo se encuentran un calendario con los últimos 7 días en los que puedes ve
 
 Por último aparece una sección de novedades relacionadas con rutinas que han subido otras personas, nuevos ejercicios añadidos, etc.
 
+- **Página de Inicio:**
+
+<img src="images\Inicio1Pantalla.png" width="1000" /> 
+<img src="images\Inicio2Pantalla.png" width="1000" /> 
+
+**Descripción**: Es una pantalla de presentación. En esta página un usuario decide registrarse en la aplicación, iniciar sesión o entrar como invitado. 
+
 - **Página de tu Comunidad:**
 
 <img src="images\comunityPage.png" width="1000" /> 
 
-**Descripción**: Barra superior similar a la Página Principal, un buscador para buscar usuarios a los que se podrá enviar una solicitud de amista y en la zona derecha aparecerá tu lista de amigos.
+**Descripción**: Barra superior similar a la Página Principal, un buscador para buscar usuarios a los que se podrá enviar una solicitud de amistad y en la zona derecha aparecerá tu lista de amigos.
 
 - **Página de tu Perfil:**
 
@@ -61,6 +68,18 @@ Posteriormente, se encuentra la foto de perfil del usuario y su información per
 **Descripción**: En la barra superior de izquierda a derecha se encuentran los botones para: buscar ejercicio, página de estadísticas, notificaciones, comunidad y perfil de usuario.
 Posteriormente, se encuentra los del usuario que ha subido la rutina, así como una tabla donde se muestra toda la información relativa a la rutina, los ejercicios, el número de series por repetición y el peso.
 Por último, se pueden observar los comentarios que otros usuarios han publicado sobre la rutina y la posibilidad de comentar.
+
+- **Página de Grupo Muscular:**
+
+<img src="images\MuscleGroupPantalla.png" width="1000" /> 
+
+**Descripción**:En la barra superior de izquierda a derecha se encuentran los botones para: buscar ejercicio, página de estadísticas, notificaciones, comunidad y perfil de usuario. Es la página previa a la lista de ejercicios almacenados por grupo muscular. En esta pantalla el usuario filtra por grupo muscular.
+
+- **Página Formulario nuevo ejercicio del Administrador:**
+
+<img src="images\FormAdminEjsPantalla.png" width="1000" /> 
+
+**Descripción**:En la barra superior de izquierda a derecha se encuentran los botones para: buscar ejercicio, página de estadísticas, notificaciones, comunidad y perfil de usuario. Esta pantalla únicamente es accesible por el administrado; y será utilizada cuando quiera incluir un nuevo ejercicio en la base de datos.
 
 
 
