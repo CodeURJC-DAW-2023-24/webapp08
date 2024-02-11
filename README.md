@@ -46,3 +46,21 @@ Por último aparece una sección de novedades relacionadas con rutinas que han s
 <img src="images\comunityPage.png" width="1000" /> 
 
 **Descripción**: Barra superior similar a la Página Principal, un buscador para buscar usuarios a los que se podrá enviar una solicitud de amista y en la zona derecha aparecerá tu lista de amigos.
+
+- **Página de tu Perfil:**
+
+<img src="images\userPage.png" width="1000" /> 
+
+**Descripción**: En la barra superior de izquierda a derecha se encuentran los botones para: buscar ejercicio, página de estadísticas, notificaciones, comunidad y perfil de usuario.
+Posteriormente, se encuentra la foto de perfil del usuario y su información personal guardada, en dicha página el usuario tiene la opción de modificar la información y de cerrar la sesión.
+
+- **Página de Rutina:**
+
+<img src="images\rutinaPage.png" width="1000" /> 
+
+**Descripción**: En la barra superior de izquierda a derecha se encuentran los botones para: buscar ejercicio, página de estadísticas, notificaciones, comunidad y perfil de usuario.
+Posteriormente, se encuentra los del usuario que ha subido la rutina, así como una tabla donde se muestra toda la información relativa a la rutina, los ejercicios, el número de series por repetición y el peso.
+Por último, se pueden observar los comentarios que otros usuarios han publicado sobre la rutina y la posibilidad de comentar.
+
+
+
