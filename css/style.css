@@ -169,7 +169,7 @@ table {
   background-size: cover;
 }
 
-form {
+.formAd {
   background-color: rgba(255, 255, 255, 0.197); 
   padding: 20px;
   margin-top: 50px; 
