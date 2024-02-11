@@ -1,0 +1,100 @@
+/*########################################################################################################################################################################*/
+/*############################################################################ CSS EJERCICIO #############################################################################*/
+/*########################################################################################################################################################################*/
+.layout_padding_exercise {
+  padding-top: 90px;
+  padding-bottom: 90px;
+  background-color: #000000;
+  background-image: url('/images/mancuerna.jpeg');
+  background-size: cover;
+  background-repeat:no-repeat;
+  background-position:center; 
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  -webkit-background-size: cover;
+  -ms-content-zooming: none;
+  position:absolute;
+  width:100%;
+  height:100%;
+}
+
+.technique_container{
+  border-radius: 10%;
+  padding: 20px 50px 20px 50px ;
+  margin-top: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content:space-between;
+  background-color: white;
+  flex-direction: column;
+  align-content: center;
+}
+
+.tips_container{
+  padding: 20px 50px 20px 50px ;
+  margin-top: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content:space-between;
+  background-color: white;
+  flex-direction: row;
+}
+
+
+.center{
+text-align: center;
+}
+
+.exercise_image{
+width: auto; 
+}
+
+
+
+/*########################################################################################################################################################################*/
+/*############################################################################ CSS PROGRESO ##############################################################################*/
+/*########################################################################################################################################################################*/
+
+
+
+
+.layout_padding_progress {
+  padding-top: 90px;
+  padding-bottom: 90px;
+  background-color: #000000;
+  background-image: url('/images/progress.jpg');
+  background-size: cover;
+  background-repeat:no-repeat;
+  background-position:center; 
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  -webkit-background-size: cover;
+  -ms-content-zooming: none;
+  position:absolute;
+  width:100%;
+  height:100%;
+}
+
+.progress_graph_container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 20px;
+}
+
+.progress_graph{
+  width: 100%;
+  height: 80%;
+  padding-bottom: 100%;
+  background: transparent;
+}
+
+.negro{
+background-color: black;
+}
+
+
+
+
+
+
+
