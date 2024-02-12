@@ -106,4 +106,17 @@ Por último, se pueden observar los comentarios que otros usuarios han publicado
 
 **Descripción**:En la barra superior de izquierda a derecha se encuentran los botones para: buscar ejercicio, página de estadísticas, notificaciones, comunidad y perfil de usuario. Esta pantalla sirve para que un usuario se de de alta en la aplicación.
 
+- **Añadir Rutina:**
+
+<img src="images\addEjePage.png" width="1000" /> 
+
+**Descripción**:En la barra superior de izquierda a derecha se encuentran los botones para: buscar ejercicio, página de estadísticas, notificaciones, comunidad y perfil de usuario. Esta pantalla sirve para que un usuario pueda guardar una nueva rutina.
+
+- **Añadir ejercicio a la rutina:**
+
+<img src="images\addRutinaPage.png" width="1000" /> 
+
+**Descripción**:En la barra superior de izquierda a derecha se encuentran los botones para: buscar ejercicio, página de estadísticas, notificaciones, comunidad y perfil de usuario. Esta pantalla sirve para que un usuario pueda añadir un ejercicio a su rutina.
+
+
 
