@@ -96,7 +96,7 @@ Por último, se pueden observar los comentarios que otros usuarios han publicado
 
 - **Lista de ejercicios de la rutina:**
 
-<img src="images\list_rutina.png" width="1000" /> 
+<img src="images\list_ejercicios.png" width="1000" /> 
 
 **Descripción**:Una lista de los ejercicios de rutina de un usuario con el tiempo necesario para la ejecución, el nivel de dificultad, y la descripción del ejercicio.
 
