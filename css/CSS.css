@@ -62,7 +62,7 @@ width: auto;
   padding-top: 90px;
   padding-bottom: 90px;
   background-color: #000000;
-  background-image: url('/images/progress.jpg');
+  background-image: url('/images/progreso.jpeg');
   background-size: cover;
   background-repeat:no-repeat;
   background-position:center; 
@@ -90,6 +90,8 @@ width: auto;
 
 .negro{
 background-color: black;
+width: 200px;
+height: 10px;
 }
 
 
