@@ -100,5 +100,10 @@ Por último, se pueden observar los comentarios que otros usuarios han publicado
 
 **Descripción**:Una lista de los ejercicios de rutina de un usuario con el tiempo necesario para la ejecución, el nivel de dificultad, y la descripción del ejercicio.
 
+- **Pantalla registro de usuarios:**
+
+<img src="images\pantallaRegistro.png" width="1000" /> 
+
+**Descripción**:En la barra superior de izquierda a derecha se encuentran los botones para: buscar ejercicio, página de estadísticas, notificaciones, comunidad y perfil de usuario. Esta pantalla sirve para que un usuario se de de alta en la aplicación.
 
 
