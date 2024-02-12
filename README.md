@@ -81,5 +81,17 @@ Por último, se pueden observar los comentarios que otros usuarios han publicado
 
 **Descripción**:En la barra superior de izquierda a derecha se encuentran los botones para: buscar ejercicio, página de estadísticas, notificaciones, comunidad y perfil de usuario. Esta pantalla únicamente es accesible por el administrado; y será utilizada cuando quiera incluir un nuevo ejercicio en la base de datos.
 
+- **Página Detalle ejercicio:**
+
+<img src="images\pantallaDetalle.png" width="1000" /> 
+
+**Descripción**:En la barra superior de izquierda a derecha se encuentran los botones para: buscar ejercicio, página de estadísticas, notificaciones, comunidad y perfil de usuario. En esta pantalla se especifica el ejercicio.
+
+- **Página Progreso usuario:**
+
+<img src="images\pantallaProgreso.png" width="1000" /> 
+
+**Descripción**:En la barra superior de izquierda a derecha se encuentran los botones para: buscar ejercicio, página de estadísticas, notificaciones, comunidad y perfil de usuario.  Esta pantalla sirve para que el usuario vea su progreso; así como sus rutinas.
+
 
 
