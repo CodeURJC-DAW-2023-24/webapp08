@@ -168,6 +168,22 @@ table {
   background-image: url('/images/formularioEj.jpg');
   background-size: cover;
 }
+
+.layout_paddingER {
+  padding-top: 90px;
+  padding-bottom: 90px;
+  background-color: #000000;
+  background-image: url('/images/añadirEjercicio2.jpg');
+  background-size: cover;
+}
+
+.layout_paddingRA {
+  padding-top: 90px;
+  padding-bottom: 90px;
+  background-color: #000000;
+  background-image: url('/images/añadirRutina2.jpg');
+  background-size: cover;
+}
 .layout_paddingReg {
   padding-top: 90px;
   padding-bottom: 90px;
