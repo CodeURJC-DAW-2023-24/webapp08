@@ -119,4 +119,9 @@ Por último, se pueden observar los comentarios que otros usuarios han publicado
 **Descripción**:En la barra superior de izquierda a derecha se encuentran los botones para: buscar ejercicio, página de estadísticas, notificaciones, comunidad y perfil de usuario. Esta pantalla sirve para que un usuario pueda añadir un ejercicio a su rutina.
 
 
+## Diagrama de navegación: 
+- **<span style="color:blue">Azul</span>:** Todos los usuarios.
+- **<span style="color:yellow">Amarillo</span>:** Usuarios Registrados.
+- **<span style="color:green">Verde</span>:** Administrador.
+<img src="images\diagramaNAv.png" width="1000" /> 
 
