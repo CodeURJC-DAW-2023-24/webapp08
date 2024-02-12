@@ -94,4 +94,11 @@ Por último, se pueden observar los comentarios que otros usuarios han publicado
 **Descripción**:En la barra superior de izquierda a derecha se encuentran los botones para: buscar ejercicio, página de estadísticas, notificaciones, comunidad y perfil de usuario.  Esta pantalla sirve para que el usuario vea su progreso; así como sus rutinas.
 
 
+- **Lista de ejercicios de la rutina:**
+
+<img src="images\list_rutina.png" width="1000" /> 
+
+**Descripción**:Una lista de los ejercicios de rutina de un usuario con el tiempo necesario para la ejecución, el nivel de dificultad, y la descripción del ejercicio.
+
+
 
