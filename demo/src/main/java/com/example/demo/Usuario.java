@@ -13,15 +13,16 @@ public class Usuario {
 	private long id;
 
 	private String firstName;
-	private String lastName;
+	private String password;
 
 	protected Usuario() {
 		// Used by JPA
 	}
 
-	public Usuario(String firstName, String lastName) {
+	public Usuario(String firstName, String password) {
+		super();
 		this.firstName = firstName;
-		this.lastName = lastName;
+		this.password = password;
 	}
 
 	public String getFirstName() {
@@ -29,10 +30,14 @@ public class Usuario {
 	}
 
 	public String getLastName() {
-		return lastName;
+		return password;
 	}
 
 
-	
+	@Override
+	public String toString() {
+		return String.format("Usuario[id=%d, firstName='%s', password='%s']",
+				id, firstName, password);
+	}
 
 }

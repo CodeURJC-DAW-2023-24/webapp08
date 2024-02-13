@@ -31,7 +31,7 @@ public class UsuarioController implements CommandLineRunner{
 	 public void run(String... args) throws Exception {
  
 		 // save a couple of Usuarios
-		 repository.save(new Usuario("Jack", "Bauer"));
+		 repository.save(new Usuario("1", "1"));
 		 repository.save(new Usuario("Chloe", "O'Brian"));
 		 repository.save(new Usuario("Kim", "Bauer"));
 		 repository.save(new Usuario("David", "Palmer"));
@@ -54,25 +54,28 @@ public class UsuarioController implements CommandLineRunner{
 		 System.out.println();
  
 		 // fetch Usuarios by last name
-		 List<Usuario> bauers = repository.findByLastName("Bauer");
-		 System.out.println("Usuario found with findByLastName('Bauer'):");
-		 System.out.println("--------------------------------------------");
-		 for (Usuario bauer : bauers) {
-			 System.out.println(bauer);
-		 }
+		
+		
+		
  
-		 repository.delete(bauers.get(0));
+		
 	 }
-    /*@PostMapping ("/guardaranuncio")
-	public String guardarAnuncio(Model model, @RequestParam String nombre, @RequestParam String asunto,
-			@RequestParam String comentario) {
+    @GetMapping ("/iniciarSesion")
+	public String iniciarSesion(Model model, @RequestParam String user, @RequestParam String password) {
 
-		model.addAttribute("nombre", nombre);
-		model.addAttribute("asunto", asunto);
-		model.addAttribute("comentario", comentario);
+		model.addAttribute("nombre", user);
+		
+		List<Usuario>  usuarios = repository.findByFirstName(user);
+		for (Usuario usuario: usuarios) {
+			if (usuario.getLastName().contentEquals(password)){
+				return "mainPage.html";
+			}
+		}
 
-		return "anuncio";
-	}*/
+		
+
+		return "index.html";
+	}
 	
 
 }
