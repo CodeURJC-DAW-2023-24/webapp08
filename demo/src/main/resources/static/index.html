@@ -65,7 +65,7 @@
                         <div class="">
                           <div class="row">
                             <div class="col-md-7 mx-auto">
-                              <form action="/iniciarSesion" method="get">
+                              <form action="/login" method="post">
                                 <div class="contact_form-container">
                                   <div>
                                     <div>
@@ -78,11 +78,10 @@
                                 
                                       
                                         <div class="btn-box"  >
-                                         
+                                          <input type="hidden" name="_csrf" value="{{token}}"/>
                                           <button type="submit" class="btn-2" >
                                             Iniciar Sesión
                                           </button>
-                                        
                                           <span style="margin: 0 10px;"></span>
                                           <button class="btn-1">
                                             Regístrate

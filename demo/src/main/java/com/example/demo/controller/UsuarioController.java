@@ -1,20 +1,25 @@
-package com.example.demo;
+package com.example.demo.controller;
 
 
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.security.web.csrf.CsrfToken;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.example.demo.model.Usuario;
+import com.example.demo.repository.Repositorio;
+
 import java.util.List;
 import java.util.Optional;
 
 import jakarta.annotation.*;
+import jakarta.servlet.http.HttpServletRequest;
 
 import org.springframework.boot.CommandLineRunner;
 
@@ -60,6 +65,20 @@ public class UsuarioController implements CommandLineRunner{
  
 		
 	 }
+	 @GetMapping("/")
+	public String index() {
+		return "mainPage.html";
+	}
+ 
+@GetMapping("/login")
+	public String login(Model model, HttpServletRequest request) {
+		
+		CsrfToken token = (CsrfToken) request.getAttribute("_csrf"); 
+	    model.addAttribute("token", token.getToken());   
+		
+		return "index.html";
+	}
+/** 
     @GetMapping ("/iniciarSesion")
 	public String iniciarSesion(Model model, @RequestParam String user, @RequestParam String password) {
 
@@ -76,6 +95,6 @@ public class UsuarioController implements CommandLineRunner{
 
 		return "index.html";
 	}
-	
+	**/
 
 }
