@@ -11,20 +11,21 @@
   <meta name="keywords" content="" />
   <meta name="description" content="" />
   <meta name="author" content="" />
-  
+
 
   <title>Gymguru</title>
 
   <!-- bootstrap core css -->
-  <link rel="stylesheet" type="text/css" href="./css/bootstrap.css" />
+  <link rel="stylesheet" type="text/css" href="/css/bootstrap.css" />
 
   <!-- fonts style -->
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700|Poppins:400,600,700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700|Poppins:400,600,700&display=swap"
+    rel="stylesheet" />
 
   <!-- Custom styles for this template -->
-  <link href="./css/style.css" rel="stylesheet" />
+  <link href="/css/style.css" rel="stylesheet" />
   <!-- responsive style -->
-  <link href="./css/responsive.css" rel="stylesheet" />
+  <link href="/css/responsive.css" rel="stylesheet" />
 </head>
 
 <body>
@@ -32,11 +33,11 @@
     <!-- header section strats -->
     <div class="hero_bg_box">
       <div class="img-box">
-        <img src="/images/portada.jpg" alt="">
+        <img src="./images/portada.jpg" alt="">
       </div>
     </div>
 
-  
+
     <!-- end header section -->
     <!-- slider section -->
     <section class=" slider_section ">
@@ -65,38 +66,41 @@
                         <div class="">
                           <div class="row">
                             <div class="col-md-7 mx-auto">
-                              <form action="/login" method="get">
+                              <form action="/login" method="post">
                                 <div class="contact_form-container">
                                   <div>
                                     <div>
-                                      <input type="text" name="user"placeholder="Usuario" />
+                                      <input type="text" name="username" placeholder="Usuario" />
                                     </div>
                                     <div>
                                       <input type="password" name="password" placeholder="Contraseña " />
                                     </div>
+                                    <input type="hidden" name="_csrf" value="{{token}}" />
                                     <div class="row text-center aling-items-center">
-                                
-                                      
-                                        <div class="btn-box"  >
-                                          <input type="hidden" name="_csrf" value="{{token}}"/>
-                                          <button type="submit" class="btn-2" >
-                                            Iniciar Sesión
-                                          </button>
-                                          <span style="margin: 0 10px;"></span>
-                                          <button class="btn-1">
-                                            Regístrate
-                                          </button>
-                                          
-                                        </div>
-                                        
-                                    
+
+
+                                      <div class="btn-box">
+
+                                        <button type="submit" class="btn-2">
+                                          Iniciar Sesión
+                                        </button>
+                                        <span style="margin: 0 10px;"></span>
+
+
+                                      </div>
+
                                     </div>
                                     <div>
                                       <p class="guest2"> Accede como <a class="guest" href="">Invitado</a> </p>
                                     </div>
+                                    <div>
+                                      <p class="reg">¿No tienes cuenta? Regístrate <a class="reg2"
+                                          href="/newUser">aquí</a> </p>
+                                    </div>
                                   </div>
                                 </div>
                               </form>
+
                             </div>
                           </div>
                         </div>
@@ -112,8 +116,8 @@
               <div class="row">
                 <div class="col-md-7">
                   <div class="detail-box">
-                    <br>  <br>  
-                    <h2></h2>   <br>
+                    <br> <br>
+                    <h2></h2> <br>
                     <h1>
                       Gymguru <br>
                       <br>
@@ -121,18 +125,19 @@
                         TU APLICACIÓN DE RUTINAS
                       </span>
                     </h1>
-                    <br>  <br>   <br>
+                    <br> <br> <br>
                     <p>
-                      Únete a nosotros para descubir los beneficios de llevar un control sobre tus entrenamientos, marcar tu progreso
+                      Únete a nosotros para descubir los beneficios de llevar un control sobre tus entrenamientos,
+                      marcar tu progreso
                       y compartirlo con todos tus amigos.
                     </p>
-                    <br>  <br>   <br>   <br>
+                    <br> <br> <br> <br>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-          
+
         </div>
         <div class="container idicator_container">
           <ol class="carousel-indicators">
@@ -145,11 +150,11 @@
     <!-- end slider section -->
   </div>
 
-  
+
 
   <script src="/js/jquery-3.4.1.min.js"></script>
   <script src="/js/bootstrap.js"></script>
-  
+
 </body>
 
 </html>
