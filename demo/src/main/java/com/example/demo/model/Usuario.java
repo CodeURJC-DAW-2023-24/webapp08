@@ -1,6 +1,11 @@
 package com.example.demo.model;
 
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
 import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -16,7 +21,11 @@ public class Usuario {
 	private long id;
 
 	private String firstName;
+	private String name;
 	private String encodedPassword;
+	private String date;
+	private Integer weight;
+
 
 	@ElementCollection(fetch = FetchType.EAGER)
 	private List<String> roles;
@@ -25,16 +34,30 @@ public class Usuario {
 		// Used by JPA
 	}
 
-	public Usuario(String firstName, String encodedPassword, String... roles) {
+	public Usuario(String firstName, String encodedPassword,String name,String date, Integer weight, String...roles) {
 		super();
 		this.firstName = firstName;
 		this.encodedPassword = encodedPassword;
+		this.name = name;
+		this.date = date;
+		this.weight = weight;
 		this.roles = List.of(roles);
 	}
 
 	public String getFirstName() {
 		return firstName;
 	}
+
+	public String getName() {
+		return name;
+	}
+	public String getDate() {
+		return date;
+	}
+	public Integer getWeight() {
+		return weight;
+	}
+
 
 	public String getEncodedPassword() {
 		return encodedPassword;

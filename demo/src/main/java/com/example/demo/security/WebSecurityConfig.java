@@ -46,12 +46,19 @@ public class WebSecurityConfig {
                     .requestMatchers("/newUser").permitAll()
 					.requestMatchers("/").permitAll()
 					.requestMatchers("/js/**").permitAll()
+					.requestMatchers("/user").hasAnyRole("USER")
+				
 					
 			)
 			.formLogin(formLogin -> formLogin
 					.loginPage("/login")
 					.failureUrl("/error")
 					.defaultSuccessUrl("/")
+					.permitAll()
+			)
+			.logout(logout -> logout
+					.logoutUrl("/logout")
+					.logoutSuccessUrl("/")
 					.permitAll()
 			);
 		

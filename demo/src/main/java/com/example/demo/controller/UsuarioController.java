@@ -3,6 +3,7 @@ package com.example.demo.controller;
 import java.security.Principal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.csrf.CsrfToken;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,19 +32,17 @@ public class UsuarioController implements CommandLineRunner {
 	@Autowired
 	private Repositorio repository;
 	@Autowired
-	 private NovedadRepository novedadRepository;
+	private PasswordEncoder passwordEncoder;
 
+	@Autowired
+	 private NovedadRepository novedadRepository;
 	@Override
 	public void run(String... args) throws Exception {
 
 		
 		// save a couple of Usuarios
-
-		repository.save(new Usuario("1", "1"));
-		repository.save(new Usuario("Chloe", "O'Brian"));
-		repository.save(new Usuario("Kim", "Bauer"));
-		repository.save(new Usuario("David", "Palmer"));
-		repository.save(new Usuario("Michelle", "Dessler"));
+		repository.save(new Usuario("1", passwordEncoder.encode("1"),"paco","1993-04-06",90,"USER"));
+		
 
 		// fetch all Usuarios
 		List<Usuario> Usuarios = repository.findAll();
@@ -81,18 +80,37 @@ public class UsuarioController implements CommandLineRunner {
 		}
 	}
 
+
 	@GetMapping("/login")
 	public String login() {
 		return "index";
 	}
+	
+
 	@GetMapping("/newUser")
 	public String newUser() {
 		return "register";
+	}
+	@GetMapping("/user")
+	public String privatePage(Model model, HttpServletRequest request) {
+
+		String name = request.getUserPrincipal().getName();
+		
+		Usuario user = repository.findByFirstName(name).orElseThrow();
+
+		model.addAttribute("firstName", user.getFirstName());	
+		model.addAttribute("name", user.getName());
+		model.addAttribute("date", user.getDate());	
+		model.addAttribute("weight", user.getWeight());
+		
+
+		return "user";
 	}
 	@GetMapping("/")
 	public String main() {
 		return "mainPage";
 	}
+	
 
 	@GetMapping("/novedades-iniciales")
 	public @ResponseBody List<Novedad> getNovedades(@RequestParam  int iteracion) {
