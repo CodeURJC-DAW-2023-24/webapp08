@@ -7,8 +7,14 @@ import org.springframework.security.web.csrf.CsrfToken;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.example.demo.model.Novedad;
 import com.example.demo.model.Usuario;
+import com.example.demo.repository.NovedadRepository;
 import com.example.demo.repository.Repositorio;
 
 
@@ -16,17 +22,23 @@ import java.util.List;
 import jakarta.servlet.http.HttpServletRequest;
 
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 
 @Controller
 public class UsuarioController implements CommandLineRunner {
 
 	@Autowired
 	private Repositorio repository;
+	@Autowired
+	 private NovedadRepository novedadRepository;
 
 	@Override
 	public void run(String... args) throws Exception {
 
+		
 		// save a couple of Usuarios
+
 		repository.save(new Usuario("1", "1"));
 		repository.save(new Usuario("Chloe", "O'Brian"));
 		repository.save(new Usuario("Kim", "Bauer"));
@@ -50,7 +62,8 @@ public class UsuarioController implements CommandLineRunner {
 		System.out.println();
 
 		// fetch Usuarios by last name
-
+		
+	
 	}
 	@ModelAttribute
 	public void addAttributes(Model model, HttpServletRequest request) {
@@ -81,6 +94,12 @@ public class UsuarioController implements CommandLineRunner {
 		return "mainPage";
 	}
 
+	@GetMapping("/novedades-iniciales")
+	public @ResponseBody List<Novedad> getNovedades(@RequestParam  int iteracion) {
+		Page<Novedad> pagina= novedadRepository.findAll(PageRequest.of(iteracion,10)); 
+		System.out.println(pagina.getContent());
+		return pagina.getContent(); //Es un json?
+	}
 	/*@GetMapping("/")
 	public String login2(Model model, HttpServletRequest request) {
 

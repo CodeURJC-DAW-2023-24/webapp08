@@ -15,6 +15,8 @@
     
     <link rel="stylesheet" href="/css/mainPageStyle.css">
 
+    <script src="/js/paginacion.js"></script>
+
 </head>
 
 <body>
@@ -174,46 +176,12 @@
         </div>
 
         <!-- Dos columnas con dos elementos en cada una -->
-        <div class="container-novedades">
-            <div class="row mb-3">
-                <div class="col-md-6">
-                    <div class="card mb-3">
-                        <div class="card-body ">
-                            <h5 class="card-title">Novedad 1</h5>
-                            <p class="card-text">Descripción de la novedad 1.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-6">
-                    <div class="card  ">
-                        <div class="card-body">
-                            <h5 class="card-title">Novedad 2</h5>
-                            <p class="card-text">Descripción de la novedad 2.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-6 ">
-                    <div class="card mb-3">
-                        <div class="card-body">
-                            <h5 class="card-title">Novedad 3</h5>
-                            <p class="card-text">Descripción de la novedad 3.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 ">
-                    <div class="card mb-3">
-                        <div class="card-body">
-                            <h5 class="card-title">Novedad 4</h5>
-                            <p class="card-text">Descripción de la novedad 4.</p>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div> <!--Div del container3-->
+        <div id="container-novedades" class="container-novedades" >
+            
+        </div> <!--Div del container-novedades-->
+        <div id="contenedor-CargarMas" >
+            <button onclick="cargarMas()">Cargar Mas</button>
+        </div>
     </div> <!--Div de content-->
 </body>
 
