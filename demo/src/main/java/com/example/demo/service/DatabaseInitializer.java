@@ -29,21 +29,15 @@ public class DatabaseInitializer {
 	public void init() {
 		//Sample novedades
 		
-		for (int i=0; i< 12; i++){
-		novedadRepository.save(new Novedad("Ruben"+ i));
-		System.out.println(i);
-		System.out.println(novedadRepository.findById(1L).get());
+		for (int i=0; i< 22; i++){
+		novedadRepository.save(new Novedad("Descripción: "+ i));
 		}
-		
-		Page<Novedad> pagina = novedadRepository.findAll(PageRequest.of(0,10));
-		System.out.println(pagina);
-		System.out.println(pagina.getContent());
-	
 		
 		// Sample users
 
 		userRepository.save(new Usuario("user", passwordEncoder.encode("pass"),"paco","1993-04-06",90, "USER"));
 		userRepository.save(new Usuario("admin", passwordEncoder.encode("adminpass"), "paco","1993-04-06",90,"USER", "ADMIN"));
+		userRepository.save(new Usuario("1", passwordEncoder.encode("1"),"paco","1993-04-06",90,"USER"));
 	}
 
 }

@@ -1,20 +1,19 @@
-const NUM_RESULTS = 10
-let loadMore = 0;
 
+let loadMore = 0;
+const NUM_RESULTS = 10;
 async function initElementos(){
   loadMore = 0
   let flag = false
-  const response = await fetch(`/novedades-iniciales?iteracion=${loadMore}`); //Pedir al servidor la lista de equipos basandonos en la búsqueda
-  let data = await response.json()
-  console.log(data);//Creo q es devuelvo unalist<novedad>
-  if(data.length < NUM_RESULTS) flag = true //si no hay mas elementos que mostrar
+  const response = await fetch(`/novedades-iniciales?iteracion=${loadMore}`); 
+  let data = await response.json();
+  let novedades = data[0];
+  const NUM_TOTAL = data[1];
+  if(novedades.length < NUM_RESULTS || novedades.length == NUM_TOTAL) flag = true;
 
-  var contenedor = document.getElementById("container-novedades");
-  //contenedor.innerHTML = "";
-  agregarElementosAlContenidoPrincipal(data);
-  let masNovedades = document.getElementById("contenedorCargarMas");
+  agregarElementosAlContenidoPrincipal(novedades);
+  let masNovedades = document.getElementById("contenedor-CargarMas");
   if(!flag) {
-    masNovedades.style.display = "block";
+    masNovedades.style.display = "flex";
   }
   else{
     masNovedades.style.display = "none";
@@ -22,48 +21,54 @@ async function initElementos(){
 }
 
 async function cargarMas(){
+
   let flag = false
   loadMore = loadMore+1
-  const response = await fetch(`/novedades-iniciales?iteracion=${loadMore}`); //Pedir al servidor la lista de equipos basandonos en la búsqueda
-  let data = await response.json() //Ns si es necesario
 
+  let spinnerContainer = document.getElementById("spinner-container");
+  let masNovedades = document.getElementById("contenedor-CargarMas");
+  spinnerContainer.style.display = "flex";
+  masNovedades.style.display ="none";
+  const response = await fetch(`/novedades-iniciales?iteracion=${loadMore}`); 
+  let data = await response.json() 
+  let novedades = data[0];
+  const NUM_TOTAL = data[1];
 
-  let tope = (loadMore+1)*NUM_RESULTS
-  if(tope>data.length) {
-    tope = data.length
+  
+  if(NUM_RESULTS > novedades.length) {
     flag = true
   }
-  if(tope==data.length) flag = true
+  let tope = novedades.length + (loadMore + 1)*NUM_RESULTS;
+  if(tope==NUM_TOTAL) flag = true
 
 
-  agregarElementosAlContenidoPrincipal(data)
+  agregarElementosAlContenidoPrincipal(novedades)
+  spinnerContainer.style.display = "none"
+ // setTimeout(() => {spinnerContainer.style.display = "none"}, 2000); // Para el dia de prueba
+  
 
-  let masNovedades = document.getElementById("contenedor-CargarMas");
   if(!flag) {
-    masNovedades.style.display = "block";
+    masNovedades.style.display = "flex";
   }
-  else{
-    masNovedades.style.display = "none";
-  }
+  
+
 }
 
 
 
-  // Función asincrónica para realizar la solicitud Fetch y actualizar la página
- 
   
-
   function agregarElementosAlContenidoPrincipal(novedades) {
    
       let containerNovedades = document.getElementById("container-novedades");
       
   
-        for (let i = 0; i<novedades.length; i++){
+        for (let i = 0; i<(novedades.length); i+=2){
           const row = document.createElement('div');
           row.classList.add('row', 'mb-3');
       
           // Crear dos columnas dentro de cada fila
-          
+          for (let j = 0 ; j<2; j++) {
+            if (i+j < novedades.length) {
               const col = document.createElement('div');
               col.classList.add('col-md-6');
       
@@ -78,12 +83,11 @@ async function cargarMas(){
               // Añadir título y descripción a la tarjeta
               const cardTitle = document.createElement('h5');
               cardTitle.classList.add('card-title');
-              cardTitle.textContent = `${novedades[i].name}`;
+              cardTitle.textContent = `${novedades[i+j].name}`;
       
               const cardText = document.createElement('p');
               cardText.classList.add('card-text');
-              console.log(novedades[i].name);
-              cardText.textContent = `${novedades[i].name}`;
+              cardText.textContent = `${novedades[i+j].name}`;
       
               // Agregar título y descripción al cuerpo de la tarjeta
               cardBody.appendChild(cardTitle);
@@ -97,14 +101,15 @@ async function cargarMas(){
       
               // Agregar la columna a la fila
               row.appendChild(col);
-          
-      
+            }
+            }
           // Agregar la fila al contenedor de novedades
           containerNovedades.appendChild(row);
+
         }
-   
 
   }
+
 
   initElementos();
 

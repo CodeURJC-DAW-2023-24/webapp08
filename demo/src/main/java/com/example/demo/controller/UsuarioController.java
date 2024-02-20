@@ -18,7 +18,8 @@ import com.example.demo.model.Usuario;
 import com.example.demo.repository.NovedadRepository;
 import com.example.demo.repository.Repositorio;
 
-
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import jakarta.servlet.http.HttpServletRequest;
 
@@ -36,34 +37,11 @@ public class UsuarioController implements CommandLineRunner {
 
 	@Autowired
 	 private NovedadRepository novedadRepository;
+
 	@Override
 	public void run(String... args) throws Exception {
-
-		
-		// save a couple of Usuarios
-		repository.save(new Usuario("1", passwordEncoder.encode("1"),"paco","1993-04-06",90,"USER"));
-		
-
-		// fetch all Usuarios
-		List<Usuario> Usuarios = repository.findAll();
-		System.out.println("Usuarios found with findAll():");
-		System.out.println("-------------------------------");
-		for (Usuario usuario : Usuarios) {
-			System.out.println(usuario);
-		}
-		System.out.println();
-
-		// fetch an individual Usuario by ID
-		Usuario usuario = repository.findById(1L).get();
-		System.out.println("Usuario found with findOne(1L):");
-		System.out.println("--------------------------------");
-		System.out.println(usuario);
-		System.out.println();
-
-		// fetch Usuarios by last name
-		
-	
 	}
+
 	@ModelAttribute
 	public void addAttributes(Model model, HttpServletRequest request) {
 
@@ -113,37 +91,13 @@ public class UsuarioController implements CommandLineRunner {
 	
 
 	@GetMapping("/novedades-iniciales")
-	public @ResponseBody List<Novedad> getNovedades(@RequestParam  int iteracion) {
-		Page<Novedad> pagina= novedadRepository.findAll(PageRequest.of(iteracion,10)); 
-		System.out.println(pagina.getContent());
-		return pagina.getContent(); //Es un json?
+	public @ResponseBody List<Object> getNovedades(@RequestParam  int iteracion) {
+		Page<Novedad> pagina= novedadRepository.findAll(PageRequest.of(iteracion,10));
+		List<Novedad> listPaginas = pagina.getContent();
+		long numPaginas = novedadRepository.count(); 
+		List<Object> data =new ArrayList<>(Arrays.asList(listPaginas, numPaginas));
+	
+		return data; //Devuelve un list<novedad>
 	}
-	/*@GetMapping("/")
-	public String login2(Model model, HttpServletRequest request) {
-
-		CsrfToken token = (CsrfToken) request.getAttribute("_csrf");
-		model.addAttribute("token", token.getToken());
-
-		return "index";
-	}
-	/**
-	 * @GetMapping ("/iniciarSesion")
-	 *             public String iniciarSesion(Model model, @RequestParam String
-	 *             user, @RequestParam String password) {
-	 * 
-	 *             model.addAttribute("nombre", user);
-	 * 
-	 *             List<Usuario> usuarios = repository.findByFirstName(user);
-	 *             for (Usuario usuario: usuarios) {
-	 *             if (usuario.getLastName().contentEquals(password)){
-	 *             return "mainPage.html";
-	 *             }
-	 *             }
-	 * 
-	 * 
-	 * 
-	 *             return "index.html";
-	 *             }
-	 **/
-
+	
 }
