@@ -31,7 +31,7 @@
   <nav class="navbar fixed-top">
     <div class="container-fluid">
         <div class="i-flex">
-            <a class="navbar-brand" href="index.html">
+            <a class="navbar-brand" href="/">
                 <span>
                   GYMGURU
                   <img src="/images/pesa.png" class="logo"/>
@@ -73,7 +73,7 @@
             </div>
 
             <div class="user">
-                <a href="user.html">
+                <a href="/user">
                 <button class="btn circular-btn">U</button>
                 </a>
             </div>
@@ -100,7 +100,7 @@
             </div>
             <div class="detail-box">
               <h5>
-                Martin Anderson
+                {{name}}
               </h5>
               
             </div>
@@ -116,33 +116,36 @@
                       <div>
                         <div >
                           <label>Nombre:</label>
-                          <input type="text" value="Martin Anderson" readonly/>
+                          <input type="text" value="{{name}}" readonly/>
                         </div>
                         <div >
                           <label>Nombre de Usuario:</label>
-                          <input type="text" value="user1" readonly/>
+                          <input type="text" value="{{firstName}}" readonly/>
                         </div>
                         <div>
                           <label>Fecha de Nacimiento:</label>
-                          <input type="date" value="1993-06-04" readonly/>
+                          <input type="date" value="{{date}}" readonly/>
                         </div>
                         <div>
                           <label>Peso(kg):</label>
-                          <input type="number" value="90" readonly />
+                          <input type="number" value="{{weight}}" readonly />
                         </div>
                         <div class="btn-box"  >
                           <button class="btn-2" type="submit">
                             Editar perfil
                           </button>
+                          <input type="hidden" name="_csrf" value="{{token}}"/>
+                        </form>
                           <span style="margin: 0 10px;"></span>
-                          <button class="btn-1">
+                          <form action="/logout" method="post">
+                            <button class="btn-1" type="submit">
                             Cerrar Sesión
-                          </button>
-                          
+                            </button>
+                            <input type="hidden" name="_csrf" value="{{token}}"/>
+                          </form>
                         </div>
                       </div>
                     </div>
-                  </form>
                 </div>
               </div>
             </div>
@@ -151,9 +154,6 @@
   </section>
 
 
-  <script src="js/jquery-3.4.1.min.js"></script>
-  <script src="js/bootstrap.js"></script>
-  <script src="js/custom.js"></script>
 </body>
 
 </html>
