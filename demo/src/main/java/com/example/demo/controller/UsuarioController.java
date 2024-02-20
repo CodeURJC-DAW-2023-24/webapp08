@@ -9,14 +9,21 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
 import com.example.demo.model.Usuario;
 import com.example.demo.repository.Repositorio;
 
+import io.micrometer.common.lang.NonNull;
 
+import java.util.Arrays;
 import java.util.List;
 import jakarta.servlet.http.HttpServletRequest;
 
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
 
 @Controller
 public class UsuarioController implements CommandLineRunner {
@@ -94,6 +101,31 @@ public class UsuarioController implements CommandLineRunner {
 
 		return "user";
 	}
+
+	
+	
+	
+	@PostMapping("/editUser")
+	public String editUser(Model model,@RequestParam String name, @RequestParam String firstName,@RequestParam String
+	            date, @RequestParam Integer
+	             weight ,HttpServletRequest request) {
+		String nameUser = request.getUserPrincipal().getName();
+		Usuario usuario = repository.findByFirstName(nameUser).orElseThrow();
+		usuario.setName(name);
+		usuario.setFirstName(firstName);
+		usuario.setDate(date);
+		usuario.setWeight(weight);
+		repository.save(usuario);
+		
+		model.addAttribute("firstName", usuario.getFirstName());	
+		model.addAttribute("name", usuario.getName());
+		model.addAttribute("date", usuario.getDate());	
+		model.addAttribute("weight", usuario.getWeight());
+		
+		return "user";
+	}
+	
+
 	@GetMapping("/")
 	public String main() {
 		return "mainPage";

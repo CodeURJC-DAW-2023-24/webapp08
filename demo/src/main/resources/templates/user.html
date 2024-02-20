@@ -25,6 +25,7 @@
   <link href="/css/style.css" rel="stylesheet" />
   <!-- responsive style -->
   <link href="/css/responsive.css" rel="stylesheet" />
+  <script src="/js/app.js"></script>
 </head>
 
 <body class="sub_page">
@@ -111,31 +112,34 @@
           
           
             <div class="">
-                  <form action="#" class="formUsu">
+                  <form  class="formUsu" action="/editUser" method="post">
                     <div class="contact_form-container">
                       <div>
                         <div >
                           <label>Nombre:</label>
-                          <input type="text" value="{{name}}" readonly/>
+                          <input type="text" id="name" name="name" value="{{name}}" readonly/>
                         </div>
                         <div >
                           <label>Nombre de Usuario:</label>
-                          <input type="text" value="{{firstName}}" readonly/>
+                          <input type="text" id="firstName" name= "firstName" value="{{firstName}}" readonly/>
                         </div>
                         <div>
                           <label>Fecha de Nacimiento:</label>
-                          <input type="date" value="{{date}}" readonly/>
+                          <input type="date" id="date" name="date" value="{{date}}" readonly/>
                         </div>
                         <div>
                           <label>Peso(kg):</label>
-                          <input type="number" value="{{weight}}" readonly />
+                          <input type="number" id="weight" name="weight" value="{{weight}}" readonly />
                         </div>
                         <div class="btn-box"  >
-                          <button class="btn-2" type="submit">
-                            Editar perfil
-                          </button>
+                        <button class="btn-2" id="save" type="submit" style="display: none;" >
+                          Guardar
+                        </button>
                           <input type="hidden" name="_csrf" value="{{token}}"/>
                         </form>
+                          <button class="btn-2" id="edit" type="button" onclick="editar()" >
+                            Editar perfil
+                          </button>
                           <span style="margin: 0 10px;"></span>
                           <form action="/logout" method="post">
                             <button class="btn-1" type="submit">
@@ -152,7 +156,7 @@
           </div>
         </section>
   </section>
-
+  
 
 </body>
 

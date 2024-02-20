@@ -30,7 +30,7 @@ public class Usuario {
 	@ElementCollection(fetch = FetchType.EAGER)
 	private List<String> roles;
 
-	protected Usuario() {
+	public Usuario() {
 		// Used by JPA
 	}
 
@@ -65,6 +65,25 @@ public class Usuario {
 
 	public List<String> getRoles() {
 		return roles;
+	}
+
+	public void setRoles(List<String> roles){
+		this.roles = roles;
+	}
+
+	public void setName(String name){
+		this.name=name;
+	}
+
+	public void setFirstName(String firstName){
+		this.firstName=firstName;
+	}
+	public void setDate(String date){
+		this.date= date;
+	}
+
+	public void setWeight(Integer weight){
+		this.weight=weight;
 	}
 
 	@Override
