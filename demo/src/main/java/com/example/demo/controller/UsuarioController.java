@@ -3,8 +3,10 @@ package com.example.demo.controller;
 import java.security.Principal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.csrf.CsrfToken;
+import com.example.demo.service.UserService;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
 
 import com.example.demo.model.Novedad;
 import com.example.demo.model.Usuario;
@@ -23,14 +26,15 @@ import java.util.Arrays;import io.micrometer.common.lang.NonNull;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
+
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-
 
 @Controller
 public class UsuarioController implements CommandLineRunner {
@@ -39,7 +43,8 @@ public class UsuarioController implements CommandLineRunner {
 	private Repositorio repository;
 	@Autowired
 	private PasswordEncoder passwordEncoder;
-
+	@Autowired
+	private UserService service;
 	@Autowired
 	 private NovedadRepository novedadRepository;
 
@@ -64,11 +69,46 @@ public class UsuarioController implements CommandLineRunner {
 	}
 
 
-	@GetMapping("/login")
-	public String login() {
+	@RequestMapping("/index")
+	public String index() {
 		return "index";
 	}
 	
+
+	@GetMapping ("/error")
+	public String error(){
+		return "error";
+	}
+	
+	@GetMapping ("/main")
+	public String main(){
+		return "mainPage";
+	}
+
+	@PostMapping("/register")
+	public String register(@RequestParam("name") String name,
+	@RequestParam("firstName") String firstName,
+	@RequestParam("date") String date,
+	@RequestParam("weight") Integer weight,
+	@RequestParam("password") String password,
+	@RequestParam("password1") String password1, HttpSession session) {
+		Optional<Usuario> existingUserOptional = repository.findByFirstName(firstName);
+
+		if (!password.equals(password1)) {
+			// Manejar el error de contraseñas que no coinciden
+			return "error";
+		}
+
+		if (existingUserOptional.isPresent()) {
+			// Si se encuentra un usuario con el mismo primer nombre, regresar un error
+			return "error";
+		}		
+			String pass = passwordEncoder.encode(password);
+			service.save(firstName, pass, name, date, weight);
+			//repository.save(new Usuario(name, passwordEncoder.encode(password),name, date,weight, "USER"));
+		return "index";
+	}
+		
 
 	@GetMapping("/newUser")
 	public String newUser() {
@@ -78,7 +118,7 @@ public class UsuarioController implements CommandLineRunner {
 	public String privatePage(Model model, HttpServletRequest request) {
 
 		String name = request.getUserPrincipal().getName();
-		
+		System.out.println(name);
 		Usuario user = repository.findByFirstName(name).orElseThrow();
 
 		model.addAttribute("firstName", user.getFirstName());	
@@ -94,7 +134,7 @@ public class UsuarioController implements CommandLineRunner {
 	
 	
 	@PostMapping("/editUser")
-	public String editUser(Model model,@RequestParam String name, @RequestParam String firstName,@RequestParam String
+	public String editUser(Model model, @RequestParam String name, @RequestParam String firstName,@RequestParam String
 	            date, @RequestParam Integer
 	             weight ,HttpServletRequest request) {
 		String nameUser = request.getUserPrincipal().getName();
@@ -112,12 +152,7 @@ public class UsuarioController implements CommandLineRunner {
 		
 		return "user";
 	}
-	
 
-	@GetMapping("/")
-	public String main() {
-		return "mainPage";
-	}
 	
 
 	@GetMapping("/novedades-iniciales")

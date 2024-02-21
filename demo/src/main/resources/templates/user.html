@@ -129,7 +129,7 @@
                         </div>
                         <div>
                           <label>Peso(kg):</label>
-                          <input type="number" id="weight" name="weight" value="{{weight}}" readonly />
+                          <input type="number" onkeypress="return (event.charCode >= 48 && event.charCode <= 57)" id="weight" name="weight" value="{{weight}}" readonly />
                         </div>
                         <div class="btn-box"  >
                         <button class="btn-2" id="save" type="submit" style="display: none;" >

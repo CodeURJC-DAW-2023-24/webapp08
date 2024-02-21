@@ -2480,7 +2480,8 @@ textarea.form-control {
   transition: all 0.3s;
   border: 1px solid transparent;
   font-family: "Poppins", sans-serif;
-  font-weight: bold;   
+  font-weight: bold;  
+  margin-left: 85%;    
 }
 .btnS:hover {
 
@@ -2492,6 +2493,11 @@ textarea.form-control {
   border-color:#f1db25 ;
 }
 
+.error{
+  color: white;
+  text-align: center;
+  font-size: larger;
+}
 
 @media (prefers-reduced-motion: reduce) {
   .btn {

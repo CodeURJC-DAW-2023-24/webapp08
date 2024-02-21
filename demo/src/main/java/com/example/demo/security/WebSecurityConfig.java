@@ -39,12 +39,13 @@ public class WebSecurityConfig {
 		http
 			.authorizeHttpRequests(authorize -> authorize
 					// PUBLIC PAGES
-					.requestMatchers("/**").permitAll()
-					
+					.requestMatchers("/index").permitAll()
+					.requestMatchers("/register").permitAll()
 					.requestMatchers("/css/**").permitAll()
+					.requestMatchers("/error").permitAll()
 					.requestMatchers("/images/**").permitAll()
                     .requestMatchers("/newUser").permitAll()
-					.requestMatchers("/").permitAll()
+					.requestMatchers("/main").permitAll()
 					.requestMatchers("/js/**").permitAll()
 					.requestMatchers("/user").hasAnyRole("USER")
 					.requestMatchers("/editUser").hasAnyRole("USER")
@@ -52,9 +53,9 @@ public class WebSecurityConfig {
 					
 			)
 			.formLogin(formLogin -> formLogin
-					.loginPage("/login")
+					.loginPage("/index")
 					.failureUrl("/error")
-					.defaultSuccessUrl("/")
+					.defaultSuccessUrl("/main")
 					.permitAll()
 			)
 			.logout(logout -> logout
