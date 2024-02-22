@@ -91,16 +91,22 @@ public class UsuarioController implements CommandLineRunner {
 	@RequestParam("date") String date,
 	@RequestParam("weight") Integer weight,
 	@RequestParam("password") String password,
-	@RequestParam("password1") String password1, HttpSession session) {
+	@RequestParam("password1") String password1, HttpSession session, Model model) {
 		Optional<Usuario> existingUserOptional = repository.findByFirstName(firstName);
+		if (name.isEmpty() || firstName.isEmpty() || date.isEmpty() || password.isEmpty() || password1.isEmpty()) {
+			model.addAttribute("erroMg", "Rellene todos los campos");
+			return "error";
+		}
 
 		if (!password.equals(password1)) {
 			// Manejar el error de contraseñas que no coinciden
+			model.addAttribute("erroMg", "Las contraseñas no coinciden");
 			return "error";
 		}
 
 		if (existingUserOptional.isPresent()) {
 			// Si se encuentra un usuario con el mismo primer nombre, regresar un error
+			model.addAttribute("erroMg", "El usuario ya existe");
 			return "error";
 		}		
 			String pass = passwordEncoder.encode(password);

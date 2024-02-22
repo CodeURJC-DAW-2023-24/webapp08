@@ -225,6 +225,12 @@ td {
   background-size: cover;
 }
 
+.errorBody  {
+  margin: 0;
+  padding: 0;
+  background-image: url('/images/error.jpg');
+}
+
 .formAd {
   background-color: rgba(255, 255, 255, 0.197);
   padding: 20px;
