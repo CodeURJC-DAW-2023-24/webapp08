@@ -45,6 +45,7 @@ public class WebSecurityConfig {
 					.requestMatchers("/error").permitAll()
 					.requestMatchers("/images/**").permitAll()
                     .requestMatchers("/newUser").permitAll()
+					.requestMatchers("/muscGr").permitAll()
 					.requestMatchers("/main").permitAll()
 					.requestMatchers("/js/**").permitAll()
 					.requestMatchers("/user").hasAnyRole("USER")

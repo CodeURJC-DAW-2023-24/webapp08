@@ -81,7 +81,8 @@ public class UsuarioController implements CommandLineRunner {
 	}
 	
 	@GetMapping ("/main")
-	public String main(){
+	public String main(Model model){
+		model.addAttribute("search", false);
 		return "mainPage";
 	}
 
@@ -117,12 +118,13 @@ public class UsuarioController implements CommandLineRunner {
 		
 
 	@GetMapping("/newUser")
-	public String newUser() {
+	public String newUser(Model model) {
+		model.addAttribute("search", false);
 		return "register";
 	}
 	@GetMapping("/user")
 	public String privatePage(Model model, HttpServletRequest request) {
-
+		model.addAttribute("search", false);
 		String name = request.getUserPrincipal().getName();
 		System.out.println(name);
 		Usuario user = repository.findByFirstName(name).orElseThrow();
@@ -155,6 +157,7 @@ public class UsuarioController implements CommandLineRunner {
 		model.addAttribute("name", usuario.getName());
 		model.addAttribute("date", usuario.getDate());	
 		model.addAttribute("weight", usuario.getWeight());
+		model.addAttribute("search", false);
 		
 		return "user";
 	}
@@ -170,5 +173,12 @@ public class UsuarioController implements CommandLineRunner {
 	
 		return data; //Devuelve un list<novedad>
 	}
+
+	@GetMapping("/muscGr")
+	public String muscGr(Model model) {
+		model.addAttribute("search", true);
+		return "muscleGroup";
+	}
+	
 	
 }

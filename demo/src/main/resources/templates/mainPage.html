@@ -6,13 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GymGuru-Página Principal</title>
 
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700|Poppins:400,600,700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700|Poppins:400,600,700&display=swap"
+        rel="stylesheet" />
 
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"> </script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
-    
+
     <link rel="stylesheet" href="/css/mainPageStyle.css">
 
     <script src="/js/paginacion.js"></script>
@@ -20,63 +21,7 @@
 </head>
 
 <body>
-
-    <nav class="navbar fixed-top">
-        <div class="container-fluid">
-            <div class="i-flex">
-                <a class="navbar-brand" href="index.html">
-                    <span>
-                      GYMGURU
-                      <img src="/images/pesa.png" class="logo"/>
-                    </span>
-                  </a>
-            </div>
-
-         
-            <div class="d-flex">
-                <!-- Contenedor para alinear elementos a la derecha -->
-                <div class="search">
-                    <div class="search-icon">
-                        <!-- Icono de lupa de Bootstrap -->
-                        <i class="bi bi-search"></i>
-                    </div>
-                    <input class="form-control" type="text" placeholder="Buscar Ejercicios...">
-                </div>
-
-                <div class="estadisticas">
-                    <button class="btn">
-                        <i class="bi bi-bar-chart"></i> <!-- Icono de estadísticas -->
-
-                    </button>
-                </div>
-
-                <div class="dropdown">
-                    <button class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="bi bi-bell"></i>
-                    </button>
-                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
-                        <li><a class="dropdown-item" href="#">Solicitud de Amistad de...</a></li>
-                        <li><a class="dropdown-item" href="#">... Añadió una Rutina</a></li>
-                        <li><a class="dropdown-item" href="#">Solicitud de Amistad de...</a></li>
-                    </ul>
-                </div>
-
-                <div class="comunity">
-                    <button class="btn"><i class="bi bi-person-plus"></i></button>
-                </div>
-
-                <div class="user">
-                    <a href="/user">
-                    <button class="btn circular-btn">U</button>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </nav>
-
-
-
-
+    {{>header}}
     <div class="content">
         <div class="container-calendario-rutina">
 
@@ -91,7 +36,7 @@
 
                 <div class="container-days">
                     <ul class="calendar">
-                        <li class="day-pair">                          
+                        <li class="day-pair">
                             <div class="grid-date">
                                 <div class=" day-name">Lunes</div>
                                 <div class="day-number">1</div>
@@ -166,8 +111,8 @@
                 </div>
 
             </div> <!--Div container-calendario-->
-            <div class="container-rutina">                 
-                <button class="btn boton-rutine">Añadir Rutina</button>                    
+            <div class="container-rutina">
+                <button class="btn boton-rutine">Añadir Rutina</button>
             </div>
         </div> <!-- Div container-calendario-rutina-->
 
@@ -176,20 +121,20 @@
         </div>
 
         <!-- Dos columnas con dos elementos en cada una -->
-        <div id="container-novedades" class="container-novedades" >
-            
+        <div id="container-novedades" class="container-novedades">
+
         </div> <!--Div del container-novedades-->
 
         <div id="spinner-container" class="spinner-container mb-2">
             <div class="spinner"></div>
-          </div>
+        </div>
 
-        <div id="contenedor-CargarMas" class="contenedor-CargarMas" >
+        <div id="contenedor-CargarMas" class="contenedor-CargarMas">
             <button class="btn boton-cargarMas" onclick="cargarMas()">Cargar Mas</button>
         </div>
 
-       
-          
+
+
     </div> <!--Div de content-->
 </body>
 

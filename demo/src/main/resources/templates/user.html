@@ -28,63 +28,8 @@
   <script src="/js/app.js"></script>
 </head>
 
-<body class="sub_page">
-  <nav class="navbar fixed-top">
-    <div class="container-fluid">
-        <div class="i-flex">
-            <a class="navbar-brand" href="/">
-                <span>
-                  GYMGURU
-                  <img src="/images/pesa.png" class="logo"/>
-                </span>
-              </a>
-        </div>
-
-     
-        <div class="d-flex">
-            <!-- Contenedor para alinear elementos a la derecha -->
-            <div class="search">
-                <div class="search-icon">
-                    <!-- Icono de lupa de Bootstrap -->
-                    <i class="bi bi-search"></i>
-                </div>
-                <input class="form-control" type="text" placeholder="Buscar Ejercicios...">
-            </div>
-
-            <div class="estadisticas">
-                <button class="btn">
-                    <i class="bi bi-bar-chart"></i> <!-- Icono de estadísticas -->
-
-                </button>
-            </div>
-
-            <div class="dropdown">
-                <button class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                    <i class="bi bi-bell"></i>
-                </button>
-                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
-                    <li><a class="dropdown-item" href="#">Solicitud de Amistad de...</a></li>
-                    <li><a class="dropdown-item" href="#">... Añadió una Rutina</a></li>
-                    <li><a class="dropdown-item" href="#">Solicitud de Amistad de...</a></li>
-                </ul>
-            </div>
-
-            <div class="comunity">
-                <button class="btn"><i class="bi bi-person-plus"></i></button>
-            </div>
-
-            <div class="user">
-                <a href="/user">
-                <button class="btn circular-btn">U</button>
-                </a>
-            </div>
-        </div>
-    </div>
-</nav>
-   
-
-  <!-- team section -->
-
+<body>
+  {{>header}}
   <section class="team_section layout_padding">
     <div class="container">
       <div class="heading_container heading_left">
