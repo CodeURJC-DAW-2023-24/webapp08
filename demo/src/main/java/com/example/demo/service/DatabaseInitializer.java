@@ -10,14 +10,14 @@ import org.springframework.stereotype.Service;
 import com.example.demo.model.Novedad;
 import com.example.demo.model.Usuario;
 import com.example.demo.repository.NovedadRepository;
-import com.example.demo.repository.Repositorio;
+import com.example.demo.repository.UserRepository;
 
 @Service
 public class DatabaseInitializer {
 
 
 	@Autowired
-	private Repositorio userRepository;
+	private UserRepository userRepository;
 
 	@Autowired
 	 private NovedadRepository novedadRepository;
@@ -36,8 +36,14 @@ public class DatabaseInitializer {
 		// Sample users
 
 		userRepository.save(new Usuario("user", passwordEncoder.encode("pass"),"paco","1993-04-06",90, "USER"));
+		userRepository.save(new Usuario("user2", passwordEncoder.encode("pass"),"paco","1993-04-06",90, "USER"));
+
 		userRepository.save(new Usuario("admin", passwordEncoder.encode("adminpass"), "paco","1993-04-06",90,"USER", "ADMIN"));
 		userRepository.save(new Usuario("1", passwordEncoder.encode("1"),"paco","1993-04-06",90,"USER"));
+		userRepository.save(new Usuario("2", passwordEncoder.encode("2"),"paco2","1993-04-06",90,"USER"));
+		userRepository.save(new Usuario("3", passwordEncoder.encode("3"),"paco3","1993-04-06",90,"USER"));
+
+
 	}
 
 }

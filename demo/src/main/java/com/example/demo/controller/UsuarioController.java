@@ -1,6 +1,8 @@
 package com.example.demo.controller;
 
 import java.security.Principal;
+import java.sql.Array;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -15,11 +17,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-
+import com.example.demo.model.Notificacion;
 import com.example.demo.model.Novedad;
 import com.example.demo.model.Usuario;
+import com.example.demo.repository.NotificacionRepository;
 import com.example.demo.repository.NovedadRepository;
-import com.example.demo.repository.Repositorio;
+import com.example.demo.repository.UserRepository;
 
 import java.util.ArrayList;
 import java.util.Arrays;import io.micrometer.common.lang.NonNull;
@@ -40,13 +43,15 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class UsuarioController implements CommandLineRunner {
 
 	@Autowired
-	private Repositorio repository;
+	private UserRepository userRepository;
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 	@Autowired
 	private UserService service;
 	@Autowired
 	 private NovedadRepository novedadRepository;
+	 @Autowired
+	 private NotificacionRepository notificacionRepository;
 
 	@Override
 	public void run(String... args) throws Exception {
@@ -92,7 +97,7 @@ public class UsuarioController implements CommandLineRunner {
 	@RequestParam("weight") Integer weight,
 	@RequestParam("password") String password,
 	@RequestParam("password1") String password1, HttpSession session) {
-		Optional<Usuario> existingUserOptional = repository.findByFirstName(firstName);
+		Optional<Usuario> existingUserOptional = userRepository.findByFirstName(firstName);
 
 		if (!password.equals(password1)) {
 			// Manejar el error de contraseñas que no coinciden
@@ -105,7 +110,7 @@ public class UsuarioController implements CommandLineRunner {
 		}		
 			String pass = passwordEncoder.encode(password);
 			service.save(firstName, pass, name, date, weight);
-			//repository.save(new Usuario(name, passwordEncoder.encode(password),name, date,weight, "USER"));
+			//userRepository.save(new Usuario(name, passwordEncoder.encode(password),name, date,weight, "USER"));
 		return "index";
 	}
 		
@@ -119,7 +124,7 @@ public class UsuarioController implements CommandLineRunner {
 
 		String name = request.getUserPrincipal().getName();
 		System.out.println(name);
-		Usuario user = repository.findByFirstName(name).orElseThrow();
+		Usuario user = userRepository.findByFirstName(name).orElseThrow();
 
 		model.addAttribute("firstName", user.getFirstName());	
 		model.addAttribute("name", user.getName());
@@ -130,6 +135,11 @@ public class UsuarioController implements CommandLineRunner {
 		return "user";
 	}
 
+	@GetMapping ("/comunity")
+	public String comunity(){
+		return "comunity";
+	}
+
 	
 	
 	
@@ -138,12 +148,12 @@ public class UsuarioController implements CommandLineRunner {
 	            date, @RequestParam Integer
 	             weight ,HttpServletRequest request) {
 		String nameUser = request.getUserPrincipal().getName();
-		Usuario usuario = repository.findByFirstName(nameUser).orElseThrow();
+		Usuario usuario = userRepository.findByFirstName(nameUser).orElseThrow();
 		usuario.setName(name);
 		usuario.setFirstName(firstName);
 		usuario.setDate(date);
 		usuario.setWeight(weight);
-		repository.save(usuario);
+		userRepository.save(usuario);
 		
 		model.addAttribute("firstName", usuario.getFirstName());	
 		model.addAttribute("name", usuario.getName());
@@ -164,5 +174,24 @@ public class UsuarioController implements CommandLineRunner {
 	
 		return data; //Devuelve un list<novedad>
 	}
-	
+
+	@GetMapping("/busqueda")
+	public @ResponseBody List<String[]> getNombres(@RequestParam  String nombre) {
+		//List<Usuario> prueba = userRepository.findByFirstNameContaining(nombre);
+		List<String[]> prueba = new ArrayList<>();
+		 prueba = userRepository.findByFirstNameContaining(nombre); //Devuelve solo el nombre e id
+		return prueba; //Devuelve un list<novedad>
+	}
+
+	@PostMapping("/sendSolicitud") //Ns si la solicitud fetch es un post o un get
+	public @ResponseBody Boolean  enviarSolicitud(@RequestParam String id,HttpServletRequest request){
+	String nameUser = request.getUserPrincipal().getName();
+	Usuario sender = userRepository.findByFirstName(nameUser).orElseThrow();
+	Usuario reciber = userRepository.findById(Long.parseLong(id)).orElseThrow();
+	Notificacion notificacion = new Notificacion(sender.getFirstName());
+	notificacionRepository.save(notificacion);
+	reciber.getNotificaciones().add(notificacion);
+	userRepository.save(reciber);
+	return 	true;
+	}
 }

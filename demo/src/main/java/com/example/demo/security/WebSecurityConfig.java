@@ -39,6 +39,7 @@ public class WebSecurityConfig {
 		http
 			.authorizeHttpRequests(authorize -> authorize
 					// PUBLIC PAGES
+					
 					.requestMatchers("/index").permitAll()
 					.requestMatchers("/register").permitAll()
 					.requestMatchers("/css/**").permitAll()
@@ -47,23 +48,29 @@ public class WebSecurityConfig {
                     .requestMatchers("/newUser").permitAll()
 					.requestMatchers("/main").permitAll()
 					.requestMatchers("/js/**").permitAll()
+					.requestMatchers("/novedades-iniciales").permitAll() //revisar por que si no lo pongo no va
+					.requestMatchers("/comunity").permitAll()
+					.requestMatchers("/busqueda").permitAll()
+					.requestMatchers("/sendSolicitud").permitAll()
 					.requestMatchers("/user").hasAnyRole("USER")
 					.requestMatchers("/editUser").hasAnyRole("USER")
-				
+
 					
 			)
 			.formLogin(formLogin -> formLogin
 					.loginPage("/index")
 					.failureUrl("/error")
 					.defaultSuccessUrl("/main")
-					.permitAll()
+					.permitAll() //revisar por que no va
 			)
 			.logout(logout -> logout
 					.logoutUrl("/logout")
 					.logoutSuccessUrl("/")
 					.permitAll()
 			);
-		
+
+        http.csrf(csrf -> csrf.ignoringRequestMatchers("/sendSolicitud")); //Es q le tengo q pasar el token pero ns como 
+
 		return http.build();
 		
 	}

@@ -12,7 +12,9 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"> </script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 
-    <link rel="stylesheet" href="../css/comunityStyle.css">
+    <link rel="stylesheet" href="/css/comunityStyle.css">
+    <script src= "/js/busqueda.js"></script>
+    
     <title>Comunity</title>
 </head>
 
@@ -36,7 +38,7 @@
                         <!-- Icono de lupa de Bootstrap -->
                         <i class="bi bi-search"></i>
                     </div>
-                    <input class="form-control" type="text" placeholder="Buscar Ejercicios...">
+                    <input class="form-control" type="text"  placeholder="Buscar Ejercicios...">
                 </div>
     
                 <div class="estadisticas">
@@ -58,7 +60,7 @@
                 </div>
     
                 <div class="comunity">
-                    <button class="btn"><i class="bi bi-person-plus"></i></button>
+                   <button class="btn"><i class="bi bi-person-plus"></i></button> 
                 </div>
     
                 <div class="user">
@@ -73,16 +75,13 @@
     <div class="container-fluid">
 
         <div class="container-search">
-            <form class="d-flex">
-                <input class="search1 me-2" type="search" placeholder="Buscar usuario">
-                <button class="search-btn1" type="submit"><i class="bi bi-search"></i></button>
-            </form>
-            <div class="friend-container">
+            <div class="d-flex">
+                <input id="searchInput" class="search1 me-2" type="text" oninput="buscar(this.value)" placeholder="Buscar usuario" >
+                <button class="search-btn1" type="button" onclick="buscarValorInput()" ><i class="bi bi-search"></i></button>
+            </div>
+            <div id ="friend-container" class="friend-container">
               
                 <ul class="friend-list">
-                    <li class="user-item">Usuario 2 <button class="solicitud-btn">Enviar solicitud</button></li>
-                    <li class="user-item">Usuario 1 <button class="solicitud-btn">Enviar solicitud</button></li>
-                    <li class="user-item">Usuario 3 <button class="solicitud-btn">Enviar solicitud</button></li>
                     <!-- Agrega más usuarios según sea necesario -->
                 </ul>
             </div>
