@@ -230,11 +230,11 @@ public class UsuarioController implements CommandLineRunner {
 			String textoDespuesDosPuntos = textoOriginal.substring(indiceDosPuntos + 1);
 			String textoLimpio = textoDespuesDosPuntos.trim();
 			Usuario sender = userRepository.findByFirstName(textoLimpio).orElseThrow();
-			
+			if (!receptor.getAmigos().contains(sender)){ //Con comprobarlo para uno es suficiente
 			receptor.getAmigos().add(sender); //REVISAR SI HACE FALTA AÑADIR LA OPUESTA ##################################################################
 			sender.getAmigos().add(receptor);
 			userRepository.save(sender);
-			
+			}
 		}
 		List<Notificacion> notificacionesUsuario = receptor.getNotificaciones();
 		notificacionesUsuario.remove(notificacion);
