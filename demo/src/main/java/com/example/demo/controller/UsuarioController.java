@@ -232,6 +232,8 @@ public class UsuarioController implements CommandLineRunner {
 			Usuario sender = userRepository.findByFirstName(textoLimpio).orElseThrow();
 			
 			receptor.getAmigos().add(sender); //REVISAR SI HACE FALTA AÑADIR LA OPUESTA ##################################################################
+			sender.getAmigos().add(receptor);
+			userRepository.save(sender);
 			
 		}
 		List<Notificacion> notificacionesUsuario = receptor.getNotificaciones();
