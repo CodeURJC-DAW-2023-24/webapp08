@@ -2,6 +2,7 @@ package com.example.demo.model;
 
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -38,7 +39,7 @@ public class Usuario {
 	@ElementCollection(fetch = FetchType.EAGER)
 	private List<String> roles;
 
-	@OneToMany
+	@OneToMany (cascade = CascadeType.ALL)
     private List<Notificacion> notificaciones;
 
 	

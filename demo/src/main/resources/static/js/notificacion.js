@@ -4,6 +4,9 @@ async function verNotificaciones() {
     const response = await fetch("/notificaciones");
     let notificaciones = await response.json();
     agregarElementos(notificaciones);
+    if (notificaciones.length == 0) {
+        dropdownMenu.innerHTML="NO TIENES NIGUNA NOTIFICACION"
+    }
 }
 
 function agregarElementos(notificaciones) {
@@ -57,7 +60,6 @@ function agregarElementos(notificaciones) {
                 method: 'POST'
               });
          
-              verNotificaciones(); //para que se borre la que acaba de aceptar
         }
       
 

@@ -224,7 +224,8 @@ public class UsuarioController implements CommandLineRunner {
 	
 	@PostMapping("/procesarSolicitud")
 	public @ResponseBody void procesarSolicitud(@RequestParam  Notificacion notificacion,@RequestParam  boolean aceptar,HttpServletRequest request) { //Aunque le pases el id si pones Notificacion te la busca automaticamente
-		
+		String nameUser = request.getUserPrincipal().getName();
+		Usuario receptor = userRepository.findByFirstName(nameUser).orElseThrow();
 			 
 		if (aceptar) {
 			 String textoOriginal = notificacion.getContenido();
@@ -232,15 +233,16 @@ public class UsuarioController implements CommandLineRunner {
 			String textoDespuesDosPuntos = textoOriginal.substring(indiceDosPuntos + 1);
 			String textoLimpio = textoDespuesDosPuntos.trim();
 			Usuario sender = userRepository.findByFirstName(textoLimpio).orElseThrow();
-			String nameUser = request.getUserPrincipal().getName();
-			//REVISAR SI HACE FALTA AÑADIR LA OPUESTA ##################################################################
-			Usuario receptor = userRepository.findByFirstName(nameUser).orElseThrow();
-			receptor.getAmigos().add(sender);
-			//receptor.getNotificaciones() //Borrar la notificacion
+			
+			receptor.getAmigos().add(sender); //REVISAR SI HACE FALTA AÑADIR LA OPUESTA ##################################################################
+	
+			
 
-			userRepository.save(receptor);
-		
+			
 		}
+		List<Notificacion> notificacionesUsuario = receptor.getNotificaciones();
+		notificacionesUsuario.remove(notificacion);
+		userRepository.save(receptor);
 		
 		
 	}
