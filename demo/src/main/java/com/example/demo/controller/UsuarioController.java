@@ -86,7 +86,8 @@ public class UsuarioController implements CommandLineRunner {
 	}
 	
 	@GetMapping ("/main")
-	public String main(){
+	public String main(Model model){
+		model.addAttribute("search", false);
 		return "mainPage";
 	}
 
@@ -96,16 +97,22 @@ public class UsuarioController implements CommandLineRunner {
 	@RequestParam("date") String date,
 	@RequestParam("weight") Integer weight,
 	@RequestParam("password") String password,
-	@RequestParam("password1") String password1, HttpSession session) {
+	@RequestParam("password1") String password1, HttpSession session, Model model) {
 		Optional<Usuario> existingUserOptional = userRepository.findByFirstName(firstName);
+		if (name.isEmpty() || firstName.isEmpty() || date.isEmpty() || password.isEmpty() || password1.isEmpty()) {
+			model.addAttribute("erroMg", "Rellene todos los campos");
+			return "error";
+		}
 
 		if (!password.equals(password1)) {
 			// Manejar el error de contraseñas que no coinciden
+			model.addAttribute("erroMg", "Las contraseñas no coinciden");
 			return "error";
 		}
 
 		if (existingUserOptional.isPresent()) {
 			// Si se encuentra un usuario con el mismo primer nombre, regresar un error
+			model.addAttribute("erroMg", "El usuario ya existe");
 			return "error";
 		}		
 			String pass = passwordEncoder.encode(password);
@@ -116,12 +123,13 @@ public class UsuarioController implements CommandLineRunner {
 		
 
 	@GetMapping("/newUser")
-	public String newUser() {
+	public String newUser(Model model) {
+		model.addAttribute("search", false);
 		return "register";
 	}
 	@GetMapping("/user")
 	public String privatePage(Model model, HttpServletRequest request) {
-
+		model.addAttribute("search", false);
 		String name = request.getUserPrincipal().getName();
 		System.out.println(name);
 		Usuario user = userRepository.findByFirstName(name).orElseThrow();
@@ -159,6 +167,7 @@ public class UsuarioController implements CommandLineRunner {
 		model.addAttribute("name", usuario.getName());
 		model.addAttribute("date", usuario.getDate());	
 		model.addAttribute("weight", usuario.getWeight());
+		model.addAttribute("search", false);
 		
 		return "user";
 	}
@@ -174,6 +183,13 @@ public class UsuarioController implements CommandLineRunner {
 	
 		return data; //Devuelve un list<novedad>
 	}
+
+	@GetMapping("/muscGr")
+	public String muscGr(Model model) {
+		model.addAttribute("search", true);
+		return "muscleGroup";
+	}
+	
 
 	@GetMapping("/busqueda")
 	public @ResponseBody List<String[]> getNombres(@RequestParam  String nombre) {

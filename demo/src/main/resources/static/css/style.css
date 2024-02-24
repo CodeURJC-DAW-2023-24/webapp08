@@ -225,6 +225,12 @@ td {
   background-size: cover;
 }
 
+.errorBody  {
+  margin: 0;
+  padding: 0;
+  background-image: url('/images/error.jpg');
+}
+
 .formAd {
   background-color: rgba(255, 255, 255, 0.197);
   padding: 20px;
@@ -443,7 +449,7 @@ td {
   text-align: center;
 }
 
-.search .search-icon {
+.search2 .search-icon {
   display: inline-block;
   /* Mostrar el icono */
   color: var(--color-text-buttons);
@@ -453,24 +459,57 @@ td {
   font-size: 24px;
 }
 
-.search:hover .search-icon {
+.search2:hover .search-icon {
   display: none;
   /* Ocultar el icono cuando se hace hover */
 }
 
-.search .form-control {
+.search2 .form-control {
   display: none;
   /* Ocultar la barra de búsqueda por defecto */
 }
 
-.search:hover .form-control {
+.search2:hover .form-control {
   display: block;
   /* Mostrar la barra de búsqueda al hacer hover sobre el contenedor de búsqueda */
+}
+
+.search2 input[type="text"] {
+  background-color: #f0f0f0;
+}
+
+.search2 button {
+  background-color: var(--color-yellow);
+  color: var(--color-text-buttons);
+  height: 40px;
+  border-radius: 5px;
+
+}
+
+.search2 button:hover {
+  background-color: var(--color-yellow);
+  /* Establece el color de fondo al mismo color que el estado normal */
+  color: var(--color-text-buttons);
 }
 
 .search input[type="text"] {
   background-color: #f0f0f0;
 }
+
+.search button {
+  background-color: var(--color-yellow);
+  color: var(--color-text-buttons);
+  height: 40px;
+  border-radius: 5px;
+
+}
+
+.search button:hover {
+  background-color: var(--color-yellow);
+  /* Establece el color de fondo al mismo color que el estado normal */
+  color: var(--color-text-buttons);
+}
+
 
 .estadisticas button {
   background-color: var(--color-yellow);
@@ -488,7 +527,8 @@ td {
 
 .dropdown {
   background-color: var(--color-yellow);
-  border-radius: 10px;
+  border-radius: 5px;
+  height: 40px;
 }
 
 .bi-bell {
@@ -498,7 +538,8 @@ td {
 
 .comunity {
   background-color: var(--color-yellow);
-  border-radius: 10px;
+  border-radius: 5px;
+  height: 40px;
 }
 
 .bi.bi-person-plus {
@@ -507,6 +548,7 @@ td {
 
 .estadisticas,
 .dropdown,
+.search2,
 .comunity,
 .search {
   margin-right: 0.5rem;
