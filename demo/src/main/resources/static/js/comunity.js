@@ -62,3 +62,22 @@ async function enviarSolicitud(id) { //Ns xq no se pone el tipo del parámetro r
 }
 
 
+async function cargarAmigos(){
+    const response = await fetch("/cargarAmigos");
+    let lAmigos = await response.json();
+
+    var ulElement = document.getElementById("list-group");
+
+    lAmigos.forEach(function(amigo) {
+        // Crear un elemento li
+        var liElement = document.createElement("li");
+        liElement.className = "list-group-item";
+        liElement.textContent = amigo;
+    
+        // Agregar el elemento li al elemento ul
+        ulElement.appendChild(liElement);
+    });
+}
+
+cargarAmigos();
+

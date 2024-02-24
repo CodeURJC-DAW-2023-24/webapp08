@@ -24,6 +24,7 @@ import java.util.Arrays;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -81,13 +82,6 @@ public class UsuarioController implements CommandLineRunner {
 	
 	@GetMapping ("/main")
 	public String main(Model model){
-		Usuario sender = userRepository.findByFirstName("user2").orElseThrow();
-		Usuario reciber = userRepository.findByFirstName("user").orElseThrow();
-		Notificacion notificacion = new Notificacion(sender.getFirstName());
-		notificacionRepository.save(notificacion);
-		
-		reciber.getNotificaciones().add(notificacion);
-		userRepository.save(reciber);
 
 		model.addAttribute("search", false);
 		return "mainPage";
@@ -194,11 +188,14 @@ public class UsuarioController implements CommandLineRunner {
 	
 
 	@GetMapping("/busqueda")
-	public @ResponseBody List<String[]> getNombres(@RequestParam  String nombre) {
-		//List<Usuario> prueba = userRepository.findByFirstNameContaining(nombre);
-		List<String[]> prueba = new ArrayList<>();
-		 prueba = userRepository.findByFirstNameContaining(nombre); //Devuelve solo el nombre e id
-		return prueba; //Devuelve un list<novedad>
+	public @ResponseBody List<String[]> getNombres(@RequestParam  String nombre,HttpServletRequest request) {
+		String nameUser = request.getUserPrincipal().getName();
+    Usuario user = userRepository.findByFirstName(nameUser).orElseThrow();
+
+    
+    List<String[]> lNameId = userRepository.getIdandFirstName(nombre, user.getId());
+
+    return lNameId;
 	}
 
 	@PostMapping("/sendSolicitud") //Ns si la solicitud fetch es un post o un get
@@ -235,15 +232,21 @@ public class UsuarioController implements CommandLineRunner {
 			Usuario sender = userRepository.findByFirstName(textoLimpio).orElseThrow();
 			
 			receptor.getAmigos().add(sender); //REVISAR SI HACE FALTA AÑADIR LA OPUESTA ##################################################################
-	
-			
-
 			
 		}
 		List<Notificacion> notificacionesUsuario = receptor.getNotificaciones();
 		notificacionesUsuario.remove(notificacion);
 		userRepository.save(receptor);
 		
-		
 	}
+
+	@GetMapping("/cargarAmigos")
+	public @ResponseBody List<String> cargarAmigos(HttpServletRequest request) {
+		String nameUser = request.getUserPrincipal().getName();
+		Usuario user = userRepository.findByFirstName(nameUser).orElseThrow();
+		List<String> lAmigos = userRepository.findFirstNameOfAmigosByUsuario(user);
+
+		return lAmigos;
+	}
+	
 }

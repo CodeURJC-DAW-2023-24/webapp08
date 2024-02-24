@@ -55,6 +55,7 @@ public class WebSecurityConfig {
 					.requestMatchers("/sendSolicitud").permitAll()
 					.requestMatchers("/notificaciones").permitAll()
 					.requestMatchers("/procesarSolicitud").permitAll()
+					.requestMatchers("/cargarAmigos").permitAll()
 					.requestMatchers("/user").hasAnyRole("USER")
 					.requestMatchers("/editUser").hasAnyRole("USER")
 

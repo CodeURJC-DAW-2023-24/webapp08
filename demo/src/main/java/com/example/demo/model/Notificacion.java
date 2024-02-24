@@ -27,7 +27,7 @@ public class Notificacion {
     public Notificacion(String sender) {
 		super();
 		this.contenido = "Has recibido una solicitud de: " + sender;
-    this.leido = false;
+    //this.leido = false;
 		
 	}
     public String getContenido() {
