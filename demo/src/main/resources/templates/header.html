@@ -26,13 +26,15 @@
     <!-- responsive style -->
     <link href="/css/responsive.css" rel="stylesheet" />
 
+    <script src="/js/notificacion.js"></script>
+
 </head>
 
 <body class="sub_page">
     <nav class="navbar fixed-top">
         <div class="container-fluid">
             <div class="i-flex">
-                <a class="navbar-brand" href="index.html">
+                <a class="navbar-brand" href="/main">
                     <span>
                         GYMGURU
                         <img src="/images/pesa.png" class="logo" />
@@ -70,18 +72,18 @@
                 </div>
 
                 <div class="dropdown">
-                    <button class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                    <button class="btn dropdown-toggle"   onclick="verNotificaciones()" data-bs-toggle="dropdown" aria-expanded="false">
                         <i class="bi bi-bell"></i>
                     </button>
-                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
-                        <li><a class="dropdown-item" href="#">Solicitud de Amistad de...</a></li>
-                        <li><a class="dropdown-item" href="#">... Añadió una Rutina</a></li>
-                        <li><a class="dropdown-item" href="#">Solicitud de Amistad de...</a></li>
+                    <ul id="dropdown-menu" class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
+                       
                     </ul>
                 </div>
 
                 <div class="comunity">
+                    <a href="/comunity">
                     <button class="btn"><i class="bi bi-person-plus"></i></button>
+                    </a>
                 </div>
 
                 <div class="user">

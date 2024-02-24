@@ -1,18 +1,13 @@
 package com.example.demo.controller;
 
 import java.security.Principal;
-import java.sql.Array;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.csrf.CsrfToken;
 import com.example.demo.service.UserService;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -25,9 +20,8 @@ import com.example.demo.repository.NovedadRepository;
 import com.example.demo.repository.UserRepository;
 
 import java.util.ArrayList;
-import java.util.Arrays;import io.micrometer.common.lang.NonNull;
-
 import java.util.Arrays;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -87,6 +81,14 @@ public class UsuarioController implements CommandLineRunner {
 	
 	@GetMapping ("/main")
 	public String main(Model model){
+		Usuario sender = userRepository.findByFirstName("user2").orElseThrow();
+		Usuario reciber = userRepository.findByFirstName("user").orElseThrow();
+		Notificacion notificacion = new Notificacion(sender.getFirstName());
+		notificacionRepository.save(notificacion);
+		
+		reciber.getNotificaciones().add(notificacion);
+		userRepository.save(reciber);
+
 		model.addAttribute("search", false);
 		return "mainPage";
 	}
@@ -209,5 +211,37 @@ public class UsuarioController implements CommandLineRunner {
 	reciber.getNotificaciones().add(notificacion);
 	userRepository.save(reciber);
 	return 	true;
+	}
+
+	@GetMapping("/notificaciones")
+	public @ResponseBody List<Notificacion> getNotificaciones(HttpServletRequest request) {
+		String nameUser = request.getUserPrincipal().getName();
+		
+		List<Notificacion> lNotificaciones = userRepository.findByFirstName(nameUser).orElseThrow().getNotificaciones();
+		
+		return lNotificaciones;
+	}
+	
+	@PostMapping("/procesarSolicitud")
+	public @ResponseBody void procesarSolicitud(@RequestParam  Notificacion notificacion,@RequestParam  boolean aceptar,HttpServletRequest request) { //Aunque le pases el id si pones Notificacion te la busca automaticamente
+		
+			 
+		if (aceptar) {
+			 String textoOriginal = notificacion.getContenido();
+			 int indiceDosPuntos = textoOriginal.indexOf(":");
+			String textoDespuesDosPuntos = textoOriginal.substring(indiceDosPuntos + 1);
+			String textoLimpio = textoDespuesDosPuntos.trim();
+			Usuario sender = userRepository.findByFirstName(textoLimpio).orElseThrow();
+			String nameUser = request.getUserPrincipal().getName();
+			//REVISAR SI HACE FALTA AÑADIR LA OPUESTA ##################################################################
+			Usuario receptor = userRepository.findByFirstName(nameUser).orElseThrow();
+			receptor.getAmigos().add(sender);
+			//receptor.getNotificaciones() //Borrar la notificacion
+
+			userRepository.save(receptor);
+		
+		}
+		
+		
 	}
 }

@@ -53,6 +53,8 @@ public class WebSecurityConfig {
 					.requestMatchers("/comunity").permitAll()
 					.requestMatchers("/busqueda").permitAll()
 					.requestMatchers("/sendSolicitud").permitAll()
+					.requestMatchers("/notificaciones").permitAll()
+					.requestMatchers("/procesarSolicitud").permitAll()
 					.requestMatchers("/user").hasAnyRole("USER")
 					.requestMatchers("/editUser").hasAnyRole("USER")
 
@@ -71,6 +73,7 @@ public class WebSecurityConfig {
 			);
 
         http.csrf(csrf -> csrf.ignoringRequestMatchers("/sendSolicitud")); //Es q le tengo q pasar el token pero ns como 
+		http.csrf(csrf -> csrf.ignoringRequestMatchers("/procesarSolicitud"));
 
 		return http.build();
 		
