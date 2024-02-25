@@ -6,12 +6,14 @@ import java.util.List;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToOne;
 
 @Entity
 public class Usuario {
@@ -25,7 +27,16 @@ public class Usuario {
 	private String encodedPassword;
 	private String date;
 	private Integer weight;
+	@OneToOne(cascade = CascadeType.ALL)
+	private Imagen imagen;
 
+	public Imagen getImagen() {
+		return imagen;
+	}
+
+	public void setImagen(Imagen imagen) {
+		this.imagen = imagen;
+	}
 
 	@ElementCollection(fetch = FetchType.EAGER)
 	private List<String> roles;

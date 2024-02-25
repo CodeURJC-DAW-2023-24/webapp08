@@ -50,6 +50,8 @@ public class WebSecurityConfig {
 					.requestMatchers("/js/**").permitAll()
 					.requestMatchers("/user").hasAnyRole("USER")
 					.requestMatchers("/editUser").hasAnyRole("USER")
+					.requestMatchers("/add").hasAnyRole("USER")
+					.requestMatchers("/adRutine").hasAnyRole("USER")
 				
 					
 			)

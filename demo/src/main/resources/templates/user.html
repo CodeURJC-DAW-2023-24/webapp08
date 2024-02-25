@@ -42,7 +42,7 @@
         <div class="col-md-4 col-sm-6 mx-auto ">
           <div class="box">
             <div class="img-box">
-              <img src="/images/user1.jpg" alt="" class="round-image">
+              <img src="/images/{{rutaImagen}}" alt="" class="round-image">
             </div>
             <div class="detail-box">
               <h5>
@@ -57,7 +57,7 @@
           
           
             <div class="">
-                  <form  class="formUsu" action="/editUser" method="post">
+                  <form  class="formUsu" action="/editUser" method="post" enctype="multipart/form-data">
                     <div class="contact_form-container">
                       <div>
                         <div >
@@ -76,7 +76,11 @@
                           <label>Peso(kg):</label>
                           <input type="number" onkeypress="return (event.charCode >= 48 && event.charCode <= 57)" id="weight" name="weight" value="{{weight}}" readonly />
                         </div>
-                        <div class="btn-box"  >
+                          <div  >
+                            <label for="image"  name="labelImage">foto de perfil: </label>
+                            <input type='file' name='image' accept=".jpg, .jpeg, .png, .HEIC" id="image" value="{{rutaImagen}}" disabled>
+                          </div>
+                          <div class="btn-box"  >
                         <button class="btn-2" id="save" type="submit" style="display: none;" >
                           Guardar
                         </button>
