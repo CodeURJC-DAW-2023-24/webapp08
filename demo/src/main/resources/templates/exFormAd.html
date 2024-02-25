@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <!-- Basic -->
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <!-- Mobile Metas -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <!-- Site Metas -->
+  <meta name="keywords" content="" />
+  <meta name="description" content="" />
+  <meta name="author" content="" />
+
+
+  <title>adminForm</title>
+
+  <!-- bootstrap core css -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+  <link rel="stylesheet" type="text/css" href="/css/bootstrap.css" />
+  <!-- fonts style -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700|Poppins:400,600,700&display=swap"
+    rel="stylesheet" />
+  <!-- Custom styles for this template -->
+  <link href="/css/style.css" rel="stylesheet" />
+  <!-- responsive style -->
+  <link href="/css/responsive.css" rel="stylesheet" />
+</head>
+
+<body class="sub_page">
+  {{>header}}
+  <div class="row">
+  </div>
+  <div class="container-fluid layout_paddingF">
+    <a href="/main">
+      <button class="btnC" onclick="location.href='/'">
+        Volver
+      </button>
+    </a>
+    <div class="row">
+      <div class="col-md-2"></div>
+      <div class="col-md-8 ">
+        <form role="form" class="formAd" method="post" action="/newEx" id="formulario">
+          <div class="form-group ">
+            <label for="name">Nombre del ejercicio: </label>
+            <input type="text" name="name" class="form-control" id="name"
+              placeholder="Introduce el nombre del ejercicio">
+          </div>
+          <div class="form-group">
+            <label for="description">Descripción del ejercicio:</label>
+            <textarea class="form-control" name="description" id="description" rows="3"
+              placeholder="Introduce una descripción del ejercicio"></textarea>
+          </div>
+          <div class="form-group ">
+            <label for="imag">Imagen: </label>
+            <input type='file' name='imag' accept=".jpg, .jpeg, .png, .HEIC" id="imag">
+          </div>
+        
+          <div class="form-group">
+            <label for="video">URL del video (opcional):</label>
+            <input type="url" class="form-control" id="video" name="video"
+              placeholder="Introduce la URL de un video explicativo">
+          </div>
+          <div class="form-group">
+            <label for="grp">Grupo muscular </label>
+            <select class="form-select form-control" id="grp" name="grp">
+              <option disabled selected>Selecciona una opción</option>
+              <option>Pecho</option>
+              <option>Espalda</option>
+              <option>Hombro</option>
+              <option>Biceps</option>
+              <option>Triceps</option>
+              <option>Tren Inferior</option>
+              <option>Cardio</option>
+            </select>
+          </div>
+          <div class="btn-box">
+            <button class="btnS" type="submit">
+              CREAR
+            </button>
+            <span style="margin: 0 10px;"></span>
+          </div>
+          <input type="hidden" name="_csrf" value="{{token}}" />
+        </form>
+
+      </div>
+      <div class="col-md-2"></div>
+    </div>
+
+  </div>
+
+  <script src="js/jquery-3.4.1.min.js"></script>
+  <script src="js/bootstrap.js"></script>
+  <script src="js/custom.js"></script>
+</body>
+
+</html>

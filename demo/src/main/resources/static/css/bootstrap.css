@@ -2434,7 +2434,7 @@ textarea.form-control {
 }
 
 .btn-box {
-  
+  display: flex;
   font-weight: 400;
   color: #212529;
   text-align: center;
@@ -2483,6 +2483,7 @@ textarea.form-control {
   font-weight: bold;  
   margin-left: 85%;    
 }
+
 .btnS:hover {
 
   background-color: transparent;
@@ -2492,6 +2493,7 @@ textarea.form-control {
   background-color: transparent;
   border-color:#f1db25 ;
 }
+
 
 .error-container {
   max-width: 500px;

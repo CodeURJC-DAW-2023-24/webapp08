@@ -81,8 +81,8 @@ public class UsuarioController implements CommandLineRunner {
 	}
 	
 	@GetMapping ("/main")
-	public String main(Model model){
-
+	public String main(Model model,  HttpServletRequest request){
+		model.addAttribute("adEx", request.isUserInRole("ADMIN"));
 		model.addAttribute("search", false);
 		return "mainPage";
 	}
@@ -126,6 +126,7 @@ public class UsuarioController implements CommandLineRunner {
 	@GetMapping("/user")
 	public String privatePage(Model model, HttpServletRequest request) {
 		model.addAttribute("search", false);
+		model.addAttribute("adEx", request.isUserInRole("ADMIN"));
 		String name = request.getUserPrincipal().getName();
 		System.out.println(name);
 		Usuario user = userRepository.findByFirstName(name).orElseThrow();
@@ -144,6 +145,10 @@ public class UsuarioController implements CommandLineRunner {
 		return "comunity";
 	}
 
+	@GetMapping ("/exForm")
+	public String exForm(){
+		return "exFormAd";
+	}
 	
 	
 	
@@ -164,6 +169,7 @@ public class UsuarioController implements CommandLineRunner {
 		model.addAttribute("date", usuario.getDate());	
 		model.addAttribute("weight", usuario.getWeight());
 		model.addAttribute("search", false);
+		model.addAttribute("adEx", request.isUserInRole("ADMIN"));
 		
 		return "user";
 	}
@@ -181,8 +187,9 @@ public class UsuarioController implements CommandLineRunner {
 	}
 
 	@GetMapping("/muscGr")
-	public String muscGr(Model model) {
+	public String muscGr(Model model,HttpServletRequest request) {
 		model.addAttribute("search", true);
+		model.addAttribute("adEx", request.isUserInRole("ADMIN"));
 		return "muscleGroup";
 	}
 	

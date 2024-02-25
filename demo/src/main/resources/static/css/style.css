@@ -153,6 +153,7 @@ td {
 
 }
 
+
 .search .search-icon {
   display: inline-block;
   /* Mostrar el icono */
@@ -161,7 +162,19 @@ td {
   border-radius: 10px;
   font-size: 24px;
 }
-
+.bi-database-fill-add-icon{
+  width: 40px;
+  height: 40px;
+  text-align: center;
+}
+.adEx .bi-database-fill-add-icon{
+  display: inline-block;
+  /* Mostrar el icono */
+  color: white;
+  background-color: black;
+  border-radius: 10px;
+  font-size: 24px;
+}
 .round-image {
   border-radius: 1000px;
 
@@ -207,6 +220,18 @@ td {
   background-color: #000000;
   background-image: url('/images/añadirEjercicio2.jpg');
   background-size: cover;
+}
+.layout_padding_exercise {
+ 
+    position: relative;
+
+    padding-top: 90px;
+    padding-bottom: 90px;
+    background-color: #000000;
+    background-image: url('/images/mancuerna.jpeg');
+    background-size: cover;
+  
+  
 }
 
 .layout_paddingRA {
@@ -459,6 +484,7 @@ td {
   font-size: 24px;
 }
 
+
 .search2:hover .search-icon {
   display: none;
   /* Ocultar el icono cuando se hace hover */
@@ -502,7 +528,33 @@ td {
   height: 40px;
   border-radius: 5px;
 
+
 }
+.description-box {
+  margin-top: 50px;
+  border: 3px solid var(--color-yellow); /* Borde del cuadro */
+  padding: 20px; /* Relleno del cuadro */
+  background-color: rgba(0, 0, 0, 0.5); /* Fondo negro transparente */
+  color: white; /* Color del texto */
+}
+.videoS{
+  margin-top: 100px;
+}
+
+.adEx button {
+  background-color: var(--color-yellow);
+  color: var(--color-text-buttons);
+  height: 40px;
+  border-radius: 5px;
+
+}
+
+.adEx button:hover {
+  background-color: var(--color-yellow);
+  /* Establece el color de fondo al mismo color que el estado normal */
+  color: var(--color-text-buttons);
+}
+
 
 .search button:hover {
   background-color: var(--color-yellow);
@@ -549,6 +601,7 @@ td {
 .estadisticas,
 .dropdown,
 .search2,
+.adEx,
 .comunity,
 .search {
   margin-right: 0.5rem;
@@ -700,9 +753,11 @@ td {
   width: 100%;
 }
 
+
 .contact_bg_box .img-box img {
   min-width: 100%;
   min-height: 100%;
+  position: absolute;
 }
 
 .contact_bg_box::before {
@@ -883,7 +938,11 @@ td {
   display: -ms-flexbox;
   display: flex;
 }
-
+.video-center{
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px;
+}
 .slider_section .img-box img {
   width: 100%;
 }

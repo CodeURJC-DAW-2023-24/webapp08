@@ -58,6 +58,8 @@ public class WebSecurityConfig {
 					.requestMatchers("/cargarAmigos").permitAll()
 					.requestMatchers("/user").hasAnyRole("USER")
 					.requestMatchers("/editUser").hasAnyRole("USER")
+					.requestMatchers("/exForm").hasAnyRole("ADMIN")
+					.requestMatchers("/newEx").hasAnyRole("ADMIN")
 
 					
 			)
