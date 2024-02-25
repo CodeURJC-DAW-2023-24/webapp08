@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.security.Principal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.csrf.CsrfToken;
 
@@ -13,24 +12,25 @@ import com.example.demo.service.UserService;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.example.demo.model.Notificacion;
 import com.example.demo.model.Imagen;
 import com.example.demo.model.Novedad;
 import com.example.demo.model.Usuario;
+import com.example.demo.repository.NotificacionRepository;
 import com.example.demo.repository.NovedadRepository;
-import com.example.demo.repository.Repositorio;
+import com.example.demo.repository.UserRepository;
 
 import java.util.ArrayList;
-import java.util.Arrays;import io.micrometer.common.lang.NonNull;
-
 import java.util.Arrays;
+
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -44,7 +44,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class UsuarioController implements CommandLineRunner {
 
 	@Autowired
-	private Repositorio repository;
+	private UserRepository userRepository;
 	@Autowired
 	private ImagenService imagenService;
 	@Autowired
@@ -53,6 +53,8 @@ public class UsuarioController implements CommandLineRunner {
 	private UserService service;
 	@Autowired
 	 private NovedadRepository novedadRepository;
+	 @Autowired
+	 private NotificacionRepository notificacionRepository;
 
 	@Override
 	public void run(String... args) throws Exception {
@@ -88,7 +90,8 @@ public class UsuarioController implements CommandLineRunner {
 	
 
 	@GetMapping ("/main")
-	public String main(Model model){
+	public String main(Model model,  HttpServletRequest request){
+		model.addAttribute("adEx", request.isUserInRole("ADMIN"));
 		model.addAttribute("search", false);
 		return "mainPage";
 	}
@@ -101,7 +104,7 @@ public class UsuarioController implements CommandLineRunner {
 	@RequestParam("password") String password,
 	@RequestParam("password1") String password1, 
 	@RequestParam("image") MultipartFile imagenFile,HttpSession session, Model model) {
-		Optional<Usuario> existingUserOptional = repository.findByFirstName(firstName);
+		Optional<Usuario> existingUserOptional = userRepository.findByFirstName(firstName);
 		if (name.isEmpty() || firstName.isEmpty() || date.isEmpty() || password.isEmpty() || password1.isEmpty()) {
 			model.addAttribute("erroMg", "Rellene todos los campos");
 			return "error";
@@ -133,9 +136,9 @@ public class UsuarioController implements CommandLineRunner {
 			usuario.setImagen(imagen);
 			}catch (IOException e) {}
 		}
-			repository.save(usuario);
+			userRepository.save(usuario);
 			//service.save(firstName, pass, name, date, weight);
-			//repository.save(new Usuario(name, passwordEncoder.encode(password),name, date,weight, "USER"));
+			//userRepository.save(new Usuario(name, passwordEncoder.encode(password),name, date,weight, "USER"));
 		return "index";
 	}
 		
@@ -151,9 +154,10 @@ public class UsuarioController implements CommandLineRunner {
 	@GetMapping("/user")
 	public String privatePage(Model model, HttpServletRequest request) {
 		model.addAttribute("search", false);
+		model.addAttribute("adEx", request.isUserInRole("ADMIN"));
 		String name = request.getUserPrincipal().getName();
 		System.out.println(name);
-		Usuario user = repository.findByFirstName(name).orElseThrow();
+		Usuario user = userRepository.findByFirstName(name).orElseThrow();
 		Imagen image = user.getImagen();
 		String rutaImagen = "logo.jpg";
 		if(!(image == null)){
@@ -173,6 +177,15 @@ public class UsuarioController implements CommandLineRunner {
 		return "user";
 	}
 
+	@GetMapping ("/comunity")
+	public String comunity(){
+		return "comunity";
+	}
+
+	@GetMapping ("/exForm")
+	public String exForm(){
+		return "exFormAd";
+	}
 	
 	
 	
@@ -182,7 +195,7 @@ public class UsuarioController implements CommandLineRunner {
 	             weight ,
 				 @RequestParam MultipartFile image,HttpServletRequest request) {
 		String nameUser = request.getUserPrincipal().getName();
-		Usuario usuario = repository.findByFirstName(nameUser).orElseThrow();
+		Usuario usuario = userRepository.findByFirstName(nameUser).orElseThrow();
 		usuario.setName(name);
 		usuario.setFirstName(firstName);
 		usuario.setDate(date);
@@ -200,7 +213,7 @@ public class UsuarioController implements CommandLineRunner {
 			usuario.setImagen(imagen);
 			}catch (IOException e) {}
 		}
-		repository.save(usuario);
+		userRepository.save(usuario);
 		Imagen imageN = usuario.getImagen();
 		String rutaImagen = "logo.jpg";
 		if(!(imageN == null)){
@@ -215,6 +228,7 @@ public class UsuarioController implements CommandLineRunner {
 		model.addAttribute("weight", usuario.getWeight());
 		model.addAttribute("rutaImagen", rutaImagen);
 		model.addAttribute("search", false);
+		model.addAttribute("adEx", request.isUserInRole("ADMIN"));
 		
 		return "user";
 	}
@@ -232,10 +246,75 @@ public class UsuarioController implements CommandLineRunner {
 	}
 
 	@GetMapping("/muscGr")
-	public String muscGr(Model model) {
+	public String muscGr(Model model,HttpServletRequest request) {
 		model.addAttribute("search", true);
+		model.addAttribute("adEx", request.isUserInRole("ADMIN"));
 		return "muscleGroup";
 	}
 	
+
+	@GetMapping("/busqueda")
+	public @ResponseBody List<String[]> getNombres(@RequestParam  String nombre,HttpServletRequest request) {
+		String nameUser = request.getUserPrincipal().getName();
+    Usuario user = userRepository.findByFirstName(nameUser).orElseThrow();
+
+    
+    List<String[]> lNameId = userRepository.getIdandFirstName(nombre, user.getId());
+
+    return lNameId;
+	}
+
+	@PostMapping("/sendSolicitud") //Ns si la solicitud fetch es un post o un get
+	public @ResponseBody Boolean  enviarSolicitud(@RequestParam String id,HttpServletRequest request){
+	String nameUser = request.getUserPrincipal().getName();
+	Usuario sender = userRepository.findByFirstName(nameUser).orElseThrow();
+	Usuario reciber = userRepository.findById(Long.parseLong(id)).orElseThrow();
+	Notificacion notificacion = new Notificacion(sender.getFirstName());
+	notificacionRepository.save(notificacion);
+	reciber.getNotificaciones().add(notificacion);
+	userRepository.save(reciber);
+	return 	true;
+	}
+
+	@GetMapping("/notificaciones")
+	public @ResponseBody List<Notificacion> getNotificaciones(HttpServletRequest request) {
+		String nameUser = request.getUserPrincipal().getName();
+		
+		List<Notificacion> lNotificaciones = userRepository.findByFirstName(nameUser).orElseThrow().getNotificaciones();
+		
+		return lNotificaciones;
+	}
+	
+	@PostMapping("/procesarSolicitud")
+	public @ResponseBody void procesarSolicitud(@RequestParam  Notificacion notificacion,@RequestParam  boolean aceptar,HttpServletRequest request) { //Aunque le pases el id si pones Notificacion te la busca automaticamente
+		String nameUser = request.getUserPrincipal().getName();
+		Usuario receptor = userRepository.findByFirstName(nameUser).orElseThrow();
+			 
+		if (aceptar) {
+			 String textoOriginal = notificacion.getContenido();
+			 int indiceDosPuntos = textoOriginal.indexOf(":");
+			String textoDespuesDosPuntos = textoOriginal.substring(indiceDosPuntos + 1);
+			String textoLimpio = textoDespuesDosPuntos.trim();
+			Usuario sender = userRepository.findByFirstName(textoLimpio).orElseThrow();
+			if (!receptor.getAmigos().contains(sender)){ //Con comprobarlo para uno es suficiente
+			receptor.getAmigos().add(sender); //REVISAR SI HACE FALTA AÑADIR LA OPUESTA ##################################################################
+			sender.getAmigos().add(receptor);
+			userRepository.save(sender);
+			}
+		}
+		List<Notificacion> notificacionesUsuario = receptor.getNotificaciones();
+		notificacionesUsuario.remove(notificacion);
+		userRepository.save(receptor);
+		
+	}
+
+	@GetMapping("/cargarAmigos")
+	public @ResponseBody List<String> cargarAmigos(HttpServletRequest request) {
+		String nameUser = request.getUserPrincipal().getName();
+		Usuario user = userRepository.findByFirstName(nameUser).orElseThrow();
+		List<String> lAmigos = userRepository.findFirstNameOfAmigosByUsuario(user);
+
+		return lAmigos;
+	}
 	
 }

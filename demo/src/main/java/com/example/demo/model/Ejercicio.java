@@ -1,58 +1,63 @@
 package com.example.demo.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
 public class Ejercicio {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long id;
 
-    private String date;
     private String name;
-    private Integer time;
+    private String grp;
+    private String video;
+    private String description;
 
-    public Ejercicio() {
+    public Ejercicio() {}
 
-    }
-
-    public Ejercicio(String date, String name,Integer time) {
+    public Ejercicio( String name, String description, String grp, String video) {
         super();
-        this.date = date;
+        
         this.name = name;
-        this.time = time;
+        this.grp = grp;
+        this.video = video;
+        this.description = description;
     }
-
-    public String getDate() {
-        return date;
-    }
-
     public String getName() {
         return name;
     }
-    public Integer getTime() {
-        return time;
-    }
+  
+    public long getId() {
+		return id;
+	}
     public void setName(String name){
         this.name=name;
     }
-
-    public void setDate(String date){
-        this.date= date;
+    public String getGrp() {
+        return grp;
+    }
+    public String getDescription() {
+        return description;
+    }
+    public String getVideo() {
+        return video;
+    }
+    public void setGrp(String grp){
+        this.grp= grp;
+    }
+    public void setVideo(String video){
+        this.video=video;
     }
 
-    public void setTime(Integer time){
-        this.time=time;
+    public void setDescription(String description){
+        this.description= description;
     }
 
     @Override
     public String toString() {
-        return String.format("Ejercicio[id=%d, date='%s', name='%s', time='%d']",
-                id, date, name, time);
+        return String.format("Ejercicio[id=%d, name='%s', grp='%s',video='%s',description='%s']",
+                id, name,grp,video,description);
     }
 
 }

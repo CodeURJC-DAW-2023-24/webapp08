@@ -129,10 +129,14 @@ body {
 .dropdown {
     background-color: var(--color-yellow);
     border-radius: 10px;
+   
 }
+
+
 
 .bi-bell {
     color: var(--color-text-buttons);
+    
     /* Cambia 'red' al color que desees */
 }
 

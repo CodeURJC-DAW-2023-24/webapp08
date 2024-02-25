@@ -6,13 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import com.example.demo.model.Usuario;
-import com.example.demo.repository.Repositorio;
+import com.example.demo.repository.UserRepository;
 
 @Service
 public class UserService {
 
 	@Autowired
-	private Repositorio repository;
+	private UserRepository repository;
     @Autowired
 	private PasswordEncoder passwordEncoder;
 

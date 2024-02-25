@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- Basic -->
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <!-- Mobile Metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <!-- Site Metas -->
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+
+
+    <title>Exercise</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <!-- bootstrap core css -->
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.css" />
+
+    <!-- fonts style -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700|Poppins:400,600,700&display=swap"
+        rel="stylesheet" />
+
+    <!-- Custom styles for this template -->
+    <link href="/css/style.css" rel="stylesheet" />
+    <!-- responsive style -->
+    <link href="/css/responsive.css" rel="stylesheet" />
+    <link href="/css/CSS.css" rel="stylesheet" />
+</head>
+
+<body class="sub_page">
+    {{>header}}
+    <section class="team_section layout_padding_exercise">
+        <div class="container">
+            <div class="heading_container heading_left">
+                <h2>
+                    {{name}}
+                </h2>
+
+            </div>
+            <div class="row">
+                <div class="col-md-4 col-sm-6 mx-auto ">
+                    <div class="box">
+
+                        <img src="/images/user1.jpg" alt="" class="round-image2">
+
+                    </div>
+                </div>
+                <div class="col-md-7 mx-auto">
+                    <div class="contact_section ">
+                        <div class="">
+
+                            <div class="contact_form-container">
+                                <div>
+
+                                    <div class="description-box">
+                                        <label>Descripción:</label>
+                                        <p>{{description}}</p>
+                                    </div>
+
+                                    <input type="hidden" name="_csrf" value="{{token}}" />
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        
+        {{#ExVideo}}
+        <div class="videoS">
+            <div class="heading_container heading_left">
+                <h2>
+                    Vídeo de ayuda
+                </h2>
+                <div class="video-center">
+                    <iframe width="560" height="315" src="{{video}}" title="YouTube video player" frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        allowfullscreen></iframe>
+                </div>
+            </div>
+        </div>
+        {{/ExVideo}}</div>
+        </div>
+
+    </section>
+
+
+    <!-- <div class="col-md-7 mx-auto">
+                    <div class="tips_container">
+                        <h3>Consejos:</h3>
+                        <ul>
+                            <li>Asegurate de al bajar la barra bajar los codos en un ángulo de entre 45 y 60 grados</li>
+                            <li>No debes doblar las muñecas hacia adelante ni hacia detras porque puedes ocasionar una
+                                lesión</li>
+                            <li>Mantener los pies en contacto con el suelo para garantizar estabilidad a lo largo del
+                                movimiento</li>
+                        </ul>>
+                    </div>
+                </div>
+            </div>
+        </div>-->
+
+
+    <script src="js/jquery-3.4.1.min.js"></script>
+    <script src="js/bootstrap.js"></script>
+    <script src="js/custom.js"></script>
+</body>
+
+</html>
