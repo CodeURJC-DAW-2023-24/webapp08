@@ -3,6 +3,8 @@ package com.example.demo.controller;
 import com.example.demo.repository.EjercicioRepository;
 import com.example.demo.service.EjercicioService;
 import com.example.demo.model.Ejercicio;
+import com.example.demo.model.Imagen;
+
 import jakarta.servlet.http.HttpSession;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -11,7 +13,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.Optional;
 
 import org.springframework.boot.CommandLineRunner;
@@ -22,7 +26,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class EjercicioController implements CommandLineRunner {
 
     @Autowired
-    private EjercicioRepository repository;
+    private EjercicioRepository EjercicioRepository;
 
     @Autowired
     private EjercicioService service;
@@ -48,8 +52,11 @@ public class EjercicioController implements CommandLineRunner {
     @PostMapping("/newEx")
 	public String newEx(@RequestParam("name") String name,
 	@RequestParam("description") String description,
-	@RequestParam("grp") String grp,@RequestParam("video") String video, HttpSession session, Model model, HttpServletRequest request) {
-		Optional<Ejercicio> existingExOptional = repository.findByName(name);
+    @RequestParam MultipartFile image,
+    @RequestParam("video") String video, 
+    @RequestParam("grp") String grp,
+    Model model, HttpServletRequest request) {
+		Optional<Ejercicio> existingExOptional = EjercicioRepository.findByName(name);
 		if (name.isEmpty() || description.isEmpty() || grp.isEmpty()) {
 			model.addAttribute("erroMg", "Rellene todos los campos");
 			return "error";
@@ -59,22 +66,40 @@ public class EjercicioController implements CommandLineRunner {
 			model.addAttribute("erroMg", "El ejercicio ya existe");
 			return "error";
 		}		
-			
+		Ejercicio ejercicio = new Ejercicio(name, description, grp, "0");
         if (video.isEmpty()){
             model.addAttribute("ExVideo", false);
-            service.save(name, description, grp, "0");
+           
             	
         }else{
-            model.addAttribute("ExVideo", true);
-            service.save(name, description, grp, video);
-            model.addAttribute("video", video);
+           model.addAttribute("ExVideo", true);
+           ejercicio.setVideo(video);
+           model.addAttribute("video", video);
         }
+        String rutaImagen = "logo.jpg";
+        if (!image.isEmpty()){
+            try{
+                byte[] datosImagen = image.getBytes();
+
+            // Crear objeto Imagen
+            Imagen imagen = new Imagen();
+            imagen.setContenido(image.getContentType());
+            imagen.setName(image.getOriginalFilename());
+            imagen.setDatos(datosImagen);
+            ejercicio.setImagen(imagen);
+            rutaImagen = imagen.getName();
+            }
+            catch (IOException e) {}
+        }
+        EjercicioRepository.save(ejercicio);
       
         model.addAttribute("adEx", request.isUserInRole("ADMIN"));
         model.addAttribute("name", name);	
 		model.addAttribute("description",description);
+        model.addAttribute("image", rutaImagen);
 		return "details";
        
 	}
    
+    
 }
