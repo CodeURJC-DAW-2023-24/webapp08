@@ -61,9 +61,10 @@ public class WebSecurityConfig {
 					.requestMatchers("/user").hasAnyRole("USER")
 					.requestMatchers("/editUser").hasAnyRole("USER")
 					.requestMatchers("/exForm").hasAnyRole("ADMIN")
-					.requestMatchers("/newEx").hasAnyRole("ADMIN")
+					.requestMatchers("/newEx**").hasAnyRole("ADMIN")
 					.requestMatchers("/add").hasAnyRole("USER")
 					.requestMatchers("/adRutine").hasAnyRole("USER")
+					.requestMatchers("/addEx").hasAnyRole("USER")
 
 					
 			)

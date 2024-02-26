@@ -40,7 +40,7 @@
     <div class="row">
       <div class="col-md-2"></div>
       <div class="col-md-8 ">
-        <form role="form" class="formAd" method="post" action="/newEx" id="formulario">
+        <form role="form" class="formAd"  action="/newEx" method="post"  id="formulario" enctype="multipart/form-data">
           <div class="form-group ">
             <label for="name">Nombre del ejercicio: </label>
             <input type="text" name="name" class="form-control" id="name"
@@ -52,8 +52,8 @@
               placeholder="Introduce una descripción del ejercicio"></textarea>
           </div>
           <div class="form-group ">
-            <label for="imag">Imagen: </label>
-            <input type='file' name='imag' accept=".jpg, .jpeg, .png, .HEIC" id="imag">
+            <label for="image">Imagen: </label>
+            <input type='file' name='image' accept=".jpg, .jpeg, .png, .HEIC" id="image">
           </div>
         
           <div class="form-group">

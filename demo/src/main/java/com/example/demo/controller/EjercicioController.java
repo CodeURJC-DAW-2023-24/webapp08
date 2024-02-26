@@ -8,6 +8,8 @@ import com.example.demo.model.Ejercicio;
 import com.example.demo.model.Rutina;
 import com.example.demo.model.Usuario;
 
+import com.example.demo.model.Imagen;
+
 import jakarta.servlet.http.HttpSession;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -16,8 +18,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.sql.Date;
+import java.io.IOException;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.boot.CommandLineRunner;
@@ -74,7 +79,10 @@ public class EjercicioController implements CommandLineRunner {
     @PostMapping("/newEx")
 	public String newEx(@RequestParam("name") String name,
 	@RequestParam("description") String description,
-	@RequestParam("grp") String grp,@RequestParam("video") String video, HttpSession session, Model model, HttpServletRequest request) {
+    @RequestParam MultipartFile image,
+    @RequestParam("video") String video, 
+    @RequestParam("grp") String grp,
+    Model model, HttpServletRequest request) {
 		Optional<Ejercicio> existingExOptional = ejercicioRepository.findByName(name);
 		if (name.isEmpty() || description.isEmpty() || grp.isEmpty()) {
 			model.addAttribute("erroMg", "Rellene todos los campos");
@@ -85,22 +93,58 @@ public class EjercicioController implements CommandLineRunner {
 			model.addAttribute("erroMg", "El ejercicio ya existe");
 			return "error";
 		}		
-			
+		Ejercicio ejercicio = new Ejercicio(name, description, grp, "0");
         if (video.isEmpty()){
             model.addAttribute("ExVideo", false);
-            service.save(name, description, grp, "0");
+           
             	
         }else{
-            model.addAttribute("ExVideo", true);
-            service.save(name, description, grp, video);
-            model.addAttribute("video", video);
+           model.addAttribute("ExVideo", true);
+           ejercicio.setVideo(video);
+           model.addAttribute("video", video);
         }
+        String rutaImagen = "logo.jpg";
+        if (!image.isEmpty()){
+            try{
+                byte[] datosImagen = image.getBytes();
+
+            // Crear objeto Imagen
+            Imagen imagen = new Imagen();
+            imagen.setContenido(image.getContentType());
+            imagen.setName(image.getOriginalFilename());
+            imagen.setDatos(datosImagen);
+            ejercicio.setImagen(imagen);
+            rutaImagen = imagen.getName();
+            }
+            catch (IOException e) {}
+        }
+        ejercicioRepository.save(ejercicio);
       
         model.addAttribute("adEx", request.isUserInRole("ADMIN"));
         model.addAttribute("name", name);	
 		model.addAttribute("description",description);
+        model.addAttribute("image", rutaImagen);
 		return "details";
        
 	}
+    @GetMapping ("/addEx")
+	public String addEX(Model model){
+        List<Ejercicio> pecho = ejercicioRepository.findByGrp("Pecho");
+        model.addAttribute("pecho", pecho);
+        List<Ejercicio> espalda = ejercicioRepository.findByGrp("Espalda");
+        model.addAttribute("espalda", espalda);
+        List<Ejercicio> hombro = ejercicioRepository.findByGrp("Hombro");
+        model.addAttribute("hombro", hombro);
+        List<Ejercicio> biceps = ejercicioRepository.findByGrp("Biceps");
+        model.addAttribute("biceps", biceps);
+        List<Ejercicio> triceps = ejercicioRepository.findByGrp("Triceps");
+        model.addAttribute("triceps", triceps);
+        List<Ejercicio>  inferior = ejercicioRepository.findByGrp("Tren Inferior");
+        model.addAttribute("inferior", inferior);
+        List<Ejercicio> cardio = ejercicioRepository.findByGrp("Cardio");
+        model.addAttribute("cardio", cardio);
+		return "adEjerRutina";
+	}
    
+    
 }
