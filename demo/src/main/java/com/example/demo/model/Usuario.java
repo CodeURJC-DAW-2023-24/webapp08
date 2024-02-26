@@ -41,7 +41,31 @@ public class Usuario {
 		this.imagen = imagen;
 	}
 
-	 @ManyToMany 
+	 public void setId(long id) {
+		this.id = id;
+	}
+
+	public void setEncodedPassword(String encodedPassword) {
+		this.encodedPassword = encodedPassword;
+	}
+
+	public void setAmigos(List<Usuario> amigos) {
+		this.amigos = amigos;
+	}
+
+	public void setNotificaciones(List<Notificacion> notificaciones) {
+		this.notificaciones = notificaciones;
+	}
+
+	public List<Rutina> getRutinas() {
+		return rutinas;
+	}
+
+	public void setRutinas(List<Rutina> rutinas) {
+		this.rutinas = rutinas;
+	}
+
+	@ManyToMany 
 	 @JoinTable( name = "amigos", 
 	 joinColumns = @JoinColumn(name = "usuario_id"), 
 	 inverseJoinColumns = @JoinColumn(name = "amigo_id") ) 
@@ -53,7 +77,8 @@ public class Usuario {
 	@OneToMany (cascade = CascadeType.ALL)
     private List<Notificacion> notificaciones;
 
-	
+	@OneToMany (cascade = CascadeType.ALL)
+	private List<Rutina> rutinas;
 
 	public Usuario() {
 		// Used by JPA

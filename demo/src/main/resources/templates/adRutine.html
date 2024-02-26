@@ -27,59 +27,7 @@
 </head>
 
 <body class="sub_page">
-  <nav class="navbar fixed-top">
-    <div class="container-fluid">
-        <div class="i-flex">
-            <a class="navbar-brand" href="../../templates/index.html">
-                <span>
-                  GYMGURU
-                  <img src="../images/pesa.png" class="logo"/>
-                </span>
-              </a>
-        </div>
-
-     
-        <div class="d-flex">
-            <!-- Contenedor para alinear elementos a la derecha -->
-            <div class="search">
-                <div class="search-icon">
-                    <!-- Icono de lupa de Bootstrap -->
-                    <i class="bi bi-search"></i>
-                </div>
-                <input class="form-control" type="text" placeholder="Buscar Ejercicios...">
-            </div>
-
-            <div class="estadisticas">
-                <button class="btn">
-                    <i class="bi bi-bar-chart"></i> <!-- Icono de estadísticas -->
-
-                </button>
-            </div>
-
-            <div class="dropdown">
-                <button class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                    <i class="bi bi-bell"></i>
-                </button>
-                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
-                    <li><a class="dropdown-item" href="#">Solicitud de Amistad de...</a></li>
-                    <li><a class="dropdown-item" href="#">... Añadió una Rutina</a></li>
-                    <li><a class="dropdown-item" href="#">Solicitud de Amistad de...</a></li>
-                </ul>
-            </div>
-
-            <div class="comunity">
-                <button class="btn"><i class="bi bi-person-plus"></i></button>
-            </div>
-
-            <div class="user">
-                <a href="../../templates/user.html">
-                <button class="btn circular-btn">U</button>
-                </a>
-            </div>
-        </div>
-    </div>
-</nav>
-
+  {{>header}}
 
     
     <div class="row">
@@ -92,20 +40,18 @@
           <form role="form" class="formAd" action="/add" method="post">
             <div class="form-group ">
                 <label for="dia">Dia de la rutina </label>
-                <input type="date" class="form-control" id="dia" placeholder="Introduce la fecha de la rutina">
+                <input type="date" class="form-control" id="date" name="date" placeholder="Introduce la fecha de la rutina">
             </div>
             <div class="form-group ">
               <label for="name">Nombre de la rutina </label>
-              <input type="text" class="form-control" id="name" placeholder="Introduce el nombre del ejercicio">
+              <input type="text" class="form-control" id="name" name="name" placeholder="Introduce el nombre del ejercicio">
             </div>
             <div class="form-group">
                 <label for="tiempo">Tiempo de entrenamiento:</label>
-                <input type="number" class="form-control" id="tiempo" name="tiempo" placeholder="Introduce el tiempo en minutos">
+                <input type="number" class="form-control" id="time" name="time" placeholder="Introduce el tiempo en minutos">
             </div>
             <div class="btn-box"  >
-              <button class="btnS" >
-                AÑADIR EJERCICIO
-              </button> 
+          
             </div>
               <div class="btn-box"  >
                 <button class="btnS" type="submit">
@@ -119,7 +65,9 @@
               </div>
             
         </form>
-
+        <a href="/addEjercicioRutina">  <button class="btnS" >
+          AÑADIR EJERCICIO
+        </button> </a>
         </div>
         <div class="col-md-2"></div>
       </div>
