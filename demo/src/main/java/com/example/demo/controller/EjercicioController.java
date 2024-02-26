@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.boot.CommandLineRunner;
@@ -99,6 +100,24 @@ public class EjercicioController implements CommandLineRunner {
         model.addAttribute("image", rutaImagen);
 		return "details";
        
+	}
+    @GetMapping ("/addEx")
+	public String addEX(Model model){
+        List<Ejercicio> pecho = EjercicioRepository.findByGrp("Pecho");
+        model.addAttribute("pecho", pecho);
+        List<Ejercicio> espalda = EjercicioRepository.findByGrp("Espalda");
+        model.addAttribute("espalda", espalda);
+        List<Ejercicio> hombro = EjercicioRepository.findByGrp("Hombro");
+        model.addAttribute("hombro", hombro);
+        List<Ejercicio> biceps = EjercicioRepository.findByGrp("Biceps");
+        model.addAttribute("biceps", biceps);
+        List<Ejercicio> triceps = EjercicioRepository.findByGrp("Triceps");
+        model.addAttribute("triceps", triceps);
+        List<Ejercicio>  inferior = EjercicioRepository.findByGrp("Tren Inferior");
+        model.addAttribute("inferior", inferior);
+        List<Ejercicio> cardio = EjercicioRepository.findByGrp("Cardio");
+        model.addAttribute("cardio", cardio);
+		return "adEjerRutina";
 	}
    
     
