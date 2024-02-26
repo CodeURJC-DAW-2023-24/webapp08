@@ -66,7 +66,7 @@ async function agregarElementosCalendario(rutinas) {
            
 
     // Cambiar el contenido de day-calendary-content
-                calendaryContent.innerHTML += `${rutina.name} \n`; 
+                calendaryContent.innerHTML += `${rutina.name} <br>`; 
         }
         
     });

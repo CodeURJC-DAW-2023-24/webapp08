@@ -70,10 +70,7 @@ public class EjercicioController implements CommandLineRunner {
         return "redirect:/main";
     }
 
-    @GetMapping("/addEjercicioRutina")
-    public String addEjercicicoRutina() {
-        return "adEjerRutina";
-    }
+    
     
 
     @PostMapping("/newEx")
