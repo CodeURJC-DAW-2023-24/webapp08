@@ -14,5 +14,5 @@ public interface EjercicioRepository extends JpaRepository<Ejercicio, Long> {
     Optional<Ejercicio> findByName(String name);
     Optional<Ejercicio> findById(long id);
     Page<Ejercicio> findByGrp(String grp, Pageable page);
-    //List<Ejercicio> findByGrp(String grp);
+    List<Ejercicio> findByGrp(String grp);
 }

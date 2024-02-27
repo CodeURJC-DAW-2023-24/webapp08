@@ -64,8 +64,8 @@ public class WebSecurityConfig {
 					.requestMatchers("/newEx**").hasAnyRole("ADMIN")
 					.requestMatchers("/add").hasAnyRole("USER")
 					.requestMatchers("/adRutine").hasAnyRole("USER")
-					.requestMatchers("/group/**").permitAll()					.requestMatchers("/addEx").hasAnyRole("USER")
-
+					.requestMatchers("/group/**").permitAll()					
+					.requestMatchers("/addEx").hasAnyRole("USER")
 					.requestMatchers("/group").permitAll()
 					.requestMatchers("/group/pecho").permitAll()
 					.requestMatchers("/group/triceps").permitAll()

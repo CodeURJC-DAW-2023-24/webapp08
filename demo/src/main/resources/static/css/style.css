@@ -607,7 +607,7 @@ td {
   top: -25%; /* Mueve el texto hacia arriba la mitad de la altura del contenedor para centrarlo verticalmente */
 }
 .imgEx{
- padding-top: 15px;
+  padding-top: 15px;
   display: block; /* Asegura que la imagen sea un elemento de bloque */
   margin: 0 auto; /* Centra la imagen horizontalmente */
   width: 220px;
