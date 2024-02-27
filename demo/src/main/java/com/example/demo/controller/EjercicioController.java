@@ -22,6 +22,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Optional;
@@ -75,7 +76,7 @@ public class EjercicioController implements CommandLineRunner {
         Usuario usuario = userRepository.findByFirstName(nameUser).orElseThrow();
 
         Rutina rutina = rutinaRepository.findById(id).orElseThrow();
-        // rutina.setDate(date);
+        rutina.setDate(date);
         rutina.setName(name);
         rutina.setTime(time);
         rutinaRepository.save(rutina);
@@ -281,5 +282,38 @@ public class EjercicioController implements CommandLineRunner {
         model.addAttribute("id", rutina.getId());
         return "adRutine";
     }
+
+    @GetMapping("/busquedaEx")
+	public @ResponseBody List<String[]> getNombres(@RequestParam  String nombre,HttpServletRequest request) {
+       
+    List<String[]> names = ejercicioRepository.getNames(nombre);
+     return names;
+	}
+    @GetMapping("/exercise/{nombre}")
+    public String exercseM(@PathVariable String nombre,Model model,
+            HttpServletRequest request) {
+        Ejercicio exercise = ejercicioRepository.findByName(nombre).orElseThrow();
+        model.addAttribute("name", exercise.getName());
+        model.addAttribute("description", exercise.getDescription());
+        if (exercise.getVideo().equals("0")) {
+            model.addAttribute("ExVideo", false);
+
+        } else {
+            model.addAttribute("ExVideo", true);
+            model.addAttribute("video", exercise.getVideo());
+        }
+        Imagen image = exercise.getImagen();
+        String rutaImagen = "logo.jpg";
+        if (!(image == null)) {
+            rutaImagen = image.getName();
+            if (!imagenService.verificarExistenciaImagen(rutaImagen)) {
+                imagenService.guardarImagen(image);
+            }
+        }
+        model.addAttribute("image", rutaImagen);
+        model.addAttribute("adEx", request.isUserInRole("ADMIN"));
+        return "details";
+    }
+    
 
 }

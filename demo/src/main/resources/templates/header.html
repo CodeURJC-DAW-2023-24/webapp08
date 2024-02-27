@@ -65,15 +65,11 @@
                             <!-- Icono de lupa de Bootstrap -->
                             <i class="bi bi-search"></i>
                         </div>
-                        <input class="form-control" type="text" placeholder="Buscar Ejercicios..."
-                            oninput="buscar(this.value)">
+                        <input class="form-control" type="text" placeholder="Buscar Ejercicios..." onkeydown="if(event.keyCode === 13) { buscar(this.value); return false; }">
+                        <ul id="searchResults"></ul>
                     </div>
-                    <div id="exs-container" class="exs-container">
-
-                        <ul class="exs-list">
-                            <!-- Agrega más usuarios según sea necesario -->
-                        </ul>
-                    </div>
+                    
+                   
                 </div>
                 {{/search}}
                 {{^search}}
@@ -117,4 +113,21 @@
             </div>
         </div>
     </nav>
+    <div class="row">
+        <div class="col-md-8"></div>
+        <div class="col-md-3">
+        <div class="overlay-container" id="overlay-container">
+            <!-- Contenedor que se superpondrá -->
+            <div id="overlay" class="overlay">
+                <div id="exs-container" class="exs-container">
+                    <ul id="exerciseList" class="exercise-list">
+                        <!-- Aquí se mostrarán los elementos <li> -->
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-1"></div>
+    </div>
+
+    </div>
 </body>
