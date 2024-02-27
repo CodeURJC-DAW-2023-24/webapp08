@@ -58,17 +58,33 @@ public class WebSecurityConfig {
 					.requestMatchers("/cargarAmigos").permitAll()
 					.requestMatchers("/addEjercicioRutina").permitAll()
 					.requestMatchers("/cargarRutinas").permitAll()
+					.requestMatchers("/verRutina").permitAll()
+					.requestMatchers("/enviarComentario").permitAll()
 					.requestMatchers("/user").hasAnyRole("USER")
 					.requestMatchers("/editUser").hasAnyRole("USER")
 					.requestMatchers("/exForm").hasAnyRole("ADMIN")
 					.requestMatchers("/newEx**").hasAnyRole("ADMIN")
 					.requestMatchers("/add/**").hasAnyRole("USER")
 					.requestMatchers("/adRutine").hasAnyRole("USER")
+					.requestMatchers("/group/**").permitAll()					
 					.requestMatchers("/addEx/**").hasAnyRole("USER")
 					.requestMatchers("/addExRutine/**").hasAnyRole("USER")
 					
-
-					
+					.requestMatchers("/group").permitAll()
+					.requestMatchers("/group/pecho").permitAll()
+					.requestMatchers("/group/triceps").permitAll()
+					.requestMatchers("/group/biceps").permitAll()
+					.requestMatchers("/group/espalda").permitAll()
+					.requestMatchers("/group/cardio").permitAll()
+					.requestMatchers("/group/inferior").permitAll()
+					.requestMatchers("/group/hombro").permitAll()					
+					.requestMatchers("/group/pecho/**").permitAll()
+					.requestMatchers("/group/triceps/**").permitAll()
+					.requestMatchers("/group/biceps/**").permitAll()
+					.requestMatchers("/group/espalda/**").permitAll()
+					.requestMatchers("/group/cardio/**").permitAll()
+					.requestMatchers("/group/inferior/**").permitAll()
+					.requestMatchers("/group/hombro/**").permitAll()
 			)
 			.formLogin(formLogin -> formLogin
 					.loginPage("/index")
@@ -85,6 +101,7 @@ public class WebSecurityConfig {
         http.csrf(csrf -> csrf.ignoringRequestMatchers("/sendSolicitud")); //Es q le tengo q pasar el token pero ns como 
 		http.csrf(csrf -> csrf.ignoringRequestMatchers("/procesarSolicitud"));
 		http.csrf(csrf -> csrf.ignoringRequestMatchers("/add"));
+		http.csrf(csrf -> csrf.ignoringRequestMatchers("/enviarComentario"));
 		return http.build();
 		
 	}

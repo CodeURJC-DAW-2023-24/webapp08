@@ -30,6 +30,7 @@ public class Usuario {
 	private String encodedPassword;
 	private String date;
 	private Integer weight;
+	
 	@OneToOne(cascade = CascadeType.ALL)
 	private Imagen imagen;
 

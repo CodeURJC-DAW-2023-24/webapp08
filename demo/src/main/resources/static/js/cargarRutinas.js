@@ -63,10 +63,11 @@ async function agregarElementosCalendario(rutinas) {
             
             let calendaryContent = diaContainer.querySelector('.day-calendary-content');
 
-           
+            // Crear un elemento de enlace <a>
 
-    // Cambiar el contenido de day-calendary-content
-                calendaryContent.innerHTML += `${rutina.name} <br>`; 
+            calendaryContent.innerHTML += `<a href="/verRutina?id=${rutina.id}" style="text-decoration: none; color: black;">${rutina.name}</a>`;
+
+             
         }
         
     });

@@ -2,6 +2,8 @@ package com.example.demo.controller;
 
 import java.io.IOException;
 import java.security.Principal;
+import java.sql.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -12,18 +14,23 @@ import com.example.demo.service.UserService;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.example.demo.model.Notificacion;
+import com.example.demo.model.Ejercicio;
 import com.example.demo.model.Imagen;
+import com.example.demo.model.Mensaje;
 import com.example.demo.model.Novedad;
 import com.example.demo.model.Rutina;
 import com.example.demo.model.Usuario;
+import com.example.demo.repository.MensajeRepository;
 import com.example.demo.repository.NotificacionRepository;
 import com.example.demo.repository.NovedadRepository;
+import com.example.demo.repository.RutinaRepository;
 import com.example.demo.repository.UserRepository;
 
 import java.util.ArrayList;
@@ -44,6 +51,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Controller
 public class UsuarioController implements CommandLineRunner {
 
+	
 	@Autowired
 	private UserRepository userRepository;
 	@Autowired
@@ -56,6 +64,12 @@ public class UsuarioController implements CommandLineRunner {
 	 private NovedadRepository novedadRepository;
 	 @Autowired
 	 private NotificacionRepository notificacionRepository;
+	 @Autowired
+	 private RutinaRepository rutinaRepository;
+
+	 @Autowired
+    private MensajeRepository mensajeRepository;
+
 
 	@Override
 	public void run(String... args) throws Exception {
@@ -279,6 +293,8 @@ public class UsuarioController implements CommandLineRunner {
 		String nameUser = request.getUserPrincipal().getName();
 		
 		List<Notificacion> lNotificaciones = userRepository.findByFirstName(nameUser).orElseThrow().getNotificaciones();
+
+		
 		
 		return lNotificaciones;
 	}
@@ -317,11 +333,54 @@ public class UsuarioController implements CommandLineRunner {
 
 	@GetMapping("/cargarRutinas")
 	public @ResponseBody List<Rutina> getRutinasPropias(HttpServletRequest request) {
+		Rutina rutina = new Rutina("hoy", new Date(124, 1, 26), 70);
+		rutinaRepository.save(rutina);
+		userRepository.findByFirstName("1").orElseThrow().getRutinas().add(rutina);
+		userRepository.save(userRepository.findByFirstName("1").orElseThrow());
+
 		String nameUser = request.getUserPrincipal().getName();
 		Usuario user = userRepository.findByFirstName(nameUser).orElseThrow();
 		List<Rutina> rutinas = user.getRutinas();
 		return rutinas;
 	}
+
+
+	@GetMapping("/verRutina")
+	public String verRutina(Model model,@RequestParam Long id,HttpServletRequest request) {
+		rutinaRepository.findById(id);
+
+		String nameUser = request.getUserPrincipal().getName();
+		Usuario usuario = userRepository.findByFirstName(nameUser).orElseThrow();
+
+		model.addAttribute("firstName", usuario.getFirstName());	
+		model.addAttribute("name", usuario.getName());
+		model.addAttribute("date", usuario.getDate());
+		model.addAttribute("id", id);
+		if (usuario.getImagen() !=null) {
+			
+			model.addAttribute("rutaImagen", usuario.getImagen().getName());} //Creo que no devuelve una url y por eso peta
+		else 
+			model.addAttribute("rutaImagen","logo.jpg");
+
+		return "rutine";
+	}
 	
+	@PostMapping("/enviarComentario")
+    public @ResponseBody List<Mensaje> postMethodName(@RequestParam String comentario, @RequestParam Long id,HttpServletRequest request ) {
+        String nameUser = request.getUserPrincipal().getName();
+		Usuario usuario = userRepository.findByFirstName(nameUser).orElseThrow();
+        String nombreUser = usuario.getFirstName();
+		Mensaje mensaje = new Mensaje(nombreUser, comentario);
+		mensajeRepository.save(mensaje);
+
+		 Rutina rutina = rutinaRepository.findById(id).orElseThrow();
+		 rutina.getMensajes().add(mensaje);
+		 rutinaRepository.save(rutina);
+
+        
+   
+       return rutina.getMensajes();
+        
+    }
 	
 }
