@@ -210,6 +210,7 @@ body {
 
 .calendar {
     display: flex;
+    flex-wrap: wrap;
     gap: 10px;
     list-style-type: none;
     padding: 0;

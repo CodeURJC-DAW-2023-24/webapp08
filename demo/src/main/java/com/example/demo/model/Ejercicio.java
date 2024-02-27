@@ -13,6 +13,16 @@ public class Ejercicio {
     private String grp;
     private String video;
     private String description;
+    @OneToOne(cascade = CascadeType.ALL)
+	private Imagen imagen;
+
+	public Imagen getImagen() {
+		return imagen;
+	}
+
+	public void setImagen(Imagen imagen) {
+		this.imagen = imagen;
+	}
 
     public Ejercicio() {}
 

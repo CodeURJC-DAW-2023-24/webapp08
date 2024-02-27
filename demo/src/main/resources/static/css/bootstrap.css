@@ -2456,32 +2456,25 @@ textarea.form-control {
 
 .btnS {
   display: inline-block;
-  padding-top:10px ;
-  padding-bottom: 10px;
-  width: 150px;
-  text-align: center;
   background-color: #f1db25;
   color: #ffffff;
   -webkit-transition: all 0.3s;
   transition: all 0.3s;
   border: 1px solid transparent;
-  font-family: "Poppins", sans-serif;
-  font-weight: bold;
+  width: 250px;
+  text-align: center;
 }
 .btnC {
   display: inline-block;
-  padding-top:10px ;
-  padding-bottom: 10px;
-  width: 150px;
-  text-align: center;
-  background-color: #050505;
+  text-align: right;
+  padding: 10px 35px;
+  margin-top: 5px;
+  background-color: #0a0a0a;
   color: #ffffff;
   -webkit-transition: all 0.3s;
   transition: all 0.3s;
   border: 1px solid transparent;
-  font-family: "Poppins", sans-serif;
-  font-weight: bold;  
-  margin-left: 85%;    
+  height: 70px;   
 }
 
 .btnS:hover {
@@ -2490,7 +2483,7 @@ textarea.form-control {
   border-color:#f1db25 ;
 }
 .btnC:hover {
-  background-color: transparent;
+  background-color: black;
   border-color:#f1db25 ;
 }
 

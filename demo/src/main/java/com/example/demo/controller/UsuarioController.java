@@ -22,6 +22,7 @@ import com.example.demo.model.Notificacion;
 import com.example.demo.model.Ejercicio;
 import com.example.demo.model.Imagen;
 import com.example.demo.model.Novedad;
+import com.example.demo.model.Rutina;
 import com.example.demo.model.Usuario;
 import com.example.demo.repository.NotificacionRepository;
 import com.example.demo.repository.NovedadRepository;
@@ -319,5 +320,14 @@ public class UsuarioController implements CommandLineRunner {
 
 		return lAmigos;
 	}
+
+	@GetMapping("/cargarRutinas")
+	public @ResponseBody List<Rutina> getRutinasPropias(HttpServletRequest request) {
+		String nameUser = request.getUserPrincipal().getName();
+		Usuario user = userRepository.findByFirstName(nameUser).orElseThrow();
+		List<Rutina> rutinas = user.getRutinas();
+		return rutinas;
+	}
+	
 	
 }

@@ -101,12 +101,12 @@ public class DatabaseInitializer {
 
 
 
-		String rutaCarpetaImagenes = "images";
+		/*String rutaCarpetaImagenes = "images";
 
         // Lógica para cargar las imágenes al arrancar la aplicación
-        //imagenService.cargarImagenesDesdeCarpeta(rutaCarpetaImagenes);
-		//List<Imagen> imagenes = imagenRepository.findAll();
-		//imagenService.guardarImagenes(imagenes);
+        imagenService.cargarImagenesDesdeCarpeta(rutaCarpetaImagenes);
+		List<Imagen> imagenes = imagenRepository.findAll();
+		imagenService.guardarImagenes(imagenes);*/
 	}
 
 }
