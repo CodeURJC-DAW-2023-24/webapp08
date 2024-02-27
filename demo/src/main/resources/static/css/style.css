@@ -582,6 +582,55 @@ td {
   border-radius: 5px;
   height: 40px;
 }
+.container .py-5 {
+  background-color: #f8f9fa52; /* Color de fondo */
+  border-radius: 10px; /* Bordes redondeados */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra suave */
+  padding: 20px; /* Espacio interno */
+}
+
+.list-group {
+  border: none; /* Quita el borde del grupo de lista */
+}
+
+.list-group-item {
+  background-color: #ffffff; /* Color de fondo de los elementos de la lista */
+  border: none; /* Quita el borde de los elementos de la lista */
+  margin-bottom: 15px; /* Espacio entre elementos */
+}
+.nameEx {
+  padding-top: 25%; /* Ajusta el porcentaje para centrar verticalmente según tu preferencia */
+  text-align: center; /* Centra el texto horizontalmente */
+  font-family: fantasy; /* Fuente de fantasía */
+  font-size: 30pt; /* Tamaño de fuente */
+  position: relative; /* Para permitir la posición absoluta del texto */
+  top: -25%; /* Mueve el texto hacia arriba la mitad de la altura del contenedor para centrarlo verticalmente */
+}
+.imgEx{
+  padding-top: 15px;
+  display: block; /* Asegura que la imagen sea un elemento de bloque */
+  margin: 0 auto; /* Centra la imagen horizontalmente */
+  width: 220px;
+  height: 170px;
+}
+.aEx{
+  color: black;
+}
+.aEx:hover{
+  text-decoration-line: none;
+  color: #ffc107;
+  
+}
+
+.bodyEx {
+  height: 100%;
+  min-height: 100vh;
+  background-color: #101010;
+  background-image: url('../images/grunge-background-texture.jpg');
+  background-size: cover; 
+  background-repeat: repeat;
+  background-position: center;
+}
 
 .bi-bell {
   color: var(--color-text-buttons);
@@ -615,6 +664,12 @@ td {
   width: 40px;
   height: 40px;
 
+}
+
+.brnP{
+  display: flex;
+  align-items: center;
+  margin-left: 25%;
 }
 
 .news {
