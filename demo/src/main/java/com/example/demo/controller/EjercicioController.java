@@ -75,7 +75,7 @@ public class EjercicioController implements CommandLineRunner {
         Usuario usuario = userRepository.findByFirstName(nameUser).orElseThrow();
 
         Rutina rutina = rutinaRepository.findById(id).orElseThrow();
-        // rutina.setDate(date);
+        rutina.setDate(date);
         rutina.setName(name);
         rutina.setTime(time);
         rutinaRepository.save(rutina);
