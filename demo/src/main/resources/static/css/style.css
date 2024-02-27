@@ -113,7 +113,7 @@ td {
   background-color: white;
   color: #000000;
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
   padding: 10px 10px 10px 10px;
 
 
@@ -206,6 +206,14 @@ td {
   background-size: cover;
 }
 
+.layout_paddingR {
+  padding-top: 90px;
+  padding-bottom: 90px;
+  background-color: #000000;
+  background-image: url('/images/fondo1.jpg');
+  background-size: cover;
+}
+
 .layout_paddingF {
   padding-top: 90px;
   padding-bottom: 90px;
@@ -238,7 +246,7 @@ td {
   padding-top: 90px;
   padding-bottom: 90px;
   background-color: #000000;
-  background-image: url('/images/addEjercicio2.jpg');
+  background-image: url('/images/addRutina2.jpg');
   background-size: cover;
 }
 

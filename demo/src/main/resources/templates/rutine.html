@@ -52,7 +52,7 @@
 
                 <div>
                   <p name="firstName"><b>{{firstName}}</b></p>
-                  <p name="name">{{name}}</p>
+                  <p name="name">{{nameUser}}</p>
                   <p name="date">{{date}}</p>
                 </div>
               </div>
@@ -63,12 +63,12 @@
                     <div class="col-md-10">
                       <h1>Comentarios</h1>
                       <div id="container-mensajes" class="mensajes">
-                      <!--<div class="coment">
-                        <img src="/images/user2.jpg" class="rutine-image" >
-                        <p><b>Anita</b></p>
-                        <p>Me encantó tu rutina </p>
-                      </div>-->
-                     
+                        {{#mensajes}}
+                      <div class="coment">
+                        <p><b>{{nombre}}</b></p>
+                        <p>{{contenido}}</p>
+                      </div>
+                     {{/mensajes}}
                     </div>
                     </div>
                       <div class="col-md-1"></div>
@@ -103,46 +103,24 @@
             <table >
                 <thead>
                     <tr>
-                        <th colspan="4" class="titulo">Espalda - Tríceps </th>
+                        <th colspan="4" class="titulo">{{rutName}}</th>
                       </tr>
                   <tr>
                     
-                    <th colspan="2"> Ejercicio</th>
+                    <th > Ejercicio</th>
                     <th>Series x Repetición</th>
                     <th>Peso</th>
                   </tr>
                 </thead>
                 <tbody>
+                  {{#ejercicios}}
                   <tr>
-                    <td><img src="/images/ejer1.jpg" class="ejer-image" ></td>
-                    <td>Prees inclinado con Mancuernas</td>
-                    <td>4x6-8</td>
-                    <td>50 kg</td>
+                    <td>{{ejercicio}}</td>
+                    <td>{{series}}</td>
+                    <td>{{peso}} kg</td>
                   </tr>
-                  <tr>
-                    <td><img src="/images/ejer2.jpg" class="ejer-image" ></td>
-                    <td>Jalon al pecho en polea</td>
-                    <td>4x10</td>
-                    <td>100 kg</td>
-                  </tr>
-                  <tr>
-                    <td><img src="/images/ejer3.jpg" class="ejer-image" ></td>
-                    <td>Remos horizontales</td>
-                    <td>4x10</td>
-                    <td>100 kg</td>
-                  </tr>
-                  <tr>
-                    <td><img src="/images/ejer4.jpg" class="ejer-image" ></td>
-                    <td>Extensiones de triceps en polea</td>
-                    <td>4x10-12</td>
-                    <td>40 kg</td>
-                  </tr>
-                  <tr>
-                    <td><img src="/images/ejer5.jpg" class="rutine-image" ></td>
-                    <td>Copa</td>
-                    <td>4x10-12</td>
-                    <td>36 kg</td>
-                  </tr>
+                  {{/ejercicios}}
+                  
                   <!-- Puedes agregar más filas según sea necesario -->
                 </tbody>
               </table>

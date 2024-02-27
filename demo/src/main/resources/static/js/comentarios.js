@@ -12,12 +12,12 @@ async function enviarComentario(){
     }
     }
 
-    function agregarComentarios(comentarios) {
+    function agregarComentarios(comentario) {
       // Obtener el contenedor de mensajes
       let containerMensajes = document.getElementById('container-mensajes');
   
       // Iterar sobre cada comentario en la lista
-      comentarios.forEach(comentario => {
+    
           // Crear un div para el comentario
           let coment = document.createElement('div');
           coment.classList.add('coment');
@@ -48,7 +48,7 @@ async function enviarComentario(){
   
           // Agregar el comentario al contenedor de mensajes
           containerMensajes.appendChild(coment);
-      });
+      
   }
   
     

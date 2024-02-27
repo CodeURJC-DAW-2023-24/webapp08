@@ -56,6 +56,7 @@ public class DatabaseInitializer {
 	 @Autowired
 	 private RutinaRepository rutinaRepository;
 	
+	@SuppressWarnings("null")
 	@PostConstruct
 	public void init() throws SerialException, SQLException {
 		//Sample novedades
@@ -78,8 +79,9 @@ public class DatabaseInitializer {
 		ejRepository.save(new Ejercicio("Curl de bíceps con mancuerna de pie", "Para realizar el curl de bíceps", "Biceps", "https://www.youtube.com/embed/rqy0oxx__sU?si=8JkDYGNHXgpVg3NB"));
 		ejRepository.save(new Ejercicio("Press de banca con agarre cerrado", "El press de banca con agarre cerrado es una variación del clásico press de banca que se enfoca más en el trabajo de los tríceps, aunque también involucra los pectorales y los deltoides frontales. ", "Triceps", "https://www.youtube.com/embed/SF0uoT4JWNw?si=1cSxJLlUKBy9N6rD"));
 		ejRepository.save(new Ejercicio("Jalón al pecho con agarre supino", "Ejercicio de entrenamiento de fuerza que se enfoca en el desarrollo de la musculatura de la espalda, especialmente los músculos del dorsal ancho, los trapecios y los romboides.", "Espalda", "https://www.youtube.com/embed/SnLxcN1x3LU?si=INQ8p5xUHCFKEuHQ"));
-		ejRepository.save(new Ejercicio("Curl1", "curl", "Hombro", "0"));
-		ejRepository.save(new Ejercicio("Curl2", "curl", "Hombro", "0"));
+		ejRepository.save(new Ejercicio("Curl1", "curl", "Pecho", "0"));
+		ejRepository.save(new Ejercicio("Curl2", "curl", "Cardio", "0"));
+		ejRepository.save(new Ejercicio("Curl2", "curl", "Inferior", "0"));
 		ejRepository.save(new Ejercicio("Curl3", "curl", "Hombro", "0"));
 		ejRepository.save(new Ejercicio("Curl1", "curl", "Hombro", "0"));
 		ejRepository.save(new Ejercicio("Curl2", "curl", "Hombro", "0"));
@@ -90,9 +92,7 @@ public class DatabaseInitializer {
 		ejRepository.save(new Ejercicio("Curl1", "curl", "Hombro", "0"));
 		ejRepository.save(new Ejercicio("Curl2", "curl", "Hombro", "0"));
 		ejRepository.save(new Ejercicio("Curl3", "curl", "Hombro", "0"));
-		
-
-
+	
 
 
 		/*String rutaCarpetaImagenes = "images";
