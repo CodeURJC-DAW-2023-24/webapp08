@@ -3,6 +3,7 @@ package com.example.demo.model;
 
 
 import java.sql.Date;
+import java.util.List;
 
 import jakarta.persistence.*;
 
@@ -16,8 +17,28 @@ public class Rutina {
     private String name;
     private Date date;
     private Integer time;
+    @OneToMany
+    private List<EjerRutina> ejercicios;
+    
+    public void addEjerRutina(EjerRutina ejerRutina){
+       
+        ejercicios.add(ejerRutina);
+    }
+    public List<EjerRutina> getEjercicios() {
+        return ejercicios;
+    }
 
-    public Rutina() {}
+
+
+    public void setEjercicios(List<EjerRutina> ejercicios) {
+        this.ejercicios = ejercicios;
+    }
+
+
+
+    public Rutina() {
+    
+    }
 
 
 

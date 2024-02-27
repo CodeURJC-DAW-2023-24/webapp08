@@ -69,7 +69,7 @@ public class DatabaseInitializer {
 		userRepository.save(new Usuario("3", passwordEncoder.encode("3"),"paco3","1993-04-06",90,"USER"));
 
 		//Sample ejercicios
-		//ejRepository.save(new Ejercicio("Curl de bíceps con mancuerna de pie", "Para realizar el curl de bíceps, sostén una pesa en cada mano con los brazos extendidos y las palmas hacia arriba. Luego, dobla los codos y levanta las pesas hacia los hombros, manteniendo los codos cerca del cuerpo. Baja lentamente las pesas a la posición inicial y repite el movimiento.", "Biceps", "https://www.youtube.com/embed/rqy0oxx__sU?si=8JkDYGNHXgpVg3NB"));
+		ejRepository.save(new Ejercicio("Curl de bíceps con mancuerna de pie", "Para realizar el curl de bíceps", "Biceps", "https://www.youtube.com/embed/rqy0oxx__sU?si=8JkDYGNHXgpVg3NB"));
 		ejRepository.save(new Ejercicio("Press de banca con agarre cerrado", "El press de banca con agarre cerrado es una variación del clásico press de banca que se enfoca más en el trabajo de los tríceps, aunque también involucra los pectorales y los deltoides frontales. ", "Triceps", "https://www.youtube.com/embed/SF0uoT4JWNw?si=1cSxJLlUKBy9N6rD"));
 		ejRepository.save(new Ejercicio("Jalón al pecho con agarre supino", "Ejercicio de entrenamiento de fuerza que se enfoca en el desarrollo de la musculatura de la espalda, especialmente los músculos del dorsal ancho, los trapecios y los romboides.", "Espalda", "https://www.youtube.com/embed/SnLxcN1x3LU?si=INQ8p5xUHCFKEuHQ"));
 		ejRepository.save(new Ejercicio("Curl", "curl", "Hombro", "CURL"));

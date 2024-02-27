@@ -143,10 +143,7 @@ public class UsuarioController implements CommandLineRunner {
 		return "index";
 	}
 		
- @GetMapping ("/adRutine")
-	public String adRutine(){
-		return "adRutine";
-	}
+ 
 	@GetMapping("/newUser")
 	public String newUser(Model model) {
 		model.addAttribute("search", false);

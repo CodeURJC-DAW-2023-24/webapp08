@@ -34,11 +34,11 @@
         <div class="row">
         <div class="col-md-2"></div>
         <div class="col-md-8 ">
-          <form role="form" class="formAd" action="/addExRutine" method="post">
+          <form role="form" class="formAd" action="/addExRutine/{{id}}" method="post">
             
             <div class="form-group">
               <label for="grupo">Grupo muscular </label>
-              <select class="form-select form-control" id="grupo" onchange="changeEx()">
+              <select class="form-select form-control" id="grupo" name="grupo" onchange="changeEx()">
                   <option>Pecho</option>
                   <option>Espalda</option>
                   <option>Hombro</option>
@@ -126,9 +126,10 @@
                 </button>
                 <span style="margin: 0 10px;"></span>
                 <input type="hidden" name="_csrf" value="{{token}}"/>
-              
+              </div>
             
         </form>
+        <div class="btn-box"  >
         <button class="btnC">
           CANCELAR
         </button>
