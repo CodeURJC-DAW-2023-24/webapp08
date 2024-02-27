@@ -3,6 +3,7 @@ package com.example.demo.model;
 
 
 import java.sql.Date;
+import java.util.List;
 
 import jakarta.persistence.*;
 
@@ -16,6 +17,11 @@ public class Rutina {
     private String name;
     private Date date;
     private Integer time;
+   
+
+    @OneToMany (cascade = CascadeType.ALL)
+    private List<Mensaje> mensajes;
+    
 
     public Rutina() {}
 
@@ -27,6 +33,8 @@ public class Rutina {
         this.time = time;
     }
 
+    
+    
 
 
     public Long getId() {
@@ -74,5 +82,19 @@ public class Rutina {
     public void setTime(Integer time) {
         this.time = time;
     }
+
+
+
+    public List<Mensaje> getMensajes() {
+        return mensajes;
+    }
+
+
+
+    public void setMensajes(List<Mensaje> mensajes) {
+        this.mensajes = mensajes;
+    }
     
 }
+
+

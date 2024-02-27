@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import com.example.demo.repository.EjercicioRepository;
+import com.example.demo.repository.MensajeRepository;
 import com.example.demo.repository.RutinaRepository;
 import com.example.demo.repository.UserRepository;
 import com.example.demo.service.EjercicioService;
@@ -9,6 +10,7 @@ import com.example.demo.model.Rutina;
 import com.example.demo.model.Usuario;
 
 import com.example.demo.model.Imagen;
+import com.example.demo.model.Mensaje;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -28,6 +30,8 @@ import java.util.Optional;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
 
 @Controller
 public class EjercicioController implements CommandLineRunner {
@@ -43,6 +47,9 @@ public class EjercicioController implements CommandLineRunner {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private MensajeRepository mensajeRepository;
 
     @Override
     public void run(String... args) throws Exception {
@@ -143,5 +150,6 @@ public class EjercicioController implements CommandLineRunner {
 		return "adEjerRutina";
 	}
    
+  
     
 }

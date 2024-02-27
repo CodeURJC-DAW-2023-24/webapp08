@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.sql.Date;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -20,11 +21,13 @@ import org.springframework.stereotype.Service;
 import com.example.demo.model.Ejercicio;
 import com.example.demo.model.Imagen;
 import com.example.demo.model.Novedad;
+import com.example.demo.model.Rutina;
 import com.example.demo.model.Usuario;
 import com.example.demo.repository.EjercicioRepository;
 import com.example.demo.repository.NotificacionRepository;
 import com.example.demo.repository.ImagenRepositorio;
 import com.example.demo.repository.NovedadRepository;
+import com.example.demo.repository.RutinaRepository;
 import com.example.demo.repository.UserRepository;
 
 @Service
@@ -49,6 +52,9 @@ public class DatabaseInitializer {
 
 	 @Autowired
 	 private NotificacionRepository notificacionRepository;
+
+	 @Autowired
+	 private RutinaRepository rutinaRepository;
 	
 	@PostConstruct
 	public void init() throws SerialException, SQLException {
@@ -77,7 +83,7 @@ public class DatabaseInitializer {
 		ejRepository.save(new Ejercicio("Curl", "curl", "Pecho", "CURL"));
 		ejRepository.save(new Ejercicio("Curl", "curl", "Tren Inferior", "CURL"));
 
-
+		
 
 
 

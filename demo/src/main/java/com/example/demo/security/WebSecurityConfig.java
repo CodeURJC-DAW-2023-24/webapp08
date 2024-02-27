@@ -58,6 +58,8 @@ public class WebSecurityConfig {
 					.requestMatchers("/cargarAmigos").permitAll()
 					.requestMatchers("/addEjercicioRutina").permitAll()
 					.requestMatchers("/cargarRutinas").permitAll()
+					.requestMatchers("/verRutina").permitAll()
+					.requestMatchers("/enviarComentario").permitAll()
 					.requestMatchers("/user").hasAnyRole("USER")
 					.requestMatchers("/editUser").hasAnyRole("USER")
 					.requestMatchers("/exForm").hasAnyRole("ADMIN")
@@ -65,7 +67,7 @@ public class WebSecurityConfig {
 					.requestMatchers("/add").hasAnyRole("USER")
 					.requestMatchers("/adRutine").hasAnyRole("USER")
 					.requestMatchers("/addEx").hasAnyRole("USER")
-
+					
 					
 			)
 			.formLogin(formLogin -> formLogin
@@ -83,6 +85,7 @@ public class WebSecurityConfig {
         http.csrf(csrf -> csrf.ignoringRequestMatchers("/sendSolicitud")); //Es q le tengo q pasar el token pero ns como 
 		http.csrf(csrf -> csrf.ignoringRequestMatchers("/procesarSolicitud"));
 		http.csrf(csrf -> csrf.ignoringRequestMatchers("/add"));
+		http.csrf(csrf -> csrf.ignoringRequestMatchers("/enviarComentario"));
 		return http.build();
 		
 	}
