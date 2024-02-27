@@ -12,12 +12,14 @@ import com.example.demo.service.UserService;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.example.demo.model.Notificacion;
+import com.example.demo.model.Ejercicio;
 import com.example.demo.model.Imagen;
 import com.example.demo.model.Novedad;
 import com.example.demo.model.Usuario;
@@ -43,6 +45,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Controller
 public class UsuarioController implements CommandLineRunner {
 
+	
 	@Autowired
 	private UserRepository userRepository;
 	@Autowired

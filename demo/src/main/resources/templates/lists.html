@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="keywords" content="" />
+  <meta name="description" content="" />
+  <meta name="author" content="" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <title>ListEx</title>
+
+  <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link href="../css/mainPageStyle.css" rel="stylesheet" />
+  <link href="../css/style.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700|Poppins:400,600,700&display=swap"
+    rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"> </script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+
+
+</head>
+
+<body class="bodyEx">
+  {{>header}}
+  <div class="container py-5">
+
+    <div class="row">
+      <div class="col-lg-8 mx-auto">
+
+        <!-- List group-->
+        <ul class="list-group shadow">
+          {{#exs}}
+          <!-- list group item-->
+          <li class="list-group-item">
+            <!-- Custom content-->
+            <div>
+              <div>
+                <div class="row">
+                  <div class="col-md-1"> </div>
+                  <div class="col-md-3">
+                    <a href="/group/{{grupo}}/{{id}}">
+                      <img
+                        src="https://davidcosta.fr/wp-content/uploads/2012/10/musculation-exercice-cibler-groupe-musculaire-guide.jpg"
+                        alt="Generic placeholder image" class="imgEx">
+                    </a>
+                  </div>
+                  <div class="col-md-1"> </div>
+                  <div class="col-md-6">
+                    <a class="aEx" href="/group/{{grupo}}/{{id}}">
+                      <h5 class="nameEx">{{name}}</h5>
+                    </a>
+
+                  </div>
+                  <div class="col-md-1"> </div>
+                </div>
+
+              </div>
+            </div>
+            <!-- End -->
+          </li>
+          {{/exs}}
+          <!-- End -->
+        </ul>
+        <!-- End -->
+      </div>
+    </div>
+    {{#hasPrev}}
+    <a href="/group/{{grupo}}/?page={{prevPage}}">
+      <button class="btnS">
+        Anterior
+      </button>
+    </a>
+    {{/hasPrev}}
+    
+    {{#hasNext}}
+    <span style="margin: 0 415px;"></span>
+    <a href="/group/{{grupo}}/?page={{nextPage}}">
+      <button class="btnS">
+        Siguiente
+      </button>
+    </a>
+    {{/hasNext}}
+  </div>
+ 
+</body>
+
+</html>
