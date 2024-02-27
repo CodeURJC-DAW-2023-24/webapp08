@@ -26,7 +26,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Optional;
 import java.io.IOException;
-import java.util.Date;
+import java.sql.Date;
 import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -273,7 +273,7 @@ public class EjercicioController implements CommandLineRunner {
         model.addAttribute("biceps", biceps);
         List<Ejercicio> triceps = ejercicioRepository.findByGrp("Triceps");
         model.addAttribute("triceps", triceps);
-        List<Ejercicio>  inferior = ejercicioRepository.findByGrp("Tren Inferior");
+        List<Ejercicio>  inferior = ejercicioRepository.findByGrp("Inferior");
         model.addAttribute("inferior", inferior);
         List<Ejercicio> cardio = ejercicioRepository.findByGrp("Cardio");
         model.addAttribute("cardio", cardio);

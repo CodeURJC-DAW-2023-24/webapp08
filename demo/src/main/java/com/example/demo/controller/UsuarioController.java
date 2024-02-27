@@ -333,10 +333,10 @@ public class UsuarioController implements CommandLineRunner {
 
 	@GetMapping("/cargarRutinas")
 	public @ResponseBody List<Rutina> getRutinasPropias(HttpServletRequest request) {
-		Rutina rutina = new Rutina("hoy", new Date(124, 1, 26), 70);
+		/**Rutina rutina = new Rutina("hoy", new Date(124, 1, 26), 70);
 		rutinaRepository.save(rutina);
 		userRepository.findByFirstName("1").orElseThrow().getRutinas().add(rutina);
-		userRepository.save(userRepository.findByFirstName("1").orElseThrow());
+		userRepository.save(userRepository.findByFirstName("1").orElseThrow());**/
 
 		String nameUser = request.getUserPrincipal().getName();
 		Usuario user = userRepository.findByFirstName(nameUser).orElseThrow();
@@ -347,14 +347,18 @@ public class UsuarioController implements CommandLineRunner {
 
 	@GetMapping("/verRutina")
 	public String verRutina(Model model,@RequestParam Long id,HttpServletRequest request) {
-		rutinaRepository.findById(id);
+		
 
 		String nameUser = request.getUserPrincipal().getName();
 		Usuario usuario = userRepository.findByFirstName(nameUser).orElseThrow();
+		Rutina rutina = rutinaRepository.findById(id).orElseThrow();
 
 		model.addAttribute("firstName", usuario.getFirstName());	
-		model.addAttribute("name", usuario.getName());
-		model.addAttribute("date", usuario.getDate());
+		model.addAttribute("nameUser", usuario.getName());
+		model.addAttribute("date", rutina.getDate());
+		model.addAttribute("rutName", rutina.getName());
+		model.addAttribute("ejercicios", rutina.getEjercicios());
+		model.addAttribute("mensajes", rutina.getMensajes());
 		model.addAttribute("id", id);
 		if (usuario.getImagen() !=null) {
 			
@@ -366,7 +370,7 @@ public class UsuarioController implements CommandLineRunner {
 	}
 	
 	@PostMapping("/enviarComentario")
-    public @ResponseBody List<Mensaje> postMethodName(@RequestParam String comentario, @RequestParam Long id,HttpServletRequest request ) {
+    public @ResponseBody Mensaje postMethodName(@RequestParam String comentario, @RequestParam Long id,HttpServletRequest request ) {
         String nameUser = request.getUserPrincipal().getName();
 		Usuario usuario = userRepository.findByFirstName(nameUser).orElseThrow();
         String nombreUser = usuario.getFirstName();
@@ -379,7 +383,7 @@ public class UsuarioController implements CommandLineRunner {
 
         
    
-       return rutina.getMensajes();
+       return mensaje;
         
     }
 	
