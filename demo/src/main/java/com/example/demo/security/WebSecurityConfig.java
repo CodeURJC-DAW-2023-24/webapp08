@@ -44,6 +44,7 @@ public class WebSecurityConfig {
 					.requestMatchers("/register").permitAll()
 					.requestMatchers("/css/**").permitAll()
 					.requestMatchers("/error").permitAll()
+					.requestMatchers("/estadisticas").permitAll()
 					.requestMatchers("/images/**").permitAll()
                     .requestMatchers("/newUser").permitAll()
 					.requestMatchers("/muscGr").permitAll()
@@ -58,6 +59,8 @@ public class WebSecurityConfig {
 					.requestMatchers("/cargarAmigos").permitAll()
 					.requestMatchers("/addEjercicioRutina").permitAll()
 					.requestMatchers("/cargarRutinas").permitAll()
+					.requestMatchers("/cargarGraficas").permitAll()
+
 					.requestMatchers("/verRutina").permitAll()
 					.requestMatchers("/enviarComentario").permitAll()
 					.requestMatchers("/user").hasAnyRole("USER")
