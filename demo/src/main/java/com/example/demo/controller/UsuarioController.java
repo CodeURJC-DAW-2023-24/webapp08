@@ -192,7 +192,8 @@ public class UsuarioController implements CommandLineRunner {
 	}
 
 	@GetMapping ("/comunity")
-	public String comunity(){
+	public String comunity(Model model){
+		model.addAttribute("search", false);
 		return "comunity";
 	}
 

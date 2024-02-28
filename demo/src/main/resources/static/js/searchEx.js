@@ -1,16 +1,16 @@
-async function buscar(nombre) {
+async function buscarEx(nombre) {
     var exC = document.getElementById("exs-container");
     exC.innerHTML = "";
 
     if (nombre.trim() !== "") {
         const response = await fetch(`/busquedaEx?nombre=${nombre}`);
         let nombres = await response.json();
-        agregarElementosAlContenidoPrincipal(nombres)
+        agregarElementosAlContenidoPrincipal2(nombres)
 
     }
 }
 
-function agregarElementosAlContenidoPrincipal(nombres) {
+function agregarElementosAlContenidoPrincipal2(nombres) {
 
     var exC = document.getElementById("exs-container");
     document.getElementById('overlay-container').style.display = 'block';
