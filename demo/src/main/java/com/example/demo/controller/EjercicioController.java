@@ -3,6 +3,7 @@ package com.example.demo.controller;
 import com.example.demo.repository.EjerRutinaRepository;
 import com.example.demo.repository.EjercicioRepository;
 import com.example.demo.repository.MensajeRepository;
+import com.example.demo.repository.NovedadRepository;
 import com.example.demo.repository.RutinaRepository;
 import com.example.demo.repository.UserRepository;
 import com.example.demo.service.EjercicioService;
@@ -14,6 +15,7 @@ import com.example.demo.model.Usuario;
 import com.example.demo.model.EjerRutina;
 import com.example.demo.model.Imagen;
 import com.example.demo.model.Mensaje;
+import com.example.demo.model.Novedad;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -61,6 +63,9 @@ public class EjercicioController implements CommandLineRunner {
     private MensajeRepository mensajeRepository;
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private NovedadRepository novedadRepository;
+
 
     @Override
     public void run(String... args) throws Exception {
@@ -85,7 +90,17 @@ public class EjercicioController implements CommandLineRunner {
         rutinaRepository.save(rutina);
 
         usuario.getRutinas().add(rutina);
-        userRepository.save(usuario);
+        userRepository.save(usuario); 
+        
+        List<Usuario> lAmigos = usuario.getAmigos();
+        Novedad novedad = new Novedad(nameUser);
+        novedad.setRutina(rutina);
+        novedadRepository.save(novedad);
+        for (Usuario amigo: lAmigos) {
+            amigo.getNovedades().add(novedad);
+            userRepository.save(amigo);
+        }
+       
 
         return "redirect:/main";
     }
@@ -130,7 +145,7 @@ public class EjercicioController implements CommandLineRunner {
                 name = cardio;
                 break;
         }
-        EjerRutina ejercicio = new EjerRutina(grupo,name,series, peso);
+        EjerRutina ejercicio = new EjerRutina(grupo,name,series, peso); 
         String nameUser = request.getUserPrincipal().getName();
 		Usuario usuario = userRepository.findByFirstName(nameUser).orElseThrow();
         userService.aumentarFrecuencia(usuario,grupo,name);

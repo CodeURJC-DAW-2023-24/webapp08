@@ -155,6 +155,7 @@ public class UsuarioController implements CommandLineRunner {
 			}catch (IOException e) {}
 		}
 			userRepository.save(usuario);
+			
 			//service.save(firstName, pass, name, date, weight);
 			//userRepository.save(new Usuario(name, passwordEncoder.encode(password),name, date,weight, "USER"));
 		return "index";
@@ -250,11 +251,15 @@ public class UsuarioController implements CommandLineRunner {
 	
 
 	@GetMapping("/novedades-iniciales")
-	public @ResponseBody List<Object> getNovedades(@RequestParam  int iteracion) {
-		Page<Novedad> pagina= novedadRepository.findAll(PageRequest.of(iteracion,10));
-		List<Novedad> listPaginas = pagina.getContent();
-		long numPaginas = novedadRepository.count(); 
-		List<Object> data =new ArrayList<>(Arrays.asList(listPaginas, numPaginas));
+	public @ResponseBody List<Object> getNovedades(@RequestParam  int iteracion,HttpServletRequest request) {
+		String nameUser = request.getUserPrincipal().getName();
+		Usuario usuario = userRepository.findByFirstName(nameUser).orElseThrow();
+		
+		//Page<Novedad> pagina= novedadRepository.findAll(PageRequest.of(iteracion,10));
+		List<Novedad> pagina = userRepository.novedades(usuario, PageRequest.of(iteracion, 10));
+		//List<Novedad> listPaginas = pagina.getContent();
+		long numPaginas = usuario.getNovedades().size(); //Revisar
+		List<Object> data =new ArrayList<>(Arrays.asList(pagina, numPaginas));
 	
 		return data; //Devuelve un list<novedad>
 	}
@@ -349,10 +354,7 @@ public class UsuarioController implements CommandLineRunner {
 
 	@GetMapping("/verRutina")
 	public String verRutina(Model model,@RequestParam Long id,HttpServletRequest request) {
-		
-
-		String nameUser = request.getUserPrincipal().getName();
-		Usuario usuario = userRepository.findByFirstName(nameUser).orElseThrow();
+		Usuario usuario = userRepository.findByRutinaId(id).orElseThrow();
 		Rutina rutina = rutinaRepository.findById(id).orElseThrow();
 
 		model.addAttribute("firstName", usuario.getFirstName());	

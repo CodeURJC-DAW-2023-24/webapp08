@@ -87,6 +87,18 @@ public class Usuario {
 	@OneToMany (cascade = CascadeType.ALL)
 	private List<Rutina> rutinas;
 
+	@OneToMany (cascade = CascadeType.ALL)
+    private List<Novedad> novedades;
+
+	
+	public List<Novedad> getNovedades() {
+		return novedades;
+	}
+
+	public void setNovedades(List<Novedad> novedades) {
+		this.novedades = novedades;
+	}
+
 	@ElementCollection(fetch = FetchType.EAGER)
     private Map<String, Integer> frecuenciaPecho = new HashMap<>();
 	

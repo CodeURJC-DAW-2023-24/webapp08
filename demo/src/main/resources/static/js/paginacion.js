@@ -83,11 +83,23 @@ async function cargarMas(){
               // Añadir título y descripción a la tarjeta
               const cardTitle = document.createElement('h5');
               cardTitle.classList.add('card-title');
-              cardTitle.textContent = `${novedades[i+j].name}`;
+              cardTitle.textContent = `NOVEDAD`;
       
               const cardText = document.createElement('p');
               cardText.classList.add('card-text');
-              cardText.textContent = `${novedades[i+j].name}`;
+              // Crear el elemento <a> y establecer su href
+const link = document.createElement('a');
+link.href = `/verRutina?id=${novedades[i+j].rutina.id}`; // Ajusta la URL según tu estructura
+
+// Agregar el texto como contenido del enlace
+link.textContent = `Nueva rutina de: ${novedades[i+j].name}`;
+
+// Establecer el estilo del enlace para que no tenga decoración
+link.style.textDecoration = 'none';
+
+// Agregar el enlace al cuerpo de la tarjeta
+cardText.append(link);
+
       
               // Agregar título y descripción al cuerpo de la tarjeta
               cardBody.appendChild(cardTitle);
