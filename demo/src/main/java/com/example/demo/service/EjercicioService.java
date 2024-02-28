@@ -5,6 +5,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.example.demo.model.Ejercicio;
+import com.example.demo.model.Usuario;
 import com.example.demo.repository.EjercicioRepository;
 
 @Service
@@ -33,4 +34,6 @@ public class EjercicioService {
     public void delete(long id) {
         repository.deleteById(id);
     }
+
+    
 }

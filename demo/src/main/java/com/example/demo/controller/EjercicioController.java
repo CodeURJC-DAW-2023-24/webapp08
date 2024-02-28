@@ -7,6 +7,7 @@ import com.example.demo.repository.RutinaRepository;
 import com.example.demo.repository.UserRepository;
 import com.example.demo.service.EjercicioService;
 import com.example.demo.service.ImagenService;
+import com.example.demo.service.UserService;
 import com.example.demo.model.Ejercicio;
 import com.example.demo.model.Rutina;
 import com.example.demo.model.Usuario;
@@ -49,6 +50,8 @@ public class EjercicioController implements CommandLineRunner {
 
     @Autowired
     private EjercicioService service;
+    @Autowired
+    private UserService userService;
 
     @Autowired
     private RutinaRepository rutinaRepository;
@@ -128,6 +131,9 @@ public class EjercicioController implements CommandLineRunner {
                 break;
         }
         EjerRutina ejercicio = new EjerRutina(grupo,name,series, peso);
+        String nameUser = request.getUserPrincipal().getName();
+		Usuario usuario = userRepository.findByFirstName(nameUser).orElseThrow();
+        userService.aumentarFrecuencia(usuario,grupo,name);
         ejerRutinaRepository.save(ejercicio);
         rutina.addEjerRutina(ejercicio);
         rutinaRepository.save(rutina);
@@ -150,7 +156,7 @@ public class EjercicioController implements CommandLineRunner {
     @RequestParam MultipartFile image,
     @RequestParam("video") String video, 
     @RequestParam("grp") String grp,
-    Model model, HttpServletRequest request) {
+    Model model, HttpServletRequest request) throws InterruptedException {
 		Optional<Ejercicio> existingExOptional = ejercicioRepository.findByName(name);
 		if (name.isEmpty() || description.isEmpty() || grp.isEmpty()) {
 			model.addAttribute("erroMg", "Rellene todos los campos");
@@ -171,7 +177,6 @@ public class EjercicioController implements CommandLineRunner {
            ejercicio.setVideo(video);
            model.addAttribute("video", video);
         }
-        String rutaImagen = "logo.jpg";
         if (!image.isEmpty()){
             try{
                 byte[] datosImagen = image.getBytes();
@@ -181,13 +186,19 @@ public class EjercicioController implements CommandLineRunner {
             imagen.setContenido(image.getContentType());
             imagen.setName(image.getOriginalFilename());
             imagen.setDatos(datosImagen);
+            imagenService.guardarImagen(imagen);
             ejercicio.setImagen(imagen);
-            rutaImagen = imagen.getName();
             }
             catch (IOException e) {}
         }
         ejercicioRepository.save(ejercicio);
-      
+        Imagen imageN = ejercicio.getImagen();
+		String rutaImagen = "logo.jpg";
+		if(!(imageN == null)){
+			 rutaImagen = imageN.getName();
+			
+		}
+        Thread.sleep(500);
         model.addAttribute("adEx", request.isUserInRole("ADMIN"));
         model.addAttribute("name", name);	
 		model.addAttribute("description",description);
@@ -249,9 +260,9 @@ public class EjercicioController implements CommandLineRunner {
 		String rutaImagen = "logo.jpg";
 		if(!(image == null)){
 			 rutaImagen = image.getName();
-			if(!imagenService.verificarExistenciaImagen(rutaImagen)){
+			/**if(!imagenService.verificarExistenciaImagen(rutaImagen)){
 				imagenService.guardarImagen(image);
-			}
+			}**/
 		}
         model.addAttribute("image", rutaImagen);
         model.addAttribute("adEx", request.isUserInRole("ADMIN"));
@@ -262,24 +273,34 @@ public class EjercicioController implements CommandLineRunner {
 
     
     @GetMapping ("/addEx/{id}")
-	public String addEX(@PathVariable Long id,Model model){
+	public String addEX(@PathVariable Long id,Model model, HttpServletRequest request){
+        String nameUser = request.getUserPrincipal().getName();
+		Usuario usuario = userRepository.findByFirstName(nameUser).orElseThrow();
         List<Ejercicio> pecho = ejercicioRepository.findByGrp("Pecho");
+        pecho = userService.ordenar(usuario,"Pecho",pecho);
         model.addAttribute("pecho", pecho);
         List<Ejercicio> espalda = ejercicioRepository.findByGrp("Espalda");
+        espalda = userService.ordenar(usuario,"Espalda",espalda);
         model.addAttribute("espalda", espalda);
         List<Ejercicio> hombro = ejercicioRepository.findByGrp("Hombro");
+        hombro = userService.ordenar(usuario,"Hombro",hombro);
         model.addAttribute("hombro", hombro);
         List<Ejercicio> biceps = ejercicioRepository.findByGrp("Biceps");
+        biceps = userService.ordenar(usuario,"Biceps",biceps);
         model.addAttribute("biceps", biceps);
         List<Ejercicio> triceps = ejercicioRepository.findByGrp("Triceps");
+        triceps = userService.ordenar(usuario,"Triceps",triceps);
         model.addAttribute("triceps", triceps);
         List<Ejercicio>  inferior = ejercicioRepository.findByGrp("Inferior");
+        inferior = userService.ordenar(usuario,"Inferior",inferior);
         model.addAttribute("inferior", inferior);
         List<Ejercicio> cardio = ejercicioRepository.findByGrp("Cardio");
+        cardio = userService.ordenar(usuario,"Cardio",cardio);
         model.addAttribute("cardio", cardio);
         model.addAttribute("id", id);
 		return "adEjerRutina";
 	}
+
     @GetMapping ("/adRutine")
 	public String adRutine(Model model){
         Rutina rutina = new Rutina();

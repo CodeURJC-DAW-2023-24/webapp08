@@ -81,7 +81,13 @@ public class DatabaseInitializer {
 		ejRepository.save(new Ejercicio("Jalón al pecho con agarre supino", "Ejercicio de entrenamiento de fuerza que se enfoca en el desarrollo de la musculatura de la espalda, especialmente los músculos del dorsal ancho, los trapecios y los romboides.", "Espalda", "https://www.youtube.com/embed/SnLxcN1x3LU?si=INQ8p5xUHCFKEuHQ"));
 		ejRepository.save(new Ejercicio("Curl1", "curl", "Pecho", "0"));
 		ejRepository.save(new Ejercicio("Curl2", "curl", "Cardio", "0"));
+		ejRepository.save(new Ejercicio("Curl2", "curl", "Pecho", "0"));
+		ejRepository.save(new Ejercicio("Curl1", "curl", "Espalda", "0"));
+		ejRepository.save(new Ejercicio("Curl1", "curl", "Triceps", "0"));
+		ejRepository.save(new Ejercicio("Curl1", "curl", "Biceps", "0"));
+		ejRepository.save(new Ejercicio("Curl2", "curl", "Cardio", "0"));
 		ejRepository.save(new Ejercicio("Curl2", "curl", "Inferior", "0"));
+		ejRepository.save(new Ejercicio("Curl1", "curl", "Inferior", "0"));
 		ejRepository.save(new Ejercicio("Curl3", "curl", "Hombro", "0"));
 		ejRepository.save(new Ejercicio("Curl1", "curl", "Hombro", "0"));
 		ejRepository.save(new Ejercicio("Curl2", "curl", "Hombro", "0"));

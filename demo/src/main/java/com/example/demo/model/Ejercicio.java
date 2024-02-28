@@ -22,6 +22,7 @@ public class Ejercicio {
 
 	public void setImagen(Imagen imagen) {
 		this.imagen = imagen;
+     
 	}
 
     public Ejercicio() {}

@@ -1,8 +1,12 @@
 package com.example.demo.model;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.CollectionTable;
+import jakarta.persistence.Column;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
@@ -13,6 +17,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.MapKeyColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 
@@ -40,6 +45,7 @@ public class Usuario {
 
 	public void setImagen(Imagen imagen) {
 		this.imagen = imagen;
+	
 	}
 
 	 public void setId(long id) {
@@ -80,6 +86,59 @@ public class Usuario {
 
 	@OneToMany (cascade = CascadeType.ALL)
 	private List<Rutina> rutinas;
+
+	@ElementCollection(fetch = FetchType.EAGER)
+    private Map<String, Integer> frecuenciaPecho = new HashMap<>();
+	
+	@ElementCollection(fetch = FetchType.EAGER)
+    private Map<String, Integer> frecuenciaHombro = new HashMap<>();
+
+	
+	@ElementCollection(fetch = FetchType.EAGER)
+    private Map<String, Integer> frecuenciaEspalda = new HashMap<>();
+
+	
+	@ElementCollection(fetch = FetchType.EAGER)
+    private Map<String, Integer> frecuenciaBiceps = new HashMap<>();
+
+	
+	@ElementCollection(fetch = FetchType.EAGER)
+    private Map<String, Integer> frecuenciaTriceps = new HashMap<>();
+
+	
+	@ElementCollection(fetch = FetchType.EAGER)
+    private Map<String, Integer> frecuenciaInferior = new HashMap<>();
+
+	
+	@ElementCollection(fetch = FetchType.EAGER)
+    private Map<String, Integer> frecuenciaCardio = new HashMap<>();
+
+	public Map<String, Integer> getFrecuencia(String grupo){
+		switch (grupo) {
+			case "Pecho":
+                return frecuenciaPecho;
+               
+            case "Espalda":
+			return frecuenciaEspalda;
+
+            case "Hombro":
+			return frecuenciaHombro;
+              
+            case "Biceps":
+			return frecuenciaBiceps;
+             
+            case "Triceps":
+			return frecuenciaTriceps;
+          
+            case "Inferior":
+			return frecuenciaInferior;
+               
+            default:
+			return frecuenciaCardio;
+               
+        }
+	}
+	
 
 	public Usuario() {
 		// Used by JPA

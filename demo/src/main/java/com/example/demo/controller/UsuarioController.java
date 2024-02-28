@@ -149,6 +149,7 @@ public class UsuarioController implements CommandLineRunner {
             imagen.setName(imagenFile.getOriginalFilename());
             imagen.setDatos(datosImagen);
 			usuario.setImagen(imagen);
+			imagenService.guardarImagen(imagen);
 			}catch (IOException e) {}
 		}
 			userRepository.save(usuario);
@@ -164,19 +165,18 @@ public class UsuarioController implements CommandLineRunner {
 		return "register";
 	}
 	@GetMapping("/user")
-	public String privatePage(Model model, HttpServletRequest request) {
+	public String privatePage(Model model, HttpServletRequest request) throws InterruptedException {
 		model.addAttribute("search", false);
 		model.addAttribute("adEx", request.isUserInRole("ADMIN"));
 		String name = request.getUserPrincipal().getName();
-		System.out.println(name);
 		Usuario user = userRepository.findByFirstName(name).orElseThrow();
 		Imagen image = user.getImagen();
 		String rutaImagen = "logo.jpg";
 		if(!(image == null)){
 			 rutaImagen = image.getName();
-			if(!imagenService.verificarExistenciaImagen(rutaImagen)){
+			/**if(!imagenService.verificarExistenciaImagen(rutaImagen)){
 				imagenService.guardarImagen(image);
-			}
+			}**/
 		}
 		model.addAttribute("firstName", user.getFirstName());	
 		model.addAttribute("name", user.getName());
@@ -205,7 +205,7 @@ public class UsuarioController implements CommandLineRunner {
 	public String editUser(Model model, @RequestParam String name, @RequestParam String firstName,@RequestParam String
 	            date, @RequestParam Integer
 	             weight ,
-				 @RequestParam MultipartFile image,HttpServletRequest request) {
+				 @RequestParam MultipartFile image,HttpServletRequest request) throws InterruptedException {
 		String nameUser = request.getUserPrincipal().getName();
 		Usuario usuario = userRepository.findByFirstName(nameUser).orElseThrow();
 		usuario.setName(name);
@@ -222,6 +222,7 @@ public class UsuarioController implements CommandLineRunner {
             imagen.setContenido(image.getContentType());
             imagen.setName(image.getOriginalFilename());
             imagen.setDatos(datosImagen);
+			imagenService.guardarImagen(imagen);
 			usuario.setImagen(imagen);
 			}catch (IOException e) {}
 		}
@@ -230,9 +231,7 @@ public class UsuarioController implements CommandLineRunner {
 		String rutaImagen = "logo.jpg";
 		if(!(imageN == null)){
 			 rutaImagen = imageN.getName();
-			if(!imagenService.verificarExistenciaImagen(rutaImagen)){
-				imagenService.guardarImagen(imageN);
-			}
+			
 		}
 		model.addAttribute("firstName", usuario.getFirstName());	
 		model.addAttribute("name", usuario.getName());

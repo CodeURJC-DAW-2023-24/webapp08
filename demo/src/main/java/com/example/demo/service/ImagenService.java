@@ -1,12 +1,14 @@
 package com.example.demo.service;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.concurrent.CountDownLatch;
 
 import javax.sql.rowset.serial.SerialBlob;
 import javax.sql.rowset.serial.SerialException;
@@ -60,14 +62,17 @@ public class ImagenService {
 
     }
     public void guardarImagen(Imagen imagen){
-        String nombreImagen = imagen.getName();
-        String rutaCompleta = Paths.get(RUTA_IMAGENES, nombreImagen).toString();
-
-        try {
-            Files.write(Paths.get(rutaCompleta), imagen.getDatos());
-        } catch (IOException e) {
-
-        }
+      String nombreImagen = imagen.getName();
+    String rutaCompleta = Paths.get(RUTA_IMAGENES, nombreImagen).toString();
+         //CountDownLatch latch = new CountDownLatch(1);
+    try (FileOutputStream fos = new FileOutputStream(rutaCompleta)) {
+        fos.write(imagen.getDatos());
+        fos.flush(); // Forzar la sincronización en el sistema de archivos
+        fos.getFD().sync(); // Forzar la sincronización física del sistema de archivos
+        //latch.countDown();
+    } catch (IOException e) {
+        
+    }
     }
     public boolean verificarExistenciaImagen(String nombreArchivo) {
         Path rutaCompleta = Paths.get(RUTA_IMAGENES, nombreArchivo);
