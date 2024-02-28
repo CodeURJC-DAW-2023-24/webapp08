@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.example.demo.model.Notificacion;
+import com.example.demo.model.EjerRutina;
 import com.example.demo.model.Ejercicio;
 import com.example.demo.model.Imagen;
 import com.example.demo.model.Mensaje;
@@ -35,8 +36,9 @@ import com.example.demo.repository.UserRepository;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -385,5 +387,47 @@ public class UsuarioController implements CommandLineRunner {
        return mensaje;
         
     }
+
+	@GetMapping("/estadisticas")
+	public String estadisticas() {
+		return "progress";
+	}
+	
+	@GetMapping("/cargarGraficas")
+	public @ResponseBody Map<String, Integer>  cargarGraficas(HttpServletRequest request ) {
+		Map<String, Integer> mapa = new HashMap<>();
+		String[] gruposMusculares = {
+			"Pecho",
+			"Espalda",
+			"Bíceps",
+			"Tríceps",
+			"Hombro",
+			"Tren Inferior",
+			"Cardio"
+		};
+		List<String> lista = new ArrayList<>();
+
+		for (int i = 0; i <gruposMusculares.length;i++) {
+			mapa.put(gruposMusculares[i], 0);
+			
+}
+
+		String nameUser = request.getUserPrincipal().getName();
+		Usuario usuario = userRepository.findByFirstName(nameUser).orElseThrow();
+		List<Rutina> lRutinas = usuario.getRutinas();
+
+		for (Rutina rutina : lRutinas) {
+			List<EjerRutina> lEjercicios = rutina.getEjercicios();
+			for (EjerRutina ejercicio : lEjercicios){
+				int indice = Arrays.asList(gruposMusculares).indexOf(ejercicio.getGrupo());
+				int valor = mapa.get(gruposMusculares[indice]);
+				valor += 1;
+				mapa.put(gruposMusculares[indice], valor);
+
+			}
+		}
+		return mapa;
+	}
+	
 	
 }

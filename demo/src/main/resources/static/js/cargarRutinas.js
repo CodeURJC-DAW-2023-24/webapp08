@@ -42,6 +42,7 @@ async function agregarElementosCalendario(rutinas) {
         let fechaRutina = rutina.date; // Suponiendo que el objeto rutina tiene un atributo fecha de tipo Date
         fechaRutina = fechaRutina.split('T')[0];
         fechaRutina = new Date(fechaRutina);
+        fechaRutina.setDate(fechaRutina.getDate() + 1); //por el formato
 
         fechaHoy.setUTCHours(0, 0, 0, 0);
         fechaRutina.setUTCHours(0, 0, 0, 0);

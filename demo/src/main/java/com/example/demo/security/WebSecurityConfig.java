@@ -44,6 +44,7 @@ public class WebSecurityConfig {
 					.requestMatchers("/register").permitAll()
 					.requestMatchers("/css/**").permitAll()
 					.requestMatchers("/error").permitAll()
+					.requestMatchers("/estadisticas").permitAll()
 					.requestMatchers("/images/**").permitAll()
                     .requestMatchers("/newUser").permitAll()
 					.requestMatchers("/muscGr").permitAll()
@@ -58,6 +59,8 @@ public class WebSecurityConfig {
 					.requestMatchers("/cargarAmigos").permitAll()
 					.requestMatchers("/addEjercicioRutina").permitAll()
 					.requestMatchers("/cargarRutinas").permitAll()
+					.requestMatchers("/cargarGraficas").permitAll()
+
 					.requestMatchers("/verRutina").permitAll()
 					.requestMatchers("/enviarComentario").permitAll()
 					.requestMatchers("/user").hasAnyRole("USER")
@@ -69,7 +72,9 @@ public class WebSecurityConfig {
 					.requestMatchers("/group/**").permitAll()					
 					.requestMatchers("/addEx/**").hasAnyRole("USER")
 					.requestMatchers("/addExRutine/**").hasAnyRole("USER")
-					
+					.requestMatchers("/busquedaEx/**").permitAll()
+					.requestMatchers("/busquedaEx").permitAll()
+					.requestMatchers("/exercise/**").permitAll()
 					.requestMatchers("/group").permitAll()
 					.requestMatchers("/group/pecho").permitAll()
 					.requestMatchers("/group/triceps").permitAll()
@@ -85,6 +90,9 @@ public class WebSecurityConfig {
 					.requestMatchers("/group/cardio/**").permitAll()
 					.requestMatchers("/group/inferior/**").permitAll()
 					.requestMatchers("/group/hombro/**").permitAll()
+					.requestMatchers("/pdf/download/**").permitAll()
+					.requestMatchers("/pdf**").permitAll()
+				
 			)
 			.formLogin(formLogin -> formLogin
 					.loginPage("/index")

@@ -11,7 +11,7 @@
   <meta name="keywords" content="" />
   <meta name="description" content="" />
   <meta name="author" content="" />
-  
+
 
   <title>Rutine </title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
@@ -19,125 +19,144 @@
   <link rel="stylesheet" type="text/css" href="/css/bootstrap.css" />
 
   <!-- fonts style -->
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700|Poppins:400,600,700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700|Poppins:400,600,700&display=swap"
+    rel="stylesheet" />
 
   <!-- Custom styles for this template -->
   <link href="/css/style.css" rel="stylesheet" />
   <!-- responsive style -->
   <link href="/css/responsive.css" rel="stylesheet" />
 
- 
+
 </head>
 
 <body class="sub_page">
- 
-  
- {{>header}}
+
+
+  {{>header}}
 
 
   <!-- team section -->
 
   <section class="team_section layout_padding">
+    <div class="row">
+      <div class="col-md-11"></div>
+      <div class="col-md-1">
+        <div class="downL">
+          <a href="/pdf/download/{{date}}/{{id}}">
+            <!-- Icono de lupa de Bootstrap -->
+            <button  class="btn" type="button" id="generarPDFButton">
+              <i class="bi bi-download"></i>
+            </button>
+          </a>
+        </div>
+      </div>
+      
+    </div>
     <div class="container">
       <div class="heading_container heading_left">
         <h2>
           RUTINA COMPLETA
         </h2>
-        
+
       </div>
+    
       <div class="row">
         <div class="col-md-4 col-sm-6 mx-auto ">
-            <div class="perfil-container" >
-             <img name="rutaImagen" src="/images/{{rutaImagen}}" class="rutine-image"> 
+          <div class="perfil-container">
+            <img name="rutaImagen" src="/images/{{rutaImagen}}" class="rutine-image">
 
-                <div>
-                  <p name="firstName"><b>{{firstName}}</b></p>
-                  <p name="name">{{nameUser}}</p>
-                  <p name="date">{{date}}</p>
+            <div>
+              <p name="firstName"><b>{{firstName}}</b></p>
+              <p name="name">{{nameUser}}</p>
+              <p name="date" id="dateR">{{date}}</p>
+            </div>
+          </div>
+          <section class="comentarios">
+            <div class="container">
+              <div class="row">
+                <div class="col-md-1"></div>
+                <div class="col-md-10">
+                  <h1>Comentarios</h1>
+                  <div id="container-mensajes" class="mensajes">
+                    {{#mensajes}}
+                    <div class="coment">
+                      <p><b>{{nombre}}</b></p>
+                      <p>{{contenido}}</p>
+                    </div>
+                    {{/mensajes}}
+                  </div>
                 </div>
-              </div>
-              <section class="comentarios" >
-                <div class="container">
-                  <div class="row">
-                    <div class="col-md-1"></div>
-                    <div class="col-md-10">
-                      <h1>Comentarios</h1>
-                      <div id="container-mensajes" class="mensajes">
-                        {{#mensajes}}
-                      <div class="coment">
-                        <p><b>{{nombre}}</b></p>
-                        <p>{{contenido}}</p>
+                <div class="col-md-1"></div>
+                <div class="row">
+
+                  <div class="col-md-10">
+
+                    <div class="info_form ">
+
+                      <div style="display: flex; margin: auto; flex-wrap: nowrap;">
+                        <input id="comentario" name="comentario" type="text" placeholder="Añade un comentario...">
+                        <button type="submit" onclick="enviarComentario()">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                            class="bi bi-send-fill" viewBox="0 0 16 16">
+                            <path
+                              d="M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855H.766l-.452.18a.5.5 0 0 0-.082.887l.41.26.001.002 4.995 3.178 3.178 4.995.002.002.26.41a.5.5 0 0 0 .886-.083zm-1.833 1.89L6.637 10.07l-.215-.338a.5.5 0 0 0-.154-.154l-.338-.215 7.494-7.494 1.178-.471z" />
+                          </svg>
+                        </button>
+                        <input type="hidden" id="id" name="id" value="{{id}}" />
+
                       </div>
-                     {{/mensajes}}
-                    </div>
-                    </div>
-                      <div class="col-md-1"></div>
-                      <div class="row">
-  
-                        <div class="col-md-10">
-                   
-                      <div class="info_form ">
-                        
-                        <div  style="display: flex; margin: auto; flex-wrap: nowrap;">
-                          <input id="comentario"  name="comentario" type="text" placeholder="Añade un comentario...">
-                          <button type="submit" onclick="enviarComentario()">
-                              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-send-fill" viewBox="0 0 16 16">
-                                  <path d="M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855H.766l-.452.18a.5.5 0 0 0-.082.887l.41.26.001.002 4.995 3.178 3.178 4.995.002.002.26.41a.5.5 0 0 0 .886-.083zm-1.833 1.89L6.637 10.07l-.215-.338a.5.5 0 0 0-.154-.154l-.338-.215 7.494-7.494 1.178-.471z"/>
-                              </svg>
-                          </button>
-                          <input type="hidden" id="id" name="id" value="{{id}}" />
-                        
-                        </div>
-                      
-                     
-                      
-                       
-                      </div>
+
+
+
+
                     </div>
                   </div>
                 </div>
-              </section>
-            
+              </div>
+          </section>
+
         </div>
         <div class="col-md-7 mx-auto">
-            <table >
-                <thead>
-                    <tr>
-                        <th colspan="4" class="titulo">{{rutName}}</th>
-                      </tr>
-                  <tr>
-                    
-                    <th > Ejercicio</th>
-                    <th>Series x Repetición</th>
-                    <th>Peso</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {{#ejercicios}}
-                  <tr>
-                    <td>{{ejercicio}}</td>
-                    <td>{{series}}</td>
-                    <td>{{peso}} kg</td>
-                  </tr>
-                  {{/ejercicios}}
-                  
-                  <!-- Puedes agregar más filas según sea necesario -->
-                </tbody>
-              </table>
-            
+          <table>
+            <thead>
+              <tr>
+                <th colspan="4" class="titulo">{{rutName}}</th>
+              </tr>
+              <tr>
+
+                <th> Ejercicio</th>
+                <th>Series x Repetición</th>
+                <th>Peso</th>
+              </tr>
+            </thead>
+            <tbody>
+              {{#ejercicios}}
+              <tr>
+                <td>{{ejercicio}}</td>
+                <td>{{series}}</td>
+                <td>{{peso}} kg</td>
+              </tr>
+              {{/ejercicios}}
+
+              <!-- Puedes agregar más filas según sea necesario -->
+            </tbody>
+          </table>
+
   </section>
-  
 
 
 
 
- 
+
+
 
 
   <script src="js/jquery-3.4.1.min.js"></script>
   <script src="js/bootstrap.js"></script>
   <script src="js/custom.js"></script>
   <script src="/js/comentarios.js"> </script>
+
 </body>
 
 </html>

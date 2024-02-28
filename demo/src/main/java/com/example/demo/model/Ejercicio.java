@@ -15,6 +15,8 @@ public class Ejercicio {
     private String description;
     @OneToOne(cascade = CascadeType.ALL)
 	private Imagen imagen;
+    private boolean tieneImagen;
+    private String ruta;
 
 	public Imagen getImagen() {
 		return imagen;
@@ -23,6 +25,21 @@ public class Ejercicio {
 	public void setImagen(Imagen imagen) {
 		this.imagen = imagen;
      
+	}
+
+    public boolean getTieneImagen() {
+		return tieneImagen;
+	}
+
+	public void setTieneImagen(boolean tieneImagen) {
+		this.tieneImagen = tieneImagen;
+	}
+    public String getRuta() {
+		return ruta;
+	}
+
+	public void setRuta(String ruta) {
+		this.ruta = ruta;
 	}
 
     public Ejercicio() {}

@@ -562,6 +562,20 @@ td {
   /* Establece el color de fondo al mismo color que el estado normal */
   color: var(--color-text-buttons);
 }
+.downL button {
+  background-color: white;
+  color: black;
+  height: 40px;
+  border-radius: 5px;
+  margin-left: 25px;
+
+}
+
+.downL button:hover {
+  background-color: var(--color-yellow);
+  /* Establece el color de fondo al mismo color que el estado normal */
+  color: var(--color-text-buttons);
+}
 
 
 .search button:hover {
@@ -621,6 +635,42 @@ td {
   width: 220px;
   height: 170px;
 }
+.overlay-container {
+  display: none; /* Inicialmente oculto */
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%; /* Cubre todo el ancho del contenedor padre */
+    height: 50%; /* Cubre todo el alto del contenedor padre */
+    margin-top: 100px;
+    z-index: 999; /* Z-index para que el overlay esté por encima de los elementos vecinos */
+}
+
+
+.ulEl {
+  position: relative;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.912);/* Color de fondo semi-transparente */
+  z-index: 999; /* Z-index para que el overlay esté por encima del contenido */
+  border: 3px solid black;
+  list-style-type: none; /* Quita los puntos de la lista */
+}
+
+.overlay-container .overlay li a {
+  color: rgb(30, 26, 26); /* Establecer color de texto blanco */
+  font-family: fantasy;
+  
+}
+.overlay-container .overlay li a:hover {
+  color:#f1db25;
+  text-decoration-line: none;
+
+}
+
+
 .aEx{
   color: black;
 }
