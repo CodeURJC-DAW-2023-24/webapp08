@@ -87,6 +87,9 @@ public class WebSecurityConfig {
 					.requestMatchers("/group/cardio/**").permitAll()
 					.requestMatchers("/group/inferior/**").permitAll()
 					.requestMatchers("/group/hombro/**").permitAll()
+					.requestMatchers("/pdf/download/**").permitAll()
+					.requestMatchers("/pdf**").permitAll()
+				
 			)
 			.formLogin(formLogin -> formLogin
 					.loginPage("/index")

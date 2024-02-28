@@ -562,6 +562,20 @@ td {
   /* Establece el color de fondo al mismo color que el estado normal */
   color: var(--color-text-buttons);
 }
+.downL button {
+  background-color: white;
+  color: black;
+  height: 40px;
+  border-radius: 5px;
+  margin-left: 25px;
+
+}
+
+.downL button:hover {
+  background-color: var(--color-yellow);
+  /* Establece el color de fondo al mismo color que el estado normal */
+  color: var(--color-text-buttons);
+}
 
 
 .search button:hover {
