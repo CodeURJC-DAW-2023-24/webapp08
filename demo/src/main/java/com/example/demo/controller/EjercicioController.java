@@ -310,14 +310,27 @@ public class EjercicioController implements CommandLineRunner {
 		return "adEjerRutina";
 	}
 
-    @GetMapping ("/adRutine")
-	public String adRutine(Model model){
+    @SuppressWarnings("null")
+    @GetMapping ("/cancel/{id}")
+	public String adRutine(@PathVariable Long id,Model model){
+        Rutina rutina = rutinaRepository.findById(id).orElseThrow();
+        rutinaRepository.delete(rutina);
+        return "redirect:/main";
+    }
+    @GetMapping ("adRutine")
+	public String cancelRutine(Model model){
         Rutina rutina = new Rutina();
         rutinaRepository.save(rutina);
         model.addAttribute("id", rutina.getId());
         return "adRutine";
     }
-
+    @GetMapping ("/rutine/{id}")
+	public String rutine(@PathVariable Long id,Model model){
+        Rutina rutina = rutinaRepository.findById(id).orElseThrow();;
+        rutinaRepository.save(rutina);
+        model.addAttribute("id", id);
+        return "adRutine";
+    }
     @GetMapping("/busquedaEx")
 	public @ResponseBody List<String[]> getNombres(@RequestParam  String nombre,HttpServletRequest request) {
        

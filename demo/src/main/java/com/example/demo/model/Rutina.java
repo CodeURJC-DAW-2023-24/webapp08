@@ -23,7 +23,7 @@ public class Rutina {
     @OneToMany (cascade = CascadeType.ALL)
     private List<Mensaje> mensajes;
     
-    @OneToMany
+    @OneToMany (cascade = CascadeType.ALL)
     private List<EjerRutina> ejercicios;
     
     public void addEjerRutina(EjerRutina ejerRutina){
