@@ -94,7 +94,7 @@ public class WebSecurityConfig {
 					.requestMatchers("/group/hombro/**").permitAll()
 					.requestMatchers("/pdf/download/**").permitAll()
 					.requestMatchers("/pdf**").permitAll()
-				
+					.requestMatchers("/deleteEx/**").permitAll()
 			)
 			.formLogin(formLogin -> formLogin
 					.loginPage("/index")

@@ -51,7 +51,7 @@ public class EjercicioController implements CommandLineRunner {
     private EjercicioRepository ejercicioRepository;
 
     @Autowired
-    private EjercicioService service;
+    private EjercicioService EjService;
     @Autowired
     private UserService userService;
 
@@ -275,6 +275,7 @@ public class EjercicioController implements CommandLineRunner {
 		}
         model.addAttribute("image", rutaImagen);
         model.addAttribute("adEx", request.isUserInRole("ADMIN"));
+        model.addAttribute("id", id);
         return "details";
     }
 
@@ -362,6 +363,13 @@ public class EjercicioController implements CommandLineRunner {
         model.addAttribute("adEx", request.isUserInRole("ADMIN"));
         return "details";
     }
+
+    @GetMapping("/deleteEx/{id}")
+    public String deleteEx(@PathVariable Long id) {
+        EjService.delete(id);
+        return "muscleGroup";
+    }
+    
     
 
 }

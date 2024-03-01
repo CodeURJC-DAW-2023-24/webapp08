@@ -123,17 +123,20 @@ public class UsuarioController implements CommandLineRunner {
 	@RequestParam("image") MultipartFile imagenFile,HttpSession session, Model model) {
 		Optional<Usuario> existingUserOptional = userRepository.findByFirstName(firstName);
 		if (name.isEmpty() || firstName.isEmpty() || date.isEmpty() || password.isEmpty() || password1.isEmpty()) {
+			model.addAttribute("message",true);
 			model.addAttribute("erroMg", "Rellene todos los campos");
 			return "error";
 		}
 
 		if (!password.equals(password1)) {
 			// Manejar el error de contraseñas que no coinciden
+			model.addAttribute("message",true);
 			model.addAttribute("erroMg", "Las contraseñas no coinciden");
 			return "error";
 		}
 
 		if (existingUserOptional.isPresent()) {
+			model.addAttribute("message",true);
 			// Si se encuentra un usuario con el mismo primer nombre, regresar un error
 			model.addAttribute("erroMg", "El usuario ya existe");
 			return "error";
@@ -202,7 +205,7 @@ public class UsuarioController implements CommandLineRunner {
 	public String exForm(){
 		return "exFormAd";
 	}
-	
+
 	
 	
 	@PostMapping("/editUser")
@@ -431,6 +434,9 @@ public class UsuarioController implements CommandLineRunner {
 		}
 		return mapa;
 	}
+
+	
+	
 	
 	
 }

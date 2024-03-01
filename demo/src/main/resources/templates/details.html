@@ -32,6 +32,21 @@
 <body class="sub_page">
     {{>header}}
     <section class="team_section layout_padding_exercise">
+        {{#adEx}}
+        <div class="row">
+            <div class="col-md-11"></div>
+            <div class="col-md-1">
+              <div class="downL">
+                <a href="/deleteEx/{{id}}">
+                  <!-- Icono de lupa de Bootstrap -->
+                  <button  class="btn" type="button" id="generarPDFButton">
+                    <i class="bi bi-trash"></i>
+                  </button>
+                </a>
+              </div>
+            </div>
+          </div>
+        {{/adEx}}
         <div class="container">
             <div class="heading_container heading_left">
                 <h2>
@@ -67,21 +82,22 @@
                     </div>
                 </div>
             </div>
-        
-        {{#ExVideo}}
-        <div class="videoS">
-            <div class="heading_container heading_left">
-                <h2>
-                    Vídeo de ayuda
-                </h2>
-                <div class="video-center">
-                    <iframe width="560" height="315" src="{{video}}" title="YouTube video player" frameborder="0"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                        allowfullscreen></iframe>
+
+            {{#ExVideo}}
+            <div class="videoS">
+                <div class="heading_container heading_left">
+                    <h2>
+                        Vídeo de ayuda
+                    </h2>
+                    <div class="video-center">
+                        <iframe width="560" height="315" src="{{video}}" title="YouTube video player" frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            allowfullscreen></iframe>
+                    </div>
                 </div>
             </div>
+            {{/ExVideo}}
         </div>
-        {{/ExVideo}}</div>
         </div>
 
     </section>
