@@ -18,7 +18,7 @@ public class Novedad {
 	private long id;
 	private String name;
 	
-	@OneToOne (cascade = CascadeType.ALL)
+	@OneToOne
 	private Rutina rutina;
 
 

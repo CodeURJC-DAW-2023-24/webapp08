@@ -60,7 +60,7 @@ public class WebSecurityConfig {
 					.requestMatchers("/addEjercicioRutina").permitAll()
 					.requestMatchers("/cargarRutinas").permitAll()
 					.requestMatchers("/cargarGraficas").permitAll()
-
+					.requestMatchers("/deleteUser").permitAll()
 					.requestMatchers("/verRutina").permitAll()
 					.requestMatchers("/enviarComentario").permitAll()
 					.requestMatchers("/user").hasAnyRole("USER")
@@ -112,6 +112,9 @@ public class WebSecurityConfig {
 		http.csrf(csrf -> csrf.ignoringRequestMatchers("/procesarSolicitud"));
 		http.csrf(csrf -> csrf.ignoringRequestMatchers("/add"));
 		http.csrf(csrf -> csrf.ignoringRequestMatchers("/enviarComentario"));
+		http.csrf(csrf -> csrf.ignoringRequestMatchers("/deleteUser"));
+
+		
 		return http.build();
 		
 	}

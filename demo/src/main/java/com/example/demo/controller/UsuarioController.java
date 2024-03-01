@@ -276,14 +276,18 @@ public class UsuarioController implements CommandLineRunner {
 	
 
 	@GetMapping("/busqueda")
-	public @ResponseBody List<String[]> getNombres(@RequestParam  String nombre,HttpServletRequest request) {
+	public @ResponseBody Map<String, Object> getNombres(@RequestParam  String nombre,HttpServletRequest request) {
 		String nameUser = request.getUserPrincipal().getName();
     Usuario user = userRepository.findByFirstName(nameUser).orElseThrow();
-
+	Boolean bAdmin = request.isUserInRole("ADMIN");
     
     List<String[]> lNameId = userRepository.getIdandFirstName(nombre, user.getId());
 
-    return lNameId;
+	Map<String, Object> response = new HashMap<>();
+    response.put("lNameId", lNameId);
+	response.put("bAdmin", bAdmin);
+
+    return response;
 	}
 
 	@PostMapping("/sendSolicitud") //Ns si la solicitud fetch es un post o un get
@@ -298,6 +302,34 @@ public class UsuarioController implements CommandLineRunner {
 	return 	true;
 	}
 
+	@PostMapping("/deleteUser") //Ns si la solicitud fetch es un post o un get
+	public @ResponseBody Boolean  deleteUser(@RequestParam Long id){
+	Usuario usuario = userRepository.findById(id).orElseThrow();
+	List<Rutina> lrutinas =usuario.getRutinas();
+	for (Rutina rutina: lrutinas) {
+		List<Usuario> lUsuarios = usuario.getAmigos();
+		Optional<Novedad> novedad = novedadRepository.findByrutina(rutina);
+
+		for (Usuario amigo:lUsuarios) {	
+		if (novedad.isPresent()){
+			amigo.getNovedades().remove(novedad.get());
+			amigo.getAmigos().remove(usuario);
+			userRepository.save(amigo);
+			//no se si es necesaria pero no tengo fuerzas para comprobarlo
+			}
+	}
+	
+	if (novedad.isPresent()){
+			novedadRepository.delete(novedad.get());
+		}	
+	}
+
+	usuario.getAmigos().clear(); // Eliminar todos los amigos del usuario
+	userRepository.save(usuario); // Guardar los cambios en el repositorio
+
+	userRepository.deleteById(id);
+	return true;
+	}
 	@GetMapping("/notificaciones")
 	public @ResponseBody List<Notificacion> getNotificaciones(HttpServletRequest request) {
 		String nameUser = request.getUserPrincipal().getName();

@@ -93,6 +93,7 @@ public class EjercicioController implements CommandLineRunner {
         userRepository.save(usuario); 
         
         List<Usuario> lAmigos = usuario.getAmigos();
+        if (!lAmigos.isEmpty()){
         Novedad novedad = new Novedad(nameUser);
         novedad.setRutina(rutina);
         novedadRepository.save(novedad);
@@ -100,7 +101,7 @@ public class EjercicioController implements CommandLineRunner {
             amigo.getNovedades().add(novedad);
             userRepository.save(amigo);
         }
-       
+    }
 
         return "redirect:/main";
     }
@@ -318,7 +319,7 @@ public class EjercicioController implements CommandLineRunner {
         rutinaRepository.delete(rutina);
         return "redirect:/main";
     }
-    @GetMapping ("adRutine")
+    @GetMapping ("/adRutine")
 	public String cancelRutine(Model model){
         Rutina rutina = new Rutina();
         rutinaRepository.save(rutina);

@@ -61,9 +61,7 @@ public class DatabaseInitializer {
 	public void init() throws SerialException, SQLException {
 		//Sample novedades
 		
-		for (int i=0; i< 22; i++){
-		novedadRepository.save(new Novedad("Descripción: "+ i));
-		}
+		
 		
 		// Sample users
 

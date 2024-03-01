@@ -1,11 +1,15 @@
 async function buscar(nombre) {
     var friendContainer = document.getElementById("friend-container");
     friendContainer.innerHTML="";
+    friendContainer.style.color = "black";
+    friendContainer.style.fontSize = "20px"; // Tamaño de fuente de 20 píxeles
 
     if (nombre.trim() !== "") {
     const response = await fetch(`/busqueda?nombre=${nombre}`);
-    let nombres = await response.json();
-    agregarElementosAlContenidoPrincipal(nombres)
+    let data = await response.json();
+    let nombres = data.lNameId;
+    let admin = data.bAdmin;
+    agregarElementosAlContenidoPrincipal(nombres,admin)
 
     }
 
@@ -16,7 +20,7 @@ function buscarValorInput() {
     buscar(valorInput);
 }
 
-function agregarElementosAlContenidoPrincipal(nombres) {
+function agregarElementosAlContenidoPrincipal(nombres,admin) {
 
 var friendContainer = document.getElementById("friend-container");
 
@@ -38,14 +42,52 @@ ulElement.classList.add("friend-list");
         enviarSolicitud(nombres[i][0]);
     }); //Enviar solicitud al otro usuario se resume en añadirle una notificación enviarSolicitud(nombres[i][0])
 
+    
     //liElement.appendChild(textNode);
-    liElement.appendChild(buttonElement);
+   
+    var buttonContainer = document.createElement("div");
+    buttonContainer.appendChild(buttonElement);
+
+    if (admin){
+        var deleteButton = document.createElement("button");
+        deleteButton.classList.add("btn", "btn-danger", "btn-sm", "ml-2");
+        deleteButton.innerHTML = '<i class="bi bi-trash"></i>'; // Símbolo de eliminar usuario
+        buttonContainer.appendChild(deleteButton);
+
+        // Añadir evento de clic al botón
+        deleteButton.addEventListener("click", function() {
+            // Aquí puedes agregar la lógica para eliminar el usuario
+            deleteUser(nombres[i][0]);
+
+        });
+    }
+        liElement.appendChild(buttonContainer);
+
+       // liElement.appendChild(buttonElement);
+        //liElement.appendChild(deleteButton);
+    
 
     ulElement.appendChild(liElement);
 }
 
 friendContainer.appendChild(ulElement);
 
+}
+
+async function deleteUser(id){
+    const response = await fetch(`/deleteUser?id=${id}`,{
+        method: 'POST'
+      });
+
+      let nombres = await response.json();
+      if (nombres==true) {
+          var friendContainer = document.getElementById("friend-container");
+          friendContainer.innerHTML="Usuario eliminado con exito";
+          friendContainer.style.fontSize = "30px"; // Tamaño de fuente de 20 píxeles
+          friendContainer.style.color = "crimson";
+      }
+  
+  
 }
 
 async function enviarSolicitud(id) { //Ns xq no se pone el tipo del parámetro recibido
@@ -57,10 +99,11 @@ async function enviarSolicitud(id) { //Ns xq no se pone el tipo del parámetro r
     if (nombres==true) {
         var friendContainer = document.getElementById("friend-container");
         friendContainer.innerHTML="Solicitud Mandada con Exito";
+        friendContainer.style.fontSize = "30px"; // Tamaño de fuente de 20 píxeles
+        friendContainer.style.color = "limegreen";
     }
 
 }
-
 
 async function cargarAmigos(){
     const response = await fetch("/cargarAmigos");
