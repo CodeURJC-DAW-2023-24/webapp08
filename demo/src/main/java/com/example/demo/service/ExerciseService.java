@@ -9,7 +9,7 @@ import com.example.demo.model.Exercise;
 import com.example.demo.repository.ExerciseRepository;
 
 @Service
-public class EjercicioService {
+public class ExerciseService {
 
     @Autowired
     private ExerciseRepository repository;

@@ -12,7 +12,7 @@ import com.example.demo.model.Person;
 import com.example.demo.repository.PersonRepository;
 
 @Service
-public class UserService {
+public class PersonService {
 
 	@Autowired
 	private PersonRepository repository;

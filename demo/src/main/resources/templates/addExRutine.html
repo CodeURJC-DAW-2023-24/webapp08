@@ -31,8 +31,8 @@
           <form role="form" class="formAd" action="/addExRutine/{{id}}" method="post">
             
             <div class="form-group">
-              <label for="grupo">Grupo muscular </label>
-              <select class="form-select form-control" id="grupo" name="grupo" onchange="changeEx()">
+              <label for="grp">Grupo muscular </label>
+              <select class="form-select form-control" id="grp" name="grp" onchange="changeEx()">
                   <option>Pecho</option>
                   <option>Espalda</option>
                   <option>Hombro</option>
@@ -44,28 +44,28 @@
           </div>
           <div class="form-group">
             <label for="nombre">Nombre del ejercicio:</label>
-              <select class="form-select form-control" id="Pecho" name="pecho">
-                  {{#pecho}}
+              <select class="form-select form-control" id="chest" name="chest">
+                  {{#chest}}
                   <option>{{name}}</option>
-                  {{/pecho}}
+                  {{/chest}}
                   
               </select>
         </div>
         <div class="form-group">
          
-            <select class="form-select form-control" id="Espalda" name="espalda" style="display: none;">
-                {{#espalda}}
+            <select class="form-select form-control" id="back" name="back" style="display: none;">
+                {{#back}}
                 <option>{{name}}</option>
-                {{/espalda}}
+                {{/back}}
                 
             </select>
       </div>
       <div class="form-group">
         
-          <select class="form-select form-control" id="Hombro" name="hombro" style="display: none;">
-              {{#hombro}}
+          <select class="form-select form-control" id="shoulder" name="shoulder" style="display: none;">
+              {{#shoulder}}
               <option>{{name}}</option>
-              {{/hombro}}
+              {{/shoulder}}
               
           </select>
     </div>
@@ -89,10 +89,10 @@
 </div>
 <div class="form-group">
  
-    <select class="form-select form-control" id="Inferior" name="inferior" style="display: none;">
-        {{#inferior}}
+    <select class="form-select form-control" id="lower" name="lower" style="display: none;">
+        {{#lower}}
         <option>{{name}}</option>
-        {{/inferior}}
+        {{/lower}}
         
     </select>
 </div>
@@ -111,8 +111,8 @@
         </div>
 
         <div class="form-group">
-          <label for="peso">Peso:</label>
-          <input type="peso" class="form-control" id="peso" name="peso" placeholder="Introduce el peso en Kg">
+          <label for="weight">Peso:</label>
+          <input  class="form-control" id="weight" name="weight" placeholder="Introduce el peso en Kg">
       </div>
               <div class="btn-box"  >
                 <button class="btnS" type="submit">

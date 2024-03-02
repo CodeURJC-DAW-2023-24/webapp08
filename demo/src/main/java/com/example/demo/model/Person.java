@@ -51,30 +51,30 @@ public class Person {
 	private Picture imagen;
 
     @ElementCollection(fetch = FetchType.EAGER)
-    private Map<String, Integer> frecuenciaPecho = new HashMap<>();
+    private Map<String, Integer> chestFrec = new HashMap<>();
 	
 	@ElementCollection(fetch = FetchType.EAGER)
-    private Map<String, Integer> frecuenciaHombro = new HashMap<>();
+    private Map<String, Integer> shoulderFrec = new HashMap<>();
 
 	
 	@ElementCollection(fetch = FetchType.EAGER)
-    private Map<String, Integer> frecuenciaEspalda = new HashMap<>();
+    private Map<String, Integer> backFrec = new HashMap<>();
 
 	
 	@ElementCollection(fetch = FetchType.EAGER)
-    private Map<String, Integer> frecuenciaBiceps = new HashMap<>();
+    private Map<String, Integer> bicepsFrec = new HashMap<>();
 
 	
 	@ElementCollection(fetch = FetchType.EAGER)
-    private Map<String, Integer> frecuenciaTriceps = new HashMap<>();
+    private Map<String, Integer> tricepsFrec = new HashMap<>();
 
 	
 	@ElementCollection(fetch = FetchType.EAGER)
-    private Map<String, Integer> frecuenciaInferior = new HashMap<>();
+    private Map<String, Integer> lowerFrec = new HashMap<>();
 
 	
 	@ElementCollection(fetch = FetchType.EAGER)
-    private Map<String, Integer> frecuenciaCardio = new HashMap<>();
+    private Map<String, Integer> cardioFrec = new HashMap<>();
 
 	protected Person() {
 		// Used by JPA
@@ -90,28 +90,28 @@ public class Person {
 		this.roles = List.of(roles);
 	}
 
-	public Map<String, Integer> getFrecuencia(String grupo){
-		switch (grupo) {
+	public Map<String, Integer> getFrecuencia(String grp){
+		switch (grp) {
 			case "Pecho":
-                return frecuenciaPecho;
+                return chestFrec;
                
             case "Espalda":
-			return frecuenciaEspalda;
+			return backFrec;
 
             case "Hombro":
-			return frecuenciaHombro;
+			return shoulderFrec;
               
             case "Biceps":
-			return frecuenciaBiceps;
+			return bicepsFrec;
              
             case "Triceps":
-			return frecuenciaTriceps;
+			return tricepsFrec;
           
             case "Inferior":
-			return frecuenciaInferior;
+			return lowerFrec;
                
             default:
-			return frecuenciaCardio;
+			return cardioFrec;
                
         }
 	}

@@ -18,7 +18,7 @@ import com.example.demo.model.Picture;
 import com.example.demo.repository.PictureRepository;
 
 @Service
-public class ImagenService {
+public class PictureService {
 
     @Autowired
     private PictureRepository imagenRepository;

@@ -77,19 +77,15 @@ public class Rutine {
         this.time = time;
     }
 
-    public List<Comment> getMensajes() {
+    public List<Comment> getMessages() {
         return lMessages;
     }
 
-    public void setMensajes(List<Comment> lMessages) {
+    public void setMessages(List<Comment> lMessages) {
         this.lMessages = lMessages;
     }
 
-    public List<Comment> getlMessages() {
-        return lMessages;
-    }
+    
 
-    public void setlMessages(List<Comment> lMessages) {
-        this.lMessages = lMessages;
-    }
+    
 }

@@ -70,12 +70,12 @@
                 <div class="col-md-10">
                   <h1>Comentarios</h1>
                   <div id="container-messages" class="message">
-                    {{#mensajes}}
+                    {{#messages}}
                     <div class="coment">
                       <p><b>{{name}}</b></p>
                       <p>{{content}}</p>
                     </div>
-                    {{/mensajes}}
+                    {{/messages}}
                   </div>
                 </div>
                 <div class="col-md-1"></div>
@@ -109,7 +109,7 @@
           <table>
             <thead>
               <tr>
-                <th colspan="4" class="title">{{rutName}}</th>
+                <th colspan="4" class="title">{{pathName}}</th>
               </tr>
               <tr>
 
@@ -119,13 +119,13 @@
               </tr>
             </thead>
             <tbody>
-              {{#ejercicios}}
+              {{#exercises}}
               <tr>
                 <td>{{exercise}}</td>
                 <td>{{series}}</td>
                 <td>{{weight}} kg</td>
               </tr>
-              {{/ejercicios}}
+              {{/exercises}}
 
             </tbody>
           </table>

@@ -70,7 +70,7 @@ public class WebSecurityConfig {
 					.requestMatchers("/deleteUser").hasAnyRole("USER")
 					.requestMatchers("/showRutine").hasAnyRole("USER")
 					.requestMatchers("/sendComment").hasAnyRole("USER")
-					.requestMatchers("/user").hasAnyRole("USER")
+					.requestMatchers("/person").hasAnyRole("USER")
 					.requestMatchers("/editUser").hasAnyRole("USER")
 					.requestMatchers("/add/**").hasAnyRole("USER")
 					.requestMatchers("/adRutine").hasAnyRole("USER")

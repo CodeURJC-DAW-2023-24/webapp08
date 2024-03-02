@@ -5,9 +5,9 @@ import com.example.demo.repository.ExerciseRepository;
 import com.example.demo.repository.NewsRepository;
 import com.example.demo.repository.RutineRepository;
 import com.example.demo.repository.PersonRepository;
-import com.example.demo.service.EjercicioService;
-import com.example.demo.service.ImagenService;
-import com.example.demo.service.UserService;
+import com.example.demo.service.ExerciseService;
+import com.example.demo.service.PictureService;
+import com.example.demo.service.PersonService;
 import com.example.demo.model.Exercise;
 import com.example.demo.model.Rutine;
 import com.example.demo.model.Person;
@@ -39,16 +39,16 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Controller
 public class ExerciseController implements CommandLineRunner {
     @Autowired
-    private ImagenService imageService;
+    private PictureService imageService;
 
     @Autowired
     private ExerciseRepository exRepository;
 
     @Autowired
-    private EjercicioService exService;
+    private ExerciseService exService;
 
     @Autowired
-    private UserService userService;
+    private PersonService userService;
 
     @Autowired
     private RutineRepository rutineRepository;
@@ -103,22 +103,22 @@ public class ExerciseController implements CommandLineRunner {
 
     @PostMapping("/addExRutine/{id}")
     public String addExRutine(@PathVariable Long id,
-            @RequestParam("grupo") String grupo,
-            @RequestParam("pecho") String chest,
-            @RequestParam("espalda") String back,
-            @RequestParam("hombro") String shoulder,
+            @RequestParam("grp") String grp,
+            @RequestParam("chest") String chest,
+            @RequestParam("back") String back,
+            @RequestParam("shoulder") String shoulder,
             @RequestParam("biceps") String biceps,
             @RequestParam("triceps") String triceps,
-            @RequestParam("inferior") String lower,
+            @RequestParam("lower") String lower,
             @RequestParam("cardio") String cardio,
             @RequestParam("series") String series,
-            @RequestParam("peso") Integer peso, HttpServletRequest request, Model model) {
+            @RequestParam("weight") Integer weight, HttpServletRequest request, Model model) {
 
         if (series == null)
             return "error";
         Rutine rutine = rutineRepository.findById(id).orElseThrow();
         String name = " ";
-        switch (grupo) {
+        switch (grp) {
             case "Pecho":
                 name = chest;
                 break;
@@ -141,10 +141,10 @@ public class ExerciseController implements CommandLineRunner {
                 name = cardio;
                 break;
         }
-        ExRutine exercise = new ExRutine(grupo, name, series, peso);
+        ExRutine exercise = new ExRutine(grp, name, series, weight);
         String nameUser = request.getUserPrincipal().getName();
         Person user = userRepository.findByFirstName(nameUser).orElseThrow();
-        userService.increaseFreq(user, grupo, name);
+        userService.increaseFreq(user, grp, name);
         exRutineRepository.save(exercise);
         rutine.addExRutine(exercise);
         rutineRepository.save(rutine);
@@ -152,7 +152,7 @@ public class ExerciseController implements CommandLineRunner {
         model.addAttribute("id", id);
         model.addAttribute("ejersRutina", exercises);
 
-        return "adRutine";
+        return "addRutine";
     }
 
     @PostMapping("/newEx")
@@ -214,10 +214,10 @@ public class ExerciseController implements CommandLineRunner {
 
     }
 
-    @GetMapping("/group/{grupo}/")
-    public String group2(@PathVariable String grupo, Model model, HttpServletRequest request, Pageable page) {
+    @GetMapping("/group/{grp}/")
+    public String group2(@PathVariable String grp, Model model, HttpServletRequest request, Pageable page) {
         Pageable pageable = PageRequest.of(page.getPageNumber(), 5);
-        Page<Exercise> exs = exRepository.findByGrp(grupo, pageable);
+        Page<Exercise> exs = exRepository.findByGrp(grp, pageable);
         List<Exercise> exerciseList = exs.getContent();
         for (Exercise exercise : exerciseList) {
             Picture image = exercise.getImage();
@@ -233,7 +233,7 @@ public class ExerciseController implements CommandLineRunner {
         }
 
         model.addAttribute("exs", exerciseList);
-        model.addAttribute("grupo", grupo);
+        model.addAttribute("grp", grp);
         model.addAttribute("hasPrev", exs.hasPrevious());
         model.addAttribute("hasNext", exs.hasNext());
         model.addAttribute("nextPage", exs.getNumber() + 1);
@@ -244,8 +244,8 @@ public class ExerciseController implements CommandLineRunner {
 
     }
 
-    @GetMapping("/group/{grupo}/{id}")
-    public String exDetails(@PathVariable String grupo, @PathVariable long id, Model model,
+    @GetMapping("/group/{grp}/{id}")
+    public String exDetails(@PathVariable String grp, @PathVariable long id, Model model,
             HttpServletRequest request) {
         Exercise exercise = exRepository.findById(id).orElseThrow();
         model.addAttribute("name", exercise.getName());
@@ -274,13 +274,13 @@ public class ExerciseController implements CommandLineRunner {
         Person user = userRepository.findByFirstName(nameUser).orElseThrow();
         List<Exercise> chest = exRepository.findByGrp("Pecho");
         chest = userService.order(user, "Pecho", chest);
-        model.addAttribute("pecho", chest);
+        model.addAttribute("chest", chest);
         List<Exercise> back = exRepository.findByGrp("Espalda");
         back = userService.order(user, "Espalda", back);
-        model.addAttribute("espalda", back);
+        model.addAttribute("back", back);
         List<Exercise> shoulder = exRepository.findByGrp("Hombro");
         shoulder = userService.order(user, "Hombro", shoulder);
-        model.addAttribute("hombro", shoulder);
+        model.addAttribute("shoulder", shoulder);
         List<Exercise> biceps = exRepository.findByGrp("Biceps");
         biceps = userService.order(user, "Biceps", biceps);
         model.addAttribute("biceps", biceps);
@@ -289,28 +289,28 @@ public class ExerciseController implements CommandLineRunner {
         model.addAttribute("triceps", triceps);
         List<Exercise> lower = exRepository.findByGrp("Inferior");
         lower = userService.order(user, "Inferior", lower);
-        model.addAttribute("inferior", lower);
+        model.addAttribute("lower", lower);
         List<Exercise> cardio = exRepository.findByGrp("Cardio");
         cardio = userService.order(user, "Cardio", cardio);
         model.addAttribute("cardio", cardio);
         model.addAttribute("id", id);
-        return "adEjerRutina";
+        return "addExRutine";
     }
 
     @SuppressWarnings("null")
     @GetMapping("/cancel/{id}")
-    public String adRutine(@PathVariable Long id, Model model) {
+    public String addRutine(@PathVariable Long id, Model model) {
         Rutine rutine = rutineRepository.findById(id).orElseThrow();
         rutineRepository.delete(rutine);
         return "redirect:/main";
     }
 
-    @GetMapping("/adRutine")
+    @GetMapping("/addRutine")
     public String cancelRutine(Model model) {
         Rutine rutine = new Rutine(null,null,null);
         rutineRepository.save(rutine);
         model.addAttribute("id", rutine.getId());
-        return "adRutine";
+        return "addRutine";
     }
 
     @GetMapping("/rutine/{id}")
@@ -318,7 +318,7 @@ public class ExerciseController implements CommandLineRunner {
         Rutine rutine = rutineRepository.findById(id).orElseThrow();
         rutineRepository.save(rutine);
         model.addAttribute("id", id);
-        return "adRutine";
+        return "addRutine";
     }
 
     @GetMapping("/searchEx")

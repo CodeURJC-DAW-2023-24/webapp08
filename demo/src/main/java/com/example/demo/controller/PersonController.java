@@ -7,7 +7,7 @@ import java.text.SimpleDateFormat;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import com.example.demo.service.ImagenService;
+import com.example.demo.service.PictureService;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -49,7 +49,7 @@ public class PersonController implements CommandLineRunner {
 	private PersonRepository userRepository;
 
 	@Autowired
-	private ImagenService imageService;
+	private PictureService imageService;
 
 	@Autowired
 	private PasswordEncoder passwordEncoder;
@@ -136,13 +136,13 @@ public class PersonController implements CommandLineRunner {
 		if (!imagenFile.isEmpty()) {
 			try {
 				// byte[] convert
-				byte[] datosImagen = imagenFile.getBytes();
+				byte[] imageData = imagenFile.getBytes();
 
 				// object Image
 				Picture image = new Picture(null);
 				image.setContent(imagenFile.getContentType());
 				image.setName(imagenFile.getOriginalFilename());
-				image.setDatos(datosImagen);
+				image.setDatos(imageData);
 				user.setImagen(image);
 				imageService.guardarImagen(image);
 			} catch (IOException e) {
@@ -158,7 +158,7 @@ public class PersonController implements CommandLineRunner {
 		return "register";
 	}
 
-	@GetMapping("/user")
+	@GetMapping("/person")
 	public String privatePage(Model model, HttpServletRequest request) throws InterruptedException {
 		model.addAttribute("search", false);
 		model.addAttribute("adEx", request.isUserInRole("ADMIN"));
@@ -176,7 +176,7 @@ public class PersonController implements CommandLineRunner {
 		model.addAttribute("imagePath", imagePath);
 		model.addAttribute("search", false);
 
-		return "user";
+		return "person";
 	}
 
 	@GetMapping("/comunity")
@@ -203,13 +203,13 @@ public class PersonController implements CommandLineRunner {
 		if (!image.isEmpty()) {
 			try {
 				// byte[] convert
-				byte[] datosImagen = image.getBytes();
+				byte[] imageData = image.getBytes();
 
 				// object Image
 				Picture imageF = new Picture(null);
 				imageF.setContent(image.getContentType());
 				imageF.setName(image.getOriginalFilename());
-				imageF.setDatos(datosImagen);
+				imageF.setDatos(imageData);
 				imageService.guardarImagen(imageF);
 				user.setImagen(imageF);
 			} catch (IOException e) {
@@ -230,7 +230,7 @@ public class PersonController implements CommandLineRunner {
 		model.addAttribute("search", false);
 		model.addAttribute("adEx", request.isUserInRole("ADMIN"));
 
-		return "user";
+		return "person";
 	}
 
 	@GetMapping("/starterNews")
@@ -270,9 +270,9 @@ public class PersonController implements CommandLineRunner {
 		String nameUser = request.getUserPrincipal().getName();
 		Person sender = userRepository.findByFirstName(nameUser).orElseThrow();
 		Person receiver = userRepository.findById(Long.parseLong(id)).orElseThrow();
-		Notification notificacion = new Notification(sender.getFirstName());
-		notificationRepository.save(notificacion);
-		receiver.getLNotifications().add(notificacion);
+		Notification notification = new Notification(sender.getFirstName());
+		notificationRepository.save(notification);
+		receiver.getLNotifications().add(notification);
 		userRepository.save(receiver);
 		return true;
 	}
@@ -314,13 +314,13 @@ public class PersonController implements CommandLineRunner {
 	}
 
 	@PostMapping("/processRequest")
-	public @ResponseBody void processRequest(@RequestParam Notification notificacion, @RequestParam boolean aceptar,
+	public @ResponseBody void processRequest(@RequestParam Notification notification, @RequestParam boolean aceptar,
 			HttpServletRequest request) {
 		String nameUser = request.getUserPrincipal().getName();
 		Person receptor = userRepository.findByFirstName(nameUser).orElseThrow();
 
 		if (aceptar) {
-			String originalText = notificacion.getContent();
+			String originalText = notification.getContent();
 			int positionTwoPoints = originalText.indexOf(":");
 			String textAfterPoints = originalText.substring(positionTwoPoints + 1);
 			String cleanText = textAfterPoints.trim();
@@ -332,7 +332,7 @@ public class PersonController implements CommandLineRunner {
 			}
 		}
 		List<Notification> notificationsUser = receptor.getLNotifications();
-		notificationsUser.remove(notificacion);
+		notificationsUser.remove(notification);
 		userRepository.save(receptor);
 
 	}
@@ -363,9 +363,9 @@ public class PersonController implements CommandLineRunner {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         String formatedDate = sdf.format(rutine.getDate());
 		model.addAttribute("date", formatedDate);
-		model.addAttribute("rutName", rutine.getName());
-		model.addAttribute("ejercicios", rutine.getExercises());
-		model.addAttribute("mensajes", rutine.getMensajes());
+		model.addAttribute("pathName", rutine.getName());
+		model.addAttribute("exercises", rutine.getExercises());
+		model.addAttribute("messages", rutine.getMessages());
 		model.addAttribute("id", id);
 		if (user.getImagen() != null) {
 
@@ -386,7 +386,7 @@ public class PersonController implements CommandLineRunner {
 		Comment message = new Comment(firstNameUser, comentario);
 		messageRepository.save(message);
 		Rutine rutine = rutineRepository.findById(id).orElseThrow();
-		rutine.getMensajes().add(message);
+		rutine.getMessages().add(message);
 		rutineRepository.save(rutine);
 
 		return message;
@@ -400,7 +400,7 @@ public class PersonController implements CommandLineRunner {
 	@GetMapping("/loadCharts")
 	public @ResponseBody Map<String, Integer> loadCharts(HttpServletRequest request) {
 		Map<String, Integer> map = new HashMap<>();
-		String[] gruposMusculares = {
+		String[] grpMuscle = {
 				"Pecho",
 				"Espalda",
 				"Bíceps",
@@ -409,8 +409,8 @@ public class PersonController implements CommandLineRunner {
 				"Tren Inferior",
 				"Cardio"
 		};
-		for (int i = 0; i < gruposMusculares.length; i++) {
-			map.put(gruposMusculares[i], 0);
+		for (int i = 0; i < grpMuscle.length; i++) {
+			map.put(grpMuscle[i], 0);
 
 		}
 		String nameUser = request.getUserPrincipal().getName();
@@ -419,10 +419,10 @@ public class PersonController implements CommandLineRunner {
 		for (Rutine rutine : lrutines) {
 			List<ExRutine> lExcer = rutine.getExercises();
 			for (ExRutine exercise : lExcer) {
-				int index = Arrays.asList(gruposMusculares).indexOf(exercise.getGrp());
-				int value = map.get(gruposMusculares[index]);
+				int index = Arrays.asList(grpMuscle).indexOf(exercise.getGrp());
+				int value = map.get(grpMuscle[index]);
 				value += 1;
-				map.put(gruposMusculares[index], value);
+				map.put(grpMuscle[index], value);
 
 			}
 		}
