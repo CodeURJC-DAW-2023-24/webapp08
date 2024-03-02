@@ -3,7 +3,7 @@ async function sendComment(){
     if (comment != ""){ 
 
     let id = document.getElementById('id').value;
-    const response = await fetch( `/enviarComentario?comentario=${comment}&id=${id}`,{
+    const response = await fetch( `/sendComment?comentario=${comment}&id=${id}`,{
             method: 'POST'
           });
      

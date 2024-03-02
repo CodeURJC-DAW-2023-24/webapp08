@@ -1,7 +1,7 @@
 async function showNotifications() {
     var dropdownMenu = document.getElementById("dropdown-menu");
     dropdownMenu.innerHTML=""
-    const response = await fetch("/notificaciones");
+    const response = await fetch("/notifications");
     let notifications = await response.json();
     addElements(notifications);
     if (notifications.length == 0) {
@@ -47,7 +47,7 @@ function addElements(notifications) {
 
 
     async function processRequest(notification, boolean) {  
-            await fetch( `/procesarSolicitud?notificacion=${notification.id}&aceptar=${boolean}`,{
+            await fetch( `/processRequest?notificacion=${notification.id}&aceptar=${boolean}`,{
                 method: 'POST'
               });
          

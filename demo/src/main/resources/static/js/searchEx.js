@@ -3,7 +3,7 @@ async function searchEx(name) {
     exC.innerHTML = "";
 
     if (name.trim() !== "") {
-        const response = await fetch(`/busquedaEx?nombre=${name}`);
+        const response = await fetch(`/searchEx?nombre=${name}`);
         let names = await response.json();
         addElementsMainContainer2(names)
 

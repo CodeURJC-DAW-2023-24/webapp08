@@ -42,25 +42,25 @@ public class WebSecurityConfig {
 					.requestMatchers("/register").permitAll()
 					.requestMatchers("/css/**").permitAll()
 					.requestMatchers("/error").permitAll()
-					.requestMatchers("/estadisticas").hasAnyRole("USER")
+					.requestMatchers("/statistics").hasAnyRole("USER")
 					.requestMatchers("/images/**").permitAll()
                     .requestMatchers("/newUser").permitAll()
 					.requestMatchers("/muscGr").permitAll()
 					.requestMatchers("/main").permitAll()
 					.requestMatchers("/js/**").permitAll()
-					.requestMatchers("/novedades-iniciales").permitAll() 
+					.requestMatchers("/starterNews").permitAll() 
 					.requestMatchers("/comunity").hasAnyRole("USER")
-					.requestMatchers("/busqueda").permitAll()
-					.requestMatchers("/sendSolicitud").hasAnyRole("USER")
-					.requestMatchers("/notificaciones").permitAll()
-					.requestMatchers("/procesarSolicitud").permitAll()
-					.requestMatchers("/cargarAmigos").permitAll()
+					.requestMatchers("/searchUsers").permitAll()
+					.requestMatchers("/sendRequest").hasAnyRole("USER")
+					.requestMatchers("/notifications").permitAll()
+					.requestMatchers("/processRequest").permitAll()
+					.requestMatchers("/loadFriends").permitAll()
 					.requestMatchers("/addEjercicioRutina").permitAll()
-					.requestMatchers("/cargarRutinas").permitAll()
-					.requestMatchers("/cargarGraficas").permitAll()
+					.requestMatchers("/loadRutines").permitAll()
+					.requestMatchers("/loadCharts").permitAll()
 					.requestMatchers("/deleteUser").permitAll()
-					.requestMatchers("/verRutina").permitAll()
-					.requestMatchers("/enviarComentario").permitAll()
+					.requestMatchers("/showRutine").permitAll()
+					.requestMatchers("/sendComment").permitAll()
 					.requestMatchers("/user").hasAnyRole("USER")
 					.requestMatchers("/editUser").hasAnyRole("USER")
 					.requestMatchers("/exForm").hasAnyRole("ADMIN")
@@ -71,8 +71,8 @@ public class WebSecurityConfig {
 					.requestMatchers("/addEx/**").hasAnyRole("USER")
 					.requestMatchers("/rutine/**").hasAnyRole("USER")
 					.requestMatchers("/addExRutine/**").hasAnyRole("USER")
-					.requestMatchers("/busquedaEx/**").permitAll()
-					.requestMatchers("/busquedaEx").permitAll()
+					.requestMatchers("/searchEx/**").permitAll()
+					.requestMatchers("/searchEx").permitAll()
 					.requestMatchers("/exercise/**").permitAll()
 					.requestMatchers("/cancel/**").hasAnyRole("USER")
 					.requestMatchers("/group").permitAll()
@@ -107,10 +107,10 @@ public class WebSecurityConfig {
 					.permitAll()
 			);
 
-        http.csrf(csrf -> csrf.ignoringRequestMatchers("/sendSolicitud"));  
-		http.csrf(csrf -> csrf.ignoringRequestMatchers("/procesarSolicitud"));
+        http.csrf(csrf -> csrf.ignoringRequestMatchers("/sendRequest"));  
+		http.csrf(csrf -> csrf.ignoringRequestMatchers("/processRequest"));
 		http.csrf(csrf -> csrf.ignoringRequestMatchers("/add"));
-		http.csrf(csrf -> csrf.ignoringRequestMatchers("/enviarComentario"));
+		http.csrf(csrf -> csrf.ignoringRequestMatchers("/sendComment"));
 		http.csrf(csrf -> csrf.ignoringRequestMatchers("/deleteUser"));
 
 		

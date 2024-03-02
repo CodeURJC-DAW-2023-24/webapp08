@@ -1,7 +1,7 @@
 let shift = 0;
 
 async function loadRutines() {
-    const response = await fetch("/cargarRutinas");
+    const response = await fetch("/loadRutines");
     let rutines = await response.json();
     agregarElementosCalendario(rutines);
 
@@ -58,7 +58,7 @@ async function agregarElementosCalendario(rutines) {
         if ((0 <= daysDiff) && (daysDiff < 7)) {
             let containerDay = dayPairs[daysDiff]
             let calendaryContent = containerDay.querySelector('.day-calendary-content');
-            calendaryContent.innerHTML += `<a href="/verRutina?id=${rutine.id}" style="text-decoration: none; color: black;">${rutine.name}</a>`;
+            calendaryContent.innerHTML += `<a href="/showRutine?id=${rutine.id}" style="text-decoration: none; color: black;">${rutine.name}</a>`;
         }
     });
 }

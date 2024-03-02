@@ -1,5 +1,5 @@
 async function loadCharts(){
-   const response = await fetch ("/cargarGraficas");
+   const response = await fetch ("/loadCharts");
    let data = await response.json()
    var dataArray = [];
     for (var key in data) {

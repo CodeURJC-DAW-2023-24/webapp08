@@ -5,7 +5,7 @@ const NUM_RESULTS = 10;
 async function initElements() {
   loadMore = 0
   let flag = false
-  const response = await fetch(`/novedades-iniciales?iteracion=${loadMore}`);
+  const response = await fetch(`/starterNews?iteracion=${loadMore}`);
   let data = await response.json();
   let news = data[0];
   const MAX = data[1];
@@ -29,7 +29,7 @@ async function loadMoreFoo() {
   let moreNews = document.getElementById("container-loadMore ");
   spinnerContainer.style.display = "flex";
   moreNews.style.display = "none";
-  const response = await fetch(`/novedades-iniciales?iteracion=${loadMore}`);
+  const response = await fetch(`/starterNews?iteracion=${loadMore}`);
   let data = await response.json()
   let news = data[0];
   const MAX = data[1];
@@ -82,7 +82,7 @@ function addElementsMainContainer(news) {
         cardText.classList.add('card-text');
 
         const link = document.createElement('a');
-        link.href = `/verRutina?id=${news[i + j].rutina.id}`;
+        link.href = `/showRutine?id=${news[i + j].rutina.id}`;
 
         link.textContent = `Nueva rutina de: ${news[i + j].name}`;
 

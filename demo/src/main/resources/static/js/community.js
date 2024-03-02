@@ -5,7 +5,7 @@ async function search(name) {
     friendContainer.style.fontSize = "20px"; 
 
     if (name.trim() !== "") {
-    const response = await fetch(`/busqueda?nombre=${name}`);
+    const response = await fetch(`/searchUsers?nombre=${name}`);
     let data = await response.json();
     let names = data.lNameId;
     let admin = data.bAdmin;
@@ -84,7 +84,7 @@ async function deleteUser(id){
 }
 
 async function sendRequest(id) { 
-    const response = await fetch(`/sendSolicitud?id=${id}`,{
+    const response = await fetch(`/sendRequest?id=${id}`,{
         method: 'POST'
       });
 
@@ -99,7 +99,7 @@ async function sendRequest(id) {
 }
 
 async function loadFriends(){
-    const response = await fetch("/cargarAmigos");
+    const response = await fetch("/loadFriends");
     let lFriends = await response.json();
 
     var ulElement = document.getElementById("list-group");

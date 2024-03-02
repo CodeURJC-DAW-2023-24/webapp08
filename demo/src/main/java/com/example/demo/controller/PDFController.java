@@ -22,14 +22,14 @@ public class PDFController {
     @Autowired
     private RutinaRepository rutinaRepository;
 
-    @GetMapping("/download/{fecha}/{id}")
-    public void downloadPdf(HttpServletResponse response, @PathVariable String fecha, @PathVariable Long id) throws IOException {
+    @GetMapping("/download/{date}/{id}")
+    public void downloadPdf(HttpServletResponse response, @PathVariable String date, @PathVariable Long id) throws IOException {
         response.setContentType("application/pdf");
-        String truncatedFecha = fecha.substring(0, Math.min(fecha.length(), 10)); // date in file
-        String fileName = "rutina_" + truncatedFecha + ".pdf";
+        String truncatedDate = date.substring(0, Math.min(date.length(), 10)); // date in file
+        String fileName = "rutina_" + truncatedDate + ".pdf";
         response.setHeader("Content-Disposition", "attachment; filename=" + fileName);
         Rutina rutine = rutinaRepository.findById(id).orElseThrow();
-        List<EjerRutina> lista= rutine.getEjercicios();
+        List<EjerRutina> list= rutine.getEjercicios();
 
         try (PDDocument document = new PDDocument()) {
             PDPage page = new PDPage();
@@ -44,19 +44,19 @@ public class PDFController {
                 contentStream.setFont(PDType1Font.HELVETICA, 12); 
                 contentStream.showText("_________________________________________________________________");
                 contentStream.newLineAtOffset(0, -20);
-                for (EjerRutina ejerRutina : lista) {
+                for (EjerRutina exRutine : list) {
                     contentStream.setFont(PDType1Font.COURIER_BOLD_OBLIQUE, 11); 
                     contentStream.showText("   Ejercicio: ");
                     contentStream.setFont(PDType1Font.HELVETICA, 10); 
-                    contentStream.showText(ejerRutina.getEjercicio());
+                    contentStream.showText(exRutine.getEjercicio());
                     contentStream.setFont(PDType1Font.COURIER_BOLD_OBLIQUE, 11);
                     contentStream.showText("    S X Rep: ");
                     contentStream.setFont(PDType1Font.HELVETICA, 10); 
-                    contentStream.showText(ejerRutina.getSeries());
+                    contentStream.showText(exRutine.getSeries());
                     contentStream.setFont(PDType1Font.COURIER_BOLD_OBLIQUE, 11);
                     contentStream.showText("    Peso (kg): ");
                     contentStream.setFont(PDType1Font.HELVETICA, 10);
-                    contentStream.showText(ejerRutina.getPeso().toString());
+                    contentStream.showText(exRutine.getPeso().toString());
                     contentStream.newLineAtOffset(0, -10); 
                     contentStream.setFont(PDType1Font.HELVETICA, 12); 
                     contentStream.showText("_________________________________________________________________");

@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import com.example.demo.service.ImagenService;
-import com.example.demo.service.UserService;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -50,22 +49,22 @@ public class UsuarioController implements CommandLineRunner {
 	private UserRepository userRepository;
 
 	@Autowired
-	private ImagenService imagenService;
+	private ImagenService imageService;
 
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 
 	@Autowired
-	private NovedadRepository novedadRepository;
+	private NovedadRepository newsRepository;
 
 	@Autowired
-	private NotificacionRepository notificacionRepository;
+	private NotificacionRepository notificationRepository;
 
 	@Autowired
-	private RutinaRepository rutinaRepository;
+	private RutinaRepository rutineRepository;
 
 	@Autowired
-	private MensajeRepository mensajeRepository;
+	private MensajeRepository messageRepository;
 
 	@Override
 	public void run(String... args) throws Exception {
@@ -129,27 +128,27 @@ public class UsuarioController implements CommandLineRunner {
 		if (existingUserOptional.isPresent()) {
 			model.addAttribute("message", true);
 			// existing user
-			model.addAttribute("erroMg", "El usuario ya existe");
+			model.addAttribute("erroMg", "El user ya existe");
 			return "error";
 		}
 		String pass = passwordEncoder.encode(password);
-		Usuario usuario = new Usuario(name, pass, name, date, weight, "USER");
+		Usuario user = new Usuario(name, pass, name, date, weight, "USER");
 		if (!imagenFile.isEmpty()) {
 			try {
 				// byte[] convert
 				byte[] datosImagen = imagenFile.getBytes();
 
 				// object Image
-				Imagen imagen = new Imagen();
-				imagen.setContenido(imagenFile.getContentType());
-				imagen.setName(imagenFile.getOriginalFilename());
-				imagen.setDatos(datosImagen);
-				usuario.setImagen(imagen);
-				imagenService.guardarImagen(imagen);
+				Imagen image = new Imagen();
+				image.setContenido(imagenFile.getContentType());
+				image.setName(imagenFile.getOriginalFilename());
+				image.setDatos(datosImagen);
+				user.setImagen(image);
+				imageService.guardarImagen(image);
 			} catch (IOException e) {
 			}
 		}
-		userRepository.save(usuario);
+		userRepository.save(user);
 		return "index";
 	}
 
@@ -196,37 +195,37 @@ public class UsuarioController implements CommandLineRunner {
 			@RequestParam String date, @RequestParam Integer weight,
 			@RequestParam MultipartFile image, HttpServletRequest request) throws InterruptedException {
 		String nameUser = request.getUserPrincipal().getName();
-		Usuario usuario = userRepository.findByFirstName(nameUser).orElseThrow();
-		usuario.setName(name);
-		usuario.setFirstName(firstName);
-		usuario.setDate(date);
-		usuario.setWeight(weight);
+		Usuario user = userRepository.findByFirstName(nameUser).orElseThrow();
+		user.setName(name);
+		user.setFirstName(firstName);
+		user.setDate(date);
+		user.setWeight(weight);
 		if (!image.isEmpty()) {
 			try {
 				// byte[] convert
 				byte[] datosImagen = image.getBytes();
 
 				// object Image
-				Imagen imagen = new Imagen();
-				imagen.setContenido(image.getContentType());
-				imagen.setName(image.getOriginalFilename());
-				imagen.setDatos(datosImagen);
-				imagenService.guardarImagen(imagen);
-				usuario.setImagen(imagen);
+				Imagen imageF = new Imagen();
+				imageF.setContenido(image.getContentType());
+				imageF.setName(image.getOriginalFilename());
+				imageF.setDatos(datosImagen);
+				imageService.guardarImagen(imageF);
+				user.setImagen(imageF);
 			} catch (IOException e) {
 			}
 		}
-		userRepository.save(usuario);
-		Imagen imageN = usuario.getImagen();
+		userRepository.save(user);
+		Imagen imageN = user.getImagen();
 		String rutaImagen = "logo.jpg";
 		if (!(imageN == null)) {
 			rutaImagen = imageN.getName();
 
 		}
-		model.addAttribute("firstName", usuario.getFirstName());
-		model.addAttribute("name", usuario.getName());
-		model.addAttribute("date", usuario.getDate());
-		model.addAttribute("weight", usuario.getWeight());
+		model.addAttribute("firstName", user.getFirstName());
+		model.addAttribute("name", user.getName());
+		model.addAttribute("date", user.getDate());
+		model.addAttribute("weight", user.getWeight());
 		model.addAttribute("rutaImagen", rutaImagen);
 		model.addAttribute("search", false);
 		model.addAttribute("adEx", request.isUserInRole("ADMIN"));
@@ -234,13 +233,13 @@ public class UsuarioController implements CommandLineRunner {
 		return "user";
 	}
 
-	@GetMapping("/novedades-iniciales")
+	@GetMapping("/starterNews")
 	public @ResponseBody List<Object> getNovedades(@RequestParam int iteracion, HttpServletRequest request) {
 		String nameUser = request.getUserPrincipal().getName();
-		Usuario usuario = userRepository.findByFirstName(nameUser).orElseThrow();
-		Page<Novedad> pNovedad =userRepository.findByNovedades(usuario.getNovedades(),PageRequest.of(iteracion, 10));
-		List<Novedad> page = pNovedad.getContent();
-		Boolean top = pNovedad.hasNext();
+		Usuario user = userRepository.findByFirstName(nameUser).orElseThrow();
+		Page<Novedad> pNews =userRepository.findByNovedades(user.getNovedades(),PageRequest.of(iteracion, 10));
+		List<Novedad> page = pNews.getContent();
+		Boolean top = pNews.hasNext();
 		List<Object> data = new ArrayList<>(Arrays.asList(page, top));
 
 		return data; // list<news>
@@ -253,8 +252,8 @@ public class UsuarioController implements CommandLineRunner {
 		return "muscleGroup";
 	}
 
-	@GetMapping("/busqueda")
-	public @ResponseBody Map<String, Object> getNombres(@RequestParam String nombre, HttpServletRequest request) {
+	@GetMapping("/searchUsers")
+	public @ResponseBody Map<String, Object> searchbyName(@RequestParam String nombre, HttpServletRequest request) {
 		String nameUser = request.getUserPrincipal().getName();
 		Usuario user = userRepository.findByFirstName(nameUser).orElseThrow();
 		Boolean bAdmin = request.isUserInRole("ADMIN");
@@ -266,111 +265,111 @@ public class UsuarioController implements CommandLineRunner {
 		return response;
 	}
 
-	@PostMapping("/sendSolicitud")
-	public @ResponseBody Boolean enviarSolicitud(@RequestParam String id, HttpServletRequest request) {
+	@PostMapping("/sendRequest")
+	public @ResponseBody Boolean sendRequest(@RequestParam String id, HttpServletRequest request) {
 		String nameUser = request.getUserPrincipal().getName();
 		Usuario sender = userRepository.findByFirstName(nameUser).orElseThrow();
-		Usuario reciber = userRepository.findById(Long.parseLong(id)).orElseThrow();
+		Usuario receiver = userRepository.findById(Long.parseLong(id)).orElseThrow();
 		Notificacion notificacion = new Notificacion(sender.getFirstName());
-		notificacionRepository.save(notificacion);
-		reciber.getNotificaciones().add(notificacion);
-		userRepository.save(reciber);
+		notificationRepository.save(notificacion);
+		receiver.getNotificaciones().add(notificacion);
+		userRepository.save(receiver);
 		return true;
 	}
 
 	@PostMapping("/deleteUser")
 	public @ResponseBody Boolean deleteUser(@RequestParam Long id) {
-		Usuario usuario = userRepository.findById(id).orElseThrow();
-		List<Rutina> lrutinas = usuario.getRutinas();
-		for (Rutina rutina : lrutinas) {
-			List<Usuario> lUsuarios = usuario.getAmigos();
-			Optional<Novedad> novedad = novedadRepository.findByrutina(rutina);
-			for (Usuario amigo : lUsuarios) {
-				if (novedad.isPresent()) {
-					amigo.getNovedades().remove(novedad.get());
-					amigo.getAmigos().remove(usuario);
-					userRepository.save(amigo);
+		Usuario user = userRepository.findById(id).orElseThrow();
+		List<Rutina> lrutines = user.getRutinas();
+		for (Rutina rutine : lrutines) {
+			List<Usuario> lUsers = user.getAmigos();
+			Optional<Novedad> news = newsRepository.findByrutina(rutine);
+			for (Usuario friend : lUsers) {
+				if (news.isPresent()) {
+					friend.getNovedades().remove(news.get());
+					friend.getAmigos().remove(user);
+					userRepository.save(friend);
 				}
 			}
 
-			if (novedad.isPresent()) {
-				novedadRepository.delete(novedad.get());
+			if (news.isPresent()) {
+				newsRepository.delete(news.get());
 			}
 		}
 
-		usuario.getAmigos().clear(); 
-		userRepository.save(usuario);
+		user.getAmigos().clear(); 
+		userRepository.save(user);
 
 		userRepository.deleteById(id);
 		return true;
 	}
 
-	@GetMapping("/notificaciones")
-	public @ResponseBody List<Notificacion> getNotificaciones(HttpServletRequest request) {
+	@GetMapping("/notifications")
+	public @ResponseBody List<Notificacion> getNotifications(HttpServletRequest request) {
 		String nameUser = request.getUserPrincipal().getName();
 
-		List<Notificacion> lNotificaciones = userRepository.findByFirstName(nameUser).orElseThrow().getNotificaciones();
+		List<Notificacion> lNotifications = userRepository.findByFirstName(nameUser).orElseThrow().getNotificaciones();
 
-		return lNotificaciones;
+		return lNotifications;
 	}
 
-	@PostMapping("/procesarSolicitud")
-	public @ResponseBody void procesarSolicitud(@RequestParam Notificacion notificacion, @RequestParam boolean aceptar,
+	@PostMapping("/processRequest")
+	public @ResponseBody void processRequest(@RequestParam Notificacion notificacion, @RequestParam boolean aceptar,
 			HttpServletRequest request) {
 		String nameUser = request.getUserPrincipal().getName();
 		Usuario receptor = userRepository.findByFirstName(nameUser).orElseThrow();
 
 		if (aceptar) {
-			String textoOriginal = notificacion.getContenido();
-			int indiceDosPuntos = textoOriginal.indexOf(":");
-			String textoDespuesDosPuntos = textoOriginal.substring(indiceDosPuntos + 1);
-			String textoLimpio = textoDespuesDosPuntos.trim();
-			Usuario sender = userRepository.findByFirstName(textoLimpio).orElseThrow();
+			String originalText = notificacion.getContenido();
+			int positionTwoPoints = originalText.indexOf(":");
+			String textAfterPoints = originalText.substring(positionTwoPoints + 1);
+			String cleanText = textAfterPoints.trim();
+			Usuario sender = userRepository.findByFirstName(cleanText).orElseThrow();
 			if (!receptor.getAmigos().contains(sender)) { 
 				receptor.getAmigos().add(sender); 
 				sender.getAmigos().add(receptor);
 				userRepository.save(sender);
 			}
 		}
-		List<Notificacion> notificacionesUsuario = receptor.getNotificaciones();
-		notificacionesUsuario.remove(notificacion);
+		List<Notificacion> notificationsUser = receptor.getNotificaciones();
+		notificationsUser.remove(notificacion);
 		userRepository.save(receptor);
 
 	}
 
-	@GetMapping("/cargarAmigos")
-	public @ResponseBody List<String> cargarAmigos(HttpServletRequest request) {
+	@GetMapping("/loadFriends")
+	public @ResponseBody List<String> loadFriends(HttpServletRequest request) {
 		String nameUser = request.getUserPrincipal().getName();
 		Usuario user = userRepository.findByFirstName(nameUser).orElseThrow();
-		List<String> lAmigos = userRepository.findFirstNameOfAmigosByUsuario(user);
+		List<String> lFriends = userRepository.findFirstNameOfAmigosByUsuario(user);
 
-		return lAmigos;
+		return lFriends;
 	}
 
-	@GetMapping("/cargarRutinas")
-	public @ResponseBody List<Rutina> getRutinasPropias(HttpServletRequest request) {
+	@GetMapping("/loadRutines")
+	public @ResponseBody List<Rutina> getOwnRutines(HttpServletRequest request) {
 		String nameUser = request.getUserPrincipal().getName();
 		Usuario user = userRepository.findByFirstName(nameUser).orElseThrow();
-		List<Rutina> rutinas = user.getRutinas();
-		return rutinas;
+		List<Rutina> rutines = user.getRutinas();
+		return rutines;
 	}
 
-	@GetMapping("/verRutina")
-	public String verRutina(Model model, @RequestParam Long id, HttpServletRequest request) {
-		Usuario usuario = userRepository.findByRutinaId(id).orElseThrow();
-		Rutina rutina = rutinaRepository.findById(id).orElseThrow();
-		model.addAttribute("firstName", usuario.getFirstName());
-		model.addAttribute("nameUser", usuario.getName());
+	@GetMapping("/showRutine")
+	public String showRutine(Model model, @RequestParam Long id, HttpServletRequest request) {
+		Usuario user = userRepository.findByRutinaId(id).orElseThrow();
+		Rutina rutine = rutineRepository.findById(id).orElseThrow();
+		model.addAttribute("firstName", user.getFirstName());
+		model.addAttribute("nameUser", user.getName());
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        String fechaFormateada = sdf.format(rutina.getDate());
-		model.addAttribute("date", fechaFormateada);
-		model.addAttribute("rutName", rutina.getName());
-		model.addAttribute("ejercicios", rutina.getEjercicios());
-		model.addAttribute("mensajes", rutina.getMensajes());
+        String formatedDate = sdf.format(rutine.getDate());
+		model.addAttribute("date", formatedDate);
+		model.addAttribute("rutName", rutine.getName());
+		model.addAttribute("ejercicios", rutine.getEjercicios());
+		model.addAttribute("mensajes", rutine.getMensajes());
 		model.addAttribute("id", id);
-		if (usuario.getImagen() != null) {
+		if (user.getImagen() != null) {
 
-			model.addAttribute("rutaImagen", usuario.getImagen().getName());
+			model.addAttribute("rutaImagen", user.getImagen().getName());
 		} 
 		else
 			model.addAttribute("rutaImagen", "logo.jpg");
@@ -378,29 +377,29 @@ public class UsuarioController implements CommandLineRunner {
 		return "rutine";
 	}
 
-	@PostMapping("/enviarComentario")
+	@PostMapping("/sendComment")
 	public @ResponseBody Mensaje postMethodName(@RequestParam String comentario, @RequestParam Long id,
 			HttpServletRequest request) {
 		String nameUser = request.getUserPrincipal().getName();
-		Usuario usuario = userRepository.findByFirstName(nameUser).orElseThrow();
-		String nombreUser = usuario.getFirstName();
-		Mensaje mensaje = new Mensaje(nombreUser, comentario);
-		mensajeRepository.save(mensaje);
-		Rutina rutina = rutinaRepository.findById(id).orElseThrow();
-		rutina.getMensajes().add(mensaje);
-		rutinaRepository.save(rutina);
+		Usuario user = userRepository.findByFirstName(nameUser).orElseThrow();
+		String firstNameUser = user.getFirstName();
+		Mensaje message = new Mensaje(firstNameUser, comentario);
+		messageRepository.save(message);
+		Rutina rutine = rutineRepository.findById(id).orElseThrow();
+		rutine.getMensajes().add(message);
+		rutineRepository.save(rutine);
 
-		return mensaje;
+		return message;
 	}
 
-	@GetMapping("/estadisticas")
-	public String estadisticas() {
+	@GetMapping("/statistics")
+	public String statistics() {
 		return "progress";
 	}
 
-	@GetMapping("/cargarGraficas")
-	public @ResponseBody Map<String, Integer> cargarGraficas(HttpServletRequest request) {
-		Map<String, Integer> mapa = new HashMap<>();
+	@GetMapping("/loadCharts")
+	public @ResponseBody Map<String, Integer> loadCharts(HttpServletRequest request) {
+		Map<String, Integer> map = new HashMap<>();
 		String[] gruposMusculares = {
 				"Pecho",
 				"Espalda",
@@ -411,22 +410,22 @@ public class UsuarioController implements CommandLineRunner {
 				"Cardio"
 		};
 		for (int i = 0; i < gruposMusculares.length; i++) {
-			mapa.put(gruposMusculares[i], 0);
+			map.put(gruposMusculares[i], 0);
 
 		}
 		String nameUser = request.getUserPrincipal().getName();
-		Usuario usuario = userRepository.findByFirstName(nameUser).orElseThrow();
-		List<Rutina> lRutinas = usuario.getRutinas();
-		for (Rutina rutina : lRutinas) {
-			List<EjerRutina> lEjercicios = rutina.getEjercicios();
-			for (EjerRutina ejercicio : lEjercicios) {
-				int indice = Arrays.asList(gruposMusculares).indexOf(ejercicio.getGrupo());
-				int valor = mapa.get(gruposMusculares[indice]);
-				valor += 1;
-				mapa.put(gruposMusculares[indice], valor);
+		Usuario user = userRepository.findByFirstName(nameUser).orElseThrow();
+		List<Rutina> lrutines = user.getRutinas();
+		for (Rutina rutine : lrutines) {
+			List<EjerRutina> lExcer = rutine.getEjercicios();
+			for (EjerRutina exercise : lExcer) {
+				int index = Arrays.asList(gruposMusculares).indexOf(exercise.getGrupo());
+				int value = map.get(gruposMusculares[index]);
+				value += 1;
+				map.put(gruposMusculares[index], value);
 
 			}
 		}
-		return mapa;
+		return map;
 	}
 }
