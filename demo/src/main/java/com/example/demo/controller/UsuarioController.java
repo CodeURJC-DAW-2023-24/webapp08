@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import com.example.demo.service.ImagenService;
 import org.springframework.ui.Model;
@@ -132,7 +133,7 @@ public class UsuarioController implements CommandLineRunner {
 			return "error";
 		}
 		String pass = passwordEncoder.encode(password);
-		Usuario user = new Usuario(name, pass, name, date, weight, "USER");
+		Usuario user = new Usuario(firstName, pass, name, date, weight, "USER");
 		if (!imagenFile.isEmpty()) {
 			try {
 				// byte[] convert
@@ -428,4 +429,5 @@ public class UsuarioController implements CommandLineRunner {
 		}
 		return map;
 	}
+
 }
