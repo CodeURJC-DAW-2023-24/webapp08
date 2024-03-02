@@ -1,26 +1,22 @@
 :root {
-    --color-yellow: #f1db25;
-    /* Definir la variable */
-    --color-dark: black;
-    --color-text-buttons: white;
-    --color-grey:#dad9d9;
+  --color-yellow: #f1db25;
+  /* Set variables */
+  --color-dark: black;
+  --color-text-buttons: white;
+  --color-grey: #dad9d9;
 }
 
 
 body {
-    margin: 0;
-    padding: 0;
-    font-family: "Poppins", sans-serif;
+  margin: 0;
+  padding: 0;
+  font-family: "Poppins", sans-serif;
 
-    background-image: url('../images/friend.jpg');
-    background-size: cover;
-    /* Ajusta la imagen para cubrir todo el cuerpo */
-    background-position: top;
-    /* Centra la imagen en el cuerpo */
-    background-repeat: no-repeat;
-    height: 100%; /* Establece la altura del html al 100% de la ventana */
-    /* Evita que la imagen se repita */
-
+  background-image: url('../images/friend.jpg');
+  background-size: cover;
+  background-position: top;
+  background-repeat: no-repeat;
+  height: 100%;
 }
 
 
@@ -30,13 +26,13 @@ body {
   display: flex;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
   -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
- 
-  
+  -ms-flex-align: center;
+  align-items: center;
+
+
 }
 
 .navbar-brand span {
@@ -47,8 +43,7 @@ body {
 
 .navbar {
   margin-bottom: 20px;
-  /* Agregar margen inferior para separar del contenido */
-  background:linear-gradient(to right, rgb(0, 0, 0), rgba(64, 63, 63, 0.807));
+  background: linear-gradient(to right, rgb(0, 0, 0), rgba(64, 63, 63, 0.807));
   position: fixed;
   background-color: #000000;
 
@@ -70,7 +65,7 @@ body {
 }
 
 
-.logo  {
+.logo {
   height: 20px;
 }
 
@@ -87,36 +82,24 @@ body {
 
 .search .search-icon {
   display: inline-block;
-  /* Mostrar el icono */
   color: var(--color-text-buttons);
   background-color: var(--color-yellow);
   border-radius: 10px;
   font-size: 24px;
 }
 
-
-
-.search .form-control {
-  /*display: none;
-  /* Ocultar la barra de búsqueda por defecto */
-}
-
-.search:hover .form-control {
-  /*display: block;
-  /* Mostrar la barra de búsqueda al hacer hover sobre el contenedor de búsqueda */
-}
-
 .search input[type="text"] {
   background-color: #f0f0f0;
 }
+
 .search button {
   background-color: var(--color-yellow);
   color: var(--color-text-buttons);
   height: 40px;
 }
+
 .search button:hover {
   background-color: var(--color-yellow);
-  /* Establece el color de fondo al mismo color que el estado normal */
   color: var(--color-text-buttons);
 }
 
@@ -130,7 +113,6 @@ body {
 
 .estadisticas button:hover {
   background-color: var(--color-yellow);
-  /* Establece el color de fondo al mismo color que el estado normal */
   color: var(--color-text-buttons);
 }
 
@@ -142,7 +124,6 @@ body {
 
 .bi-bell {
   color: var(--color-text-buttons);
-  /* Cambia 'red' al color que desees */
 }
 
 .comunity {
@@ -159,8 +140,8 @@ body {
 .comunity,
 .search {
   margin-right: 0.5rem;
-  /* Puedes ajustar el valor según tus necesidades */
 }
+
 .user button.circular-btn {
   background-color: var(--color-yellow);
   color: var(--color-text-buttons);
@@ -176,156 +157,154 @@ body {
   background-color: var(--color-yellow);
   border-radius: 5px;
   text-align: center;
-  /* Alinea el texto al centro */
-
 }
 
 .news {
-  overflow: hidden; /* Oculta el desbordamiento horizontal */
+  overflow: hidden;
 }
 
 .scrolling-text {
-  white-space: nowrap; /* Evita que el texto se divida en múltiples líneas */
-  animation: scrollText 5s linear infinite; /* Animación de desplazamiento */
+  white-space: nowrap;
+  animation: scrollText 5s linear infinite;
 }
 
 @keyframes scrollText {
   0% {
-      transform: translateX(100%); /* Inicia fuera del contenedor hacia la derecha */
+    transform: translateX(100%);
   }
+
   100% {
-      transform: translateX(-100%); /* Termina fuera del contenedor hacia la izquierda */
+    transform: translateX(-100%);
   }
 }
 
-  .eslogan{
-    flex: 1; /* Expande el espacio restante */
-    text-align: center; /* Alinea el texto al centro */
-    font-size: 24px; /* Tamaño del texto del título */
-    font-weight: bold; /* Peso de la fuente */
-    color: white; /* Color del texto del título */
- 
-  }
-  
-  
-  .nav-item {
-    list-style: none; /* Elimina los estilos de lista predeterminados */
-    margin-right: 20px; /* Añade espacio entre los elementos de la lista */
-    
-    
-  }
-  
-  .home-link {
-    text-decoration: none; /* Quita el subrayado de los enlaces */
-    color: var(--color-yellow); /* Color de los enlaces */
-    
-  }
-  
-  
-  .container-fluid {
-   
-    display: flex; /* Utiliza el modelo de caja flexible */
-    flex-wrap: wrap; /* Evita que los elementos se envuelvan a la siguiente línea */
-    justify-content: space-between;
-    
+.eslogan {
+  flex: 1;
+  text-align: center;
+  font-size: 24px;
+  font-weight: bold;
+  color: white;
 }
-  .container-search{
-    padding-top: 70px;
-    margin: auto;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    width: 70%;
-    height: fit-content;
-   
-  }
-
-  .d-flex{
-    justify-content: center;
-    
-  }
-  .search1 {
-    background-color: var(--color-grey);
-    width: 50%;
-    height: 60px;
-    border-radius: 5px;
-    font-size: x-large;
-  }
-
-  .search-btn1 {
-    
-    border-radius: 5px;
-    width: 60px;
-    background-color: var(--color-grey);
-
-  }
 
 
-  .bi-search1{
-    color: var(--color-dark);
-  }
+.nav-item {
+  list-style: none;
+  margin-right: 20px;
+}
 
-  .container-friendlist {
-    margin: auto;
-    margin-top: 50px;
-    padding:30px;
-    width:  fit-content;
-    height: fit-content;
-    text-align: center;
-    background-color: rgba(14, 13, 13, 0.5);
-    border-radius: 5px;
-  }
+.home-link {
+  text-decoration: none;
+  color: var(--color-yellow);
+}
 
-  .titulo-friendlist {
-    color: var(--color-yellow);
-  }
 
-  .list-group{
-    background-color: rgba(243, 242, 242, 0.5);
-    border-radius: 5px;
-  }
-  .list-group-item {
-    color: black;
-    font-weight: 700;
+.container-fluid {
 
-    background-color: transparent;
-  }
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
 
-  .friend-container{
-    
-        margin-top: 10px;
-        padding: 10px;
-        border-radius: 5px;
-        display: flex;
-        flex-direction: column; /* Alinea los elementos verticalmente */
-        align-items: center; /* Centra los elementos horizontalmente */
-    width: auto;
- }
-  
- .friend-list{
-    width: 40%;
-    padding: 0;
-    margin: 0;
-    background-color:  rgba(14, 13, 13, 0.5);
- }
- .user-item{
-    
-    margin:5px;
-    border-radius: 5px;
-    padding: 10px;
-    background-color: rgb(212, 208, 208);
-    list-style: none;
-    border:1px solid black;
-    font-size: larger;
-    font-weight: 600;
-    display: flex;
-    justify-content: space-between ;
-    
- }
- .solicitud-btn{
-    border-radius: 5px;
-    font-size: x-small;
-    border: 2px solid green;
-    background-color: rgb(5, 204, 5);
- }
+}
 
- 
+.container-search {
+  padding-top: 70px;
+  margin: auto;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  width: 70%;
+  height: fit-content;
+
+}
+
+.d-flex {
+  justify-content: center;
+
+}
+
+.search1 {
+  background-color: var(--color-grey);
+  width: 50%;
+  height: 60px;
+  border-radius: 5px;
+  font-size: x-large;
+}
+
+.search-btn1 {
+
+  border-radius: 5px;
+  width: 60px;
+  background-color: var(--color-grey);
+
+}
+
+
+.bi-search1 {
+  color: var(--color-dark);
+}
+
+.container-friendlist {
+  margin: auto;
+  margin-top: 50px;
+  padding: 30px;
+  width: fit-content;
+  height: fit-content;
+  text-align: center;
+  background-color: rgba(14, 13, 13, 0.5);
+  border-radius: 5px;
+}
+
+.titulo-friendlist {
+  color: var(--color-yellow);
+}
+
+.list-group {
+  background-color: rgba(243, 242, 242, 0.5);
+  border-radius: 5px;
+}
+
+.list-group-item {
+  color: black;
+  font-weight: 700;
+
+  background-color: transparent;
+}
+
+.friend-container {
+
+  margin-top: 10px;
+  padding: 10px;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: auto;
+}
+
+.friend-list {
+  width: 40%;
+  padding: 0;
+  margin: 0;
+  background-color: rgba(14, 13, 13, 0.5);
+}
+
+.user-item {
+
+  margin: 5px;
+  border-radius: 5px;
+  padding: 10px;
+  background-color: rgb(212, 208, 208);
+  list-style: none;
+  border: 1px solid black;
+  font-size: larger;
+  font-weight: 600;
+  display: flex;
+  justify-content: space-between;
+
+}
+
+.solicitud-btn {
+  border-radius: 5px;
+  font-size: x-small;
+  border: 2px solid green;
+  background-color: rgb(5, 204, 5);
+}

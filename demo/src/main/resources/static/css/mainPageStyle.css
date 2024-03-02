@@ -1,7 +1,5 @@
-
 :root {
     --color-yellow: #f1db25;
-    /* Definir la variable */
     --color-dark: black;
     --color-text-buttons: white;
 }
@@ -14,12 +12,8 @@ body {
 
     background-image: url('../images/gimnasio.jpg');
     background-size: cover;
-    /* Ajusta la imagen para cubrir todo el cuerpo */
     background-position: center;
-    /* Centra la imagen en el cuerpo */
     background-repeat: no-repeat;
-    /* Evita que la imagen se repita */
-
 }
 
 .navbar-brand {
@@ -28,25 +22,24 @@ body {
     display: flex;
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
-        -ms-flex-direction: column;
-            flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
     -webkit-box-align: center;
-        -ms-flex-align: center;
-            align-items: center;
-   
-    
-  }
-  
-  .navbar-brand span {
+    -ms-flex-align: center;
+    align-items: center;
+
+
+}
+
+.navbar-brand span {
     font-weight: bold;
     color: #faf7f7;
     font-size: 24px;
-  }
-  
+}
+
 .navbar {
     margin-bottom: 20px;
-    /* Agregar margen inferior para separar del contenido */
-    background:linear-gradient(to right, rgb(0, 0, 0), rgba(64, 63, 63, 0.807));
+    background: linear-gradient(to right, rgb(0, 0, 0), rgba(64, 63, 63, 0.807));
     position: fixed;
     background-color: #000000;
 
@@ -68,7 +61,7 @@ body {
 }
 
 
-.logo  {
+.logo {
     height: 20px;
 }
 
@@ -85,7 +78,6 @@ body {
 
 .search .search-icon {
     display: inline-block;
-    /* Mostrar el icono */
     color: var(--color-text-buttons);
     ;
     background-color: var(--color-yellow);
@@ -95,17 +87,14 @@ body {
 
 .search:hover .search-icon {
     display: none;
-    /* Ocultar el icono cuando se hace hover */
 }
 
 .search .form-control {
     display: none;
-    /* Ocultar la barra de búsqueda por defecto */
 }
 
 .search:hover .form-control {
     display: block;
-    /* Mostrar la barra de búsqueda al hacer hover sobre el contenedor de búsqueda */
 }
 
 .search input[type="text"] {
@@ -121,7 +110,6 @@ body {
 
 .estadisticas button:hover {
     background-color: var(--color-yellow);
-    /* Establece el color de fondo al mismo color que el estado normal */
     color: var(--color-text-buttons);
 }
 
@@ -129,15 +117,13 @@ body {
 .dropdown {
     background-color: var(--color-yellow);
     border-radius: 10px;
-   
+
 }
 
 
 
 .bi-bell {
     color: var(--color-text-buttons);
-    
-    /* Cambia 'red' al color que desees */
 }
 
 .comunity {
@@ -154,7 +140,6 @@ body {
 .comunity,
 .search {
     margin-right: 0.5rem;
-    /* Puedes ajustar el valor según tus necesidades */
 }
 
 .user button.circular-btn {
@@ -232,10 +217,7 @@ body {
 }
 
 .day-pair:hover {
-
     background-color: rgb(221, 212, 212);
-    /* Ajusta el nivel de opacidad cuando el ratón está encima */
-
 }
 
 
@@ -263,7 +245,7 @@ body {
 .day-name,
 .day-number,
 .day-calendary-content {
-    
+
 
     flex: 1;
     text-align: center;
@@ -275,21 +257,13 @@ body {
 
     width: 28%;
     margin-right: 20px;
-
     background-image: url('../images/rutina.jpg');
     background-size: cover;
-    /* Ajusta la imagen para cubrir todo el cuerpo */
     background-position: center;
-    /* Centra la imagen en el cuerpo */
     background-repeat: no-repeat;
-    /* Evita que la imagen se repita */
-
     display: flex;
     justify-content: center;
     align-items: center;
-
-
-
 }
 
 .container-rutina:hover {
@@ -320,36 +294,32 @@ body {
     background-color: var(--color-yellow);
     border-radius: 5px;
     text-align: center;
-    /* Alinea el texto al centro */
-
 }
 
 .news {
-    overflow: hidden; /* Oculta el desbordamiento horizontal */
+    overflow: hidden;
 }
 
 .scrolling-text {
-    white-space: nowrap; /* Evita que el texto se divida en múltiples líneas */
-    animation: scrollText 5s linear infinite; /* Animación de desplazamiento */
+    white-space: nowrap;
+    animation: scrollText 5s linear infinite;
 }
 
 @keyframes scrollText {
     0% {
-        transform: translateX(100%); /* Inicia fuera del contenedor hacia la derecha */
+        transform: translateX(100%);
     }
+
     100% {
-        transform: translateX(-100%); /* Termina fuera del contenedor hacia la izquierda */
+        transform: translateX(-100%);
     }
 }
+
 .container-novedades {
     width: 70%;
-    /* Ejemplo de estilos para el contenedor */
     margin: 0 auto;
-    /* Centrar el contenedor */
     background-color: rgba(213, 213, 213, 0.3);
-    /* Color de fondo para el contenedor */
     padding: 20px;
-    /* Relleno dentro del contenedor */
     padding-bottom: 0px;
     margin-bottom: 5px;
 }
@@ -359,7 +329,6 @@ body {
 
 .card {
     transform-origin: center;
-    /* Establece el punto de origen de la transformación */
     animation: tiltAnimation 0.5s infinite alternate;
 }
 
@@ -375,15 +344,14 @@ body {
 
 .card:hover {
     animation: none;
-    /* Detiene la animación cuando el ratón está encima */
 }
 
 .contenedor-CargarMas {
 
-display: flex;
-align-items: center;
-justify-content: center;
-margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
 }
 
 .boton-cargarMas {
@@ -395,35 +363,29 @@ margin-bottom: 20px;
 
 .boton-cargarMas:hover {
     background-color: var(--color-yellow);
-    /* Establece el color de fondo al mismo color que el estado normal */
     color: black;
 }
 
 
 .spinner-container {
-    display: none; /* Por defecto, oculta el contenedor del spinner */
+    display: none;
     justify-content: center;
     align-items: center;
-   
-    
-    z-index: 9999; /* Asegura que esté en la parte superior */
-  }
-  
-  .spinner {
-    
+    z-index: 9999;
+}
+
+.spinner {
+
     border: 4px solid rgba(247, 244, 244);
     border-left-color: rgb(59, 59, 59);
     border-radius: 50%;
     width: 40px;
     height: 40px;
-    animation: spin 1s linear infinite; /* Animación de giro */
-  }
-  
-  @keyframes spin {
-    to {
-      transform: rotate(360deg);
-    }
-  }
-  
+    animation: spin 1s linear infinite;
+}
 
-  
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
