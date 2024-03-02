@@ -18,7 +18,7 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 
 @Entity
-public class Usuario {
+public class Person {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -33,13 +33,13 @@ public class Usuario {
 	private Integer weight;
 	
 	@OneToOne(cascade = CascadeType.ALL)
-	private Imagen imagen;
+	private Picture imagen;
 
-	public Imagen getImagen() {
+	public Picture getImagen() {
 		return imagen;
 	}
 
-	public void setImagen(Imagen imagen) {
+	public void setImagen(Picture imagen) {
 		this.imagen = imagen;
 	
 	}
@@ -52,19 +52,19 @@ public class Usuario {
 		this.encodedPassword = encodedPassword;
 	}
 
-	public void setAmigos(List<Usuario> amigos) {
+	public void setAmigos(List<Person> amigos) {
 		this.amigos = amigos;
 	}
 
-	public void setNotificaciones(List<Notificacion> notificaciones) {
+	public void setNotificaciones(List<Notification> notificaciones) {
 		this.notificaciones = notificaciones;
 	}
 
-	public List<Rutina> getRutinas() {
+	public List<Rutine> getRutinas() {
 		return rutinas;
 	}
 
-	public void setRutinas(List<Rutina> rutinas) {
+	public void setRutinas(List<Rutine> rutinas) {
 		this.rutinas = rutinas;
 	}
 
@@ -72,26 +72,26 @@ public class Usuario {
 	 @JoinTable( name = "amigos", 
 	 joinColumns = @JoinColumn(name = "usuario_id"), 
 	 inverseJoinColumns = @JoinColumn(name = "amigo_id") ) 
-	 private List<Usuario> amigos;
+	 private List<Person> amigos;
 	 
 	@ElementCollection(fetch = FetchType.EAGER)
 	private List<String> roles;
 
 	@OneToMany (cascade = CascadeType.ALL)
-    private List<Notificacion> notificaciones;
+    private List<Notification> notificaciones;
 
 	@OneToMany (cascade = CascadeType.ALL)
-	private List<Rutina> rutinas;
+	private List<Rutine> rutinas;
 
 	@OneToMany (cascade = CascadeType.ALL)
-    private List<Novedad> novedades;
+    private List<News> novedades;
 
 	
-	public List<Novedad> getNovedades() {
+	public List<News> getNovedades() {
 		return novedades;
 	}
 
-	public void setNovedades(List<Novedad> novedades) {
+	public void setNovedades(List<News> novedades) {
 		this.novedades = novedades;
 	}
 
@@ -148,11 +148,11 @@ public class Usuario {
 	}
 	
 
-	public Usuario() {
+	public Person() {
 		// Used by JPA
 	}
 
-	public Usuario(String firstName, String encodedPassword,String name,String date, Integer weight, String...roles) {
+	public Person(String firstName, String encodedPassword,String name,String date, Integer weight, String...roles) {
 		super();
 		this.firstName = firstName;
 		this.encodedPassword = encodedPassword;
@@ -167,11 +167,11 @@ public class Usuario {
 		return id;
 	}
 	
-	public List<Usuario> getAmigos() {
+	public List<Person> getAmigos() {
 		return amigos;
 	}
 
-	public List<Notificacion> getNotificaciones() {
+	public List<Notification> getNotificaciones() {
 		return notificaciones;
 	}
 	

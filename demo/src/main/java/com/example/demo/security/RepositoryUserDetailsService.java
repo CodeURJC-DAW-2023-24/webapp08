@@ -11,19 +11,19 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.example.demo.model.Usuario;
-import com.example.demo.repository.UserRepository;
+import com.example.demo.model.Person;
+import com.example.demo.repository.PersonRepository;
 
 @Service
 public class RepositoryUserDetailsService implements UserDetailsService {
 
 	@Autowired
-	private UserRepository userRepository;
+	private PersonRepository userRepository;
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-		Usuario user = userRepository.findByFirstName(username)
+		Person user = userRepository.findByFirstName(username)
 				.orElseThrow(() -> new UsernameNotFoundException("User not found"));
 
 		List<GrantedAuthority> roles = new ArrayList<>();

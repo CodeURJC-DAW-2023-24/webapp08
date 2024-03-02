@@ -7,18 +7,18 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.demo.model.Ejercicio;
-import com.example.demo.model.Usuario;
-import com.example.demo.repository.UserRepository;
+import com.example.demo.model.Exercise;
+import com.example.demo.model.Person;
+import com.example.demo.repository.PersonRepository;
 
 @Service
 public class UserService {
 
 	@Autowired
-	private UserRepository repository;
+	private PersonRepository repository;
   
 
-	public Optional<Usuario> findById(long id) {
+	public Optional<Person> findById(long id) {
 		return repository.findById(id);
 	}
 	
@@ -26,29 +26,30 @@ public class UserService {
 		return repository.existsById(id);
 	}
 
-	public List<Usuario> findAll() {
+	public List<Person> findAll() {
 		return repository.findAll();
 	}
 
 	public void save(String firstName,  String password, String name, String date, Integer weight) {
 
-		repository.save(new Usuario(firstName, password, name, date, weight, "USER"));
+		repository.save(new Person(firstName, password, name, date, weight, "USER"));
 	}
 
 	public void delete(long id) {
 		repository.deleteById(id);
 	}
-	public void aumentarFrecuencia(Usuario usuario, String grupo, String name) {
-        Map<String, Integer> frecuencias = usuario.getFrecuencia(grupo);
-		frecuencias.put(name, frecuencias.getOrDefault(name, 0) + 1);
-		repository.save(usuario);
+
+	public void increaseFreq(Person user, String grp, String name) {
+        Map<String, Integer> frequencies = user.getFrecuencia(grp);
+		frequencies.put(name, frequencies.getOrDefault(name, 0) + 1);
+		repository.save(user);
 	}
-	public List<Ejercicio> ordenar(Usuario usuario, String grupo,List<Ejercicio> ejercicios) {
-		Map<String, Integer> frecuencias = usuario.getFrecuencia(grupo);
-		ejercicios.sort(Comparator.comparingInt(ejercicio ->
-		frecuencias.getOrDefault(((Ejercicio) ejercicio).getName(), 0)
+	public List<Exercise> order(Person user, String grp,List<Exercise> exercises) {
+		Map<String, Integer> frequencies = user.getFrecuencia(grp);
+		exercises.sort(Comparator.comparingInt(ejercicio ->
+		frequencies.getOrDefault(((Exercise) ejercicio).getName(), 0)
 		).reversed());
-		return ejercicios;
+		return exercises;
 
 	}
 }

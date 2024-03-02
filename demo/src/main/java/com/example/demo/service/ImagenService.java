@@ -14,14 +14,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
-import com.example.demo.model.Imagen;
-import com.example.demo.repository.ImagenRepositorio;
+import com.example.demo.model.Picture;
+import com.example.demo.repository.PictureRepository;
 
 @Service
 public class ImagenService {
 
     @Autowired
-    private ImagenRepositorio imagenRepository;
+    private PictureRepository imagenRepository;
     private static final String RUTA_IMAGENES = "demo/src/main/resources/static/images";
 
     public void cargarImagenesDesdeCarpeta(String rutaCarpeta) throws SerialException, SQLException {
@@ -34,7 +34,7 @@ public class ImagenService {
                     try {
                         byte[] datos = Files.readAllBytes(archivo.toPath());
                         String nombre = StringUtils.cleanPath(archivo.getName());
-                        Imagen imagen = new Imagen();
+                        Picture imagen = new Picture();
                         imagen.setName(nombre);
                         imagen.setContenido(Files.probeContentType(archivo.toPath()));
                         imagen.setDatos(datos);
@@ -47,14 +47,14 @@ public class ImagenService {
         }
     }
 
-    public void guardarImagenes(List<Imagen> imagenes) {
-        for (Imagen imagen : imagenes) {
+    public void guardarImagenes(List<Picture> imagenes) {
+        for (Picture imagen : imagenes) {
             guardarImagen(imagen);
         }
 
     }
 
-    public void guardarImagen(Imagen imagen) {
+    public void guardarImagen(Picture imagen) {
         String nombreImagen = imagen.getName();
         String rutaCompleta = Paths.get(RUTA_IMAGENES, nombreImagen).toString();
         try (FileOutputStream fos = new FileOutputStream(rutaCompleta)) {

@@ -7,7 +7,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToOne;
 
 @Entity
-public class Novedad {
+public class News {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -15,7 +15,7 @@ public class Novedad {
 	private String name;
 
 	@OneToOne
-	private Rutina rutina;
+	private Rutine rutina;
 
 	public long getId() {
 		return id;
@@ -29,18 +29,18 @@ public class Novedad {
 		this.name = name;
 	}
 
-	public Rutina getRutina() {
+	public Rutine getRutina() {
 		return rutina;
 	}
 
-	public void setRutina(Rutina rutina) {
+	public void setRutina(Rutine rutina) {
 		this.rutina = rutina;
 	}
 
-	protected Novedad() {
+	protected News() {
 	}
 
-	public Novedad(String name) {
+	public News(String name) {
 		super();
 		this.name = name;
 

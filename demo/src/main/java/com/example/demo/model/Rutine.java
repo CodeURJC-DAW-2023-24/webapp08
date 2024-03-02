@@ -5,7 +5,7 @@ import java.util.List;
 import jakarta.persistence.*;
 
 @Entity
-public class Rutina {
+public class Rutine {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -15,29 +15,29 @@ public class Rutina {
     private Integer time;
 
     @OneToMany(cascade = CascadeType.ALL)
-    private List<Mensaje> mensajes;
+    private List<Message> mensajes;
 
     @OneToMany
-    private List<EjerRutina> ejercicios;
+    private List<ExRutine> ejercicios;
 
-    public void addEjerRutina(EjerRutina ejerRutina) {
+    public void addEjerRutina(ExRutine ejerRutina) {
 
         ejercicios.add(ejerRutina);
     }
 
-    public List<EjerRutina> getEjercicios() {
+    public List<ExRutine> getEjercicios() {
         return ejercicios;
     }
 
-    public void setEjercicios(List<EjerRutina> ejercicios) {
+    public void setEjercicios(List<ExRutine> ejercicios) {
         this.ejercicios = ejercicios;
     }
 
-    public Rutina() {
+    public Rutine() {
 
     }
 
-    public Rutina(String name, Date date, Integer time) {
+    public Rutine(String name, Date date, Integer time) {
         this.name = name;
         this.date = date;
         this.time = time;
@@ -75,11 +75,11 @@ public class Rutina {
         this.time = time;
     }
 
-    public List<Mensaje> getMensajes() {
+    public List<Message> getMensajes() {
         return mensajes;
     }
 
-    public void setMensajes(List<Mensaje> mensajes) {
+    public void setMensajes(List<Message> mensajes) {
         this.mensajes = mensajes;
     }
 }

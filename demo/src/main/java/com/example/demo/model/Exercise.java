@@ -3,7 +3,7 @@ package com.example.demo.model;
 import jakarta.persistence.*;
 
 @Entity
-public class Ejercicio {
+public class Exercise {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -14,39 +14,39 @@ public class Ejercicio {
     private String video;
     private String description;
     @OneToOne(cascade = CascadeType.ALL)
-    private Imagen imagen;
-    private boolean tieneImagen;
-    private String ruta;
+    private Picture image;
+    private boolean bImage;
+    private String path;
 
-    public Imagen getImagen() {
-        return imagen;
+    public Picture getImage() {
+        return image;
     }
 
-    public void setImagen(Imagen imagen) {
-        this.imagen = imagen;
+    public void setImage(Picture image) {
+        this.image = image;
 
     }
 
-    public boolean getTieneImagen() {
-        return tieneImagen;
+    public boolean getbImage() {
+        return bImage;
     }
 
-    public void setTieneImagen(boolean tieneImagen) {
-        this.tieneImagen = tieneImagen;
+    public void setbImage(boolean bImage) {
+        this.bImage = bImage;
     }
 
-    public String getRuta() {
-        return ruta;
+    public String getPath() {
+        return path;
     }
 
-    public void setRuta(String ruta) {
-        this.ruta = ruta;
+    public void setPath(String path) {
+        this.path = path;
     }
 
-    public Ejercicio() {
+    public Exercise() {
     }
 
-    public Ejercicio(String name, String description, String grp, String video) {
+    public Exercise(String name, String description, String grp, String video) {
         super();
 
         this.name = name;
@@ -90,11 +90,4 @@ public class Ejercicio {
     public void setDescription(String description) {
         this.description = description;
     }
-
-    @Override
-    public String toString() {
-        return String.format("Ejercicio[id=%d, name='%s', grp='%s',video='%s',description='%s']",
-                id, name, grp, video, description);
-    }
-
 }

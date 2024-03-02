@@ -3,7 +3,7 @@ package com.example.demo.model;
 import jakarta.persistence.*;
 
 @Entity
-public class Notificacion {
+public class Notification {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -12,11 +12,11 @@ public class Notificacion {
   private String contenido;
   private boolean leido;
 
-  protected Notificacion() {
+  protected Notification() {
 
   }
 
-  public Notificacion(String sender) {
+  public Notification(String sender) {
     super();
     this.contenido = "Has recibido una solicitud de: " + sender;
   }

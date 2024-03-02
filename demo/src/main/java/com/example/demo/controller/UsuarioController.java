@@ -16,18 +16,18 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.example.demo.model.Notificacion;
-import com.example.demo.model.EjerRutina;
-import com.example.demo.model.Imagen;
-import com.example.demo.model.Mensaje;
-import com.example.demo.model.Novedad;
-import com.example.demo.model.Rutina;
-import com.example.demo.model.Usuario;
-import com.example.demo.repository.MensajeRepository;
-import com.example.demo.repository.NotificacionRepository;
-import com.example.demo.repository.NovedadRepository;
-import com.example.demo.repository.RutinaRepository;
-import com.example.demo.repository.UserRepository;
+import com.example.demo.model.Notification;
+import com.example.demo.model.ExRutine;
+import com.example.demo.model.Picture;
+import com.example.demo.model.Message;
+import com.example.demo.model.News;
+import com.example.demo.model.Rutine;
+import com.example.demo.model.Person;
+import com.example.demo.repository.MessageRepository;
+import com.example.demo.repository.NotificationRepository;
+import com.example.demo.repository.NewsRepository;
+import com.example.demo.repository.RutineRepository;
+import com.example.demo.repository.PersonRepository;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -46,7 +46,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class UsuarioController implements CommandLineRunner {
 
 	@Autowired
-	private UserRepository userRepository;
+	private PersonRepository userRepository;
 
 	@Autowired
 	private ImagenService imageService;
@@ -55,16 +55,16 @@ public class UsuarioController implements CommandLineRunner {
 	private PasswordEncoder passwordEncoder;
 
 	@Autowired
-	private NovedadRepository newsRepository;
+	private NewsRepository newsRepository;
 
 	@Autowired
-	private NotificacionRepository notificationRepository;
+	private NotificationRepository notificationRepository;
 
 	@Autowired
-	private RutinaRepository rutineRepository;
+	private RutineRepository rutineRepository;
 
 	@Autowired
-	private MensajeRepository messageRepository;
+	private MessageRepository messageRepository;
 
 	@Override
 	public void run(String... args) throws Exception {
@@ -111,7 +111,7 @@ public class UsuarioController implements CommandLineRunner {
 			@RequestParam("password") String password,
 			@RequestParam("password1") String password1,
 			@RequestParam("image") MultipartFile imagenFile, HttpSession session, Model model) {
-		Optional<Usuario> existingUserOptional = userRepository.findByFirstName(firstName);
+		Optional<Person> existingUserOptional = userRepository.findByFirstName(firstName);
 		if (name.isEmpty() || firstName.isEmpty() || date.isEmpty() || password.isEmpty() || password1.isEmpty()) {
 			model.addAttribute("message", true);
 			model.addAttribute("erroMg", "Rellene todos los campos");
@@ -132,14 +132,14 @@ public class UsuarioController implements CommandLineRunner {
 			return "error";
 		}
 		String pass = passwordEncoder.encode(password);
-		Usuario user = new Usuario(name, pass, name, date, weight, "USER");
+		Person user = new Person(firstName, pass, name, date, weight, "USER");
 		if (!imagenFile.isEmpty()) {
 			try {
 				// byte[] convert
 				byte[] datosImagen = imagenFile.getBytes();
 
 				// object Image
-				Imagen image = new Imagen();
+				Picture image = new Picture();
 				image.setContenido(imagenFile.getContentType());
 				image.setName(imagenFile.getOriginalFilename());
 				image.setDatos(datosImagen);
@@ -163,17 +163,17 @@ public class UsuarioController implements CommandLineRunner {
 		model.addAttribute("search", false);
 		model.addAttribute("adEx", request.isUserInRole("ADMIN"));
 		String name = request.getUserPrincipal().getName();
-		Usuario user = userRepository.findByFirstName(name).orElseThrow();
-		Imagen image = user.getImagen();
-		String rutaImagen = "logo.jpg";
+		Person user = userRepository.findByFirstName(name).orElseThrow();
+		Picture image = user.getImagen();
+		String imagePath= "logo.jpg";
 		if (!(image == null)) {
-			rutaImagen = image.getName();
+			imagePath = image.getName();
 		}
 		model.addAttribute("firstName", user.getFirstName());
 		model.addAttribute("name", user.getName());
 		model.addAttribute("date", user.getDate());
 		model.addAttribute("weight", user.getWeight());
-		model.addAttribute("rutaImagen", rutaImagen);
+		model.addAttribute("imagePath", imagePath);
 		model.addAttribute("search", false);
 
 		return "user";
@@ -195,7 +195,7 @@ public class UsuarioController implements CommandLineRunner {
 			@RequestParam String date, @RequestParam Integer weight,
 			@RequestParam MultipartFile image, HttpServletRequest request) throws InterruptedException {
 		String nameUser = request.getUserPrincipal().getName();
-		Usuario user = userRepository.findByFirstName(nameUser).orElseThrow();
+		Person user = userRepository.findByFirstName(nameUser).orElseThrow();
 		user.setName(name);
 		user.setFirstName(firstName);
 		user.setDate(date);
@@ -206,7 +206,7 @@ public class UsuarioController implements CommandLineRunner {
 				byte[] datosImagen = image.getBytes();
 
 				// object Image
-				Imagen imageF = new Imagen();
+				Picture imageF = new Picture();
 				imageF.setContenido(image.getContentType());
 				imageF.setName(image.getOriginalFilename());
 				imageF.setDatos(datosImagen);
@@ -216,17 +216,17 @@ public class UsuarioController implements CommandLineRunner {
 			}
 		}
 		userRepository.save(user);
-		Imagen imageN = user.getImagen();
-		String rutaImagen = "logo.jpg";
+		Picture imageN = user.getImagen();
+		String imagePath = "logo.jpg";
 		if (!(imageN == null)) {
-			rutaImagen = imageN.getName();
+			imagePath = imageN.getName();
 
 		}
 		model.addAttribute("firstName", user.getFirstName());
 		model.addAttribute("name", user.getName());
 		model.addAttribute("date", user.getDate());
 		model.addAttribute("weight", user.getWeight());
-		model.addAttribute("rutaImagen", rutaImagen);
+		model.addAttribute("imagePath", imagePath);
 		model.addAttribute("search", false);
 		model.addAttribute("adEx", request.isUserInRole("ADMIN"));
 
@@ -236,9 +236,9 @@ public class UsuarioController implements CommandLineRunner {
 	@GetMapping("/starterNews")
 	public @ResponseBody List<Object> getNovedades(@RequestParam int iteracion, HttpServletRequest request) {
 		String nameUser = request.getUserPrincipal().getName();
-		Usuario user = userRepository.findByFirstName(nameUser).orElseThrow();
-		Page<Novedad> pNews =userRepository.findByNovedades(user.getNovedades(),PageRequest.of(iteracion, 10));
-		List<Novedad> page = pNews.getContent();
+		Person user = userRepository.findByFirstName(nameUser).orElseThrow();
+		Page<News> pNews =userRepository.findByNovedades(user.getNovedades(),PageRequest.of(iteracion, 10));
+		List<News> page = pNews.getContent();
 		Boolean top = pNews.hasNext();
 		List<Object> data = new ArrayList<>(Arrays.asList(page, top));
 
@@ -255,7 +255,7 @@ public class UsuarioController implements CommandLineRunner {
 	@GetMapping("/searchUsers")
 	public @ResponseBody Map<String, Object> searchbyName(@RequestParam String nombre, HttpServletRequest request) {
 		String nameUser = request.getUserPrincipal().getName();
-		Usuario user = userRepository.findByFirstName(nameUser).orElseThrow();
+		Person user = userRepository.findByFirstName(nameUser).orElseThrow();
 		Boolean bAdmin = request.isUserInRole("ADMIN");
 		List<String[]> lNameId = userRepository.getIdandFirstName(nombre, user.getId());
 		Map<String, Object> response = new HashMap<>();
@@ -268,9 +268,9 @@ public class UsuarioController implements CommandLineRunner {
 	@PostMapping("/sendRequest")
 	public @ResponseBody Boolean sendRequest(@RequestParam String id, HttpServletRequest request) {
 		String nameUser = request.getUserPrincipal().getName();
-		Usuario sender = userRepository.findByFirstName(nameUser).orElseThrow();
-		Usuario receiver = userRepository.findById(Long.parseLong(id)).orElseThrow();
-		Notificacion notificacion = new Notificacion(sender.getFirstName());
+		Person sender = userRepository.findByFirstName(nameUser).orElseThrow();
+		Person receiver = userRepository.findById(Long.parseLong(id)).orElseThrow();
+		Notification notificacion = new Notification(sender.getFirstName());
 		notificationRepository.save(notificacion);
 		receiver.getNotificaciones().add(notificacion);
 		userRepository.save(receiver);
@@ -279,12 +279,12 @@ public class UsuarioController implements CommandLineRunner {
 
 	@PostMapping("/deleteUser")
 	public @ResponseBody Boolean deleteUser(@RequestParam Long id) {
-		Usuario user = userRepository.findById(id).orElseThrow();
-		List<Rutina> lrutines = user.getRutinas();
-		for (Rutina rutine : lrutines) {
-			List<Usuario> lUsers = user.getAmigos();
-			Optional<Novedad> news = newsRepository.findByrutina(rutine);
-			for (Usuario friend : lUsers) {
+		Person user = userRepository.findById(id).orElseThrow();
+		List<Rutine> lrutines = user.getRutinas();
+		for (Rutine rutine : lrutines) {
+			List<Person> lUsers = user.getAmigos();
+			Optional<News> news = newsRepository.findByrutina(rutine);
+			for (Person friend : lUsers) {
 				if (news.isPresent()) {
 					friend.getNovedades().remove(news.get());
 					friend.getAmigos().remove(user);
@@ -305,33 +305,33 @@ public class UsuarioController implements CommandLineRunner {
 	}
 
 	@GetMapping("/notifications")
-	public @ResponseBody List<Notificacion> getNotifications(HttpServletRequest request) {
+	public @ResponseBody List<Notification> getNotifications(HttpServletRequest request) {
 		String nameUser = request.getUserPrincipal().getName();
 
-		List<Notificacion> lNotifications = userRepository.findByFirstName(nameUser).orElseThrow().getNotificaciones();
+		List<Notification> lNotifications = userRepository.findByFirstName(nameUser).orElseThrow().getNotificaciones();
 
 		return lNotifications;
 	}
 
 	@PostMapping("/processRequest")
-	public @ResponseBody void processRequest(@RequestParam Notificacion notificacion, @RequestParam boolean aceptar,
+	public @ResponseBody void processRequest(@RequestParam Notification notificacion, @RequestParam boolean aceptar,
 			HttpServletRequest request) {
 		String nameUser = request.getUserPrincipal().getName();
-		Usuario receptor = userRepository.findByFirstName(nameUser).orElseThrow();
+		Person receptor = userRepository.findByFirstName(nameUser).orElseThrow();
 
 		if (aceptar) {
 			String originalText = notificacion.getContenido();
 			int positionTwoPoints = originalText.indexOf(":");
 			String textAfterPoints = originalText.substring(positionTwoPoints + 1);
 			String cleanText = textAfterPoints.trim();
-			Usuario sender = userRepository.findByFirstName(cleanText).orElseThrow();
+			Person sender = userRepository.findByFirstName(cleanText).orElseThrow();
 			if (!receptor.getAmigos().contains(sender)) { 
 				receptor.getAmigos().add(sender); 
 				sender.getAmigos().add(receptor);
 				userRepository.save(sender);
 			}
 		}
-		List<Notificacion> notificationsUser = receptor.getNotificaciones();
+		List<Notification> notificationsUser = receptor.getNotificaciones();
 		notificationsUser.remove(notificacion);
 		userRepository.save(receptor);
 
@@ -340,24 +340,24 @@ public class UsuarioController implements CommandLineRunner {
 	@GetMapping("/loadFriends")
 	public @ResponseBody List<String> loadFriends(HttpServletRequest request) {
 		String nameUser = request.getUserPrincipal().getName();
-		Usuario user = userRepository.findByFirstName(nameUser).orElseThrow();
+		Person user = userRepository.findByFirstName(nameUser).orElseThrow();
 		List<String> lFriends = userRepository.findFirstNameOfAmigosByUsuario(user);
 
 		return lFriends;
 	}
 
 	@GetMapping("/loadRutines")
-	public @ResponseBody List<Rutina> getOwnRutines(HttpServletRequest request) {
+	public @ResponseBody List<Rutine> getOwnRutines(HttpServletRequest request) {
 		String nameUser = request.getUserPrincipal().getName();
-		Usuario user = userRepository.findByFirstName(nameUser).orElseThrow();
-		List<Rutina> rutines = user.getRutinas();
+		Person user = userRepository.findByFirstName(nameUser).orElseThrow();
+		List<Rutine> rutines = user.getRutinas();
 		return rutines;
 	}
 
 	@GetMapping("/showRutine")
 	public String showRutine(Model model, @RequestParam Long id, HttpServletRequest request) {
-		Usuario user = userRepository.findByRutinaId(id).orElseThrow();
-		Rutina rutine = rutineRepository.findById(id).orElseThrow();
+		Person user = userRepository.findByRutinaId(id).orElseThrow();
+		Rutine rutine = rutineRepository.findById(id).orElseThrow();
 		model.addAttribute("firstName", user.getFirstName());
 		model.addAttribute("nameUser", user.getName());
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -369,23 +369,23 @@ public class UsuarioController implements CommandLineRunner {
 		model.addAttribute("id", id);
 		if (user.getImagen() != null) {
 
-			model.addAttribute("rutaImagen", user.getImagen().getName());
+			model.addAttribute("imagePath", user.getImagen().getName());
 		} 
 		else
-			model.addAttribute("rutaImagen", "logo.jpg");
+			model.addAttribute("imagePath", "logo.jpg");
 
 		return "rutine";
 	}
 
 	@PostMapping("/sendComment")
-	public @ResponseBody Mensaje postMethodName(@RequestParam String comentario, @RequestParam Long id,
+	public @ResponseBody Message postMethodName(@RequestParam String comentario, @RequestParam Long id,
 			HttpServletRequest request) {
 		String nameUser = request.getUserPrincipal().getName();
-		Usuario user = userRepository.findByFirstName(nameUser).orElseThrow();
+		Person user = userRepository.findByFirstName(nameUser).orElseThrow();
 		String firstNameUser = user.getFirstName();
-		Mensaje message = new Mensaje(firstNameUser, comentario);
+		Message message = new Message(firstNameUser, comentario);
 		messageRepository.save(message);
-		Rutina rutine = rutineRepository.findById(id).orElseThrow();
+		Rutine rutine = rutineRepository.findById(id).orElseThrow();
 		rutine.getMensajes().add(message);
 		rutineRepository.save(rutine);
 
@@ -414,12 +414,12 @@ public class UsuarioController implements CommandLineRunner {
 
 		}
 		String nameUser = request.getUserPrincipal().getName();
-		Usuario user = userRepository.findByFirstName(nameUser).orElseThrow();
-		List<Rutina> lrutines = user.getRutinas();
-		for (Rutina rutine : lrutines) {
-			List<EjerRutina> lExcer = rutine.getEjercicios();
-			for (EjerRutina exercise : lExcer) {
-				int index = Arrays.asList(gruposMusculares).indexOf(exercise.getGrupo());
+		Person user = userRepository.findByFirstName(nameUser).orElseThrow();
+		List<Rutine> lrutines = user.getRutinas();
+		for (Rutine rutine : lrutines) {
+			List<ExRutine> lExcer = rutine.getEjercicios();
+			for (ExRutine exercise : lExcer) {
+				int index = Arrays.asList(gruposMusculares).indexOf(exercise.getGrp());
 				int value = map.get(gruposMusculares[index]);
 				value += 1;
 				map.put(gruposMusculares[index], value);

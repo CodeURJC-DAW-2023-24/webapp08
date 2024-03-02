@@ -9,9 +9,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import com.example.demo.repository.RutinaRepository;
-import com.example.demo.model.Rutina;
-import com.example.demo.model.EjerRutina;
+import com.example.demo.repository.RutineRepository;
+import com.example.demo.model.Rutine;
+import com.example.demo.model.ExRutine;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
@@ -20,7 +20,7 @@ import java.util.List;
 @RequestMapping("/pdf")
 public class PDFController {
     @Autowired
-    private RutinaRepository rutinaRepository;
+    private RutineRepository rutinaRepository;
 
     @GetMapping("/download/{date}/{id}")
     public void downloadPdf(HttpServletResponse response, @PathVariable String date, @PathVariable Long id) throws IOException {
@@ -28,8 +28,8 @@ public class PDFController {
         String truncatedDate = date.substring(0, Math.min(date.length(), 10)); // date in file
         String fileName = "rutina_" + truncatedDate + ".pdf";
         response.setHeader("Content-Disposition", "attachment; filename=" + fileName);
-        Rutina rutine = rutinaRepository.findById(id).orElseThrow();
-        List<EjerRutina> list= rutine.getEjercicios();
+        Rutine rutine = rutinaRepository.findById(id).orElseThrow();
+        List<ExRutine> list= rutine.getEjercicios();
 
         try (PDDocument document = new PDDocument()) {
             PDPage page = new PDPage();
@@ -44,11 +44,11 @@ public class PDFController {
                 contentStream.setFont(PDType1Font.HELVETICA, 12); 
                 contentStream.showText("_________________________________________________________________");
                 contentStream.newLineAtOffset(0, -20);
-                for (EjerRutina exRutine : list) {
+                for (ExRutine exRutine : list) {
                     contentStream.setFont(PDType1Font.COURIER_BOLD_OBLIQUE, 11); 
                     contentStream.showText("   Ejercicio: ");
                     contentStream.setFont(PDType1Font.HELVETICA, 10); 
-                    contentStream.showText(exRutine.getEjercicio());
+                    contentStream.showText(exRutine.getExercise());
                     contentStream.setFont(PDType1Font.COURIER_BOLD_OBLIQUE, 11);
                     contentStream.showText("    S X Rep: ");
                     contentStream.setFont(PDType1Font.HELVETICA, 10); 
@@ -56,7 +56,7 @@ public class PDFController {
                     contentStream.setFont(PDType1Font.COURIER_BOLD_OBLIQUE, 11);
                     contentStream.showText("    Peso (kg): ");
                     contentStream.setFont(PDType1Font.HELVETICA, 10);
-                    contentStream.showText(exRutine.getPeso().toString());
+                    contentStream.showText(exRutine.getWeight().toString());
                     contentStream.newLineAtOffset(0, -10); 
                     contentStream.setFont(PDType1Font.HELVETICA, 12); 
                     contentStream.showText("_________________________________________________________________");

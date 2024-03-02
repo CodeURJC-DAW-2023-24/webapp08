@@ -46,12 +46,12 @@
                   <div class="col-md-1"> </div>
                   <div class="col-md-3">
                     <a href="/group/{{grupo}}/{{id}}">
-                      {{#tieneImagen}}
-                      <img src="/images/{{ruta}}" alt="Generic placeholder image" class="imgEx">
-                      {{/tieneImagen}}
-                      {{^tieneImagen}}
+                      {{#bImage}}
+                      <img src="/images/{{path}}" alt="Generic placeholder image" class="imgEx">
+                      {{/bImage}}
+                      {{^bImage}}
                       <img src="/images/logo.jpg" alt="Generic placeholder image" class="imgEx">
-                      {{/tieneImagen}}
+                      {{/bImage}}
                     </a>
                   </div>
                   <div class="col-md-1"> </div>

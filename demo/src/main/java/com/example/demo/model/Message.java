@@ -6,7 +6,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 @Entity
-public class Mensaje {
+public class Message {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -15,7 +15,7 @@ public class Mensaje {
     private String nombre;
     private String contenido;
 
-    protected Mensaje() {
+    protected Message() {
 
     }
 
@@ -43,7 +43,7 @@ public class Mensaje {
         this.contenido = contenido;
     }
 
-    public Mensaje(String nombre, String contenido) {
+    public Message(String nombre, String contenido) {
         this.nombre = nombre;
         this.contenido = contenido;
     }

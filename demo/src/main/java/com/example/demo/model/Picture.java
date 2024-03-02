@@ -12,7 +12,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Lob;
 
 @Entity
-public class Imagen {
+public class Picture {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -25,10 +25,10 @@ public class Imagen {
     @ElementCollection(fetch = FetchType.EAGER)
     private List<byte[]> fragmentos;
 
-	public Imagen() {
+	public Picture() {
 	}
 
-	public Imagen(String name) {
+	public Picture(String name) {
 		super();
 		this.name = name;
 		
