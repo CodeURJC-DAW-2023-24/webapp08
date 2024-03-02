@@ -2,7 +2,7 @@ async function buscar(nombre) {
     var friendContainer = document.getElementById("friend-container");
     friendContainer.innerHTML="";
     friendContainer.style.color = "black";
-    friendContainer.style.fontSize = "20px"; // Tamaño de fuente de 20 píxeles
+    friendContainer.style.fontSize = "20px"; 
 
     if (nombre.trim() !== "") {
     const response = await fetch(`/busqueda?nombre=${nombre}`);
@@ -28,11 +28,10 @@ var ulElement = document.createElement("ul");
 ulElement.classList.add("friend-list");
 
 
-   for (let i=0; i<nombres.length; i++) { //REVISAR AJKSLDHFHLSAKJDHFLKSJDHFKSJLHFKLSJDHFSKLJHFSLKDJHFLSKJHDLKDJFHSKJLH ###############################################################
+   for (let i=0; i<nombres.length; i++) { 
     var liElement = document.createElement("li");
     liElement.classList.add("user-item");
 
-   //var textNode = document.createTextNode(`${nombre}`);
     liElement.textContent = `${nombres[i][1]}`;
 
     var buttonElement = document.createElement("button");
@@ -40,31 +39,25 @@ ulElement.classList.add("friend-list");
     buttonElement.textContent = "Enviar solicitud";
     buttonElement.addEventListener("click", function() {
         enviarSolicitud(nombres[i][0]);
-    }); //Enviar solicitud al otro usuario se resume en añadirle una notificación enviarSolicitud(nombres[i][0])
+    }); 
 
-    
-    //liElement.appendChild(textNode);
-   
+       
     var buttonContainer = document.createElement("div");
     buttonContainer.appendChild(buttonElement);
 
     if (admin){
         var deleteButton = document.createElement("button");
         deleteButton.classList.add("btn", "btn-danger", "btn-sm", "ml-2");
-        deleteButton.innerHTML = '<i class="bi bi-trash"></i>'; // Símbolo de eliminar usuario
+        deleteButton.innerHTML = '<i class="bi bi-trash"></i>'; 
         buttonContainer.appendChild(deleteButton);
 
-        // Añadir evento de clic al botón
         deleteButton.addEventListener("click", function() {
-            // Aquí puedes agregar la lógica para eliminar el usuario
             deleteUser(nombres[i][0]);
 
         });
     }
         liElement.appendChild(buttonContainer);
 
-       // liElement.appendChild(buttonElement);
-        //liElement.appendChild(deleteButton);
     
 
     ulElement.appendChild(liElement);
@@ -83,14 +76,14 @@ async function deleteUser(id){
       if (nombres==true) {
           var friendContainer = document.getElementById("friend-container");
           friendContainer.innerHTML="Usuario eliminado con exito";
-          friendContainer.style.fontSize = "30px"; // Tamaño de fuente de 20 píxeles
+          friendContainer.style.fontSize = "30px"; 
           friendContainer.style.color = "crimson";
       }
   
   
 }
 
-async function enviarSolicitud(id) { //Ns xq no se pone el tipo del parámetro recibido
+async function enviarSolicitud(id) { 
     const response = await fetch(`/sendSolicitud?id=${id}`,{
         method: 'POST'
       });
@@ -99,7 +92,7 @@ async function enviarSolicitud(id) { //Ns xq no se pone el tipo del parámetro r
     if (nombres==true) {
         var friendContainer = document.getElementById("friend-container");
         friendContainer.innerHTML="Solicitud Mandada con Exito";
-        friendContainer.style.fontSize = "30px"; // Tamaño de fuente de 20 píxeles
+        friendContainer.style.fontSize = "30px"; 
         friendContainer.style.color = "limegreen";
     }
 
@@ -112,12 +105,11 @@ async function cargarAmigos(){
     var ulElement = document.getElementById("list-group");
 
     lAmigos.forEach(function(amigo) {
-        // Crear un elemento li
         var liElement = document.createElement("li");
         liElement.className = "list-group-item";
         liElement.textContent = amigo;
     
-        // Agregar el elemento li al elemento ul
+       
         ulElement.appendChild(liElement);
     });
 }

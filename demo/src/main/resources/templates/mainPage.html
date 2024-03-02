@@ -2,9 +2,10 @@
 <html lang="en">
 
 <head>
+    <title>GymGuru-Página Principal</title>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GymGuru-Página Principal</title>
 
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700|Poppins:400,600,700&display=swap"
         rel="stylesheet" />
@@ -15,15 +16,11 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 
 
-    
-
-
 </head>
 
 <body>
 
     {{>header}}
-    <!--Para que el boostrap no se superponga-->
 
 
     <div class="content">
@@ -112,22 +109,21 @@
                     </ul>
                 </div>
 
-            </div> <!--Div container-calendario-->
+            </div> 
             <div class="container-rutina">
                 <a href="/adRutine">
                 <button  class="btn boton-rutine">Añadir Rutina</button>
                 </a>
             </div>
-        </div> <!-- Div container-calendario-rutina-->
+        </div> 
 
         <div class="news mt-4 mb-3">
             <h2 class="scrolling-text">Últimas novedades </h2>
         </div>
 
-        <!-- Dos columnas con dos elementos en cada una -->
         <div id="container-novedades" class="container-novedades">
 
-        </div> <!--Div del container-novedades-->
+        </div> 
 
         <div id="spinner-container" class="spinner-container mb-2">
             <div class="spinner"></div>
@@ -139,7 +135,7 @@
 
 
 
-    </div> <!--Div de content-->
+    </div> 
 </body>
 <script src="/js/paginacion.js"></script>
 <script src="/js/cargarRutinas.js"></script>

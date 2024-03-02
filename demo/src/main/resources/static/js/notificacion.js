@@ -10,46 +10,37 @@ async function verNotificaciones() {
 }
 
 function agregarElementos(notificaciones) {
-    // Crear los elementos de lista y enlaces
 
     var dropdownMenu = document.getElementById("dropdown-menu");
 
     notificaciones.forEach(function(notificacion) {
-        // Crear el elemento de lista <li>
     var listItem = document.createElement("li");
 
-    // Crear el enlace
     
     listItem.className = "dropdown-item";
     
     listItem.textContent = notificacion.contenido + " ";
 
-    // Crear botón de check verde
     var checkButton = document.createElement("button");
     checkButton.className = "btn btn-success";
-    checkButton.innerHTML = '<i class="bi bi-check-circle"></i>'; // Icono de check verde de Bootstrap
+    checkButton.innerHTML = '<i class="bi bi-check-circle"></i>'; 
 
-    // Crear el botón de X roja con Bootstrap
     var xButton = document.createElement("button");
     xButton.className = "btn btn-danger";
-    xButton.innerHTML = '<i class="bi bi-x-circle"></i>'; // Icono de X roja de Bootstrap
+    xButton.innerHTML = '<i class="bi bi-x-circle"></i>';
 
-    // Agregar los eventos de clic a los botones (si es necesario)
     checkButton.addEventListener("click", function() {
-        procesarSolicitud(notificacion,true)// Agregar aquí la lógica para manejar el evento de clic del botón de check
+        procesarSolicitud(notificacion,true)
     });
 
     xButton.addEventListener("click", function() {
-        procesarSolicitud(notificacion,false)// Agregar aquí la lógica para manejar el evento de clic del botón de check
-        // Agregar aquí la lógica para manejar el evento de clic del botón X
+        procesarSolicitud(notificacion,false)
     });
 
-    // Agregar los elementos al listItem
 
     listItem.appendChild(checkButton);
     listItem.appendChild(xButton);
 
-    // Agregar el listItem al menú desplegable
     dropdownMenu.appendChild(listItem);
 
     });

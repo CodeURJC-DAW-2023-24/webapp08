@@ -8,7 +8,7 @@ async function crearGraficas(){
     google.load("visualization", "1", {packages:["corechart"]});
     google.setOnLoadCallback(dibujarGrafico);
     function dibujarGrafico() {
-      // Tabla de datos: valores y etiquetas de la gráfica
+      // Table date: values and grafic labels
       var data = google.visualization.arrayToDataTable([
         ['Texto', 'Numero de ejercicios'],
         ...dataArray
@@ -22,9 +22,9 @@ async function crearGraficas(){
             format: '0'
         }
       }
-      // Dibujar el gráfico
+      // Draw the chart
       new google.visualization.ColumnChart( 
-      //ColumnChart sería el tipo de gráfico a dibujar
+      //ColumnChart its the tipe of chart
         document.getElementById('GraficoGoogleChart-ejemplo-1')
       ).draw(data, options);
     }

@@ -44,7 +44,7 @@ async function cargarMas(){
 
   agregarElementosAlContenidoPrincipal(novedades)
   spinnerContainer.style.display = "none"
- // setTimeout(() => {spinnerContainer.style.display = "none"}, 2000); // Para el dia de prueba
+ // setTimeout(() => {spinnerContainer.style.display = "none"}, 2000); // To show that the spinner works correctly
   
 
   if(!flag) {
@@ -66,56 +66,45 @@ async function cargarMas(){
           const row = document.createElement('div');
           row.classList.add('row', 'mb-3');
       
-          // Crear dos columnas dentro de cada fila
           for (let j = 0 ; j<2; j++) {
             if (i+j < novedades.length) {
               const col = document.createElement('div');
               col.classList.add('col-md-6');
       
-              // Crear la tarjeta de novedad dentro de cada columna
               const card = document.createElement('div');
               card.classList.add('card', 'mb-3');
       
-              // Crear el cuerpo de la tarjeta
               const cardBody = document.createElement('div');
               cardBody.classList.add('card-body');
       
-              // Añadir título y descripción a la tarjeta
               const cardTitle = document.createElement('h5');
               cardTitle.classList.add('card-title');
               cardTitle.textContent = `NOVEDAD`;
       
               const cardText = document.createElement('p');
               cardText.classList.add('card-text');
-              // Crear el elemento <a> y establecer su href
-const link = document.createElement('a');
-link.href = `/verRutina?id=${novedades[i+j].rutina.id}`; // Ajusta la URL según tu estructura
 
-// Agregar el texto como contenido del enlace
+const link = document.createElement('a');
+link.href = `/verRutina?id=${novedades[i+j].rutina.id}`; 
+
 link.textContent = `Nueva rutina de: ${novedades[i+j].name}`;
 
-// Establecer el estilo del enlace para que no tenga decoración
 link.style.textDecoration = 'none';
 
-// Agregar el enlace al cuerpo de la tarjeta
 cardText.append(link);
 
       
-              // Agregar título y descripción al cuerpo de la tarjeta
               cardBody.appendChild(cardTitle);
               cardBody.appendChild(cardText);
       
-              // Agregar el cuerpo de la tarjeta a la tarjeta
               card.appendChild(cardBody);
       
-              // Agregar la tarjeta a la columna
               col.appendChild(card);
       
-              // Agregar la columna a la fila
               row.appendChild(col);
             }
             }
-          // Agregar la fila al contenedor de novedades
+          
           containerNovedades.appendChild(row);
 
         }
