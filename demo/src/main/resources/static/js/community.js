@@ -1,26 +1,26 @@
-async function buscar(nombre) {
+async function search(name) {
     var friendContainer = document.getElementById("friend-container");
     friendContainer.innerHTML="";
     friendContainer.style.color = "black";
     friendContainer.style.fontSize = "20px"; 
 
-    if (nombre.trim() !== "") {
-    const response = await fetch(`/busqueda?nombre=${nombre}`);
+    if (name.trim() !== "") {
+    const response = await fetch(`/busqueda?nombre=${name}`);
     let data = await response.json();
-    let nombres = data.lNameId;
+    let names = data.lNameId;
     let admin = data.bAdmin;
-    agregarElementosAlContenidoPrincipal(nombres,admin)
+    addElementsMainContainer(names,admin)
 
     }
 
 }
 
-function buscarValorInput() {
-    var valorInput = document.getElementById("searchInput").value;
-    buscar(valorInput);
+function searchValueInput() {
+    var valueInput = document.getElementById("searchInput").value;
+    search(valueInput);
 }
 
-function agregarElementosAlContenidoPrincipal(nombres,admin) {
+function addElementsMainContainer(names,admin) {
 
 var friendContainer = document.getElementById("friend-container");
 
@@ -28,17 +28,17 @@ var ulElement = document.createElement("ul");
 ulElement.classList.add("friend-list");
 
 
-   for (let i=0; i<nombres.length; i++) { 
+   for (let i=0; i<names.length; i++) { 
     var liElement = document.createElement("li");
     liElement.classList.add("user-item");
 
-    liElement.textContent = `${nombres[i][1]}`;
+    liElement.textContent = `${names[i][1]}`;
 
     var buttonElement = document.createElement("button");
     buttonElement.classList.add("solicitud-btn");
     buttonElement.textContent = "Enviar solicitud";
     buttonElement.addEventListener("click", function() {
-        enviarSolicitud(nombres[i][0]);
+        sendRequest(names[i][0]);
     }); 
 
        
@@ -52,7 +52,7 @@ ulElement.classList.add("friend-list");
         buttonContainer.appendChild(deleteButton);
 
         deleteButton.addEventListener("click", function() {
-            deleteUser(nombres[i][0]);
+            deleteUser(names[i][0]);
 
         });
     }
@@ -72,8 +72,8 @@ async function deleteUser(id){
         method: 'POST'
       });
 
-      let nombres = await response.json();
-      if (nombres==true) {
+      let names = await response.json();
+      if (names==true) {
           var friendContainer = document.getElementById("friend-container");
           friendContainer.innerHTML="Usuario eliminado con exito";
           friendContainer.style.fontSize = "30px"; 
@@ -83,13 +83,13 @@ async function deleteUser(id){
   
 }
 
-async function enviarSolicitud(id) { 
+async function sendRequest(id) { 
     const response = await fetch(`/sendSolicitud?id=${id}`,{
         method: 'POST'
       });
 
-    let nombres = await response.json();
-    if (nombres==true) {
+    let names = await response.json();
+    if (names==true) {
         var friendContainer = document.getElementById("friend-container");
         friendContainer.innerHTML="Solicitud Mandada con Exito";
         friendContainer.style.fontSize = "30px"; 
@@ -98,21 +98,21 @@ async function enviarSolicitud(id) {
 
 }
 
-async function cargarAmigos(){
+async function loadFriends(){
     const response = await fetch("/cargarAmigos");
-    let lAmigos = await response.json();
+    let lFriends = await response.json();
 
     var ulElement = document.getElementById("list-group");
 
-    lAmigos.forEach(function(amigo) {
+    lFriends.forEach(function(friend) {
         var liElement = document.createElement("li");
         liElement.className = "list-group-item";
-        liElement.textContent = amigo;
+        liElement.textContent = friend;
     
        
         ulElement.appendChild(liElement);
     });
 }
 
-cargarAmigos();
+loadFriends();
 

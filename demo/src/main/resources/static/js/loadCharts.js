@@ -1,13 +1,13 @@
-async function crearGraficas(){
+async function loadCharts(){
    const response = await fetch ("/cargarGraficas");
-   let datos = await response.json()
+   let data = await response.json()
    var dataArray = [];
-    for (var key in datos) {
-    dataArray.push([key, datos[key]]);
+    for (var key in data) {
+    dataArray.push([key, data[key]]);
 }
     google.load("visualization", "1", {packages:["corechart"]});
-    google.setOnLoadCallback(dibujarGrafico);
-    function dibujarGrafico() {
+    google.setOnLoadCallback(drawChart);
+    function drawChart() {
       // Table date: values and grafic labels
       var data = google.visualization.arrayToDataTable([
         ['Texto', 'Numero de ejercicios'],
@@ -25,10 +25,10 @@ async function crearGraficas(){
       // Draw the chart
       new google.visualization.ColumnChart( 
       //ColumnChart its the tipe of chart
-        document.getElementById('GraficoGoogleChart-ejemplo-1')
+        document.getElementById('GoogleChart-1')
       ).draw(data, options);
     }
 
 }
 
-crearGraficas();
+loadCharts();

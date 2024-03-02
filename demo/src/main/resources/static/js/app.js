@@ -1,4 +1,4 @@
-function editar(){
+function editUser(){
     let name = document.getElementById('name');
     let firstName = document.getElementById('firstName');
     let date = document.getElementById('date');
@@ -18,10 +18,10 @@ function editar(){
 }
 
 function changeEx(){
-    let grupos = ['Pecho','Espalda','Hombro','Biceps','Triceps','Inferior','Cardio'];
+    let grps = ['Pecho','Espalda','Hombro','Biceps','Triceps','Inferior','Cardio'];
     let grp = document.getElementById('grupo').value;
-    grupos.forEach(function(grupo) {
-        document.getElementById(grupo).style.display = "none";
+    grps.forEach(function(group) {
+        document.getElementById(group).style.display = "none";
     });
     let newGrp = document.getElementById(grp);
     newGrp.style.display="block";

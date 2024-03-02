@@ -1,25 +1,25 @@
-async function verNotificaciones() {
+async function showNotifications() {
     var dropdownMenu = document.getElementById("dropdown-menu");
     dropdownMenu.innerHTML=""
     const response = await fetch("/notificaciones");
-    let notificaciones = await response.json();
-    agregarElementos(notificaciones);
-    if (notificaciones.length == 0) {
+    let notifications = await response.json();
+    addElements(notifications);
+    if (notifications.length == 0) {
         dropdownMenu.innerHTML="NO TIENES NIGUNA NOTIFICACION"
     }
 }
 
-function agregarElementos(notificaciones) {
+function addElements(notifications) {
 
     var dropdownMenu = document.getElementById("dropdown-menu");
 
-    notificaciones.forEach(function(notificacion) {
+    notifications.forEach(function(notification) {
     var listItem = document.createElement("li");
 
     
     listItem.className = "dropdown-item";
     
-    listItem.textContent = notificacion.contenido + " ";
+    listItem.textContent = notification.contenido + " ";
 
     var checkButton = document.createElement("button");
     checkButton.className = "btn btn-success";
@@ -30,11 +30,11 @@ function agregarElementos(notificaciones) {
     xButton.innerHTML = '<i class="bi bi-x-circle"></i>';
 
     checkButton.addEventListener("click", function() {
-        procesarSolicitud(notificacion,true)
+        processRequest(notification,true)
     });
 
     xButton.addEventListener("click", function() {
-        procesarSolicitud(notificacion,false)
+        processRequest(notification,false)
     });
 
 
@@ -46,8 +46,8 @@ function agregarElementos(notificaciones) {
     });
 
 
-    async function procesarSolicitud(notificacion, booleano) {  
-            await fetch( `/procesarSolicitud?notificacion=${notificacion.id}&aceptar=${booleano}`,{
+    async function processRequest(notification, boolean) {  
+            await fetch( `/procesarSolicitud?notificacion=${notification.id}&aceptar=${boolean}`,{
                 method: 'POST'
               });
          

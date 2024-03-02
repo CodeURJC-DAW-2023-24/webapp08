@@ -19,11 +19,11 @@
 
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700|Poppins:400,600,700&display=swap"
         rel="stylesheet" />
+    
     <link href="/css/style.css" rel="stylesheet" />
     <link href="/css/responsive.css" rel="stylesheet" />
 
-    <script src="/js/notificacion.js"></script>
-    <script src="/js/searchEx.js"></script>
+    
 
 </head>
 
@@ -56,7 +56,7 @@
                         <div class="search-icon">
                             <i class="bi bi-search"></i>
                         </div>
-                        <input class="form-control" type="text" placeholder="Buscar Ejercicios..." onkeydown="if(event.keyCode === 13) { buscarEx(this.value); return false; }">
+                        <input class="form-control" type="text" placeholder="Buscar Ejercicios..." onkeydown="if(event.keyCode === 13) { searchEx(this.value); return false; }">
                         <ul id="searchResults"></ul>
                     </div>
                     
@@ -80,7 +80,7 @@
                 </div>
 
                 <div class="dropdown">
-                    <button class="btn dropdown-toggle" onclick="verNotificaciones()" data-bs-toggle="dropdown"
+                    <button class="btn dropdown-toggle" onclick="showNotifications()" data-bs-toggle="dropdown"
                         aria-expanded="false">
                         <i class="bi bi-bell"></i>
                     </button>
@@ -119,3 +119,6 @@
 
     </div>
 </body>
+
+<script src="/js/notification.js"></script>
+<script src="/js/searchEx.js"></script>
