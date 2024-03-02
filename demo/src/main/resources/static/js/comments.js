@@ -18,30 +18,14 @@ async function sendComment(){
           com.classList.add('com');
           com.style.display = 'flex'; 
           com.style.flexDirection = 'column'; 
-          // Create user imagen 
-          let img = document.createElement('img');
-         // img.src = comment.imagen;
-         // img.classList.add('rutine-image');
-  
-          // Crear el nombre del usuario (en negrita)
-          let pNombre = document.createElement('p');
-          let bNombre = document.createElement('b');
-          bNombre.textContent = comment.nombre;
-          pNombre.appendChild(bNombre);
-  
-          // Create user mensage
-          let pMensaje = document.createElement('p');
-          pMensaje.textContent = comment.content;
-  
-          // Add imagen,name and mesage
-         
-
-          com.appendChild(img);
-          com.appendChild(pNombre);
-          
-          com.appendChild(pMensaje);
-  
-          // Add comment to the mensage container
+          let pName = document.createElement('p');
+          let bName = document.createElement('b');
+          bName.textContent = comment.name;
+          pName.appendChild(bName);
+          let pMessage = document.createElement('p');
+          pMessage.textContent = comment.content;
+          com.appendChild(pName);
+          com.appendChild(pMessage);
           containerMessage.appendChild(com);
       
   }

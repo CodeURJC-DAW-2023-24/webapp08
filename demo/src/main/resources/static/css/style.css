@@ -445,7 +445,6 @@ td {
 
 .navbar {
   margin-bottom: 20px;
-  /* Agregar margen inferior para separar del contenido */
   background: linear-gradient(to right, rgb(0, 0, 0), rgba(64, 63, 63, 0.807));
   position: fixed;
   background-color: #000000;

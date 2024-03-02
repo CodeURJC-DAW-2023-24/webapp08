@@ -33,12 +33,7 @@ async function loadMoreFoo() {
   let data = await response.json()
   let news = data[0];
   const MAX = data[1];
-  flag = MAX
-
-
-  
-
-
+  flag = MAX;
   addElementsMainContainer(news)
   spinnerContainer.style.display = "none"
   // setTimeout(() => {spinnerContainer.style.display = "none"}, 2000); // To show that the spinner works correctly

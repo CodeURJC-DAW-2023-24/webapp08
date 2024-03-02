@@ -19,11 +19,11 @@ import org.springframework.web.multipart.MultipartFile;
 import com.example.demo.model.Notification;
 import com.example.demo.model.ExRutine;
 import com.example.demo.model.Picture;
-import com.example.demo.model.Message;
+import com.example.demo.model.Comment;
 import com.example.demo.model.News;
 import com.example.demo.model.Rutine;
 import com.example.demo.model.Person;
-import com.example.demo.repository.MessageRepository;
+import com.example.demo.repository.CommentRepository;
 import com.example.demo.repository.NotificationRepository;
 import com.example.demo.repository.NewsRepository;
 import com.example.demo.repository.RutineRepository;
@@ -64,7 +64,7 @@ public class PersonController implements CommandLineRunner {
 	private RutineRepository rutineRepository;
 
 	@Autowired
-	private MessageRepository messageRepository;
+	private CommentRepository messageRepository;
 
 	@Override
 	public void run(String... args) throws Exception {
@@ -234,7 +234,7 @@ public class PersonController implements CommandLineRunner {
 	}
 
 	@GetMapping("/starterNews")
-	public @ResponseBody List<Object> getNovedades(@RequestParam int iteracion, HttpServletRequest request) {
+	public @ResponseBody List<Object> getNews(@RequestParam int iteracion, HttpServletRequest request) {
 		String nameUser = request.getUserPrincipal().getName();
 		Person user = userRepository.findByFirstName(nameUser).orElseThrow();
 		Page<News> pNews =userRepository.findByNews(user.getNews(),PageRequest.of(iteracion, 10));
@@ -378,12 +378,12 @@ public class PersonController implements CommandLineRunner {
 	}
 
 	@PostMapping("/sendComment")
-	public @ResponseBody Message postMethodName(@RequestParam String comentario, @RequestParam Long id,
+	public @ResponseBody Comment postMethodName(@RequestParam String comentario, @RequestParam Long id,
 			HttpServletRequest request) {
 		String nameUser = request.getUserPrincipal().getName();
 		Person user = userRepository.findByFirstName(nameUser).orElseThrow();
 		String firstNameUser = user.getFirstName();
-		Message message = new Message(firstNameUser, comentario);
+		Comment message = new Comment(firstNameUser, comentario);
 		messageRepository.save(message);
 		Rutine rutine = rutineRepository.findById(id).orElseThrow();
 		rutine.getMensajes().add(message);
