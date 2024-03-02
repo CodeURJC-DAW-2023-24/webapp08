@@ -210,11 +210,13 @@ public class EjercicioController implements CommandLineRunner {
 			 rutaImagen = imageN.getName();
 			
 		}
+        Ejercicio ex = ejercicioRepository.findByName(name).orElseThrow();
         Thread.sleep(500);
         model.addAttribute("adEx", request.isUserInRole("ADMIN"));
         model.addAttribute("name", name);
         model.addAttribute("description", description);
         model.addAttribute("image", rutaImagen);
+        model.addAttribute("id", ex.getId());
         return "details";
 
     }

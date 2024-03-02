@@ -96,6 +96,11 @@ public class DatabaseInitializer {
 		ejRepository.save(new Ejercicio("Curl11", "curl", "Hombro", "0"));
 		ejRepository.save(new Ejercicio("Curl12", "curl", "Hombro", "0"));
 		ejRepository.save(new Ejercicio("Curl13", "curl", "Hombro", "0"));
+		ejRepository.save(new Ejercicio("Curl9", "curl", "Hombro", "0"));
+		ejRepository.save(new Ejercicio("Curl10", "curl", "Hombro", "0"));
+		ejRepository.save(new Ejercicio("Curl11", "curl", "Hombro", "0"));
+		ejRepository.save(new Ejercicio("Curl12", "curl", "Hombro", "0"));
+		ejRepository.save(new Ejercicio("Curl13", "curl", "Hombro", "0"));
 	
 
 

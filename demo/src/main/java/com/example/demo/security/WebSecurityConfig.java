@@ -98,7 +98,7 @@ public class WebSecurityConfig {
 			)
 			.formLogin(formLogin -> formLogin
 					.loginPage("/index")
-					.failureUrl("/error")
+					.failureUrl("/errorttt")
 					.defaultSuccessUrl("/main")
 					.permitAll() //revisar por que no va
 			)
