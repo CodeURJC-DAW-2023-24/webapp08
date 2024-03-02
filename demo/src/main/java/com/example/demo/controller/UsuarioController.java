@@ -39,6 +39,7 @@ import java.util.Optional;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -237,9 +238,10 @@ public class UsuarioController implements CommandLineRunner {
 	public @ResponseBody List<Object> getNovedades(@RequestParam int iteracion, HttpServletRequest request) {
 		String nameUser = request.getUserPrincipal().getName();
 		Usuario usuario = userRepository.findByFirstName(nameUser).orElseThrow();
-		List<Novedad> pagina = userRepository.novedades(usuario, PageRequest.of(iteracion, 10));
-		long numPaginas = usuario.getNovedades().size();
-		List<Object> data = new ArrayList<>(Arrays.asList(pagina, numPaginas));
+		Page<Novedad> pNovedad =userRepository.findByNovedades(usuario.getNovedades(),PageRequest.of(iteracion, 10));
+		List<Novedad> page = pNovedad.getContent();
+		Boolean top = pNovedad.hasNext();
+		List<Object> data = new ArrayList<>(Arrays.asList(page, top));
 
 		return data; // list<news>
 	}

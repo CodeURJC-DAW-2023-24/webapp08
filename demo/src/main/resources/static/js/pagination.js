@@ -8,12 +8,11 @@ async function initElements() {
   const response = await fetch(`/novedades-iniciales?iteracion=${loadMore}`);
   let data = await response.json();
   let news = data[0];
-  const NUM_TOTAL = data[1];
-  if (news.length < NUM_RESULTS || news.length == NUM_TOTAL) flag = true;
-
+  const MAX = data[1];
+  flag = MAX
   addElementsMainContainer(news);
   let moreNews = document.getElementById("container-loadMore");
-  if (!flag) {
+  if (flag) {
     moreNews.style.display = "flex";
   }
   else {
@@ -33,14 +32,11 @@ async function loadMoreFoo() {
   const response = await fetch(`/novedades-iniciales?iteracion=${loadMore}`);
   let data = await response.json()
   let news = data[0];
-  const NUM_TOTAL = data[1];
+  const MAX = data[1];
+  flag = MAX
 
 
-  if (NUM_RESULTS > news.length) {
-    flag = true
-  }
-  let tope = news.length + (loadMore + 1) * NUM_RESULTS;
-  if (tope == NUM_TOTAL) flag = true
+  
 
 
   addElementsMainContainer(news)
@@ -48,7 +44,7 @@ async function loadMoreFoo() {
   // setTimeout(() => {spinnerContainer.style.display = "none"}, 2000); // To show that the spinner works correctly
 
 
-  if (!flag) {
+  if (flag) {
     moreNews.style.display = "flex";
   }
 
