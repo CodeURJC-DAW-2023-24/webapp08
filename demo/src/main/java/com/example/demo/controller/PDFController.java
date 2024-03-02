@@ -25,7 +25,7 @@ public class PDFController {
     @GetMapping("/download/{fecha}/{id}")
     public void downloadPdf(HttpServletResponse response, @PathVariable String fecha, @PathVariable Long id) throws IOException {
         response.setContentType("application/pdf");
-        String truncatedFecha = fecha.substring(0, Math.min(fecha.length(), 10)); // Tomar los primeros 10 caracteres
+        String truncatedFecha = fecha.substring(0, Math.min(fecha.length(), 10)); // date in file
         String fileName = "rutina_" + truncatedFecha + ".pdf";
         response.setHeader("Content-Disposition", "attachment; filename=" + fileName);
         Rutina rutine = rutinaRepository.findById(id).orElseThrow();
@@ -45,22 +45,22 @@ public class PDFController {
                 contentStream.showText("_________________________________________________________________");
                 contentStream.newLineAtOffset(0, -20);
                 for (EjerRutina ejerRutina : lista) {
-                    contentStream.setFont(PDType1Font.COURIER_BOLD_OBLIQUE, 11); // Cambiar el tipo de letra
+                    contentStream.setFont(PDType1Font.COURIER_BOLD_OBLIQUE, 11); 
                     contentStream.showText("   Ejercicio: ");
-                    contentStream.setFont(PDType1Font.HELVETICA, 10); // Restablecer el tipo de letra
+                    contentStream.setFont(PDType1Font.HELVETICA, 10); 
                     contentStream.showText(ejerRutina.getEjercicio());
-                    contentStream.setFont(PDType1Font.COURIER_BOLD_OBLIQUE, 11); // Cambiar el tipo de letra
+                    contentStream.setFont(PDType1Font.COURIER_BOLD_OBLIQUE, 11);
                     contentStream.showText("    S X Rep: ");
-                    contentStream.setFont(PDType1Font.HELVETICA, 10); // Restablecer el tipo de letra
+                    contentStream.setFont(PDType1Font.HELVETICA, 10); 
                     contentStream.showText(ejerRutina.getSeries());
-                    contentStream.setFont(PDType1Font.COURIER_BOLD_OBLIQUE, 11); // Cambiar el tipo de letra
+                    contentStream.setFont(PDType1Font.COURIER_BOLD_OBLIQUE, 11);
                     contentStream.showText("    Peso (kg): ");
-                    contentStream.setFont(PDType1Font.HELVETICA, 10); // Restablecer el tipo de letra
+                    contentStream.setFont(PDType1Font.HELVETICA, 10);
                     contentStream.showText(ejerRutina.getPeso().toString());
-                    contentStream.newLineAtOffset(0, -10); // Mover hacia abajo
+                    contentStream.newLineAtOffset(0, -10); 
                     contentStream.setFont(PDType1Font.HELVETICA, 12); 
                     contentStream.showText("_________________________________________________________________");
-                    contentStream.newLineAtOffset(0, -20); // Mover hacia abajo
+                    contentStream.newLineAtOffset(0, -20);
                 }
                 
                 contentStream.endText();

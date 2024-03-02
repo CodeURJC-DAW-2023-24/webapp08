@@ -8,10 +8,9 @@ import jakarta.persistence.Id;
 @Entity
 public class EjerRutina {
     @Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
 
-        
     private String grupo;
     private String ejercicio;
     private String series;
@@ -19,20 +18,23 @@ public class EjerRutina {
 
     public EjerRutina() {
     }
+
     public Integer getPeso() {
         return peso;
     }
-    
-    public EjerRutina(String grupo, String ejercicio, String series,Integer peso){
+
+    public EjerRutina(String grupo, String ejercicio, String series, Integer peso) {
         this.ejercicio = ejercicio;
         this.series = series;
         this.grupo = grupo;
         this.peso = peso;
-        
+
     }
+
     public String getGrupo() {
         return grupo;
     }
+
     public void setGrupo(String grupo) {
         this.grupo = grupo;
     }
@@ -49,8 +51,6 @@ public class EjerRutina {
         this.series = series;
     }
 
-    
-
     public String getEjercicio() {
         return ejercicio;
     }
@@ -59,6 +59,4 @@ public class EjerRutina {
         this.ejercicio = ejercicio;
     }
 
-
-    
 }

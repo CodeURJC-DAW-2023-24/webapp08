@@ -37,9 +37,7 @@ public class WebSecurityConfig {
 		http.authenticationProvider(authenticationProvider());
 		
 		http
-			.authorizeHttpRequests(authorize -> authorize
-					// PUBLIC PAGES
-					
+			.authorizeHttpRequests(authorize -> authorize					
 					.requestMatchers("/index").permitAll()
 					.requestMatchers("/register").permitAll()
 					.requestMatchers("/css/**").permitAll()
@@ -50,7 +48,7 @@ public class WebSecurityConfig {
 					.requestMatchers("/muscGr").permitAll()
 					.requestMatchers("/main").permitAll()
 					.requestMatchers("/js/**").permitAll()
-					.requestMatchers("/novedades-iniciales").permitAll() //revisar por que si no lo pongo no va
+					.requestMatchers("/novedades-iniciales").permitAll() 
 					.requestMatchers("/comunity").permitAll()
 					.requestMatchers("/busqueda").permitAll()
 					.requestMatchers("/sendSolicitud").permitAll()
@@ -98,9 +96,9 @@ public class WebSecurityConfig {
 			)
 			.formLogin(formLogin -> formLogin
 					.loginPage("/index")
-					.failureUrl("/errorttt")
+					.failureUrl("/error")
 					.defaultSuccessUrl("/main")
-					.permitAll() //revisar por que no va
+					.permitAll()
 			)
 			.logout(logout -> logout
 					.logoutUrl("/logout")
@@ -108,7 +106,7 @@ public class WebSecurityConfig {
 					.permitAll()
 			);
 
-        http.csrf(csrf -> csrf.ignoringRequestMatchers("/sendSolicitud")); //Es q le tengo q pasar el token pero ns como 
+        http.csrf(csrf -> csrf.ignoringRequestMatchers("/sendSolicitud"));  
 		http.csrf(csrf -> csrf.ignoringRequestMatchers("/procesarSolicitud"));
 		http.csrf(csrf -> csrf.ignoringRequestMatchers("/add"));
 		http.csrf(csrf -> csrf.ignoringRequestMatchers("/enviarComentario"));

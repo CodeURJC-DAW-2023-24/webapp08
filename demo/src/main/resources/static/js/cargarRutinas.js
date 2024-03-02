@@ -4,9 +4,8 @@ async function cargarRutinas() {
     const response = await fetch("/cargarRutinas");
     let rutinas = await response.json();
     agregarElementosCalendario(rutinas);
-    
-}
 
+}
 
 async function agregarElementosCalendario(rutinas) {
 
@@ -19,30 +18,29 @@ async function agregarElementosCalendario(rutinas) {
     dayPairs = Array.from(dayPairs).reverse();
 
     let j = 0
-    for (let i= fechaHoy.getDay(); i>fechaHoy.getDay()-7;i--) {
-        let  numeroDia= (i+7)%7
+    for (let i = fechaHoy.getDay(); i > fechaHoy.getDay() - 7; i--) {
+        let numeroDia = (i + 7) % 7
         let diaContainer = dayPairs[j]
-    
+
         let dayName = diaContainer.querySelector('.day-name');
-        dayName.textContent = obtenerNombreDia(numeroDia); 
+        dayName.textContent = obtenerNombreDia(numeroDia);
 
         let dayNumber = diaContainer.querySelector('.day-number');
         let fechaAux = new Date(fechaHoy);
-        nuevoDia = fechaAux.getDate()-j;
+        nuevoDia = fechaAux.getDate() - j;
         fechaAux.setDate(nuevoDia)
-        dayNumber.textContent = fechaAux.toLocaleDateString() ;
+        dayNumber.textContent = fechaAux.toLocaleDateString();
 
         let calendaryContent = diaContainer.querySelector('.day-calendary-content');
-        calendaryContent.innerHTML=""; 
+        calendaryContent.innerHTML = "";
         j += 1
     }
-    //Darle la vuelta
-    
+   
     rutinas.forEach(rutina => {
-        let fechaRutina = rutina.date; // Suponiendo que el objeto rutina tiene un atributo fecha de tipo Date
+        let fechaRutina = rutina.date;
         fechaRutina = fechaRutina.split('T')[0];
         fechaRutina = new Date(fechaRutina);
-        fechaRutina.setDate(fechaRutina.getDate() + 1); //por el formato
+        fechaRutina.setDate(fechaRutina.getDate() + 1); //due to the format
 
         fechaHoy.setUTCHours(0, 0, 0, 0);
         fechaRutina.setUTCHours(0, 0, 0, 0);
@@ -50,27 +48,18 @@ async function agregarElementosCalendario(rutinas) {
         let tiempoInicio = fechaRutina.getTime();
         let tiempoFin = fechaHoy.getTime();
 
-// Calcular la diferencia en milisegundos
+        // milliseconds
         let diferenciaMilisegundos = (tiempoFin - tiempoInicio);
-       
-        // Convertir la diferencia de milisegundos a días
+
+        // from miliseconds to days
         const milisegundosEnUnDia = 1000 * 60 * 60 * 24;
         let diferenciaDias = Math.floor(diferenciaMilisegundos / milisegundosEnUnDia);
 
-    
-    
-       if ((0<=diferenciaDias) && (diferenciaDias<7)){
+        if ((0 <= diferenciaDias) && (diferenciaDias < 7)) {
             let diaContainer = dayPairs[diferenciaDias]
-            
             let calendaryContent = diaContainer.querySelector('.day-calendary-content');
-
-            // Crear un elemento de enlace <a>
-
             calendaryContent.innerHTML += `<a href="/verRutina?id=${rutina.id}" style="text-decoration: none; color: black;">${rutina.name}</a>`;
-
-             
         }
-        
     });
 }
 
@@ -79,13 +68,13 @@ function obtenerNombreDia(numeroDia) {
     return diasSemana[numeroDia];
 }
 
-function anterior(){
-    desplazamiento +=1;
+function anterior() {
+    desplazamiento += 1;
     cargarRutinas();
 }
 
-function siguiente(){
-    desplazamiento -=1;
+function siguiente() {
+    desplazamiento -= 1;
     cargarRutinas();
 }
 

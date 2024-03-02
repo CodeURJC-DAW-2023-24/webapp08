@@ -16,15 +16,13 @@ function editar(){
 
 
 }
+
 function changeEx(){
     let grupos = ['Pecho','Espalda','Hombro','Biceps','Triceps','Inferior','Cardio'];
     let grp = document.getElementById('grupo').value;
     grupos.forEach(function(grupo) {
         document.getElementById(grupo).style.display = "none";
     });
-
-    // Mostrar el select correspondiente al grupo seleccionado
-    
     let newGrp = document.getElementById(grp);
     newGrp.style.display="block";
 }

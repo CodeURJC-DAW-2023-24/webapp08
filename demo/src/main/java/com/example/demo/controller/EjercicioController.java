@@ -2,7 +2,6 @@ package com.example.demo.controller;
 
 import com.example.demo.repository.EjerRutinaRepository;
 import com.example.demo.repository.EjercicioRepository;
-import com.example.demo.repository.MensajeRepository;
 import com.example.demo.repository.NovedadRepository;
 import com.example.demo.repository.RutinaRepository;
 import com.example.demo.repository.UserRepository;
@@ -14,10 +13,7 @@ import com.example.demo.model.Rutina;
 import com.example.demo.model.Usuario;
 import com.example.demo.model.EjerRutina;
 import com.example.demo.model.Imagen;
-import com.example.demo.model.Mensaje;
 import com.example.demo.model.Novedad;
-
-import jakarta.servlet.http.HttpSession;
 
 import jakarta.servlet.http.HttpServletRequest;
 
@@ -38,34 +34,33 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 
 @Controller
 public class EjercicioController implements CommandLineRunner {
     @Autowired
     private ImagenService imagenService;
+
     @Autowired
     private EjercicioRepository ejercicioRepository;
 
     @Autowired
     private EjercicioService EjService;
+
     @Autowired
     private UserService userService;
 
     @Autowired
     private RutinaRepository rutinaRepository;
+
     @Autowired
     private EjerRutinaRepository ejerRutinaRepository;
-    @Autowired
-    private MensajeRepository mensajeRepository;
+
     @Autowired
     private UserRepository userRepository;
+
     @Autowired
     private NovedadRepository novedadRepository;
-
 
     @Override
     public void run(String... args) throws Exception {
@@ -90,18 +85,18 @@ public class EjercicioController implements CommandLineRunner {
         rutinaRepository.save(rutina);
 
         usuario.getRutinas().add(rutina);
-        userRepository.save(usuario); 
-        
+        userRepository.save(usuario);
+
         List<Usuario> lAmigos = usuario.getAmigos();
-        if (!lAmigos.isEmpty()){
-        Novedad novedad = new Novedad(nameUser);
-        novedad.setRutina(rutina);
-        novedadRepository.save(novedad);
-        for (Usuario amigo: lAmigos) {
-            amigo.getNovedades().add(novedad);
-            userRepository.save(amigo);
+        if (!lAmigos.isEmpty()) {
+            Novedad novedad = new Novedad(nameUser);
+            novedad.setRutina(rutina);
+            novedadRepository.save(novedad);
+            for (Usuario amigo : lAmigos) {
+                amigo.getNovedades().add(novedad);
+                userRepository.save(amigo);
+            }
         }
-    }
 
         return "redirect:/main";
     }
@@ -146,10 +141,10 @@ public class EjercicioController implements CommandLineRunner {
                 name = cardio;
                 break;
         }
-        EjerRutina ejercicio = new EjerRutina(grupo,name,series, peso); 
+        EjerRutina ejercicio = new EjerRutina(grupo, name, series, peso);
         String nameUser = request.getUserPrincipal().getName();
-		Usuario usuario = userRepository.findByFirstName(nameUser).orElseThrow();
-        userService.aumentarFrecuencia(usuario,grupo,name);
+        Usuario usuario = userRepository.findByFirstName(nameUser).orElseThrow();
+        userService.aumentarFrecuencia(usuario, grupo, name);
         ejerRutinaRepository.save(ejercicio);
         rutina.addEjerRutina(ejercicio);
         rutinaRepository.save(rutina);
@@ -160,21 +155,18 @@ public class EjercicioController implements CommandLineRunner {
         return "adRutine";
     }
 
-    
-    
-
-   @PostMapping("/newEx")
-	public String newEx(@RequestParam("name") String name,
-	@RequestParam("description") String description,
-    @RequestParam MultipartFile image,
-    @RequestParam("video") String video, 
-    @RequestParam("grp") String grp,
-    Model model, HttpServletRequest request) throws InterruptedException {
-		Optional<Ejercicio> existingExOptional = ejercicioRepository.findByName(name);
-		if (name.isEmpty() || description.isEmpty() || grp.isEmpty()) {
-			model.addAttribute("erroMg", "Rellene todos los campos");
-			return "error";
-		}
+    @PostMapping("/newEx")
+    public String newEx(@RequestParam("name") String name,
+            @RequestParam("description") String description,
+            @RequestParam MultipartFile image,
+            @RequestParam("video") String video,
+            @RequestParam("grp") String grp,
+            Model model, HttpServletRequest request) throws InterruptedException {
+        Optional<Ejercicio> existingExOptional = ejercicioRepository.findByName(name);
+        if (name.isEmpty() || description.isEmpty() || grp.isEmpty()) {
+            model.addAttribute("erroMg", "Rellene todos los campos");
+            return "error";
+        }
 
         if (existingExOptional.isPresent()) {
             model.addAttribute("erroMg", "El ejercicio ya existe");
@@ -189,27 +181,27 @@ public class EjercicioController implements CommandLineRunner {
             ejercicio.setVideo(video);
             model.addAttribute("video", video);
         }
-        if (!image.isEmpty()){
-            try{
+        if (!image.isEmpty()) {
+            try {
                 byte[] datosImagen = image.getBytes();
 
-            // Crear objeto Imagen
-            Imagen imagen = new Imagen();
-            imagen.setContenido(image.getContentType());
-            imagen.setName(image.getOriginalFilename());
-            imagen.setDatos(datosImagen);
-            imagenService.guardarImagen(imagen);
-            ejercicio.setImagen(imagen);
+                // Object Image
+                Imagen imagen = new Imagen();
+                imagen.setContenido(image.getContentType());
+                imagen.setName(image.getOriginalFilename());
+                imagen.setDatos(datosImagen);
+                imagenService.guardarImagen(imagen);
+                ejercicio.setImagen(imagen);
+            } catch (IOException e) {
             }
-            catch (IOException e) {}
         }
         ejercicioRepository.save(ejercicio);
         Imagen imageN = ejercicio.getImagen();
-		String rutaImagen = "logo.jpg";
-		if(!(imageN == null)){
-			 rutaImagen = imageN.getName();
-			
-		}
+        String rutaImagen = "logo.jpg";
+        if (!(imageN == null)) {
+            rutaImagen = imageN.getName();
+
+        }
         Ejercicio ex = ejercicioRepository.findByName(name).orElseThrow();
         Thread.sleep(500);
         model.addAttribute("adEx", request.isUserInRole("ADMIN"));
@@ -225,20 +217,18 @@ public class EjercicioController implements CommandLineRunner {
     public String group2(@PathVariable String grupo, Model model, HttpServletRequest request, Pageable page) {
         Pageable pageable = PageRequest.of(page.getPageNumber(), 5);
         Page<Ejercicio> exs = ejercicioRepository.findByGrp(grupo, pageable);
-
-        List<Ejercicio> ejercicioList = exs.getContent(); // Obtener la lista de ejercicios de la página
-
-        // Iterar sobre cada ejercicio para agregar el atributo booleano
+        List<Ejercicio> ejercicioList = exs.getContent(); 
         for (Ejercicio ejercicio : ejercicioList) {
             Imagen image = ejercicio.getImagen();
             String rutaImagen = "logo.jpg";
             if (!(image == null)) {
+                ejercicio.setTieneImagen(true);
                 rutaImagen = image.getName();
                 if (!imagenService.verificarExistenciaImagen(rutaImagen)) {
                     imagenService.guardarImagen(image);
                 }
                 ejercicio.setRuta(rutaImagen);
-            }else{
+            } else {
                 ejercicio.setTieneImagen(false);
             }
         }
@@ -269,80 +259,78 @@ public class EjercicioController implements CommandLineRunner {
             model.addAttribute("video", exercise.getVideo());
         }
         Imagen image = exercise.getImagen();
-		String rutaImagen = "logo.jpg";
-		if(!(image == null)){
-			 rutaImagen = image.getName();
-			/**if(!imagenService.verificarExistenciaImagen(rutaImagen)){
-				imagenService.guardarImagen(image);
-			}**/
-		}
+        String rutaImagen = "logo.jpg";
+        if (!(image == null)) {
+            rutaImagen = image.getName();
+        }
         model.addAttribute("image", rutaImagen);
         model.addAttribute("adEx", request.isUserInRole("ADMIN"));
         model.addAttribute("id", id);
         return "details";
     }
 
-
-
-    
-    @GetMapping ("/addEx/{id}")
-	public String addEX(@PathVariable Long id,Model model, HttpServletRequest request){
+    @GetMapping("/addEx/{id}")
+    public String addEX(@PathVariable Long id, Model model, HttpServletRequest request) {
         String nameUser = request.getUserPrincipal().getName();
-		Usuario usuario = userRepository.findByFirstName(nameUser).orElseThrow();
+        Usuario usuario = userRepository.findByFirstName(nameUser).orElseThrow();
         List<Ejercicio> pecho = ejercicioRepository.findByGrp("Pecho");
-        pecho = userService.ordenar(usuario,"Pecho",pecho);
+        pecho = userService.ordenar(usuario, "Pecho", pecho);
         model.addAttribute("pecho", pecho);
         List<Ejercicio> espalda = ejercicioRepository.findByGrp("Espalda");
-        espalda = userService.ordenar(usuario,"Espalda",espalda);
+        espalda = userService.ordenar(usuario, "Espalda", espalda);
         model.addAttribute("espalda", espalda);
         List<Ejercicio> hombro = ejercicioRepository.findByGrp("Hombro");
-        hombro = userService.ordenar(usuario,"Hombro",hombro);
+        hombro = userService.ordenar(usuario, "Hombro", hombro);
         model.addAttribute("hombro", hombro);
         List<Ejercicio> biceps = ejercicioRepository.findByGrp("Biceps");
-        biceps = userService.ordenar(usuario,"Biceps",biceps);
+        biceps = userService.ordenar(usuario, "Biceps", biceps);
         model.addAttribute("biceps", biceps);
         List<Ejercicio> triceps = ejercicioRepository.findByGrp("Triceps");
-        triceps = userService.ordenar(usuario,"Triceps",triceps);
+        triceps = userService.ordenar(usuario, "Triceps", triceps);
         model.addAttribute("triceps", triceps);
-        List<Ejercicio>  inferior = ejercicioRepository.findByGrp("Inferior");
-        inferior = userService.ordenar(usuario,"Inferior",inferior);
+        List<Ejercicio> inferior = ejercicioRepository.findByGrp("Inferior");
+        inferior = userService.ordenar(usuario, "Inferior", inferior);
         model.addAttribute("inferior", inferior);
         List<Ejercicio> cardio = ejercicioRepository.findByGrp("Cardio");
-        cardio = userService.ordenar(usuario,"Cardio",cardio);
+        cardio = userService.ordenar(usuario, "Cardio", cardio);
         model.addAttribute("cardio", cardio);
         model.addAttribute("id", id);
-		return "adEjerRutina";
-	}
+        return "adEjerRutina";
+    }
 
     @SuppressWarnings("null")
-    @GetMapping ("/cancel/{id}")
-	public String adRutine(@PathVariable Long id,Model model){
+    @GetMapping("/cancel/{id}")
+    public String adRutine(@PathVariable Long id, Model model) {
         Rutina rutina = rutinaRepository.findById(id).orElseThrow();
         rutinaRepository.delete(rutina);
         return "redirect:/main";
     }
-    @GetMapping ("/adRutine")
-	public String cancelRutine(Model model){
+
+    @GetMapping("/adRutine")
+    public String cancelRutine(Model model) {
         Rutina rutina = new Rutina();
         rutinaRepository.save(rutina);
         model.addAttribute("id", rutina.getId());
         return "adRutine";
     }
-    @GetMapping ("/rutine/{id}")
-	public String rutine(@PathVariable Long id,Model model){
-        Rutina rutina = rutinaRepository.findById(id).orElseThrow();;
+
+    @GetMapping("/rutine/{id}")
+    public String rutine(@PathVariable Long id, Model model) {
+        Rutina rutina = rutinaRepository.findById(id).orElseThrow();
         rutinaRepository.save(rutina);
         model.addAttribute("id", id);
         return "adRutine";
     }
+
     @GetMapping("/busquedaEx")
-	public @ResponseBody List<String[]> getNombres(@RequestParam  String nombre,HttpServletRequest request) {
-       
-    List<String[]> names = ejercicioRepository.getNames(nombre);
-     return names;
-	}
+    public @ResponseBody List<String[]> getNombres(@RequestParam String nombre, HttpServletRequest request) {
+
+        List<String[]> names = ejercicioRepository.getNames(nombre);
+        return names;
+    }
+
     @GetMapping("/exercise/{nombre}")
-    public String exercseM(@PathVariable String nombre,Model model,
+    public String exercseM(@PathVariable String nombre, Model model,
             HttpServletRequest request) {
         Ejercicio exercise = ejercicioRepository.findByName(nombre).orElseThrow();
         model.addAttribute("name", exercise.getName());
@@ -372,7 +360,5 @@ public class EjercicioController implements CommandLineRunner {
         EjService.delete(id);
         return "muscleGroup";
     }
-    
-    
 
 }

@@ -8,9 +8,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.sql.SQLException;
 import java.util.List;
-import java.util.concurrent.CountDownLatch;
-
-import javax.sql.rowset.serial.SerialBlob;
 import javax.sql.rowset.serial.SerialException;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,8 +16,6 @@ import org.springframework.util.StringUtils;
 
 import com.example.demo.model.Imagen;
 import com.example.demo.repository.ImagenRepositorio;
-import com.mysql.cj.jdbc.Blob;
-
 
 @Service
 public class ImagenService {
@@ -32,23 +27,20 @@ public class ImagenService {
     public void cargarImagenesDesdeCarpeta(String rutaCarpeta) throws SerialException, SQLException {
         File carpeta = new File(rutaCarpeta);
         File[] archivos = carpeta.listFiles();
- 
+
         if (archivos != null) {
             for (File archivo : archivos) {
                 if (archivo.isFile()) {
                     try {
-                       byte[] datos = Files.readAllBytes(archivo.toPath());
-                       //Blob datos = new Blob(datosAux, null);
+                        byte[] datos = Files.readAllBytes(archivo.toPath());
                         String nombre = StringUtils.cleanPath(archivo.getName());
-
-                        // Crear un objeto Imagen y guardarlo en la base de datos
                         Imagen imagen = new Imagen();
                         imagen.setName(nombre);
                         imagen.setContenido(Files.probeContentType(archivo.toPath()));
                         imagen.setDatos(datos);
                         imagenRepository.save(imagen);
                     } catch (IOException e) {
-                       
+
                     }
                 }
             }
@@ -61,19 +53,19 @@ public class ImagenService {
         }
 
     }
-    public void guardarImagen(Imagen imagen){
-      String nombreImagen = imagen.getName();
-    String rutaCompleta = Paths.get(RUTA_IMAGENES, nombreImagen).toString();
-         //CountDownLatch latch = new CountDownLatch(1);
-    try (FileOutputStream fos = new FileOutputStream(rutaCompleta)) {
-        fos.write(imagen.getDatos());
-        fos.flush(); // Forzar la sincronización en el sistema de archivos
-        fos.getFD().sync(); // Forzar la sincronización física del sistema de archivos
-        //latch.countDown();
-    } catch (IOException e) {
-        
+
+    public void guardarImagen(Imagen imagen) {
+        String nombreImagen = imagen.getName();
+        String rutaCompleta = Paths.get(RUTA_IMAGENES, nombreImagen).toString();
+        try (FileOutputStream fos = new FileOutputStream(rutaCompleta)) {
+            fos.write(imagen.getDatos());
+            fos.flush();
+            fos.getFD().sync();
+        } catch (IOException e) {
+
+        }
     }
-    }
+
     public boolean verificarExistenciaImagen(String nombreArchivo) {
         Path rutaCompleta = Paths.get(RUTA_IMAGENES, nombreArchivo);
         return Files.exists(rutaCompleta) && Files.isRegularFile(rutaCompleta);
