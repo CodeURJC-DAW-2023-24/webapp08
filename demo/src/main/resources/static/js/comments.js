@@ -13,7 +13,7 @@ async function sendComment(){
     }
 
     function addComments(comment) {
-      let containerMensajes = document.getElementById('container-messages');    
+      let containerMessage = document.getElementById('container-messages');    
           let com = document.createElement('div');
           com.classList.add('com');
           com.style.display = 'flex'; 
@@ -42,7 +42,7 @@ async function sendComment(){
           com.appendChild(pMensaje);
   
           // Add comment to the mensage container
-          containerMensajes.appendChild(com);
+          containerMessage.appendChild(com);
       
   }
   

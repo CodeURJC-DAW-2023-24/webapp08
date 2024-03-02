@@ -15,25 +15,12 @@ public class Rutine {
     private Integer time;
 
     @OneToMany(cascade = CascadeType.ALL)
-    private List<Message> mensajes;
+    private List<Message> lMessages;
 
     @OneToMany
-    private List<ExRutine> ejercicios;
+    private List<ExRutine> exercises;
 
-    public void addEjerRutina(ExRutine ejerRutina) {
-
-        ejercicios.add(ejerRutina);
-    }
-
-    public List<ExRutine> getEjercicios() {
-        return ejercicios;
-    }
-
-    public void setEjercicios(List<ExRutine> ejercicios) {
-        this.ejercicios = ejercicios;
-    }
-
-    public Rutine() {
+    protected Rutine() {
 
     }
 
@@ -42,6 +29,21 @@ public class Rutine {
         this.date = date;
         this.time = time;
     }
+
+    public void addExRutine(ExRutine exRutine) {
+
+        exercises.add(exRutine);
+    }
+
+    public List<ExRutine> getExercises() {
+        return exercises;
+    }
+
+    public void setExercises(List<ExRutine> exercises) {
+        this.exercises = exercises;
+    }
+
+    
 
     public Long getId() {
         return id;
@@ -76,10 +78,18 @@ public class Rutine {
     }
 
     public List<Message> getMensajes() {
-        return mensajes;
+        return lMessages;
     }
 
-    public void setMensajes(List<Message> mensajes) {
-        this.mensajes = mensajes;
+    public void setMensajes(List<Message> lMessages) {
+        this.lMessages = lMessages;
+    }
+
+    public List<Message> getlMessages() {
+        return lMessages;
+    }
+
+    public void setlMessages(List<Message> lMessages) {
+        this.lMessages = lMessages;
     }
 }
