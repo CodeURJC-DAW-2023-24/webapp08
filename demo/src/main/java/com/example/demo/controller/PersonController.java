@@ -44,7 +44,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
-public class UsuarioController implements CommandLineRunner {
+public class PersonController implements CommandLineRunner {
 
 	@Autowired
 	private PersonRepository userRepository;
@@ -133,7 +133,6 @@ public class UsuarioController implements CommandLineRunner {
 			return "error";
 		}
 		String pass = passwordEncoder.encode(password);
-		Usuario user = new Usuario(firstName, pass, name, date, weight, "USER");
 		Person user = new Person(firstName, pass, name, date, weight, "USER");
 		if (!imagenFile.isEmpty()) {
 			try {
