@@ -350,6 +350,7 @@ public class EjercicioController implements CommandLineRunner {
                 imagenService.guardarImagen(image);
             }
         }
+        model.addAttribute("id", exercise.getId());
         model.addAttribute("image", rutaImagen);
         model.addAttribute("adEx", request.isUserInRole("ADMIN"));
         return "details";

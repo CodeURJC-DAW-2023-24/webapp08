@@ -2,6 +2,8 @@ package com.example.demo.controller;
 
 import java.io.IOException;
 import java.security.Principal;
+import java.text.SimpleDateFormat;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -357,7 +359,9 @@ public class UsuarioController implements CommandLineRunner {
 		Rutina rutina = rutinaRepository.findById(id).orElseThrow();
 		model.addAttribute("firstName", usuario.getFirstName());
 		model.addAttribute("nameUser", usuario.getName());
-		model.addAttribute("date", rutina.getDate());
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        String fechaFormateada = sdf.format(rutina.getDate());
+		model.addAttribute("date", fechaFormateada);
 		model.addAttribute("rutName", rutina.getName());
 		model.addAttribute("ejercicios", rutina.getEjercicios());
 		model.addAttribute("mensajes", rutina.getMensajes());
