@@ -13,9 +13,7 @@ async function sendComment(){
     }
 
     function addComments(comment) {
-      let containerMensajes = document.getElementById('container-messages');
-  
-    
+      let containerMensajes = document.getElementById('container-messages');    
           let com = document.createElement('div');
           com.classList.add('com');
           com.style.display = 'flex'; 
