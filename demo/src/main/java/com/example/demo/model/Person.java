@@ -23,79 +23,34 @@ public class Person {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
-
-	
-
 	private String firstName;
 	private String name;
 	private String encodedPassword;
 	private String date;
 	private Integer weight;
-	
-	@OneToOne(cascade = CascadeType.ALL)
-	private Picture imagen;
-
-	public Picture getImagen() {
-		return imagen;
-	}
-
-	public void setImagen(Picture imagen) {
-		this.imagen = imagen;
-	
-	}
-
-	 public void setId(long id) {
-		this.id = id;
-	}
-
-	public void setEncodedPassword(String encodedPassword) {
-		this.encodedPassword = encodedPassword;
-	}
-
-	public void setAmigos(List<Person> amigos) {
-		this.amigos = amigos;
-	}
-
-	public void setNotificaciones(List<Notification> notificaciones) {
-		this.notificaciones = notificaciones;
-	}
-
-	public List<Rutine> getRutinas() {
-		return rutinas;
-	}
-
-	public void setRutinas(List<Rutine> rutinas) {
-		this.rutinas = rutinas;
-	}
 
 	@ManyToMany 
-	 @JoinTable( name = "amigos", 
-	 joinColumns = @JoinColumn(name = "usuario_id"), 
-	 inverseJoinColumns = @JoinColumn(name = "amigo_id") ) 
-	 private List<Person> amigos;
+	 @JoinTable( name = "friends", 
+	 joinColumns = @JoinColumn(name = "person_id"), 
+	 inverseJoinColumns = @JoinColumn(name = "personFriend_id") ) 
+	 private List<Person> friends;
 	 
 	@ElementCollection(fetch = FetchType.EAGER)
 	private List<String> roles;
 
 	@OneToMany (cascade = CascadeType.ALL)
-    private List<Notification> notificaciones;
+    private List<Notification> lNotifications;
 
 	@OneToMany (cascade = CascadeType.ALL)
-	private List<Rutine> rutinas;
+	private List<Rutine> rutines;
 
 	@OneToMany (cascade = CascadeType.ALL)
-    private List<News> novedades;
-
+    private List<News> news;
 	
-	public List<News> getNovedades() {
-		return novedades;
-	}
+	@OneToOne(cascade = CascadeType.ALL)
+	private Picture imagen;
 
-	public void setNovedades(List<News> novedades) {
-		this.novedades = novedades;
-	}
-
-	@ElementCollection(fetch = FetchType.EAGER)
+    @ElementCollection(fetch = FetchType.EAGER)
     private Map<String, Integer> frecuenciaPecho = new HashMap<>();
 	
 	@ElementCollection(fetch = FetchType.EAGER)
@@ -120,6 +75,20 @@ public class Person {
 	
 	@ElementCollection(fetch = FetchType.EAGER)
     private Map<String, Integer> frecuenciaCardio = new HashMap<>();
+
+	protected Person() {
+		// Used by JPA
+	}
+	
+	public Person(String firstName, String encodedPassword,String name,String date, Integer weight, String...roles) {
+		super();
+		this.firstName = firstName;
+		this.encodedPassword = encodedPassword;
+		this.name = name;
+		this.date = date;
+		this.weight = weight;
+		this.roles = List.of(roles);
+	}
 
 	public Map<String, Integer> getFrecuencia(String grupo){
 		switch (grupo) {
@@ -146,33 +115,59 @@ public class Person {
                
         }
 	}
+
 	
-
-	public Person() {
-		// Used by JPA
+	public Picture getImagen() {
+		return imagen;
 	}
 
-	public Person(String firstName, String encodedPassword,String name,String date, Integer weight, String...roles) {
-		super();
-		this.firstName = firstName;
+	public void setImagen(Picture imagen) {
+		this.imagen = imagen;
+	
+	}
+
+	 public void setId(long id) {
+		this.id = id;
+	}
+
+	public void setEncodedPassword(String encodedPassword) {
 		this.encodedPassword = encodedPassword;
-		this.name = name;
-		this.date = date;
-		this.weight = weight;
-		this.roles = List.of(roles);
 	}
 
+	public void setFriends(List<Person> friends) {
+		this.friends = friends;
+	}
+
+	public void setLNotifications(List<Notification> lNotifications) {
+		this.lNotifications = lNotifications;
+	}
+
+	public List<Rutine> getRutines() {
+		return rutines;
+	}
+
+	public void setRutines(List<Rutine> rutines) {
+		this.rutines = rutines;
+	}
+	
+	public List<News> getNews() {
+		return news;
+	}
+
+	public void setNews(List<News> news) {
+		this.news = news;
+	}
 	
 	public long getId() {
 		return id;
 	}
 	
-	public List<Person> getAmigos() {
-		return amigos;
+	public List<Person> getFriends() {
+		return friends;
 	}
 
-	public List<Notification> getNotificaciones() {
-		return notificaciones;
+	public List<Notification> getLNotifications() {
+		return lNotifications;
 	}
 	
 	public String getFirstName() {
@@ -188,8 +183,6 @@ public class Person {
 	public Integer getWeight() {
 		return weight;
 	}
-
-
 	public String getEncodedPassword() {
 		return encodedPassword;
 	}
@@ -215,12 +208,6 @@ public class Person {
 
 	public void setWeight(Integer weight){
 		this.weight=weight;
-	}
-
-	@Override
-	public String toString() {
-		return String.format("Usuario[id=%d, firstName='%s', password='%s']",
-				id, firstName, encodedPassword);
 	}
 
 }

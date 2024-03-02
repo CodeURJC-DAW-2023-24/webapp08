@@ -17,17 +17,17 @@ import java.util.List;
 public interface PersonRepository extends JpaRepository<Person, Long> {
     Optional<Person> findByFirstName(String name);
 
-    @Query("SELECT u.id, u.firstName FROM Person u WHERE u.firstName LIKE %:name% AND  u.id <> :idUser AND u.id NOT IN (SELECT a.id FROM Person u JOIN u.amigos a WHERE u.id = :idUser)")
+    @Query("SELECT u.id, u.firstName FROM Person u WHERE u.firstName LIKE %:name% AND  u.id <> :idUser AND u.id NOT IN (SELECT a.id FROM Person u JOIN u.friends a WHERE u.id = :idUser)")
     List<String[]> getIdandFirstName(@Param("name") String nombre, @Param("idUser") Long idUser);
 
-    @Query("SELECT amigo.firstName FROM Person usuario JOIN usuario.amigos amigo WHERE usuario = :usuario")
-    List<String> findFirstNameOfAmigosByUsuario(Person usuario);
+    @Query("SELECT friend.firstName FROM Person person JOIN person.friends friend WHERE person = :person")
+    List<String> findFirstNameOfFriendsByPerson(Person person);
 
 
-    @Query("SELECT u FROM Person u JOIN u.rutinas r WHERE r.id = :rutinaId")
-    Optional<Person> findByRutinaId(@Param("rutinaId") Long rutinaId);
+    @Query("SELECT u FROM Person u JOIN u.rutines r WHERE r.id = :rutineId")
+    Optional<Person> findByRutineId(@Param("rutineId") Long rutineId);
 
 
-    @Query("SELECT n FROM Person u JOIN u.novedades n WHERE n IN :novedades")
-    Page<News> findByNovedades(List<News> novedades, Pageable page);
+    @Query("SELECT n FROM Person u JOIN u.news n WHERE n IN :news")
+    Page<News> findByNews(List<News> news, Pageable page);
 }

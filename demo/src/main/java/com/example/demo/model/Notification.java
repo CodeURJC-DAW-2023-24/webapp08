@@ -9,8 +9,7 @@ public class Notification {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  private String contenido;
-  private boolean leido;
+  private String content;
 
   protected Notification() {
 
@@ -18,11 +17,11 @@ public class Notification {
 
   public Notification(String sender) {
     super();
-    this.contenido = "Has recibido una solicitud de: " + sender;
+    this.content = "Has recibido una solicitud de: " + sender;
   }
 
-  public String getContenido() {
-    return contenido;
+  public String getContent() {
+    return content;
   }
 
   public Long getId() {
@@ -33,22 +32,7 @@ public class Notification {
     this.id = id;
   }
 
-  public void setContenido(String contenido) {
-    this.contenido = contenido;
+  public void setContent(String content) {
+    this.content = content;
   }
-
-  public boolean isLeido() {
-    return leido;
-  }
-
-  public void setLeido(boolean leido) {
-    this.leido = leido;
-  }
-
-  @Override
-  public String toString() {
-    return String.format("Notificacion[id=%d, contenido='%s', leido='%s']",
-        id, contenido, leido);
-  }
-
 }

@@ -6,7 +6,6 @@ import java.text.SimpleDateFormat;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import com.example.demo.service.ImagenService;
 import org.springframework.ui.Model;
@@ -238,7 +237,7 @@ public class PersonController implements CommandLineRunner {
 	public @ResponseBody List<Object> getNovedades(@RequestParam int iteracion, HttpServletRequest request) {
 		String nameUser = request.getUserPrincipal().getName();
 		Person user = userRepository.findByFirstName(nameUser).orElseThrow();
-		Page<News> pNews =userRepository.findByNovedades(user.getNovedades(),PageRequest.of(iteracion, 10));
+		Page<News> pNews =userRepository.findByNews(user.getNews(),PageRequest.of(iteracion, 10));
 		List<News> page = pNews.getContent();
 		Boolean top = pNews.hasNext();
 		List<Object> data = new ArrayList<>(Arrays.asList(page, top));
@@ -273,7 +272,7 @@ public class PersonController implements CommandLineRunner {
 		Person receiver = userRepository.findById(Long.parseLong(id)).orElseThrow();
 		Notification notificacion = new Notification(sender.getFirstName());
 		notificationRepository.save(notificacion);
-		receiver.getNotificaciones().add(notificacion);
+		receiver.getLNotifications().add(notificacion);
 		userRepository.save(receiver);
 		return true;
 	}
@@ -281,14 +280,14 @@ public class PersonController implements CommandLineRunner {
 	@PostMapping("/deleteUser")
 	public @ResponseBody Boolean deleteUser(@RequestParam Long id) {
 		Person user = userRepository.findById(id).orElseThrow();
-		List<Rutine> lrutines = user.getRutinas();
+		List<Rutine> lrutines = user.getRutines();
 		for (Rutine rutine : lrutines) {
-			List<Person> lUsers = user.getAmigos();
-			Optional<News> news = newsRepository.findByrutina(rutine);
+			List<Person> lUsers = user.getFriends();
+			Optional<News> news = newsRepository.findByRutine(rutine);
 			for (Person friend : lUsers) {
 				if (news.isPresent()) {
-					friend.getNovedades().remove(news.get());
-					friend.getAmigos().remove(user);
+					friend.getNews().remove(news.get());
+					friend.getFriends().remove(user);
 					userRepository.save(friend);
 				}
 			}
@@ -298,7 +297,7 @@ public class PersonController implements CommandLineRunner {
 			}
 		}
 
-		user.getAmigos().clear(); 
+		user.getFriends().clear(); 
 		userRepository.save(user);
 
 		userRepository.deleteById(id);
@@ -309,7 +308,7 @@ public class PersonController implements CommandLineRunner {
 	public @ResponseBody List<Notification> getNotifications(HttpServletRequest request) {
 		String nameUser = request.getUserPrincipal().getName();
 
-		List<Notification> lNotifications = userRepository.findByFirstName(nameUser).orElseThrow().getNotificaciones();
+		List<Notification> lNotifications = userRepository.findByFirstName(nameUser).orElseThrow().getLNotifications();
 
 		return lNotifications;
 	}
@@ -321,18 +320,18 @@ public class PersonController implements CommandLineRunner {
 		Person receptor = userRepository.findByFirstName(nameUser).orElseThrow();
 
 		if (aceptar) {
-			String originalText = notificacion.getContenido();
+			String originalText = notificacion.getContent();
 			int positionTwoPoints = originalText.indexOf(":");
 			String textAfterPoints = originalText.substring(positionTwoPoints + 1);
 			String cleanText = textAfterPoints.trim();
 			Person sender = userRepository.findByFirstName(cleanText).orElseThrow();
-			if (!receptor.getAmigos().contains(sender)) { 
-				receptor.getAmigos().add(sender); 
-				sender.getAmigos().add(receptor);
+			if (!receptor.getFriends().contains(sender)) { 
+				receptor.getFriends().add(sender); 
+				sender.getFriends().add(receptor);
 				userRepository.save(sender);
 			}
 		}
-		List<Notification> notificationsUser = receptor.getNotificaciones();
+		List<Notification> notificationsUser = receptor.getLNotifications();
 		notificationsUser.remove(notificacion);
 		userRepository.save(receptor);
 
@@ -342,7 +341,7 @@ public class PersonController implements CommandLineRunner {
 	public @ResponseBody List<String> loadFriends(HttpServletRequest request) {
 		String nameUser = request.getUserPrincipal().getName();
 		Person user = userRepository.findByFirstName(nameUser).orElseThrow();
-		List<String> lFriends = userRepository.findFirstNameOfAmigosByUsuario(user);
+		List<String> lFriends = userRepository.findFirstNameOfFriendsByPerson(user);
 
 		return lFriends;
 	}
@@ -351,13 +350,13 @@ public class PersonController implements CommandLineRunner {
 	public @ResponseBody List<Rutine> getOwnRutines(HttpServletRequest request) {
 		String nameUser = request.getUserPrincipal().getName();
 		Person user = userRepository.findByFirstName(nameUser).orElseThrow();
-		List<Rutine> rutines = user.getRutinas();
+		List<Rutine> rutines = user.getRutines();
 		return rutines;
 	}
 
 	@GetMapping("/showRutine")
 	public String showRutine(Model model, @RequestParam Long id, HttpServletRequest request) {
-		Person user = userRepository.findByRutinaId(id).orElseThrow();
+		Person user = userRepository.findByRutineId(id).orElseThrow();
 		Rutine rutine = rutineRepository.findById(id).orElseThrow();
 		model.addAttribute("firstName", user.getFirstName());
 		model.addAttribute("nameUser", user.getName());
@@ -416,7 +415,7 @@ public class PersonController implements CommandLineRunner {
 		}
 		String nameUser = request.getUserPrincipal().getName();
 		Person user = userRepository.findByFirstName(nameUser).orElseThrow();
-		List<Rutine> lrutines = user.getRutinas();
+		List<Rutine> lrutines = user.getRutines();
 		for (Rutine rutine : lrutines) {
 			List<ExRutine> lExcer = rutine.getEjercicios();
 			for (ExRutine exercise : lExcer) {

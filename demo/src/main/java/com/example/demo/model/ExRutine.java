@@ -16,7 +16,7 @@ public class ExRutine {
     private String series;
     private Integer weight;
 
-    public ExRutine() {
+    protected ExRutine() {
     }
 
     public Integer getWeight() {
@@ -57,6 +57,14 @@ public class ExRutine {
 
     public void setExercise(String exercise) {
         this.exercise = exercise;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
 }

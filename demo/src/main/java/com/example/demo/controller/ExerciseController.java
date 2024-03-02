@@ -84,16 +84,16 @@ public class ExerciseController implements CommandLineRunner {
         rutine.setTime(time);
         rutineRepository.save(rutine);
 
-        user.getRutinas().add(rutine);
+        user.getRutines().add(rutine);
         userRepository.save(user);
 
-        List<Person> lFriends = user.getAmigos();
+        List<Person> lFriends = user.getFriends();
         if (!lFriends.isEmpty()) {
             News news = new News(nameUser);
-            news.setRutina(rutine);
+            news.setRutine(rutine);
             newsRepository.save(news);
             for (Person friend : lFriends) {
-                friend.getNovedades().add(news);
+                friend.getNews().add(news);
                 userRepository.save(friend);
             }
         }

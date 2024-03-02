@@ -18,6 +18,22 @@ public class Exercise {
     private boolean bImage;
     private String path;
 
+    protected Exercise() {
+    }
+
+    public Exercise(String name, String description, String grp, String video) {
+        super();
+
+        this.name = name;
+        this.grp = grp;
+        this.video = video;
+        this.description = description;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public Picture getImage() {
         return image;
     }
@@ -41,18 +57,6 @@ public class Exercise {
 
     public void setPath(String path) {
         this.path = path;
-    }
-
-    public Exercise() {
-    }
-
-    public Exercise(String name, String description, String grp, String video) {
-        super();
-
-        this.name = name;
-        this.grp = grp;
-        this.video = video;
-        this.description = description;
     }
 
     public String getName() {

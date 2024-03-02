@@ -31,7 +31,7 @@ async function sendComment(){
   
           // Create user mensage
           let pMensaje = document.createElement('p');
-          pMensaje.textContent = comment.contenido;
+          pMensaje.textContent = comment.content;
   
           // Add imagen,name and mesage
          

@@ -12,11 +12,16 @@ public class Message {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String nombre;
-    private String contenido;
+    private String name;
+    private String content;
 
     protected Message() {
 
+    }
+
+    public Message(String name, String content) {
+        this.name = name;
+        this.content = content;
     }
 
     public Long getId() {
@@ -27,25 +32,21 @@ public class Message {
         this.id = id;
     }
 
-    public String getNombre() {
-        return nombre;
+    public String getName() {
+        return name;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getContenido() {
-        return contenido;
+    public String getContent() {
+        return content;
     }
 
-    public void setContenido(String contenido) {
-        this.contenido = contenido;
+    public void setContent(String content) {
+        this.content = content;
     }
 
-    public Message(String nombre, String contenido) {
-        this.nombre = nombre;
-        this.contenido = contenido;
-    }
-
+   
 }

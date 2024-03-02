@@ -19,7 +19,7 @@ function addElements(notifications) {
     
     listItem.className = "dropdown-item";
     
-    listItem.textContent = notification.contenido + " ";
+    listItem.textContent = notification.content + " ";
 
     var checkButton = document.createElement("button");
     checkButton.className = "btn btn-success";

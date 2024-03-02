@@ -15,7 +15,16 @@ public class News {
 	private String name;
 
 	@OneToOne
-	private Rutine rutina;
+	private Rutine rutine;
+
+	protected News() {
+	}
+
+	public News(String name) {
+		super();
+		this.name = name;
+
+	}
 
 	public long getId() {
 		return id;
@@ -29,22 +38,14 @@ public class News {
 		this.name = name;
 	}
 
-	public Rutine getRutina() {
-		return rutina;
+	public Rutine getRutine() {
+		return rutine;
 	}
 
-	public void setRutina(Rutine rutina) {
-		this.rutina = rutina;
+	public void setRutine(Rutine rutine) {
+		this.rutine = rutine;
 	}
 
-	protected News() {
-	}
-
-	public News(String name) {
-		super();
-		this.name = name;
-
-	}
 
 	public String getName() {
 		return name;
