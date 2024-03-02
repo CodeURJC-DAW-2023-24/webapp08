@@ -1112,3 +1112,7 @@ td {
 .sub_page .hero_area {
   min-height: auto;
 }
+
+.dropdown-menu {
+  z-index: 900000; /* Valor alto para asegurarse de que esté por encima de otros elementos */
+}
