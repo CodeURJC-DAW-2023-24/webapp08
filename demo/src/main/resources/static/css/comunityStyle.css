@@ -58,20 +58,11 @@ body {
   align-items: center;
 }
 
-.nombre-gym {
-  font-weight: bold;
-  color: #faf7f7;
-  font-size: 20px;
-}
 
 
 .logo {
   height: 20px;
 }
-
-
-
-
 
 .search-icon {
 
@@ -104,14 +95,14 @@ body {
 }
 
 
-.estadisticas button {
+.statistics button {
   background-color: var(--color-yellow);
   color: var(--color-text-buttons);
   height: 40px;
 
 }
 
-.estadisticas button:hover {
+.statistics button:hover {
   background-color: var(--color-yellow);
   color: var(--color-text-buttons);
 }
@@ -135,7 +126,7 @@ body {
   color: var(--color-text-buttons);
 }
 
-.estadisticas,
+.statistics,
 .dropdown,
 .comunity,
 .search {
@@ -177,15 +168,6 @@ body {
     transform: translateX(-100%);
   }
 }
-
-.eslogan {
-  flex: 1;
-  text-align: center;
-  font-size: 24px;
-  font-weight: bold;
-  color: white;
-}
-
 
 .nav-item {
   list-style: none;
@@ -253,7 +235,7 @@ body {
   border-radius: 5px;
 }
 
-.titulo-friendlist {
+.title-friendlist {
   color: var(--color-yellow);
 }
 
@@ -302,7 +284,7 @@ body {
 
 }
 
-.solicitud-btn {
+.request-btn {
   border-radius: 5px;
   font-size: x-small;
   border: 2px solid green;

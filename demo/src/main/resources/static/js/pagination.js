@@ -12,7 +12,7 @@ async function initElements() {
   if (news.length < NUM_RESULTS || news.length == NUM_TOTAL) flag = true;
 
   addElementsMainContainer(news);
-  let moreNews = document.getElementById("contenedor-CargarMas");
+  let moreNews = document.getElementById("container-loadMore");
   if (!flag) {
     moreNews.style.display = "flex";
   }
@@ -27,7 +27,7 @@ async function loadMoreFoo() {
   loadMore = loadMore + 1
 
   let spinnerContainer = document.getElementById("spinner-container");
-  let moreNews = document.getElementById("contenedor-CargarMas");
+  let moreNews = document.getElementById("container-loadMore ");
   spinnerContainer.style.display = "flex";
   moreNews.style.display = "none";
   const response = await fetch(`/novedades-iniciales?iteracion=${loadMore}`);
@@ -60,7 +60,7 @@ async function loadMoreFoo() {
 
 function addElementsMainContainer(news) {
 
-  let containerNews = document.getElementById("container-novedades");
+  let containerNews = document.getElementById("container-news");
 
 
   for (let i = 0; i < (news.length); i += 2) {

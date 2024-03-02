@@ -13,7 +13,7 @@ async function sendComment(){
     }
 
     function addComments(comment) {
-      let containerMensajes = document.getElementById('container-mensajes');
+      let containerMensajes = document.getElementById('container-messages');
   
     
           let com = document.createElement('div');

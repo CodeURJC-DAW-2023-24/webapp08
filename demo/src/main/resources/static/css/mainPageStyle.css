@@ -27,8 +27,6 @@ body {
     -webkit-box-align: center;
     -ms-flex-align: center;
     align-items: center;
-
-
 }
 
 .navbar-brand span {
@@ -42,7 +40,6 @@ body {
     background: linear-gradient(to right, rgb(0, 0, 0), rgba(64, 63, 63, 0.807));
     position: fixed;
     background-color: #000000;
-
 }
 
 .i-flex {
@@ -54,19 +51,10 @@ body {
     align-items: center;
 }
 
-.nombre-gym {
-    font-weight: bold;
-    color: #faf7f7;
-    font-size: 20px;
-}
-
 
 .logo {
     height: 20px;
 }
-
-
-
 
 
 .search-icon {
@@ -101,14 +89,14 @@ body {
     background-color: #f0f0f0;
 }
 
-.estadisticas button {
+.statistics button {
     background-color: var(--color-yellow);
     color: var(--color-text-buttons);
     height: 40px;
 
 }
 
-.estadisticas button:hover {
+.statistics button:hover {
     background-color: var(--color-yellow);
     color: var(--color-text-buttons);
 }
@@ -119,7 +107,6 @@ body {
     border-radius: 10px;
 
 }
-
 
 
 .bi-bell {
@@ -135,7 +122,7 @@ body {
     color: var(--color-text-buttons);
 }
 
-.estadisticas,
+.statistics,
 .dropdown,
 .comunity,
 .search {
@@ -151,17 +138,17 @@ body {
 
 }
 
-.container-calendario-rutina {
+.container-calendarR {
     display: flex;
 
 }
 
-.container-calendario {
+.container-calendar {
     width: 70%;
     margin-left: 10px;
 }
 
-.calendario-header {
+.calendar-header {
     width: 90%;
     margin-bottom: 1rem;
     display: flex;
@@ -174,8 +161,8 @@ body {
 
 }
 
-.btn.fecha-izquierda,
-.btn.fecha-derecha {
+.btn.leftDate,
+.btn.rightDate {
 
     color: var(--color-yellow);
     font-size: 2rem;
@@ -184,7 +171,7 @@ body {
 
 }
 
-.titulo-calendario {
+.title-calendar {
     margin: 0;
 }
 
@@ -253,7 +240,7 @@ body {
 
 }
 
-.container-rutina {
+.container-routine {
 
     width: 28%;
     margin-right: 20px;
@@ -266,7 +253,7 @@ body {
     align-items: center;
 }
 
-.container-rutina:hover {
+.container-routine:hover {
     transition: transform 0.3s ease-in-out;
     transform: scale(1.1);
 }
@@ -315,7 +302,7 @@ body {
     }
 }
 
-.container-novedades {
+.container-news {
     width: 70%;
     margin: 0 auto;
     background-color: rgba(213, 213, 213, 0.3);
@@ -346,7 +333,7 @@ body {
     animation: none;
 }
 
-.contenedor-CargarMas {
+.container-loadMore {
 
     display: flex;
     align-items: center;
@@ -354,14 +341,14 @@ body {
     margin-bottom: 20px;
 }
 
-.boton-cargarMas {
+.btn-loadMore {
     background-color: var(--color-yellow);
     color: black;
     height: 40px;
 
 }
 
-.boton-cargarMas:hover {
+.btn-loadMore:hover {
     background-color: var(--color-yellow);
     color: black;
 }

@@ -27,7 +27,7 @@ td {
   text-align: center;
 }
 
-.titulo {
+.title {
   text-align: center;
   background-color: #f1db25;
   color: white;
@@ -72,11 +72,11 @@ td {
 }
 
 
-.comentarios .info_form {
+.comments .info_form {
   margin-top: 30px;
 }
 
-.comentarios .info_form form input {
+.comments .info_form form input {
   outline: none;
   border: none;
   width: 380px;
@@ -86,18 +86,13 @@ td {
   border-radius: 30px;
 }
 
-.ejer-image {
-  width: 100px;
-
-}
-
 .coment .rutine-image {
   border-radius: 20px;
   width: 40px;
   height: 30px;
 }
 
-.comentarios .info_form form button {
+.comments .info_form form button {
   padding: 10px;
   outline: none;
   border: none;
@@ -109,7 +104,7 @@ td {
   margin-right: 20px;
 }
 
-.comentarios .coment {
+.comments .coment {
   background-color: white;
   color: #000000;
   display: flex;
@@ -124,11 +119,11 @@ td {
 
 }
 
-.mensajes {
+.message {
   overflow-y: scroll
 }
 
-.comentarios {
+.comments {
   font-size: bold;
   display: flex;
   flex-wrap: wrap;
@@ -140,8 +135,6 @@ td {
   margin-top: 40px;
   margin-bottom: 40px;
   background-size: auto;
-
-
 
 }
 
@@ -185,11 +178,9 @@ td {
   width: 100px;
   padding-right: 10px;
 
-
-
 }
 
-.perfil-container {
+.profile-container {
   padding: 20px 50px 20px 50px;
   margin-top: 20px;
   display: flex;
@@ -460,20 +451,12 @@ td {
   align-items: center;
 }
 
-.nombre-gym {
-  font-weight: bold;
-  color: #faf7f7;
-  font-size: 20px;
-}
+
 
 
 .logo {
   height: 20px;
 }
-
-
-
-
 
 .search-icon {
 
@@ -577,14 +560,14 @@ td {
 }
 
 
-.estadisticas button {
+.statistics button {
   background-color: var(--color-yellow);
   color: var(--color-text-buttons);
   height: 40px;
 
 }
 
-.estadisticas button:hover {
+.statistics button:hover {
   background-color: var(--color-yellow);
   color: var(--color-text-buttons);
 }
@@ -695,7 +678,7 @@ td {
   color: var(--color-text-buttons);
 }
 
-.estadisticas,
+.statistics,
 .dropdown,
 .search2,
 .adEx,

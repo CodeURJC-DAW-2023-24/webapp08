@@ -35,7 +35,7 @@ ulElement.classList.add("friend-list");
     liElement.textContent = `${names[i][1]}`;
 
     var buttonElement = document.createElement("button");
-    buttonElement.classList.add("solicitud-btn");
+    buttonElement.classList.add("request-btn");
     buttonElement.textContent = "Enviar solicitud";
     buttonElement.addEventListener("click", function() {
         sendRequest(names[i][0]);
