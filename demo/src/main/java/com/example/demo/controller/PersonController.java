@@ -140,8 +140,8 @@ public class PersonController implements CommandLineRunner {
 				byte[] datosImagen = imagenFile.getBytes();
 
 				// object Image
-				Picture image = new Picture();
-				image.setContenido(imagenFile.getContentType());
+				Picture image = new Picture(null);
+				image.setContent(imagenFile.getContentType());
 				image.setName(imagenFile.getOriginalFilename());
 				image.setDatos(datosImagen);
 				user.setImagen(image);
@@ -207,8 +207,8 @@ public class PersonController implements CommandLineRunner {
 				byte[] datosImagen = image.getBytes();
 
 				// object Image
-				Picture imageF = new Picture();
-				imageF.setContenido(image.getContentType());
+				Picture imageF = new Picture(null);
+				imageF.setContent(image.getContentType());
 				imageF.setName(image.getOriginalFilename());
 				imageF.setDatos(datosImagen);
 				imageService.guardarImagen(imageF);
@@ -365,7 +365,7 @@ public class PersonController implements CommandLineRunner {
         String formatedDate = sdf.format(rutine.getDate());
 		model.addAttribute("date", formatedDate);
 		model.addAttribute("rutName", rutine.getName());
-		model.addAttribute("ejercicios", rutine.getEjercicios());
+		model.addAttribute("ejercicios", rutine.getExercises());
 		model.addAttribute("mensajes", rutine.getMensajes());
 		model.addAttribute("id", id);
 		if (user.getImagen() != null) {
@@ -418,7 +418,7 @@ public class PersonController implements CommandLineRunner {
 		Person user = userRepository.findByFirstName(nameUser).orElseThrow();
 		List<Rutine> lrutines = user.getRutinas();
 		for (Rutine rutine : lrutines) {
-			List<ExRutine> lExcer = rutine.getEjercicios();
+			List<ExRutine> lExcer = rutine.getExercises();
 			for (ExRutine exercise : lExcer) {
 				int index = Arrays.asList(gruposMusculares).indexOf(exercise.getGrp());
 				int value = map.get(gruposMusculares[index]);

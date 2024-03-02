@@ -146,9 +146,9 @@ public class ExerciseController implements CommandLineRunner {
         Person user = userRepository.findByFirstName(nameUser).orElseThrow();
         userService.increaseFreq(user, grupo, name);
         exRutineRepository.save(exercise);
-        rutine.addEjerRutina(exercise);
+        rutine.addExRutine(exercise);
         rutineRepository.save(rutine);
-        List<ExRutine> exercises = rutine.getEjercicios();
+        List<ExRutine> exercises = rutine.getExercises();
         model.addAttribute("id", id);
         model.addAttribute("ejersRutina", exercises);
 
@@ -186,8 +186,8 @@ public class ExerciseController implements CommandLineRunner {
                 byte[] datosImage = image.getBytes();
 
                 // Object Image
-                Picture imageN = new Picture();
-                imageN.setContenido(image.getContentType());
+                Picture imageN = new Picture(null);
+                imageN.setContent(image.getContentType());
                 imageN.setName(image.getOriginalFilename());
                 imageN.setDatos(datosImage);
                 imageService.guardarImagen(imageN);
@@ -307,7 +307,7 @@ public class ExerciseController implements CommandLineRunner {
 
     @GetMapping("/adRutine")
     public String cancelRutine(Model model) {
-        Rutine rutine = new Rutine();
+        Rutine rutine = new Rutine(null,null,null);
         rutineRepository.save(rutine);
         model.addAttribute("id", rutine.getId());
         return "adRutine";

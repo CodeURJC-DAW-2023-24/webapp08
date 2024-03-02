@@ -19,13 +19,14 @@ public class Picture {
 	private long id;
 
 	private String name;
-	private String tipoContenido;
+	private String typeContent;
 
     @Lob
     @ElementCollection(fetch = FetchType.EAGER)
-    private List<byte[]> fragmentos;
+    private List<byte[]> fragments;
 
-	public Picture() {
+	protected Picture() {
+        
 	}
 
 	public Picture(String name) {
@@ -42,18 +43,18 @@ public class Picture {
         this.name = name;
     }
 
-   public byte[] getDatos() throws IOException{
-    byte[] datosAux = reconstruirDatos(fragmentos);
-    return datosAux;
+   public byte[] getData() throws IOException{
+    byte[] dataAux = rebuildData(fragments);
+    return dataAux;
    } 
 
     
-	public String getContenido() {
-		return tipoContenido;
+	public String getContent() {
+		return typeContent;
 	}
 
-    public void setContenido(String tipoContenido){
-        this.tipoContenido = tipoContenido;
+    public void setContent(String typeContent){
+        this.typeContent = typeContent;
     }
 
 
@@ -64,36 +65,36 @@ public class Picture {
 	}
 
     
-    public void setDatos(byte[] datosAux) throws IOException {
-        List<byte[]>  datos = fragmentarDatos(datosAux, 128);
-        this.fragmentos= datos;
+    public void setDatos(byte[] dataAux) throws IOException {
+        List<byte[]>  data = fragmentData(dataAux, 128);
+        this.fragments= data;
     }
-    public static List<byte[]> fragmentarDatos(byte[] datosOriginales, int tamañoFragmento) {
-        List<byte[]> fragmentos = new ArrayList<>();
+    public static List<byte[]> fragmentData(byte[] originalData, int tamañoFragmento) {
+        List<byte[]> fragments = new ArrayList<>();
         int offset = 0;
 
-        while (offset < datosOriginales.length) {
-            int longitudFragmento = Math.min(tamañoFragmento, datosOriginales.length - offset);
-            byte[] fragmento = new byte[longitudFragmento];
-            System.arraycopy(datosOriginales, offset, fragmento, 0, longitudFragmento);
-            fragmentos.add(fragmento);
-            offset += longitudFragmento;
+        while (offset < originalData.length) {
+            int fragmentLength = Math.min(tamañoFragmento, originalData.length - offset);
+            byte[] fragment = new byte[fragmentLength];
+            System.arraycopy(originalData, offset, fragment, 0, fragmentLength);
+            fragments.add(fragment);
+            offset += fragmentLength;
         }
 
-        return fragmentos;
+        return fragments;
     }
 
-    public static byte[] reconstruirDatos(List<byte[]> fragmentos) {
-        int tamañoTotal = fragmentos.stream().mapToInt(bytes -> bytes.length).sum();
-        byte[] datosReconstruidos = new byte[tamañoTotal];
+    public static byte[] rebuildData(List<byte[]> fragments) {
+        int totalSize = fragments.stream().mapToInt(bytes -> bytes.length).sum();
+        byte[] rebuildData = new byte[totalSize];
         int offset = 0;
 
-        for (byte[] fragmento : fragmentos) {
-            System.arraycopy(fragmento, 0, datosReconstruidos, offset, fragmento.length);
-            offset += fragmento.length;
+        for (byte[] fragment : fragments) {
+            System.arraycopy(fragment, 0, rebuildData, offset, fragment.length);
+            offset += fragment.length;
         }
 
-        return datosReconstruidos;
+        return rebuildData;
     }
 
    

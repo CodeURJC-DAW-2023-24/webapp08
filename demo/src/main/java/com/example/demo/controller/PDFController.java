@@ -29,7 +29,7 @@ public class PDFController {
         String fileName = "rutina_" + truncatedDate + ".pdf";
         response.setHeader("Content-Disposition", "attachment; filename=" + fileName);
         Rutine rutine = rutinaRepository.findById(id).orElseThrow();
-        List<ExRutine> list= rutine.getEjercicios();
+        List<ExRutine> list= rutine.getExercises();
 
         try (PDDocument document = new PDDocument()) {
             PDPage page = new PDPage();

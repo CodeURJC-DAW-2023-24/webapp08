@@ -34,9 +34,9 @@ public class ImagenService {
                     try {
                         byte[] datos = Files.readAllBytes(archivo.toPath());
                         String nombre = StringUtils.cleanPath(archivo.getName());
-                        Picture imagen = new Picture();
+                        Picture imagen = new Picture(null);
                         imagen.setName(nombre);
-                        imagen.setContenido(Files.probeContentType(archivo.toPath()));
+                        imagen.setContent(Files.probeContentType(archivo.toPath()));
                         imagen.setDatos(datos);
                         imagenRepository.save(imagen);
                     } catch (IOException e) {
@@ -58,7 +58,7 @@ public class ImagenService {
         String nombreImagen = imagen.getName();
         String rutaCompleta = Paths.get(RUTA_IMAGENES, nombreImagen).toString();
         try (FileOutputStream fos = new FileOutputStream(rutaCompleta)) {
-            fos.write(imagen.getDatos());
+            fos.write(imagen.getData());
             fos.flush();
             fos.getFD().sync();
         } catch (IOException e) {
