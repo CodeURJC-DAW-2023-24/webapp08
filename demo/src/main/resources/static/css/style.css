@@ -143,7 +143,8 @@ td {
   width: 40px;
   height: 40px;
   text-align: center;
-
+  margin-top: 15px;
+ border-radius: 50px;
 }
 
 
@@ -188,13 +189,16 @@ td {
   justify-content: space-between;
   background-color: white;
 }
-
-.layout_padding {
-  padding-top: 90px;
-  padding-bottom: 90px;
-  background-color: #000000;
+.routineB{
   background-image: url('/images/rut.jpg');
   background-size: cover;
+  background-position: top;
+  width: 95vw;
+}
+
+.layout_padding{
+  padding-top: 90px;
+  padding-bottom: 90px;
 }
 
 .layout_paddingR {
@@ -220,15 +224,17 @@ td {
   background-image: url('/images/addEjercicio2.jpg');
   background-size: cover;
 }
+
 .layout_padding_exercise {
  
-    position: relative;
-
-    padding-top: 90px;
-    padding-bottom: 90px;
-    background-color: #000000;
-    background-image: url('/images/mancuerna.jpeg');
-    background-size: cover;
+  position: relative;
+  min-height: 100vh; 
+  width: 100%;
+  padding-top: 90px;
+  padding-bottom: 90px;
+  background-color: #000000;
+  background-image: url('/images/mancuerna.jpeg');
+  background-size: cover;
   
   
 }
@@ -265,6 +271,10 @@ td {
   background-color: rgba(255, 255, 255, 0.197);
   padding: 20px;
   margin-top: 50px;
+}
+
+.marginC{
+  padding-top:60px;
 }
 
 .layout_paddingPecho {
@@ -468,9 +478,8 @@ td {
 .search2 .search-icon {
   display: inline-block;
   color: var(--color-text-buttons);
-  ;
   background-color: var(--color-yellow);
-  border-radius: 10px;
+  border-radius: 5px;
   font-size: 24px;
 }
 
@@ -485,6 +494,7 @@ td {
 
 .search2:hover .form-control {
   display: block;
+  margin-top: 17px;
 }
 
 .search2 input[type="text"] {
@@ -513,8 +523,6 @@ td {
   color: var(--color-text-buttons);
   height: 40px;
   border-radius: 5px;
-
-
 }
 .description-box {
   margin-top: 50px;

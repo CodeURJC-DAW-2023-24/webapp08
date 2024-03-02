@@ -2774,6 +2774,21 @@ textarea.form-control.is-invalid {
   width: 250px;
   text-align: center;
 }
+.btnPag {
+  display: inline-block;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  width: 150px;
+  text-align: center;
+  background-color: var(--warning);
+  color: #ffffff;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+  border: 1px solid transparent;
+  font-family: "Poppins", sans-serif;
+  font-weight: bold;
+  text-align: center;
+}
 
 .btnC {
   display: inline-block;
@@ -2782,7 +2797,6 @@ textarea.form-control.is-invalid {
   width: 150px;
   text-align: center;
   background-color: #050505;
-  text-align: right;
   padding: 10px 35px;
   margin-top: 5px;
   background-color: #0a0a0a;
@@ -2799,6 +2813,10 @@ textarea.form-control.is-invalid {
 .btnS:hover {
   background-color: transparent;
   border-color: #f1db25;
+}
+.btnPag:hover {
+  background-color: black;
+  border-color: var(--warning);
 }
 
 .btnC:hover {
@@ -4700,7 +4718,7 @@ input[type="button"].btn-block {
   align-items: center;
   -ms-flex-pack: justify;
   justify-content: space-between;
-  padding: 0.5rem 1rem;
+  padding: 0.5rem 1rem; 
 }
 
 .navbar>.container,
