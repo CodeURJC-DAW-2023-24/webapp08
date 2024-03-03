@@ -47,7 +47,7 @@ function addElements(notifications) {
 
 
     async function processRequest(notification, boolean) {  
-            await fetch( `/processRequest?notificacion=${notification.id}&aceptar=${boolean}`,{
+            await fetch( `/processRequest?notification=${notification.id}&aceptar=${boolean}`,{
                 method: 'POST'
               });
          
