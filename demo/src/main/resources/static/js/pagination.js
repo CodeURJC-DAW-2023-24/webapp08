@@ -53,6 +53,12 @@ function addElementsMainContainer(news) {
 
   let containerNews = document.getElementById("container-news");
 
+  if (news.length == 0) {
+    containerNews.innerText = "NO TIENES NINGUNA NOVEDAD"
+    containerNews.style.textAlign = "center"; 
+  containerNews.style.color = "white"; 
+  containerNews.style.fontSize = "30px"; 
+  }
 
   for (let i = 0; i < (news.length); i += 2) {
     const row = document.createElement('div');

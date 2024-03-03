@@ -17,7 +17,7 @@ public class Rutine {
     @OneToMany(cascade = CascadeType.ALL)
     private List<Comment> lComments;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     private List<ExRutine> exercises;
 
     protected Rutine() {

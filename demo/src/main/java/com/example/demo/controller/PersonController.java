@@ -132,7 +132,7 @@ public class PersonController implements CommandLineRunner {
 		if (!(image == null)) {
 			imagePath = image.getName();
 		}
-		model.addAttribute("alias", user.getalias());
+		model.addAttribute("alias", user.getAlias());
 		model.addAttribute("name", user.getName());
 		model.addAttribute("date", user.getDate());
 		model.addAttribute("weight", user.getWeight());
@@ -146,10 +146,10 @@ public class PersonController implements CommandLineRunner {
 	public String editUser(Model model, @RequestParam String name, @RequestParam String alias,
 			@RequestParam String date, @RequestParam Integer weight,
 			@RequestParam MultipartFile image, HttpServletRequest request) throws InterruptedException {
-		String nameUser = request.getUserPrincipal().getName();
-		Person user = userRepository.findByalias(nameUser).orElseThrow();
+		String alias2 = request.getUserPrincipal().getName();
+		Person user = userRepository.findByalias(alias2).orElseThrow();
 		user.setName(name);
-		user.setalias(alias);
+		user.setAlias(alias);
 		user.setDate(date);
 		user.setWeight(weight);
 		if (!image.isEmpty()) {
@@ -174,7 +174,7 @@ public class PersonController implements CommandLineRunner {
 			imagePath = imageN.getName();
 
 		}
-		model.addAttribute("alias", user.getalias());
+		model.addAttribute("alias", user.getAlias());
 		model.addAttribute("name", user.getName());
 		model.addAttribute("date", user.getDate());
 		model.addAttribute("weight", user.getWeight());

@@ -69,6 +69,12 @@ public class AdminController implements CommandLineRunner {
                 newsRepository.delete(news.get());
             }
         }
+        
+        List<Person> lAmigos =  user.getFriends();
+        for(Person amigo: lAmigos) {
+            amigo.getFriends().remove(user);
+            userRepository.save(amigo);
+        }
 
         user.getFriends().clear();
         userRepository.save(user);

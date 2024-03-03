@@ -170,7 +170,7 @@ public class Person {
 		return lNotifications;
 	}
 	
-	public String getalias() {
+	public String getAlias() {
 		return alias;
 	}
 
@@ -199,7 +199,7 @@ public class Person {
 		this.name=name;
 	}
 
-	public void setalias(String alias){
+	public void setAlias(String alias){
 		this.alias=alias;
 	}
 	public void setDate(String date){

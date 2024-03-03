@@ -130,4 +130,4 @@ Por último, se pueden observar los comentarios que otros usuarios han publicado
 <img src="READMEImages/navegation.png" width="1000" /> 
 
 ## Diagrama con las entidades de la base de datos: 
-<img src="READMEImages/DiagramaEER.png" width="1000" /> 
+<img src="READMEImages/DiagramEER.png" width="1000" /> 

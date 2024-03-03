@@ -55,8 +55,8 @@ public class WebController implements CommandLineRunner {
 
 	@GetMapping("/searchUsers")
 	public @ResponseBody Map<String, Object> searchbyName(@RequestParam String nombre, HttpServletRequest request) {
-		String nameUser = request.getUserPrincipal().getName();
-		Person user = userRepository.findByalias(nameUser).orElseThrow();
+		String alias = request.getUserPrincipal().getName();
+		Person user = userRepository.findByalias(alias).orElseThrow();
 		Boolean bAdmin = request.isUserInRole("ADMIN");
 		List<String[]> lNameId = userRepository.getIdandAlias(nombre, user.getId());
 		Map<String, Object> response = new HashMap<>();
@@ -68,10 +68,10 @@ public class WebController implements CommandLineRunner {
 
 	@PostMapping("/sendRequest")
 	public @ResponseBody Boolean sendRequest(@RequestParam String id, HttpServletRequest request) {
-		String nameUser = request.getUserPrincipal().getName();
-		Person sender = userRepository.findByalias(nameUser).orElseThrow();
+		String alias = request.getUserPrincipal().getName();
+		Person sender = userRepository.findByalias(alias).orElseThrow();
 		Person receiver = userRepository.findById(Long.parseLong(id)).orElseThrow();
-		Notification notification = new Notification(sender.getalias());
+		Notification notification = new Notification(sender.getAlias());
 		notificationRepository.save(notification);
 		receiver.getLNotifications().add(notification);
 		userRepository.save(receiver);
@@ -80,9 +80,9 @@ public class WebController implements CommandLineRunner {
 
 	@GetMapping("/notifications")
 	public @ResponseBody List<Notification> getNotifications(HttpServletRequest request) {
-		String nameUser = request.getUserPrincipal().getName();
+		String alias = request.getUserPrincipal().getName();
 
-		List<Notification> lNotifications = userRepository.findByalias(nameUser).orElseThrow().getLNotifications();
+		List<Notification> lNotifications = userRepository.findByalias(alias).orElseThrow().getLNotifications();
 
 		return lNotifications;
 	}
@@ -90,8 +90,8 @@ public class WebController implements CommandLineRunner {
 	@PostMapping("/processRequest")
 	public @ResponseBody void processRequest(@RequestParam Notification notification, @RequestParam boolean aceptar,
 			HttpServletRequest request) {
-		String nameUser = request.getUserPrincipal().getName();
-		Person receptor = userRepository.findByalias(nameUser).orElseThrow();
+		String alias = request.getUserPrincipal().getName();
+		Person receptor = userRepository.findByalias(alias).orElseThrow();
 
 		if (aceptar) {
 			String originalText = notification.getContent();
@@ -113,8 +113,8 @@ public class WebController implements CommandLineRunner {
 
 	@GetMapping("/starterNews")
 	public @ResponseBody List<Object> getNews(@RequestParam int iteracion, HttpServletRequest request) {
-		String nameUser = request.getUserPrincipal().getName();
-		Person user = userRepository.findByalias(nameUser).orElseThrow();
+		String alias = request.getUserPrincipal().getName();
+		Person user = userRepository.findByalias(alias).orElseThrow();
 		Page<News> pNews = userRepository.findByNews(user.getNews(), PageRequest.of(iteracion, 10));
 		List<News> page = pNews.getContent();
 		Boolean top = pNews.hasNext();
@@ -125,8 +125,8 @@ public class WebController implements CommandLineRunner {
 
 	@GetMapping("/loadFriends")
 	public @ResponseBody List<String> loadFriends(HttpServletRequest request) {
-		String nameUser = request.getUserPrincipal().getName();
-		Person user = userRepository.findByalias(nameUser).orElseThrow();
+		String alias = request.getUserPrincipal().getName();
+		Person user = userRepository.findByalias(alias).orElseThrow();
 		List<String> lFriends = userRepository.findaliasOfFriendsByPerson(user);
 
 		return lFriends;
@@ -134,8 +134,8 @@ public class WebController implements CommandLineRunner {
 
 	@GetMapping("/loadRutines")
 	public @ResponseBody List<Rutine> getOwnRutines(HttpServletRequest request) {
-		String nameUser = request.getUserPrincipal().getName();
-		Person user = userRepository.findByalias(nameUser).orElseThrow();
+		String alias = request.getUserPrincipal().getName();
+		Person user = userRepository.findByalias(alias).orElseThrow();
 		List<Rutine> rutines = user.getRutines();
 		return rutines;
 	}
@@ -162,8 +162,8 @@ public class WebController implements CommandLineRunner {
 			map.put(grpMuscle[i], 0);
 
 		}
-		String nameUser = request.getUserPrincipal().getName();
-		Person user = userRepository.findByalias(nameUser).orElseThrow();
+		String alias = request.getUserPrincipal().getName();
+		Person user = userRepository.findByalias(alias).orElseThrow();
 		List<Rutine> lrutines = user.getRutines();
 		for (Rutine rutine : lrutines) {
 			List<ExRutine> lExcer = rutine.getExercises();
