@@ -191,3 +191,19 @@ Por último, se pueden observar los comentarios que otros usuarios han publicado
       - [Fichero 3](https://github.com/CodeURJC-DAW-2023-24/webapp08/commit/9ba8ceb2de68a6837ade7f39fcd49c01557702dd#diff-2c22fe3018c2a945c4aa27e6b1b72308dca4157086105723057148b1c565f887)
       - [Fichero 4](https://github.com/CodeURJC-DAW-2023-24/webapp08/commit/9ba8ceb2de68a6837ade7f39fcd49c01557702dd#diff-9a56d7ebf408981228e88504fc6d10c9b83b4be73c9b779c073ed1dd1d66b83f)
       - [Fichero 5](https://github.com/CodeURJC-DAW-2023-24/webapp08/commit/9ba8ceb2de68a6837ade7f39fcd49c01557702dd#diff-5878a5261aa1dc8515f97c246b866db57b23e535f7c4ca3ecb4aa14c286744b9)
+
+## Instrucciones de ejecución
+
+1. Descarga este repositorio
+2. Descarga MySQL workBench 
+3. Crea un esquema que se llame gymguru en el puerto por defecto 3306
+4. usuario: roor contraseña: password
+5. Run Application en VS
+6. Ve https://localhost/8443/
+
+### Se necesita
+- Java: JDK 17 --> https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html
+- MySQL: v.8.0.36.0 (Explained in DataBase Configuration)
+- Maven: 4.0.0
+- Spring Boot 3.2.2
+- VisualStudioCode + maven + SpringBoot
