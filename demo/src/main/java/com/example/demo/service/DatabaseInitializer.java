@@ -2,6 +2,8 @@ package com.example.demo.service;
 import jakarta.annotation.PostConstruct;
 
 import java.sql.SQLException;
+import java.util.List;
+
 import javax.sql.rowset.serial.SerialException;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,13 +13,21 @@ import org.springframework.stereotype.Service;
 
 import com.example.demo.model.Exercise;
 import com.example.demo.model.Person;
+import com.example.demo.model.Picture;
 import com.example.demo.repository.ExerciseRepository;
 import com.example.demo.repository.PersonRepository;
+import com.example.demo.repository.PictureRepository;
 
 @Service
 public class DatabaseInitializer {
 
-		
+	@Autowired
+	private PictureService pictureService;
+
+	@Autowired
+	private PictureRepository pictureRepository;
+	
+			
 	@Autowired
 		private ExerciseRepository exerciseRepository;
 
@@ -52,6 +62,12 @@ public class DatabaseInitializer {
 		exerciseRepository.save(new Exercise("Curl en barra Z", "El curl de bíceps en Z implica sostener una barra con un agarre supino, flexionar los codos para levantarla hacia los hombros mientras se contraen los bíceps, y luego bajarla controladamente a la posición inicial.", "Biceps", "0"));
 		exerciseRepository.save(new Exercise("Aductores", "Fortalecer los músculos aductores del muslo interior. El ejercicio se realiza típicamente sentado, con las piernas en posición de apertura y luego se contraen los músculos para llevar las piernas juntas. ", "Inferior", "0"));
 		
-	}
+	
+		String pathPictureFolder = "images";
 
+        // Lógica para cargar las imágenes al arrancar la aplicación
+        pictureService.loadPicturesFromFolder(pathPictureFolder);
+		List<Picture> pictures = pictureRepository.findAll();
+		pictureService.savePictures(pictures);
+	}
 }

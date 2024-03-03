@@ -117,7 +117,7 @@ public class AdminController implements CommandLineRunner {
                 imageN.setContent(image.getContentType());
                 imageN.setName(image.getOriginalFilename());
                 imageN.setDatos(datosImage);
-                imageService.guardarImagen(imageN);
+                imageService.savePicture(imageN);
                 exercise.setImage(imageN);
                 exercise.setbImage(true);
             } catch (IOException e) {

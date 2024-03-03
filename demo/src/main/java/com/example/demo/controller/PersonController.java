@@ -107,7 +107,7 @@ public class PersonController implements CommandLineRunner {
 				image.setName(imagenFile.getOriginalFilename());
 				image.setDatos(imageData);
 				user.setImagen(image);
-				imageService.guardarImagen(image);
+				imageService.savePicture(image);
 			} catch (IOException e) {
 			}
 		}
@@ -162,7 +162,7 @@ public class PersonController implements CommandLineRunner {
 				imageF.setContent(image.getContentType());
 				imageF.setName(image.getOriginalFilename());
 				imageF.setDatos(imageData);
-				imageService.guardarImagen(imageF);
+				imageService.savePicture(imageF);
 				user.setImagen(imageF);
 			} catch (IOException e) {
 			}

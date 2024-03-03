@@ -24,7 +24,7 @@ public class PictureService {
     private PictureRepository imagenRepository;
     private static final String RUTA_IMAGENES = "demo/src/main/resources/static/images";
 
-    public void cargarImagenesDesdeCarpeta(String rutaCarpeta) throws SerialException, SQLException {
+    public void loadPicturesFromFolder(String rutaCarpeta) throws SerialException, SQLException {
         File carpeta = new File(rutaCarpeta);
         File[] archivos = carpeta.listFiles();
 
@@ -47,14 +47,14 @@ public class PictureService {
         }
     }
 
-    public void guardarImagenes(List<Picture> imagenes) {
+    public void savePictures(List<Picture> imagenes) {
         for (Picture imagen : imagenes) {
-            guardarImagen(imagen);
+            savePicture(imagen);
         }
 
     }
 
-    public void guardarImagen(Picture imagen) {
+    public void savePicture(Picture imagen) {
         String nombreImagen = imagen.getName();
         String rutaCompleta = Paths.get(RUTA_IMAGENES, nombreImagen).toString();
         try (FileOutputStream fos = new FileOutputStream(rutaCompleta)) {
@@ -66,7 +66,7 @@ public class PictureService {
         }
     }
 
-    public boolean verificarExistenciaImagen(String nombreArchivo) {
+    public boolean verifyPictureExistance(String nombreArchivo) {
         Path rutaCompleta = Paths.get(RUTA_IMAGENES, nombreArchivo);
         return Files.exists(rutaCompleta) && Files.isRegularFile(rutaCompleta);
     }

@@ -51,8 +51,8 @@ public class ExerciseController implements CommandLineRunner {
             if (!(image == null)) {
                 exercise.setbImage(true);
                 imagePath = image.getName();
-                if (!imageService.verificarExistenciaImagen(imagePath)) {
-                    imageService.guardarImagen(image);
+                if (!imageService.verifyPictureExistance(imagePath)) {
+                    imageService.savePicture(image);
                 }
                 exercise.setPath(imagePath);
             }
@@ -118,8 +118,8 @@ public class ExerciseController implements CommandLineRunner {
         String imagePath = "logo.jpg";
         if (!(image == null)) {
             imagePath = image.getName();
-            if (!imageService.verificarExistenciaImagen(imagePath)) {
-                imageService.guardarImagen(image);
+            if (!imageService.verifyPictureExistance(imagePath)) {
+                imageService.savePicture(image);
             }
         }
         model.addAttribute("id", exercise.getId());
