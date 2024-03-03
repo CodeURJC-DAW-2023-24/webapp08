@@ -15,7 +15,7 @@ public class Rutine {
     private Integer time;
 
     @OneToMany(cascade = CascadeType.ALL)
-    private List<Comment> lMessages;
+    private List<Comment> lComments;
 
     @OneToMany
     private List<ExRutine> exercises;
@@ -78,11 +78,11 @@ public class Rutine {
     }
 
     public List<Comment> getMessages() {
-        return lMessages;
+        return lComments;
     }
 
-    public void setMessages(List<Comment> lMessages) {
-        this.lMessages = lMessages;
+    public void setMessages(List<Comment> lComments) {
+        this.lComments = lComments;
     }
 
     

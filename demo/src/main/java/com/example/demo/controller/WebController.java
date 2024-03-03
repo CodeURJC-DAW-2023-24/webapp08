@@ -152,8 +152,8 @@ public class WebController implements CommandLineRunner {
 		String[] grpMuscle = {
 				"Pecho",
 				"Espalda",
-				"Bíceps",
-				"Tríceps",
+				"Biceps",
+				"Triceps",
 				"Hombro",
 				"Tren Inferior",
 				"Cardio"
