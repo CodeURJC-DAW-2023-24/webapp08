@@ -93,7 +93,7 @@ public class Person {
 	public Map<String, Integer> getFrecuencia(String grp){
 		switch (grp) {
 			case "Pecho":
-                return chestFrec;
+            return chestFrec;
                
             case "Espalda":
 			return backFrec;
@@ -126,7 +126,75 @@ public class Person {
 	
 	}
 
-	 public void setId(long id) {
+	 public void setAlias(String alias) {
+		this.alias = alias;
+	}
+
+	public List<Notification> getlNotifications() {
+		return lNotifications;
+	}
+
+	public void setlNotifications(List<Notification> lNotifications) {
+		this.lNotifications = lNotifications;
+	}
+
+	public Map<String, Integer> getChestFrec() {
+		return chestFrec;
+	}
+
+	public void setChestFrec(Map<String, Integer> chestFrec) {
+		this.chestFrec = chestFrec;
+	}
+
+	public Map<String, Integer> getShoulderFrec() {
+		return shoulderFrec;
+	}
+
+	public void setShoulderFrec(Map<String, Integer> shoulderFrec) {
+		this.shoulderFrec = shoulderFrec;
+	}
+
+	public Map<String, Integer> getBackFrec() {
+		return backFrec;
+	}
+
+	public void setBackFrec(Map<String, Integer> backFrec) {
+		this.backFrec = backFrec;
+	}
+
+	public Map<String, Integer> getBicepsFrec() {
+		return bicepsFrec;
+	}
+
+	public void setBicepsFrec(Map<String, Integer> bicepsFrec) {
+		this.bicepsFrec = bicepsFrec;
+	}
+
+	public Map<String, Integer> getTricepsFrec() {
+		return tricepsFrec;
+	}
+
+	public void setTricepsFrec(Map<String, Integer> tricepsFrec) {
+		this.tricepsFrec = tricepsFrec;
+	}
+
+	public Map<String, Integer> getLowerFrec() {
+		return lowerFrec;
+	}
+
+	public void setLowerFrec(Map<String, Integer> lowerFrec) {
+		this.lowerFrec = lowerFrec;
+	}
+
+	public Map<String, Integer> getCardioFrec() {
+		return cardioFrec;
+	}
+
+	public void setCardioFrec(Map<String, Integer> cardioFrec) {
+		this.cardioFrec = cardioFrec;
+	}
+
+	public void setId(long id) {
 		this.id = id;
 	}
 
@@ -199,9 +267,7 @@ public class Person {
 		this.name=name;
 	}
 
-	public void setAlias(String alias){
-		this.alias=alias;
-	}
+
 	public void setDate(String date){
 		this.date= date;
 	}
