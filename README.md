@@ -134,3 +134,60 @@ Por último, se pueden observar los comentarios que otros usuarios han publicado
 
 ## Diagrama de clases y templates: 
 <img src="READMEImages/template_class_diagram.png" width="1000" /> 
+
+
+## Participación
+- **<span style="color:green">Victoria Orzáez </span>:** 
+    - Tareas: editar usuario, puerto 8443, seguridad, token, invitado, loging, ver rutina, crear rutina, algoritmo ordenación, imágenes en la base de datos
+     - 5 commits más significativos:
+       - [Commit 1]()
+       - [Commit 2]()
+       - [Commit 3]()
+       - [Commit 4]()
+       - [Commit 5]()
+    - 5 ficheros en los que se ha participado:
+      - [Fichero 1]()
+      - [Fichero 2]()
+      - [Fichero 3]()
+      - [Fichero 4]()
+      - [Fichero 5]()
+- **<span style="color:green">Rubén Rodríguez </span>:** 
+    - Tareas: novedades (cargar novedades, spinner y paginación), calendario, notificaciones (ver solicitudes, aceptarlas/denegarlas), agregar/buscar amigo, comentar en la rutina, gráfica, borrar usuario administrador, organización de código, error, diagrama de EER, enlazar base de datos, mostrar amigos agregados
+    - 5 commits más significativos:
+       - 5 commits más significativos:
+      - [Commit 1](https://github.com/CodeURJC-DAW-2023-24/webapp08/commit/d43d115c54126bbea659668113ce30075586fc5f)
+      - [Commit 2](https://github.com/CodeURJC-DAW-2023-24/webapp08/commit/eb63d8deb5f1c782ed127bdba76759acfbb2453d)
+      - [Commit 3](https://github.com/CodeURJC-DAW-2023-24/webapp08/commit/8bf1f6ee88d91c28f6c4b0466f74de239223515d)
+      - [Commit 4](https://github.com/CodeURJC-DAW-2023-24/webapp08/commit/3a0d7a19d246ca3e4a045e9b87ed45ad1678a8cb)
+      - [Commit 5](https://github.com/CodeURJC-DAW-2023-24/webapp08/commit/c4c6ed78ae3ee092a6b7be3c3d713b3780f9d4a6)
+    - 5 ficheros en los que se ha participado:
+      - [WebController](https://github.com/CodeURJC-DAW-2023-24/webapp08/blob/main/demo/src/main/java/com/example/demo/controller/WebController.java)
+      - [RoutineController](https://github.com/CodeURJC-DAW-2023-24/webapp08/blob/main/demo/src/main/java/com/example/demo/controller/RutineController.java)
+      - [loadRoutine.js](https://github.com/CodeURJC-DAW-2023-24/webapp08/blob/main/demo/src/main/resources/static/js/loadRutines.js)
+      - [community.js](https://github.com/CodeURJC-DAW-2023-24/webapp08/blob/main/demo/src/main/resources/static/js/community.js)
+      - [AdminController](https://github.com/CodeURJC-DAW-2023-24/webapp08/blob/main/demo/src/main/java/com/example/demo/controller/AdminController.java)
+- **<span style="color:green">Noelia Berzosa</span>:** 
+    - Tareas: registrar usuario, añadir ejercio adminstrador, login, paginación lista ejercios, detalles ejercicios (video, imagen), exportar rutina en PDF,lista ejercicios, buscador de ejercios, borrar ejercicio administrador, separar header, organización de código, error, diagrama navegación, diagrama clases y templates, logo en página web 
+    - 5 commits más significativos:
+      - [Commit 1](https://github.com/CodeURJC-DAW-2023-24/webapp08/commit/0b406a39fd00f07caa5d885a0c3210bc4ea32fe6) Muestra general de los 18 updates de diseño que ha habido
+      - [Commit 2](https://github.com/CodeURJC-DAW-2023-24/webapp08/commit/c5fe4e9cd2f8e531de7774e40ce7fc7764011e0c)
+      - [Commit 3](https://github.com/CodeURJC-DAW-2023-24/webapp08/commit/9e4d2be4d68205d33b8775d79a240181d71c1144)
+      - [Commit 4](https://github.com/CodeURJC-DAW-2023-24/webapp08/commit/cb1c93164f592f6d42f5ccc6a0c14efdcfd6ba2c)
+      - [Commit 5](https://github.com/CodeURJC-DAW-2023-24/webapp08/commit/69453116f341ed61d836047afba7d5ce61ca8578)
+    - 5 ficheros en los que se ha participado:
+      - [ExerciseController](https://github.com/CodeURJC-DAW-2023-24/webapp08/blob/main/demo/src/main/java/com/example/demo/controller/ExerciseController.java)
+      - [PDFController](https://github.com/CodeURJC-DAW-2023-24/webapp08/blob/main/demo/src/main/java/com/example/demo/controller/PDFController.java)
+      - [PersonController](https://github.com/CodeURJC-DAW-2023-24/webapp08/blob/main/demo/src/main/java/com/example/demo/controller/PersonController.java)
+      - [searchEx.js](https://github.com/CodeURJC-DAW-2023-24/webapp08/blob/main/demo/src/main/resources/static/js/searchEx.js)
+      - [AdminController](https://github.com/CodeURJC-DAW-2023-24/webapp08/blob/main/demo/src/main/java/com/example/demo/controller/AdminController.java)
+      
+- **<span style="color:green">Tarek</span>:**
+   - Tarea: enlace a página rutina (sin funcionalidad)
+   - 5 commits más significativos:
+      - [Commit 1](https://github.com/CodeURJC-DAW-2023-24/webapp08/commit/9ba8ceb2de68a6837ade7f39fcd49c01557702dd)
+   - 5 ficheros en los que se ha participado:
+      - [Fichero 1](https://github.com/CodeURJC-DAW-2023-24/webapp08/commit/9ba8ceb2de68a6837ade7f39fcd49c01557702dd#diff-733f01993dd972ba1ff182b31cd4622f692230fefe55fa682307a9e37950ea4c)
+      - [Fichero 2](https://github.com/CodeURJC-DAW-2023-24/webapp08/commit/9ba8ceb2de68a6837ade7f39fcd49c01557702dd#diff-b00a39d6926142545d411fcbab14cd9fd91b8be4be8d3af1e1929dbcab33ccd5)
+      - [Fichero 3](https://github.com/CodeURJC-DAW-2023-24/webapp08/commit/9ba8ceb2de68a6837ade7f39fcd49c01557702dd#diff-2c22fe3018c2a945c4aa27e6b1b72308dca4157086105723057148b1c565f887)
+      - [Fichero 4](https://github.com/CodeURJC-DAW-2023-24/webapp08/commit/9ba8ceb2de68a6837ade7f39fcd49c01557702dd#diff-9a56d7ebf408981228e88504fc6d10c9b83b4be73c9b779c073ed1dd1d66b83f)
+      - [Fichero 5](https://github.com/CodeURJC-DAW-2023-24/webapp08/commit/9ba8ceb2de68a6837ade7f39fcd49c01557702dd#diff-5878a5261aa1dc8515f97c246b866db57b23e535f7c4ca3ecb4aa14c286744b9)
