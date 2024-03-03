@@ -257,7 +257,7 @@ margin-top: 10px;
   background-size: cover;
   
   width: 100%;
-  height: 100vh;
+  height: 100%;
 }
 
 .layout_paddingRA {
@@ -277,7 +277,7 @@ margin-top: 10px;
   background-image: url('/images/regUsu.jpg');
   background-size: cover;
   width: 100%;
-  height: 100vh;
+  height: 100%;
 }
 
 .errorBody  {

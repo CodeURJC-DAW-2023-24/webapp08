@@ -99,11 +99,13 @@ public class RutineController implements CommandLineRunner {
     public String newRoutine(@PathVariable Long id,
             @RequestParam("date") Date date,
             @RequestParam("name") String name,
-            @RequestParam("time") Integer time, HttpServletRequest request) {
+            @RequestParam("time") Integer time, HttpServletRequest request, Model model) {
 
-        if (date == null || name.isEmpty() || time == 0)
+        if (date == null || name.isEmpty() || time == 0){
+            model.addAttribute("message", true);
+            model.addAttribute("erroMg", "Rutina vacía");
             return "error";
-
+        }
         String nameUser = request.getUserPrincipal().getName();
         Person user = userRepository.findByFirstName(nameUser).orElseThrow();
 

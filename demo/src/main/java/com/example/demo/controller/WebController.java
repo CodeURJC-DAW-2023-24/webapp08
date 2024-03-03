@@ -41,10 +41,9 @@ public class WebController implements CommandLineRunner {
 	public void run(String... args) throws Exception {
 	}
 
-	@GetMapping("/errorL")
-	public String errorL(Model model) {
-	 
-		return "errorL";
+	@GetMapping("/errorPage")
+	public String errorPage(Model model) {
+		return "errorPage";
 	}
 
 	@GetMapping("/mainPage/community")

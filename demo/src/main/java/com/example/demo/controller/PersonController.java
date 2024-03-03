@@ -80,12 +80,7 @@ public class PersonController implements CommandLineRunner {
 			@RequestParam("password1") String password1,
 			@RequestParam("image") MultipartFile imagenFile, HttpSession session, Model model) {
 		Optional<Person> existingUserOptional = userRepository.findByFirstName(firstName);
-		if (name.isEmpty() || firstName.isEmpty() || date.isEmpty() || password.isEmpty() || password1.isEmpty()) {
-			model.addAttribute("message", true);
-			model.addAttribute("erroMg", "Rellene todos los campos");
-			return "error";
-		}
-
+		
 		if (!password.equals(password1)) {
 			// same passwords
 			model.addAttribute("message", true);
