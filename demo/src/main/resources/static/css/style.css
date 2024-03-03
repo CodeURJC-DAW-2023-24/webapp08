@@ -199,6 +199,8 @@ td {
 .layout_padding{
   padding-top: 90px;
   padding-bottom: 90px;
+  width: 100%;
+  height: 100vh;
 }
 
 .layout_paddingR {
@@ -207,6 +209,8 @@ td {
   background-color: #000000;
   background-image: url('/images/fondo1.jpg');
   background-size: cover;
+  width: 100%;
+  height: 100vh;
 }
 
 .layout_paddingF {
@@ -215,6 +219,8 @@ td {
   background-color: #000000;
   background-image: url('/images/formularioEj.jpg');
   background-size: cover;
+  width: 100%;
+  height: 100vh;
 }
 
 .layout_paddingER {
@@ -223,20 +229,20 @@ td {
   background-color: #000000;
   background-image: url('/images/addEjercicio2.jpg');
   background-size: cover;
+  width: 100%;
+  height: 100vh;
 }
 
 .layout_padding_exercise {
- 
-  position: relative;
-  min-height: 100vh; 
-  width: 100%;
+ position: relative;
   padding-top: 90px;
   padding-bottom: 90px;
   background-color: #000000;
   background-image: url('/images/mancuerna.jpeg');
   background-size: cover;
   
-  
+  width: 100%;
+  height: 100vh;
 }
 
 .layout_paddingRA {
@@ -245,6 +251,8 @@ td {
   background-color: #000000;
   background-image: url('/images/addRutina2.jpg');
   background-size: cover;
+  width: 100%;
+  height: 100vh;
 }
 
 .layout_paddingReg {
@@ -253,12 +261,16 @@ td {
   background-color: #000000;
   background-image: url('/images/regUsu.jpg');
   background-size: cover;
+  width: 100%;
+  height: 100vh;
 }
 
 .errorBody  {
   margin: 0;
   padding: 0;
   background-image: url('/images/error.jpg');
+  width: 100%;
+  height: 100vh;
 }
 
 .formAd {
@@ -284,6 +296,7 @@ td {
   background-image: url('/images/pecho.jpg');
   background-size: cover;
   height: 300px;
+  
 }
 
 .layout_paddingEspalda {
@@ -343,6 +356,7 @@ td {
 .layout_paddingI {
   padding-top: 90px;
   padding-bottom: 90px;
+  
 
 }
 

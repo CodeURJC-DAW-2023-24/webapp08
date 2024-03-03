@@ -8,6 +8,7 @@ async function sendComment(){
           });
      
     let comments = await response.json();
+    document.getElementById('comment').value="";
     addComments(comments)
     }
     }
