@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import javax.sql.rowset.serial.SerialException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -25,13 +26,16 @@ public class DatabaseInitializer {
 	
 	@Autowired
 	private PasswordEncoder passwordEncoder;
+
+	@Value("${admin.password}")
+    private String adminPassword;
 	
 	@SuppressWarnings("null")
 	@PostConstruct
 	public void init() throws SerialException, SQLException {
 		personRepository.save(new Person("user", passwordEncoder.encode("pass"),"paco","1993-04-06",90, "USER"));
 		personRepository.save(new Person("marta03", passwordEncoder.encode("qwerty"),"Marta","1993-04-06",70, "USER"));
-		personRepository.save(new Person("admin", passwordEncoder.encode("adminpass"), "paco","1993-04-06",90,"USER", "ADMIN"));
+		personRepository.save(new Person("admin", adminPassword, "paco","1993-04-06",90,"USER", "ADMIN"));
 		personRepository.save(new Person("1", passwordEncoder.encode("1"),"paco","1993-04-06",90,"USER"));
 		personRepository.save(new Person("paquito99", passwordEncoder.encode("qwerty"),"El Paco","1997-03-31",88,"USER"));
 		personRepository.save(new Person("lolalolita05", passwordEncoder.encode("qwerty"),"Lolita la influ","2002-09-25",90,"USER"));
