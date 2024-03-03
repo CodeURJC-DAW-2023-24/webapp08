@@ -96,8 +96,8 @@ public class PersonController implements CommandLineRunner {
 		return "error";
 	}
 
-	@GetMapping("/main")
-	public String main(Model model, HttpServletRequest request) {
+	@GetMapping("/mainPage")
+	public String mainPage(Model model, HttpServletRequest request) {
 		model.addAttribute("adEx", request.isUserInRole("ADMIN"));
 		model.addAttribute("search", false);
 		return "mainPage";
@@ -158,7 +158,7 @@ public class PersonController implements CommandLineRunner {
 		return "register";
 	}
 
-	@GetMapping("/person")
+	@GetMapping("/mainPage/person")
 	public String privatePage(Model model, HttpServletRequest request) throws InterruptedException {
 		model.addAttribute("search", false);
 		model.addAttribute("adEx", request.isUserInRole("ADMIN"));
@@ -179,18 +179,18 @@ public class PersonController implements CommandLineRunner {
 		return "person";
 	}
 
-	@GetMapping("/comunity")
-	public String comunity(Model model) {
+	@GetMapping("/mainPage/community")
+	public String community(Model model) {
 		model.addAttribute("search", false);
-		return "comunity";
+		return "community";
 	}
 
-	@GetMapping("/exForm")
+	@GetMapping("/mainPage/exercForm")
 	public String exForm() {
-		return "exFormAd";
+		return "exercFormAdim";
 	}
 
-	@PostMapping("/editUser")
+	@PostMapping("/mainPage/person/config")
 	public String editUser(Model model, @RequestParam String name, @RequestParam String firstName,
 			@RequestParam String date, @RequestParam Integer weight,
 			@RequestParam MultipartFile image, HttpServletRequest request) throws InterruptedException {
@@ -245,7 +245,7 @@ public class PersonController implements CommandLineRunner {
 		return data; // list<news>
 	}
 
-	@GetMapping("/muscGr")
+	@GetMapping("/mainPage/exerciseSearch")
 	public String muscGr(Model model, HttpServletRequest request) {
 		model.addAttribute("search", true);
 		model.addAttribute("adEx", request.isUserInRole("ADMIN"));
@@ -354,7 +354,7 @@ public class PersonController implements CommandLineRunner {
 		return rutines;
 	}
 
-	@GetMapping("/showRutine")
+	@GetMapping("/mainPage/showRutine")
 	public String showRutine(Model model, @RequestParam Long id, HttpServletRequest request) {
 		Person user = userRepository.findByRutineId(id).orElseThrow();
 		Rutine rutine = rutineRepository.findById(id).orElseThrow();
@@ -392,7 +392,7 @@ public class PersonController implements CommandLineRunner {
 		return message;
 	}
 
-	@GetMapping("/statistics")
+	@GetMapping("/mainPage/statistics")
 	public String statistics() {
 		return "progress";
 	}

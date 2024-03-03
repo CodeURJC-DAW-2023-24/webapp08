@@ -77,7 +77,7 @@ function addElementsMainContainer(news) {
         cardText.classList.add('card-text');
 
         const link = document.createElement('a');
-        link.href = `/showRutine?id=${news[i + j].rutine.id}`;
+        link.href = `/mainPage/showRutine?id=${news[i + j].rutine.id}`;
 
         link.textContent = `Nueva rutina de: ${news[i + j].name}`;
 

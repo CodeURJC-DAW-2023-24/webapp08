@@ -30,7 +30,7 @@ function addElementsMainContainer2(names) {
         var aElement = document.createElement("a");
       
         aElement.textContent = names[i];
-        aElement.href = "/exercise/" + names[i]; //Establish the url to redirect in when someone click on it Aquí puedes establecer la URL a la que debe dirigirse cuando se haga clic
+        aElement.href = "/mainPage/exerciseSearch/exercise/" + names[i]; //Establish the url to redirect in when someone click on it Aquí puedes establecer la URL a la que debe dirigirse cuando se haga clic
 
         liElement.appendChild(aElement);
         ulElement.appendChild(liElement);

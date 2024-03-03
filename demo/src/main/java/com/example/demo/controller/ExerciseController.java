@@ -98,10 +98,10 @@ public class ExerciseController implements CommandLineRunner {
             }
         }
 
-        return "redirect:/main";
+        return "redirect:/mainPage";
     }
 
-    @PostMapping("/addExRutine/{id}")
+    @PostMapping("/mainPage/rutine/newExercise/{id}")
     public String addExRutine(@PathVariable Long id,
             @RequestParam("grp") String grp,
             @RequestParam("chest") String chest,
@@ -155,7 +155,7 @@ public class ExerciseController implements CommandLineRunner {
         return "addRutine";
     }
 
-    @PostMapping("/newEx")
+    @PostMapping("/mainPage/exercise/newExercise")
     public String newEx(@RequestParam("name") String name,
             @RequestParam("description") String description,
             @RequestParam MultipartFile image,
@@ -214,7 +214,7 @@ public class ExerciseController implements CommandLineRunner {
 
     }
 
-    @GetMapping("/group/{grp}/")
+    @GetMapping("/mainPage/group/{grp}/")
     public String group2(@PathVariable String grp, Model model, HttpServletRequest request, Pageable page) {
         Pageable pageable = PageRequest.of(page.getPageNumber(), 5);
         Page<Exercise> exs = exRepository.findByGrp(grp, pageable);
@@ -244,7 +244,7 @@ public class ExerciseController implements CommandLineRunner {
 
     }
 
-    @GetMapping("/group/{grp}/{id}")
+    @GetMapping("/mainPage/group/{grp}/{id}")
     public String exDetails(@PathVariable String grp, @PathVariable long id, Model model,
             HttpServletRequest request) {
         Exercise exercise = exRepository.findById(id).orElseThrow();
@@ -268,7 +268,7 @@ public class ExerciseController implements CommandLineRunner {
         return "details";
     }
 
-    @GetMapping("/addEx/{id}")
+    @GetMapping("/mainPage/rutine/addEx/{id}")
     public String addEX(@PathVariable Long id, Model model, HttpServletRequest request) {
         String nameUser = request.getUserPrincipal().getName();
         Person user = userRepository.findByFirstName(nameUser).orElseThrow();
@@ -302,10 +302,10 @@ public class ExerciseController implements CommandLineRunner {
     public String addRutine(@PathVariable Long id, Model model) {
         Rutine rutine = rutineRepository.findById(id).orElseThrow();
         rutineRepository.delete(rutine);
-        return "redirect:/main";
+        return "redirect:/mainPage";
     }
 
-    @GetMapping("/addRutine")
+    @GetMapping("/mainPage/rutine/addRutine")
     public String cancelRutine(Model model) {
         Rutine rutine = new Rutine(null,null,null);
         rutineRepository.save(rutine);
@@ -313,7 +313,7 @@ public class ExerciseController implements CommandLineRunner {
         return "addRutine";
     }
 
-    @GetMapping("/rutine/{id}")
+    @GetMapping("/mainPage/rutine/{id}")
     public String rutine(@PathVariable Long id, Model model) {
         Rutine rutine = rutineRepository.findById(id).orElseThrow();
         rutineRepository.save(rutine);
@@ -328,7 +328,7 @@ public class ExerciseController implements CommandLineRunner {
         return names;
     }
 
-    @GetMapping("/exercise/{nombre}")
+    @GetMapping("/mainPage/exerciseSearch/exercise/{nombre}")
     public String exercseM(@PathVariable String nombre, Model model,
             HttpServletRequest request) {
         Exercise exercise = exRepository.findByName(nombre).orElseThrow();
@@ -358,7 +358,7 @@ public class ExerciseController implements CommandLineRunner {
     @GetMapping("/deleteEx/{id}")
     public String deleteEx(@PathVariable Long id) {
         exService.delete(id);
-        return "muscleGroup";
+        return "redirect:/mainPage/exerciseSearch";
     }
 
 }
