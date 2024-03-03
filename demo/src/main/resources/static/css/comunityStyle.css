@@ -247,9 +247,10 @@ body {
 }
 
 .list-group-item {
+  border: 1px black solid;
   color: black;
   font-weight: 700;
-
+  margin-bottom: 0px;
   background-color: transparent;
 }
 

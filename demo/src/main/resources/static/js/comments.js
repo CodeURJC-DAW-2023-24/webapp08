@@ -3,8 +3,13 @@ async function sendComment(){
     if (comment != ""){ 
 
     let id = document.getElementById('id').value;
+
+    const csrfToken = document.querySelector('input[name="_csrf"]').value;
+
     const response = await fetch( `/sendComment?comentario=${comment}&id=${id}`,{
-            method: 'POST'
+            method: 'POST',
+            headers: { 'X-XSRF-TOKEN': csrfToken }
+
           });
      
     let comments = await response.json();
@@ -15,19 +20,18 @@ async function sendComment(){
 
     function addComments(comment) {
       let containerMessage = document.getElementById('container-messages');    
-          let com = document.createElement('div');
-          com.classList.add('com');
-          com.style.display = 'flex'; 
-          com.style.flexDirection = 'column'; 
-          let pName = document.createElement('p');
-          let bName = document.createElement('b');
-          bName.textContent = comment.name;
-          pName.appendChild(bName);
-          let pMessage = document.createElement('p');
-          pMessage.textContent = comment.content;
-          com.appendChild(pName);
-          com.appendChild(pMessage);
-          containerMessage.appendChild(com);
+    
+        
+
+        let p = document.createElement('p');
+        let b = document.createElement('b');
+        b.textContent = comment.name + ": ";
+        p.appendChild(b);
+        p.appendChild(document.createTextNode(comment.content));
+        p.style.color="black"
+        p.style.paddingLeft = "2px"
+        containerMessage.appendChild(p);
+  
       
   }
   

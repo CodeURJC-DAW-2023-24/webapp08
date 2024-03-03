@@ -58,24 +58,23 @@
             </div>
           </div>
           <section class="comments">
-            <div class="container">
+        
               <div class="row">
-                <div class="col-md-1"></div>
-                <div class="col-md-10">
-                  <h1>Comentarios</h1>
-                  <div id="container-messages" class="message">
-                    {{#messages}}
-                    <div class="coment">
-                      <p><b>{{name}}</b></p>
-                      <p>{{content}}</p>
-                    </div>
+
+                <div class="col-md-12">
+                  <h1 style="text-align: center;">Comentarios</h1>
+                  <div id="container-messages" class="message-container">
+                    {{#messages}} 
+                      <p class="message-style"><b>{{name}}:</b>
+                      {{content}}</p>
+                        
                     {{/messages}}
                   </div>
                 </div>
-                <div class="col-md-1"></div>
-                <div class="row">
+                
+                
 
-                  <div class="col-md-10">
+                 
 
                     <div class="info_form ">
 
@@ -94,8 +93,8 @@
 
 
                     </div>
-                  </div>
-                </div>
+                  
+                
               </div>
           </section>
 
@@ -126,8 +125,9 @@
           </table>
 
   </section>
-  <script src="/js/comments.js"> </script>
+  <input type="hidden" name="_csrf" value="{{token}}"/>
+
 
 </body>
-
+<script src="/js/comments.js"> </script>
 </html>
