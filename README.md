@@ -131,3 +131,6 @@ Por último, se pueden observar los comentarios que otros usuarios han publicado
 
 ## Diagrama con las entidades de la base de datos: 
 <img src="READMEImages/DiagramEER.png" width="1000" /> 
+
+## Diagrama de clases y templates: 
+<img src="READMEImages/template_class_diagram.png" width="1000" /> 
