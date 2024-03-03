@@ -68,8 +68,12 @@ friendContainer.appendChild(ulElement);
 }
 
 async function deleteUser(id){
+    const csrfToken = document.querySelector('input[name="_csrf"]').value;
+
     const response = await fetch(`/deleteUser?id=${id}`,{
-        method: 'POST'
+        method: 'POST',
+        headers: { 'X-XSRF-TOKEN': csrfToken }
+
       });
 
       let names = await response.json();
@@ -83,9 +87,13 @@ async function deleteUser(id){
   
 }
 
+
 async function sendRequest(id) { 
+    const csrfToken = document.querySelector('input[name="_csrf"]').value;
+
     const response = await fetch(`/sendRequest?id=${id}`,{
-        method: 'POST'
+        method: 'POST',
+       headers: { 'X-XSRF-TOKEN': csrfToken }
       });
 
     let names = await response.json();

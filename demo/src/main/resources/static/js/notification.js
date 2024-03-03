@@ -47,8 +47,12 @@ function addElements(notifications) {
 
 
     async function processRequest(notification, boolean) {  
+        const csrfToken = document.querySelector('input[name="_csrf"]').value;
+
             await fetch( `/processRequest?notification=${notification.id}&aceptar=${boolean}`,{
-                method: 'POST'
+                method: 'POST',
+                headers: { 'X-XSRF-TOKEN': csrfToken }
+
               });
          
         }

@@ -3,8 +3,13 @@ async function sendComment(){
     if (comment != ""){ 
 
     let id = document.getElementById('id').value;
+
+    const csrfToken = document.querySelector('input[name="_csrf"]').value;
+
     const response = await fetch( `/sendComment?comentario=${comment}&id=${id}`,{
-            method: 'POST'
+            method: 'POST',
+            headers: { 'X-XSRF-TOKEN': csrfToken }
+
           });
      
     let comments = await response.json();

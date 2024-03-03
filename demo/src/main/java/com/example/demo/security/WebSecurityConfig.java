@@ -8,6 +8,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 
 @Configuration
 @EnableWebSecurity
@@ -35,6 +36,10 @@ public class WebSecurityConfig {
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		
 		http.authenticationProvider(authenticationProvider());
+		http
+          .csrf()
+          .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()); //In order to permit token in js
+
 		
 		http
 			.authorizeHttpRequests(authorize -> authorize	
@@ -94,13 +99,7 @@ public class WebSecurityConfig {
 					.permitAll()
 			);
 
-        http.csrf(csrf -> csrf.ignoringRequestMatchers("/sendRequest"));  
-		http.csrf(csrf -> csrf.ignoringRequestMatchers("/processRequest"));
-		http.csrf(csrf -> csrf.ignoringRequestMatchers("/add"));
-		http.csrf(csrf -> csrf.ignoringRequestMatchers("/sendComment"));
-		http.csrf(csrf -> csrf.ignoringRequestMatchers("/deleteUser"));
-
-		
+	
 		return http.build();
 		
 	}
