@@ -19,7 +19,7 @@ function editUser(){
 
 function changeEx(){
     let grps = ['Pecho','Espalda','Hombro','Biceps','Triceps','Inferior','Cardio'];
-    let grp = document.getElementById('grp').value;
+    let grp = document.getElementById('group').value;
     grps.forEach(function(group) {
         document.getElementById(group).style.display = "none";
     });

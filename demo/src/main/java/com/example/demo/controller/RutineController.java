@@ -95,8 +95,8 @@ public class RutineController implements CommandLineRunner {
         return message;
     }
 
-    @PostMapping("/add/{id}")
-    public String register(@PathVariable Long id,
+    @PostMapping("/mainPage/newRoutine/{id}")
+    public String newRoutine(@PathVariable Long id,
             @RequestParam("date") Date date,
             @RequestParam("name") String name,
             @RequestParam("time") Integer time, HttpServletRequest request) {
@@ -179,7 +179,7 @@ public class RutineController implements CommandLineRunner {
         rutineRepository.save(rutine);
         List<ExRutine> exercises = rutine.getExercises();
         model.addAttribute("id", id);
-        model.addAttribute("ejersRutina", exercises);
+        model.addAttribute("exerciseList", exercises);
 
         return "addRutine";
     }

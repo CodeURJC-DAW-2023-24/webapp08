@@ -62,10 +62,7 @@ public class PersonController implements CommandLineRunner {
 		return "index";
 	}
 
-	@GetMapping("/error")
-	public String error() {
-		return "error";
-	}
+
 
 	@GetMapping("/mainPage")
 	public String mainPage(Model model, HttpServletRequest request) {

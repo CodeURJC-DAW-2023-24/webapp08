@@ -210,7 +210,7 @@ td {
   background-image: url('/images/fondo1.jpg');
   background-size: cover;
   width: 100%;
-  height: 100vh;
+  height: 100%;
 }
 
 .layout_paddingF {

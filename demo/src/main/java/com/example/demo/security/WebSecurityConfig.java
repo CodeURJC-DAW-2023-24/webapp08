@@ -78,13 +78,13 @@ public class WebSecurityConfig {
 					.requestMatchers("/cancel/**").hasAnyRole("USER")
 					.requestMatchers("/pdf/download/**").hasAnyRole("USER")
 					.requestMatchers("/pdf/").hasAnyRole("USER")
-
+					.requestMatchers("/mainPage/newRoutine/**").hasAnyRole("USER")
 					.requestMatchers("/**").hasAnyRole("ADMIN")		
 
 			)
 			.formLogin(formLogin -> formLogin
 					.loginPage("/index")
-					.failureUrl("/error")
+					.failureUrl("/errorL")
 					.defaultSuccessUrl("/mainPage")
 					.permitAll()
 			)

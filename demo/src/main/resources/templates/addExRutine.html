@@ -3,140 +3,139 @@
 
 <head>
   <title>muscleGroup</title>
-
-
-  <meta charset="utf-8" />
+  <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
   <meta name="keywords" content="" />
   <meta name="description" content="" />
   <meta name="author" content="" />
-  
-
-
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
   <link rel="stylesheet" type="text/css" href="/css/bootstrap.css" />
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700|Poppins:400,600,700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700|Poppins:400,600,700&display=swap"
+    rel="stylesheet" />
   <link href="/css/style.css" rel="stylesheet" />
   <link href="/css/responsive.css" rel="stylesheet" />
+  <link rel="icon" type="image/png" href="/images/weightlifter.png">
+
 </head>
 
 <body class="sub_page">
   {{>header}}
-    <div class="container-fluid layout_paddingER">
-      
-        <div class="row">
-        <div class="col-md-2"></div>
-        <div class="col-md-8 ">
-          <form role="form" class="formAd" action="/mainPage/rutine/newExercise/{{id}}" method="post">
-            
-            <div class="form-group">
-              <label for="grp">Grupo muscular </label>
-              <select class="form-select form-control" id="grp" name="grp" onchange="changeEx()">
-                  <option>Pecho</option>
-                  <option>Espalda</option>
-                  <option>Hombro</option>
-                  <option>Biceps</option>
-                  <option>Triceps</option>
-                  <option>Inferior</option>
-                  <option>Cardio</option>
-              </select>
+  <div class="container-fluid layout_paddingER">
+
+    <div class="row">
+      <div class="col-md-2"></div>
+      <div class="col-md-8 ">
+        <form role="form" class="formAd" action="/mainPage/rutine/newExercise/{{id}}" method="post">
+
+          <div class="form-group">
+            <label for="grp">Grupo muscular </label>
+            <select class="form-select form-control" id="group" name="grp" onchange="changeEx()">
+              <option>Pecho</option>
+              <option>Espalda</option>
+              <option>Hombro</option>
+              <option>Biceps</option>
+              <option>Triceps</option>
+              <option>Inferior</option>
+              <option>Cardio</option>
+            </select>
           </div>
           <div class="form-group">
             <label for="nombre">Nombre del ejercicio:</label>
-              <select class="form-select form-control" id="chest" name="chest">
-                  {{#chest}}
-                  <option>{{name}}</option>
-                  {{/chest}}
-                  
-              </select>
-        </div>
-        <div class="form-group">
-         
-            <select class="form-select form-control" id="back" name="back" style="display: none;">
-                {{#back}}
-                <option>{{name}}</option>
-                {{/back}}
-                
+            <select class="form-select form-control" id="Pecho" name="chest">
+              {{#chest}}
+              <option>{{name}}</option>
+              {{/chest}}
+
             </select>
-      </div>
-      <div class="form-group">
-        
-          <select class="form-select form-control" id="shoulder" name="shoulder" style="display: none;">
+          </div>
+          <div class="form-group">
+
+            <select class="form-select form-control" id="Espalda" name="back" style="display: none;">
+              {{#back}}
+              <option>{{name}}</option>
+              {{/back}}
+
+            </select>
+          </div>
+          <div class="form-group">
+
+            <select class="form-select form-control" id="Hombro" name="shoulder" style="display: none;">
               {{#shoulder}}
               <option>{{name}}</option>
               {{/shoulder}}
-              
-          </select>
-    </div>
-    <div class="form-group">
-      
-        <select class="form-select form-control" id="Biceps" name="biceps"style="display: none;">
-            {{#biceps}}
-            <option>{{name}}</option>
-            {{/biceps}}
-            
-        </select>
-  </div>
-  <div class="form-group">
-    
-      <select class="form-select form-control" id="Triceps" name="triceps" style="display: none;">
-          {{#triceps}}
-          <option>{{name}}</option>
-          {{/triceps}}
-          
-      </select>
-</div>
-<div class="form-group">
- 
-    <select class="form-select form-control" id="lower" name="lower" style="display: none;">
-        {{#lower}}
-        <option>{{name}}</option>
-        {{/lower}}
-        
-    </select>
-</div>
-<div class="form-group">
 
-    <select class="form-select form-control" id="Cardio" name="cardio" style="display: none;">
-        {{#cardio}}
-        <option>{{name}}</option>
-        {{/cardio}}
-        
-    </select>
-</div>
+            </select>
+          </div>
+          <div class="form-group">
+
+            <select class="form-select form-control" id="Biceps" name="biceps" style="display: none;">
+              {{#biceps}}
+              <option>{{name}}</option>
+              {{/biceps}}
+
+            </select>
+          </div>
+          <div class="form-group">
+
+            <select class="form-select form-control" id="Triceps" name="triceps" style="display: none;">
+              {{#triceps}}
+              <option>{{name}}</option>
+              {{/triceps}}
+
+            </select>
+          </div>
+          <div class="form-group">
+
+            <select class="form-select form-control" id="Inferior" name="lower" style="display: none;">
+              {{#lower}}
+              <option>{{name}}</option>
+              {{/lower}}
+
+            </select>
+          </div>
+          <div class="form-group">
+            <select class="form-select form-control" id="Cardio" name="cardio" style="display: none;">
+              {{#cardio}}
+              <option>{{name}}</option>
+              {{/cardio}}
+
+            </select>
+          </div>
           <div class="form-group">
             <label for="series">Series x repetición:</label>
-            <input type="series" class="form-control" id="series" name="series" placeholder="Introduce las series X repetición">
-        </div>
+            <input type="series" class="form-control" id="series" name="series"
+              placeholder="Introduce las series X repetición">
+          </div>
 
-        <div class="form-group">
-          <label for="weight">Peso:</label>
-          <input  class="form-control" id="weight" name="weight" placeholder="Introduce el peso en Kg">
-      </div>
-              <div class="btn-box"  >
-                <button class="btnS" type="submit">
-                  GUARDAR
-                </button>
-                <span style="margin: 0 10px;"></span>
-                <input type="hidden" name="_csrf" value="{{token}}"/>
-              </div>
-            
+          <div class="form-group">
+            <label for="weight">Peso:</label>
+            <input class="form-control" id="weight" name="weight" onkeypress="return (event.charCode >= 48 && event.charCode <= 57)" type="number" placeholder="Introduce el peso en Kg">
+          </div>
+          <div class="btn-box">
+            <button class="btnS" type="submit">
+              GUARDAR
+            </button>
+            <span style="margin: 0 10px;"></span>
+            <input type="hidden" name="_csrf" value="{{token}}" />
+          </div>
+
         </form>
         <a href="/mainPage/rutine/{{id}}">
-        <div class="btn-box"  >
-         
+          <div class="btn-box">
+
             <button class="btnC">
               Cancelar
             </button>
 
-        </div>
+          </div>
         </a>
-        </div>
-        <div class="col-md-2"></div>
       </div>
-
+      <div class="col-md-2"></div>
     </div>
+
+  </div>
 </body>
 <script src="/js/app.js"></script>
+
 </html>

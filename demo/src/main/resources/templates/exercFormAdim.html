@@ -3,23 +3,20 @@
 
 <head>
   <title>adminForm</title>
-
-
-  <meta charset="utf-8" />
+  <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
   <meta name="keywords" content="" />
   <meta name="description" content="" />
   <meta name="author" content="" />
-
-
-
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
   <link rel="stylesheet" type="text/css" href="/css/bootstrap.css" />
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700|Poppins:400,600,700&display=swap"
     rel="stylesheet" />
   <link href="/css/style.css" rel="stylesheet" />
   <link href="/css/responsive.css" rel="stylesheet" />
+  <link rel="icon" type="image/png" href="/images/weightlifter.png">
+
 </head>
 
 <body class="sub_page">
@@ -35,7 +32,8 @@
     <div class="row">
       <div class="col-md-2"></div>
       <div class="col-md-8 ">
-        <form role="form" class="formAd"  action="/mainPage/exercise/newExercise" method="post"  id="formulario" enctype="multipart/form-data">
+        <form role="form" class="formAd" action="/mainPage/exercise/newExercise" method="post" id="formulario"
+          enctype="multipart/form-data">
           <div class="form-group ">
             <label for="name">Nombre del ejercicio: </label>
             <input type="text" name="name" class="form-control" id="name"
@@ -50,7 +48,7 @@
             <label for="image">Imagen: </label>
             <input type='file' name='image' accept=".jpg, .jpeg, .png, .HEIC" id="image">
           </div>
-        
+
           <div class="form-group">
             <label for="video">URL del video (opcional):</label>
             <input type="url" class="form-control" id="video" name="video"
