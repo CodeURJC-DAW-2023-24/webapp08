@@ -64,28 +64,26 @@
             </div>
           </div>
           <section class="comments">
-            <div class="container">
+        
               <div class="row">
-                <div class="col-md-1"></div>
-                <div class="col-md-10">
-                  <h1>Comentarios</h1>
-                  <div id="container-messages" class="message">
-                    {{#messages}}
-                    <div class="coment">
-                      <p><b>{{name}}</b></p>
-                      <p>{{content}}</p>
-                    </div>
+
+                <div class="col-md-12">
+                  <h1 style="text-align: center;">Comentarios</h1>
+                  <div id="container-messages" class="message-container">
+                    {{#messages}} 
+                      <p class="message-style"><b>{{name}}:</b>
+                      {{content}}</p>
+                        
                     {{/messages}}
                   </div>
                 </div>
-                <div class="col-md-1"></div>
-                <div class="row">
+                
+                
 
-                  <div class="col-md-10">
+                 
 
                     <div class="info_form ">
 
-                      <div style="display: flex; margin: auto; flex-wrap: nowrap;">
                         <input id="comment" name="comentario" type="text" class="form-control comF" placeholder="Añade un comentario...">
                         <div class="sendB">
                         <button type="submit"  class="btn" onclick="sendComment()">
@@ -93,14 +91,13 @@
                         </button>
                         <input type="hidden" id="id" name="id" value="{{id}}" />
                       </div>
-                      </div>
 
 
 
 
                     </div>
-                  </div>
-                </div>
+                  
+                
               </div>
           </section>
 

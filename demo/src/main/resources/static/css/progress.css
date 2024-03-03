@@ -16,7 +16,9 @@
 }
 
 .container-grafico1{
+  margin: auto;
   background-color: rgba(213, 213, 213, 0.3);
   width: 800px; 
   height: 600px;
 }
+
