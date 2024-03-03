@@ -73,13 +73,13 @@ public class PersonController implements CommandLineRunner {
 
 	@PostMapping("/register")
 	public String register(@RequestParam("name") String name,
-			@RequestParam("firstName") String firstName,
+			@RequestParam("alias") String alias,
 			@RequestParam("date") String date,
 			@RequestParam("weight") Integer weight,
 			@RequestParam("password") String password,
 			@RequestParam("password1") String password1,
 			@RequestParam("image") MultipartFile imagenFile, HttpSession session, Model model) {
-		Optional<Person> existingUserOptional = userRepository.findByFirstName(firstName);
+		Optional<Person> existingUserOptional = userRepository.findByalias(alias);
 		
 		if (!password.equals(password1)) {
 			// same passwords
@@ -95,7 +95,7 @@ public class PersonController implements CommandLineRunner {
 			return "error";
 		}
 		String pass = passwordEncoder.encode(password);
-		Person user = new Person(firstName, pass, name, date, weight, "USER");
+		Person user = new Person(alias, pass, name, date, weight, "USER");
 		if (!imagenFile.isEmpty()) {
 			try {
 				// byte[] convert
@@ -126,13 +126,13 @@ public class PersonController implements CommandLineRunner {
 		model.addAttribute("search", false);
 		model.addAttribute("adEx", request.isUserInRole("ADMIN"));
 		String name = request.getUserPrincipal().getName();
-		Person user = userRepository.findByFirstName(name).orElseThrow();
+		Person user = userRepository.findByalias(name).orElseThrow();
 		Picture image = user.getImagen();
 		String imagePath = "logo.jpg";
 		if (!(image == null)) {
 			imagePath = image.getName();
 		}
-		model.addAttribute("firstName", user.getFirstName());
+		model.addAttribute("alias", user.getalias());
 		model.addAttribute("name", user.getName());
 		model.addAttribute("date", user.getDate());
 		model.addAttribute("weight", user.getWeight());
@@ -143,13 +143,13 @@ public class PersonController implements CommandLineRunner {
 	}
 
 	@PostMapping("/mainPage/person/config")
-	public String editUser(Model model, @RequestParam String name, @RequestParam String firstName,
+	public String editUser(Model model, @RequestParam String name, @RequestParam String alias,
 			@RequestParam String date, @RequestParam Integer weight,
 			@RequestParam MultipartFile image, HttpServletRequest request) throws InterruptedException {
 		String nameUser = request.getUserPrincipal().getName();
-		Person user = userRepository.findByFirstName(nameUser).orElseThrow();
+		Person user = userRepository.findByalias(nameUser).orElseThrow();
 		user.setName(name);
-		user.setFirstName(firstName);
+		user.setalias(alias);
 		user.setDate(date);
 		user.setWeight(weight);
 		if (!image.isEmpty()) {
@@ -174,7 +174,7 @@ public class PersonController implements CommandLineRunner {
 			imagePath = imageN.getName();
 
 		}
-		model.addAttribute("firstName", user.getFirstName());
+		model.addAttribute("alias", user.getalias());
 		model.addAttribute("name", user.getName());
 		model.addAttribute("date", user.getDate());
 		model.addAttribute("weight", user.getWeight());

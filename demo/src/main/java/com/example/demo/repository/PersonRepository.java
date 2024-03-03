@@ -15,13 +15,13 @@ import com.example.demo.model.Person;
 import java.util.List;
 
 public interface PersonRepository extends JpaRepository<Person, Long> {
-    Optional<Person> findByFirstName(String name);
+    Optional<Person> findByalias(String name);
 
-    @Query("SELECT u.id, u.firstName FROM Person u WHERE u.firstName LIKE %:name% AND  u.id <> :idUser AND u.id NOT IN (SELECT a.id FROM Person u JOIN u.friends a WHERE u.id = :idUser)")
-    List<String[]> getIdandFirstName(@Param("name") String nombre, @Param("idUser") Long idUser);
+    @Query("SELECT u.id, u.alias FROM Person u WHERE u.alias LIKE %:name% AND  u.id <> :idUser AND u.id NOT IN (SELECT a.id FROM Person u JOIN u.friends a WHERE u.id = :idUser)")
+    List<String[]> getIdandAlias(@Param("name") String nombre, @Param("idUser") Long idUser);
 
-    @Query("SELECT friend.firstName FROM Person person JOIN person.friends friend WHERE person = :person")
-    List<String> findFirstNameOfFriendsByPerson(Person person);
+    @Query("SELECT friend.alias FROM Person person JOIN person.friends friend WHERE person = :person")
+    List<String> findaliasOfFriendsByPerson(Person person);
 
 
     @Query("SELECT u FROM Person u JOIN u.rutines r WHERE r.id = :rutineId")

@@ -23,7 +23,7 @@ public class Person {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
-	private String firstName;
+	private String alias;
 	private String name;
 	private String encodedPassword;
 	private String date;
@@ -80,9 +80,9 @@ public class Person {
 		// Used by JPA
 	}
 	
-	public Person(String firstName, String encodedPassword,String name,String date, Integer weight, String...roles) {
+	public Person(String alias, String encodedPassword,String name,String date, Integer weight, String...roles) {
 		super();
-		this.firstName = firstName;
+		this.alias = alias;
 		this.encodedPassword = encodedPassword;
 		this.name = name;
 		this.date = date;
@@ -170,8 +170,8 @@ public class Person {
 		return lNotifications;
 	}
 	
-	public String getFirstName() {
-		return firstName;
+	public String getalias() {
+		return alias;
 	}
 
 	public String getName() {
@@ -199,8 +199,8 @@ public class Person {
 		this.name=name;
 	}
 
-	public void setFirstName(String firstName){
-		this.firstName=firstName;
+	public void setalias(String alias){
+		this.alias=alias;
 	}
 	public void setDate(String date){
 		this.date= date;

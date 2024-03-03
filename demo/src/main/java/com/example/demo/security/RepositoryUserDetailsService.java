@@ -23,7 +23,7 @@ public class RepositoryUserDetailsService implements UserDetailsService {
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-		Person user = userRepository.findByFirstName(username)
+		Person user = userRepository.findByalias(username)
 				.orElseThrow(() -> new UsernameNotFoundException("User not found"));
 
 		List<GrantedAuthority> roles = new ArrayList<>();
@@ -31,7 +31,7 @@ public class RepositoryUserDetailsService implements UserDetailsService {
 			roles.add(new SimpleGrantedAuthority("ROLE_" + role));
 		}
 
-		return new org.springframework.security.core.userdetails.User(user.getFirstName(), 
+		return new org.springframework.security.core.userdetails.User(user.getalias(), 
 				user.getEncodedPassword(), roles);
 
 	}

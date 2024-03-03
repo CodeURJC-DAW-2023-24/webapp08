@@ -62,7 +62,7 @@ public class RutineController implements CommandLineRunner {
     public String showRutine(Model model, @RequestParam Long id, HttpServletRequest request) {
         Person user = userRepository.findByRutineId(id).orElseThrow();
         Rutine rutine = rutineRepository.findById(id).orElseThrow();
-        model.addAttribute("firstName", user.getFirstName());
+        model.addAttribute("alias", user.getalias());
         model.addAttribute("nameUser", user.getName());
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         String formatedDate = sdf.format(rutine.getDate());
@@ -84,9 +84,9 @@ public class RutineController implements CommandLineRunner {
     public @ResponseBody Comment postMethodName(@RequestParam String comentario, @RequestParam Long id,
             HttpServletRequest request) {
         String nameUser = request.getUserPrincipal().getName();
-        Person user = userRepository.findByFirstName(nameUser).orElseThrow();
-        String firstNameUser = user.getFirstName();
-        Comment message = new Comment(firstNameUser, comentario);
+        Person user = userRepository.findByalias(nameUser).orElseThrow();
+        String aliasUser = user.getalias();
+        Comment message = new Comment(aliasUser, comentario);
         messageRepository.save(message);
         Rutine rutine = rutineRepository.findById(id).orElseThrow();
         rutine.getMessages().add(message);
@@ -107,7 +107,7 @@ public class RutineController implements CommandLineRunner {
             return "error";
         }
         String nameUser = request.getUserPrincipal().getName();
-        Person user = userRepository.findByFirstName(nameUser).orElseThrow();
+        Person user = userRepository.findByalias(nameUser).orElseThrow();
 
         Rutine rutine = rutineRepository.findById(id).orElseThrow();
         rutine.setDate(date);
@@ -174,7 +174,7 @@ public class RutineController implements CommandLineRunner {
         }
         ExRutine exercise = new ExRutine(grp, name, series, weight);
         String nameUser = request.getUserPrincipal().getName();
-        Person user = userRepository.findByFirstName(nameUser).orElseThrow();
+        Person user = userRepository.findByalias(nameUser).orElseThrow();
         userService.increaseFreq(user, grp, name);
         exRutineRepository.save(exercise);
         rutine.addExRutine(exercise);
@@ -189,7 +189,7 @@ public class RutineController implements CommandLineRunner {
     @GetMapping("/mainPage/rutine/addEx/{id}")
     public String addEX(@PathVariable Long id, Model model, HttpServletRequest request) {
         String nameUser = request.getUserPrincipal().getName();
-        Person user = userRepository.findByFirstName(nameUser).orElseThrow();
+        Person user = userRepository.findByalias(nameUser).orElseThrow();
         List<Exercise> chest = exRepository.findByGrp("Pecho");
         chest = userService.order(user, "Pecho", chest);
         model.addAttribute("chest", chest);
