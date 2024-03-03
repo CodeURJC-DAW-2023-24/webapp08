@@ -54,6 +54,7 @@ public class WebSecurityConfig {
 					.requestMatchers("/searchEx/**").permitAll()
 					.requestMatchers("/mainPage/exerciseSearch/exercise/**").permitAll()
 					.requestMatchers("/group").permitAll()
+
 					.requestMatchers("/mainPage/statistics").hasAnyRole("USER")
 					.requestMatchers("/starterNews").hasAnyRole("USER")
 					.requestMatchers("/mainPage/community").hasAnyRole("USER")
