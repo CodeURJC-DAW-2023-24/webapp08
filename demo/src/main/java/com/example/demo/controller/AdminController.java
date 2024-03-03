@@ -48,7 +48,7 @@ public class AdminController implements CommandLineRunner {
 
     @GetMapping("/mainPage/exercForm")
     public String exForm() {
-        return "exercFormAdim";
+        return "exercFormAdmin";
     }
 
     @PostMapping("/deleteUser")
