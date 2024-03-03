@@ -138,19 +138,19 @@ Por último, se pueden observar los comentarios que otros usuarios han publicado
 
 ## Participación
 - **<span style="color:green">Victoria Orzáez </span>:** 
-    - Tareas: editar usuario, puerto 8443, seguridad, token, invitado, loging, ver rutina, crear rutina, algoritmo ordenación, imágenes en la base de datos
+    - Tareas: mostrar, editar perfil de usuario, puerto 8443, implementar la seguridad, el uso de token, invitado, loging y logout, ver rutina y comentarios, crear rutina, añadir ejercicios en la rutina, algoritmo ordenación, guardar las imágenes en la base de datos y pasarlas a una carpeta.
      - 5 commits más significativos:
-       - [Commit 1]()
-       - [Commit 2]()
-       - [Commit 3]()
-       - [Commit 4]()
-       - [Commit 5]()
+       - [Commit 1](https://github.com/CodeURJC-DAW-2023-24/webapp08/commit/bf1cca24fba4a15697c2dbd5aa4a79b84e752f36)
+       - [Commit 2](https://github.com/CodeURJC-DAW-2023-24/webapp08/commit/faffc1128851bc304197540a9a087e6c619e7a2b)
+       - [Commit 3](https://github.com/CodeURJC-DAW-2023-24/webapp08/commit/aba70603416a418a1132c9a9c2639c8f94dbc1b3)
+       - [Commit 4](https://github.com/CodeURJC-DAW-2023-24/webapp08/commit/ccd6e840152937c801f2d07533ec6c3c77f4842b)
+       - [Commit 5](https://github.com/CodeURJC-DAW-2023-24/webapp08/commit/f95e6782f230fff13469218d1d0163d889e0f7bc)
     - 5 ficheros en los que se ha participado:
-      - [Fichero 1]()
-      - [Fichero 2]()
-      - [Fichero 3]()
-      - [Fichero 4]()
-      - [Fichero 5]()
+      - [PictureService.java](https://github.com/CodeURJC-DAW-2023-24/webapp08/blob/main/demo/src/main/java/com/example/demo/service/PictureService.java)
+      - [ExRutine.java](https://github.com/CodeURJC-DAW-2023-24/webapp08/blob/main/demo/model/ExRutine.java)
+      - [Picture.java](https://github.com/CodeURJC-DAW-2023-24/webapp08/blob/main/demo/model/Picture.java)
+      - [app.js](https://github.com/CodeURJC-DAW-2023-24/webapp08/blob/main/demo/src/main/java/com/example/demo/src/main/resources/static/js/app.js)
+      - [RutineController.java](https://github.com/CodeURJC-DAW-2023-24/webapp08/blob/main/demo/controller/RutineController.java)
 - **<span style="color:green">Rubén Rodríguez </span>:** 
     - Tareas: novedades (cargar novedades, spinner y paginación), calendario, notificaciones (ver solicitudes, aceptarlas/denegarlas), agregar/buscar amigo, comentar en la rutina, gráfica, borrar usuario administrador, organización de código, error, diagrama de EER, enlazar base de datos, mostrar amigos agregados
     - 5 commits más significativos:
