@@ -113,7 +113,7 @@ Por último, se pueden observar los comentarios que otros usuarios han publicado
 **Descripción**:En la barra superior de izquierda a derecha se encuentran los botones para: buscar ejercicio, página de estadísticas, notificaciones, comunidad y perfil de usuario. En esta pantalla se especifica el ejercicio.
 - **Página Formulario nuevo ejercicio del Administrador:**
 
-<img src="READMEImages\FormAdminEjsPantalla.png" width="1000" /> 
+<img src="READMEImages\newExFormPage.png" width="1000" /> 
 
 **Descripción**:En la barra superior de izquierda a derecha se encuentran los botones para: buscar ejercicio, página de estadísticas, notificaciones, comunidad y perfil de usuario. Esta pantalla únicamente es accesible por el administrado; y será utilizada cuando quiera incluir un nuevo ejercicio en la base de datos.
 
@@ -129,3 +129,5 @@ Por último, se pueden observar los comentarios que otros usuarios han publicado
 - **Nota**: desde cualquier página puedes llegar a la página de error
 <img src="READMEImages/navegation.png" width="1000" /> 
 
+## Diagrama con las entidades de la base de datos: 
+<img src="READMEImages/DiagramaEER.png" width="1000" /> 
