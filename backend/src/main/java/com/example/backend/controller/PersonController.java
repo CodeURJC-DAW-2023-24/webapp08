@@ -20,6 +20,8 @@ import com.example.backend.model.Person;
 import com.example.backend.repository.PersonRepository;
 
 import java.util.Optional;
+import java.util.concurrent.CompletableFuture;
+
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.boot.CommandLineRunner;
@@ -162,7 +164,10 @@ public class PersonController implements CommandLineRunner {
 				imageF.setContent(image.getContentType());
 				imageF.setName(image.getOriginalFilename());
 				imageF.setData(imageData);
-				imageService.savePicture(imageF);
+			
+                imageService.savePicture(imageF);
+				Thread.sleep(1000);
+
 				user.setImage(imageF);
 			} catch (IOException e) {
 			}

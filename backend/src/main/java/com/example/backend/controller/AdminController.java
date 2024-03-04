@@ -3,6 +3,7 @@ package com.example.backend.controller;
 import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.CompletableFuture;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -117,7 +118,10 @@ public class AdminController implements CommandLineRunner {
                 imageN.setContent(image.getContentType());
                 imageN.setName(image.getOriginalFilename());
                 imageN.setData(datosImage);
+              
                 imageService.savePicture(imageN);
+                Thread.sleep(1000);
+
                 exercise.setImage(imageN);
                 exercise.setbImage(true);
             } catch (IOException e) {
