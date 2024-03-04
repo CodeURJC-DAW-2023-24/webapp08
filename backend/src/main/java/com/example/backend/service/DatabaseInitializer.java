@@ -62,19 +62,23 @@ public class DatabaseInitializer {
 		Person person2 = personRepository.findByalias("1").orElseThrow();
 		person.getFriends().add(person2);
 		person2.getFriends().add(person);
+		personRepository.save(person);
+		personRepository.save(person2);
+
+
+		Rutine rutine = new Rutine("hoy", new Date(), 9);
+		rutineRepository.save(rutine);
+		person.getRutines().add(rutine);
+		personRepository.save(person);
+
 		for (Integer i= 0; i<12;i++){
-			Rutine rutine = new Rutine("hoy", new Date(), 9);
-			rutineRepository.save(rutine);
-		
-			person.getRutines().add(rutine);
 			News news = new News(person.getAlias());
 			news.setRutine(rutine);
 			newsRepository.save(news);
-		
-			person2.getNews().add(news);
-			personRepository.save(person);
-			personRepository.save(person2);
+			person2.getNews().add(news);	
+			
 	}
+	personRepository.save(person2);
 		
 		
 		
@@ -93,10 +97,10 @@ public class DatabaseInitializer {
 		exerciseRepository.save(new Exercise("Curl en barra Z", "El curl de bíceps en Z implica sostener una barra con un agarre supino, flexionar los codos para levantarla hacia los hombros mientras se contraen los bíceps, y luego bajarla controladamente a la posición inicial.", "Biceps", "0"));
 		exerciseRepository.save(new Exercise("Aductores", "Fortalecer los músculos aductores del muslo interior. El ejercicio se realiza típicamente sentado, con las piernas en posición de apertura y luego se contraen los músculos para llevar las piernas juntas. ", "Inferior", "0"));
 		
-	/* 
+	
 		String pathPictureFolder = "images";
         pictureService.loadPicturesFromFolder(pathPictureFolder);
 		List<Picture> pictures = pictureRepository.findAll();
-		pictureService.savePictures(pictures);*/
+		pictureService.savePictures(pictures);
 	}
 }

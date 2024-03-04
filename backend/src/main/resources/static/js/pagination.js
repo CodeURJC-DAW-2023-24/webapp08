@@ -26,7 +26,7 @@ async function loadMoreFoo() {
   loadMore = loadMore + 1
 
   let spinnerContainer = document.getElementById("spinner-container");
-  let moreNews = document.getElementById("container-loadMore ");
+  let moreNews = document.getElementById("container-loadMore");
   spinnerContainer.style.display = "flex";
   moreNews.style.display = "none";
   const RESPONSE = await fetch(`/starterNews?iteracion=${loadMore}`);
