@@ -591,10 +591,27 @@ margin-top: 10px;
   margin-left: 25px;
 
 }
+
 .downL button:hover {
   background-color: var(--color-yellow);
   color: var(--color-text-buttons);
 }
+
+.trash button {
+  background-color: white;
+  color: black;
+  height: 40px;
+  border-radius: 5px;
+  margin-left: 85px;
+
+}
+
+.trash button:hover {
+  background-color: var(--color-yellow);
+  color: var(--color-text-buttons);
+}
+
+
 
 
 .search button:hover {

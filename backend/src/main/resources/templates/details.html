@@ -15,7 +15,7 @@
         rel="stylesheet" />
     <link href="/css/style.css" rel="stylesheet" />
     <link href="/css/responsive.css" rel="stylesheet" />
-  
+
     <link rel="icon" type="image/png" href="/images/weightlifter.png">
 </head>
 
@@ -24,18 +24,72 @@
     <section class="team_section">
         {{#adEx}}
         <div class="row">
-            <div class="col-md-11"></div>
+            <div class="col-md-10"></div>
             <div class="col-md-1">
-                <div class="downL">
+                <div class="trash">
                     <a href="/deleteEx/{{id}}">
-                        <button class="btn" type="button" id="generarPDFButton">
+                        <button class="btn" type="button">
                             <i class="bi bi-trash"></i>
                         </button>
                     </a>
                 </div>
             </div>
+            <div class="col-md-1">
+                <div class="downL">
+                   
+                        <button class="btn" type="button" onclick="editExercise()">
+                            <i class="bi bi-pencil-fill"></i>
+                        </button>
+                    
+                </div>
+            </div>
         </div>
         {{/adEx}}
+        <div class="container" id="editContainer" style="display: none;">
+            <form role="form" class="formAd" action="/editExerciseAdmin/{{id}}" method="post" id="formulario"
+                enctype="multipart/form-data" >
+                <div class="form-group ">
+                    <label for="name">Nombre del ejercicio: </label>
+                    <input type="text" name="name" class="form-control" id="name"
+                        value="{{name}}">
+                </div>
+                <div class="form-group">
+                    <label for="description">Descripción del ejercicio:</label>
+                    <input class="form-control" name="description" id="description" rows="3"
+                    value="{{description}}">
+                </div>
+                <div class="form-group ">
+                    <label for="image">Imagen: </label>
+                    <input type='file' name='image' accept=".jpg, .jpeg, .png, .HEIC" id="image">
+                </div>
+
+                <div class="form-group">
+                    <label for="video">URL del video (opcional):</label>
+                    <input type="url" class="form-control" id="video" name="video" value="{{video}}">
+                </div>
+                <div class="form-group">
+                    <label for="grp">Grupo muscular </label>
+                    <select class="form-select form-control" id="grp" name="grp">
+                        <option  selected>{{grp}}</option>
+                        <option>Pecho</option>
+                        <option>Espalda</option>
+                        <option>Hombro</option>
+                        <option>Biceps</option>
+                        <option>Triceps</option>
+                        <option>Inferior</option>
+                        <option>Cardio</option>
+                    </select>
+                </div>
+                <div class="btn-box">
+                    <button class="btnS" type="submit">
+                        CONFIRMAR EDICIÓN
+                    </button>
+                    <span style="margin: 0 10px;"></span>
+                </div>
+                <input type="hidden" name="_csrf" value="{{token}}" />
+            </form>
+
+        </div>
         <div class="container">
             <div class="heading_container heading_left">
                 <h2>
@@ -92,5 +146,5 @@
     </section>
 
 </body>
-
+<script src="/js/editEx.js"></script>
 </html>

@@ -98,9 +98,9 @@ public class DatabaseInitializer {
 		exerciseRepository.save(new Exercise("Aductores", "Fortalecer los músculos aductores del muslo interior. El ejercicio se realiza típicamente sentado, con las piernas en posición de apertura y luego se contraen los músculos para llevar las piernas juntas. ", "Inferior", "0"));
 		
 	
-		String pathPictureFolder = "images";
+		/*String pathPictureFolder = "images";
         pictureService.loadPicturesFromFolder(pathPictureFolder);
 		List<Picture> pictures = pictureRepository.findAll();
-		pictureService.savePictures(pictures);
+		pictureService.savePictures(pictures);*/
 	}
 }

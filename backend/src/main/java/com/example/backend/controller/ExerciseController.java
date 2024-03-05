@@ -78,6 +78,7 @@ public class ExerciseController implements CommandLineRunner {
         model.addAttribute("description", exercise.getDescription());
         if (exercise.getVideo().equals("0")) {
             model.addAttribute("ExVideo", false);
+            model.addAttribute("video", "");
 
         } else {
             model.addAttribute("ExVideo", true);
@@ -88,6 +89,7 @@ public class ExerciseController implements CommandLineRunner {
         if (!(image == null)) {
             imagePath = image.getName();
         }
+        model.addAttribute("grp", exercise.getGrp());
         model.addAttribute("image", imagePath);
         model.addAttribute("adEx", request.isUserInRole("ADMIN"));
         model.addAttribute("id", id);
@@ -109,6 +111,7 @@ public class ExerciseController implements CommandLineRunner {
         model.addAttribute("description", exercise.getDescription());
         if (exercise.getVideo().equals("0")) {
             model.addAttribute("ExVideo", false);
+            model.addAttribute("video","");
 
         } else {
             model.addAttribute("ExVideo", true);
@@ -122,6 +125,7 @@ public class ExerciseController implements CommandLineRunner {
                 imageService.savePicture(image);
             }
         }
+        model.addAttribute("grp", exercise.getGrp());
         model.addAttribute("id", exercise.getId());
         model.addAttribute("image", imagePath);
         model.addAttribute("adEx", request.isUserInRole("ADMIN"));
