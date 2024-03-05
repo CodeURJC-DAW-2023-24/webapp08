@@ -3,6 +3,7 @@ package com.example.backend.controller;
 import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.CompletableFuture;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -102,6 +103,7 @@ public class AdminController implements CommandLineRunner {
         Exercise exercise = new Exercise(name, description, grp, "0");
         if (video.isEmpty()) {
             model.addAttribute("ExVideo", false);
+            model.addAttribute("video", " ");
 
         } else {
             model.addAttribute("ExVideo", true);
@@ -117,7 +119,10 @@ public class AdminController implements CommandLineRunner {
                 imageN.setContent(image.getContentType());
                 imageN.setName(image.getOriginalFilename());
                 imageN.setData(datosImage);
+              
                 imageService.savePicture(imageN);
+                Thread.sleep(1000);
+
                 exercise.setImage(imageN);
                 exercise.setbImage(true);
             } catch (IOException e) {
@@ -132,6 +137,7 @@ public class AdminController implements CommandLineRunner {
         }
         Exercise ex = exerciseRepository.findByName(name).orElseThrow();
         Thread.sleep(500);
+        model.addAttribute("grp", grp);
         model.addAttribute("adEx", request.isUserInRole("ADMIN"));
         model.addAttribute("name", name);
         model.addAttribute("description", description);
@@ -145,5 +151,79 @@ public class AdminController implements CommandLineRunner {
     public String deleteEx(@PathVariable Long id) {
         exerciseRepository.deleteById(id);
         return "redirect:/mainPage/exerciseSearch";
+    }
+
+    @PostMapping("/editExerciseAdmin/{id}")
+    public String editExercise(@RequestParam("name") String name,
+            @RequestParam("description") String description,
+            @RequestParam MultipartFile image,
+            @RequestParam("video") String video,
+            @RequestParam("grp") String grp,
+            Model model, HttpServletRequest request,@PathVariable Long id) throws InterruptedException {
+        Exercise editedEx = exerciseRepository.findById(id).orElseThrow();
+        if (name.isEmpty() || description.isEmpty() || grp.isEmpty()) {
+            model.addAttribute("erroMg", "Rellene todos los campos");
+            return "error";
+        }
+        Optional<Exercise> newEx= exerciseRepository.findByName(name);
+        if(newEx.isPresent()){
+            model.addAttribute("message", true);
+			// existing user
+			model.addAttribute("erroMg", "El ejercicio ya existe");
+			return "error";
+        }
+        if (!name.equals(editedEx.getName())){
+            editedEx.setName(name);
+        }
+        if (!description.equals(editedEx.getDescription())){
+            editedEx.setDescription(description);
+            
+        }
+        if (video.isEmpty()) {
+            editedEx.setVideo("0");
+            model.addAttribute("ExVideo", false);
+            model.addAttribute("video", " ");
+
+        } else if  (!video.equals(editedEx.getVideo())) {
+            model.addAttribute("ExVideo", true);
+            editedEx.setVideo(video);
+            model.addAttribute("video", video);
+        }
+        if (!image.isEmpty()) {
+            try {
+                byte[] datosImage = image.getBytes();
+
+                // Object Image
+                Picture imageN = new Picture(null);
+                imageN.setContent(image.getContentType());
+                imageN.setName(image.getOriginalFilename());
+                imageN.setData(datosImage);
+              
+                imageService.savePicture(imageN);
+                Thread.sleep(1000);
+
+                editedEx.setImage(imageN);
+                editedEx.setbImage(true);
+            } catch (IOException e) {
+            }
+        }
+        exerciseRepository.save(editedEx);
+        Picture imageN = editedEx.getImage();
+        String imagePath = "logo.jpg";
+        if (!(imageN == null)) {
+            imagePath = imageN.getName();
+
+        }
+        
+        Thread.sleep(500);
+        model.addAttribute("video", video);
+        model.addAttribute("grp", grp);
+        model.addAttribute("adEx", request.isUserInRole("ADMIN"));
+        model.addAttribute("name", name);
+        model.addAttribute("description", description);
+        model.addAttribute("image", imagePath);
+        model.addAttribute("id", id);
+        return "details";
+
     }
 }
