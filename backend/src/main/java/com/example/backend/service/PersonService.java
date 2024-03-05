@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.backend.model.Exercise;
+import com.example.backend.model.News;
 import com.example.backend.model.Person;
 import com.example.backend.repository.PersonRepository;
 
@@ -30,4 +31,17 @@ public class PersonService {
 		return exercises;
 
 	}
+	 public void deleteNewsById(List<News> newsToDelete) {
+
+    
+            for (News news: newsToDelete) {
+				List<Person> peoples = repository.findByNews(news);
+				for(Person person: peoples){
+                person.getNews().remove(newsToDelete);
+                repository.save(person);
+				}
+            }
+			
+        
+    }
 }

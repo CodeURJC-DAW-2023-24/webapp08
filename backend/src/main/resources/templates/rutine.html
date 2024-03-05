@@ -102,8 +102,28 @@
         <div class="col-md-7 mx-auto">
           <table>
             <thead>
-              <tr>
-                <th colspan="4" class="title">{{pathName}}</th>
+                {{^user}}
+                <tr>
+                <th colspan="3" class="title">{{pathName}}</th>
+                </tr>
+                {{/user}}
+                {{#user}}
+                <tr>
+                <th colspan="2" class="title">{{pathName}}</th>
+                <th  class="title">
+                  <a href="/deleteRutine/{{id}}">
+                    <button class="btn" type="button" >
+                        <i class="bi bi-trash"></i>
+                    </button>
+                </a>
+                <a href="/editRutine/{{id}}">
+                  <button class="btn" type="button" >
+                      <i class="bi bi-pencil"></i>
+                  </button>
+              </a>
+            </th>
+                {{/user}}
+               
               </tr>
               <tr>
 
@@ -123,7 +143,7 @@
 
             </tbody>
           </table>
-
+        </div>
   </section>
   <input type="hidden" name="_csrf" value="{{token}}"/>
 

@@ -81,6 +81,7 @@ public class WebSecurityConfig {
 					.requestMatchers("/mainPage/rutine/**").hasAnyRole("USER")
 					.requestMatchers("/mainPage/rutine/newExercise/**").hasAnyRole("USER")
 					.requestMatchers("/cancel/**").hasAnyRole("USER")
+					.requestMatchers("/deleteRutine/**").hasAnyRole("USER")
 					.requestMatchers("/pdf/download/**").hasAnyRole("USER")
 					.requestMatchers("/pdf/").hasAnyRole("USER")
 					.requestMatchers("/mainPage/newRoutine/**").hasAnyRole("USER")

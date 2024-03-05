@@ -23,6 +23,7 @@ public interface PersonRepository extends JpaRepository<Person, Long> {
     @Query("SELECT friend.alias FROM Person person JOIN person.friends friend WHERE person = :person")
     List<String> findaliasOfFriendsByPerson(Person person);
 
+    List<Person> findByNews(News news);
 
     @Query("SELECT u FROM Person u JOIN u.rutines r WHERE r.id = :rutineId")
     Optional<Person> findByRutineId(@Param("rutineId") Long rutineId);

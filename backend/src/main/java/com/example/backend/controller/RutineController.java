@@ -62,6 +62,15 @@ public class RutineController implements CommandLineRunner {
     public String showRutine(Model model, @RequestParam Long id, HttpServletRequest request) {
         Person user = userRepository.findByRutineId(id).orElseThrow();
         Rutine rutine = rutineRepository.findById(id).orElseThrow();
+        String alias = request.getUserPrincipal().getName();
+        Person userSesion = userRepository.findByalias(alias).orElseThrow();
+        if(user == userSesion){
+            model.addAttribute("user", true);
+        }
+        else{
+            model.addAttribute("user", false);
+        }
+
         model.addAttribute("alias", user.getAlias());
         model.addAttribute("nameUser", user.getName());
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -237,5 +246,20 @@ public class RutineController implements CommandLineRunner {
         rutineRepository.save(rutine);
         model.addAttribute("id", id);
         return "addRutine";
+    }
+    @GetMapping("/deleteRutine/{id}")
+    public String deleteRutine(@PathVariable Long id, Model model, HttpServletRequest request) {
+        Rutine rutine = rutineRepository.findById(id).orElseThrow();
+        List<News> listNews = (List<News>) newsRepository.findByRutineId(id);
+        userService.deleteNewsById(listNews);
+        for (News news :listNews){
+            newsRepository.delete(news);
+        }
+        String alias = request.getUserPrincipal().getName();
+        Person userSesion = userRepository.findByalias(alias).orElseThrow();
+        userSesion.getRutines().remove(rutine);
+        userRepository.save(userSesion);
+        rutineRepository.delete(rutine);
+        return "redirect:/mainPage";
     }
 }
