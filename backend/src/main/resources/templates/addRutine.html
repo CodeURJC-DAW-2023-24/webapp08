@@ -26,6 +26,7 @@
     <div class="row">
       <div class="col-md-2"></div>
       <div class="col-md-8 ">
+        {{^edit}}
         <form role="form" class="formAd" action="/mainPage/newRoutine/{{id}}" method="post">
           <div class="form-group ">
             <label for="dia">Dia de la rutina </label>
@@ -34,7 +35,7 @@
           <div class="form-group ">
             <label for="name">Nombre de la rutina </label>
             <input type="text" class="form-control" id="name" name="name"
-              placeholder="Introduce el nombre del ejercicio">
+              placeholder="Introduce el nombre de la rutina">
           </div>
           <div class="form-group">
             <label for="tiempo">Tiempo de entrenamiento:</label>
@@ -42,32 +43,61 @@
               placeholder="Introduce el tiempo en minutos">
 
           </div>
+        {{/edit}}
+        {{#edit}}
+        <form role="form" class="formAd" action="/mainPage/editRutine/{{id}}" method="post">
+          <div class="form-group ">
+            <label for="dia">Dia de la rutina </label>
+            <input type="date" class="form-control" id="date" name="date" >
+          </div>
+          <div class="form-group ">
+            <label for="name">Nombre de la rutina </label>
+            <input type="text" class="form-control" id="name" name="name"
+              value="{{name}}">
+          </div>
+          <div class="form-group">
+            <label for="tiempo">Tiempo de entrenamiento:</label>
+            <input type="number" class="form-control" id="time" name="time"
+              value="{{time}}">
+
+          </div>
+          {{/edit}}
           <div class="form-group">
             <label for="exercises">Ejercicios:</label>
             {{#exerciseList}}
-            <input type="text" class="form-control" placeholder="{{exercise}}" readonly>
+            <div style="position: relative; display: inline-block;">
+            <input type="text" class="form-control" placeholder="{{exercise}}" readonly style="margin-right: 10px;">
+            <a href="/deleteExRutine/{{edit}}/{{id}}"  style="position: absolute; top: 0; right: 0;">
+              <button class="btn" type="button" >
+                  <i class="bi bi-trash"></i>
+              </button>
+          </a> 
+            </div>
             <span style="margin: 0 10px;"></span>
             {{/exerciseList}}
           </div>
           <div class="btn-box">
+            
             <button class="btnS" id="save" type="submit">
               Finalizar
             </button>
             <input type="hidden" name="_csrf" value="{{token}}" />
         </form>
         <span style="margin: 0 10px;"></span>
-        <a href="/mainPage/rutine/addEx/{{id}}">
+        <a href="/mainPage/rutine/addEx/{{edit}}/{{id}}">
           <button class="btnS" id="addEj" type="button">
             Añadir ejercicio
           </button>
         </a>
       </div>
       <div class="btn-box"></div>
+      {{^edit}}
       <a href="/cancel/{{id}}">
         <button class="btnC">
           Cancelar
         </button>
       </a>
+      {{/edit}}
     </div>
   </div>
   </div>
