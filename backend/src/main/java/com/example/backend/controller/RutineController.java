@@ -70,6 +70,10 @@ public class RutineController implements CommandLineRunner {
         else{
             model.addAttribute("user", false);
         }
+        List<Comment> lComments = rutine.getMessages();
+        for (Comment comment: lComments){
+            comment.setOwn(comment.getName().equals(alias));
+        }
 
         model.addAttribute("alias", user.getAlias());
         model.addAttribute("nameUser", user.getName());
@@ -78,7 +82,7 @@ public class RutineController implements CommandLineRunner {
         model.addAttribute("date", formatedDate);
         model.addAttribute("pathName", rutine.getName());
         model.addAttribute("exercises", rutine.getExercises());
-        model.addAttribute("messages", rutine.getMessages());
+        model.addAttribute("messages", lComments);
         model.addAttribute("id", id);
         if (user.getImage() != null) {
 
@@ -103,6 +107,17 @@ public class RutineController implements CommandLineRunner {
 
         return message;
     }
+
+    @PostMapping("deleteComment")
+	public @ResponseBody void deleteRutineComment(@RequestParam Long commentId, @RequestParam Long rutineId) {
+        Rutine rutine = rutineRepository.findById(rutineId).orElseThrow();
+        Comment comment = commentRepository.findById(commentId).orElseThrow();
+        rutine.getMessages().remove(comment);
+        rutineRepository.save(rutine);
+        commentRepository.deleteById(commentId); 	
+		
+	}
+	
 
     @PostMapping("/mainPage/newRoutine/{id}")
     public String newRoutine(@PathVariable Long id,

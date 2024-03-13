@@ -73,6 +73,7 @@ public class WebSecurityConfig {
 					.requestMatchers("/deleteUser").hasAnyRole("USER")
 					.requestMatchers("/mainPage/showRutine").hasAnyRole("USER")
 					.requestMatchers("/sendComment").hasAnyRole("USER")
+					.requestMatchers("/deleteComment").hasAnyRole("USER")
 					.requestMatchers("/mainPage/person").hasAnyRole("USER")
 					.requestMatchers("/mainPage/person/config").hasAnyRole("USER")
 					.requestMatchers("/add/**").hasAnyRole("USER")
