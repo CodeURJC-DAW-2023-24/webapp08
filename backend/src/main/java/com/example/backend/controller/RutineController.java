@@ -156,8 +156,9 @@ public class RutineController implements CommandLineRunner {
         return "redirect:/mainPage";
     }
 
-    @PostMapping("/mainPage/rutine/newExercise/{id}")
+    @PostMapping("/mainPage/rutine/newExercise/{edit}/{id}")
     public String addExRutine(@PathVariable Long id,
+    @PathVariable Boolean edit,
             @RequestParam("grp") String grp,
             @RequestParam("chest") String chest,
             @RequestParam("back") String back,
@@ -206,12 +207,18 @@ public class RutineController implements CommandLineRunner {
         List<ExRutine> exercises = rutine.getExercises();
         model.addAttribute("id", id);
         model.addAttribute("exerciseList", exercises);
+        if(edit){
+            model.addAttribute("edit", true);
+            model.addAttribute("date", rutine.getDate());
+            model.addAttribute("name", rutine.getName());
+            model.addAttribute("time", rutine.getTime());
+        }
 
         return "addRutine";
     }
 
-    @GetMapping("/mainPage/rutine/addEx/{id}")
-    public String addEX(@PathVariable Long id, Model model, HttpServletRequest request) {
+    @GetMapping("/mainPage/rutine/addEx/{edit}/{id}")
+    public String addEX(@PathVariable Long id,@PathVariable Boolean edit, Model model, HttpServletRequest request) {
         String alias = request.getUserPrincipal().getName();
         Person user = userRepository.findByalias(alias).orElseThrow();
         List<Exercise> chest = exRepository.findByGrp("Pecho");
@@ -236,6 +243,7 @@ public class RutineController implements CommandLineRunner {
         cardio = userService.order(user, "Cardio", cardio);
         model.addAttribute("cardio", cardio);
         model.addAttribute("id", id);
+        model.addAttribute("edit", edit);
         return "addExRutine";
     }
 
@@ -251,6 +259,7 @@ public class RutineController implements CommandLineRunner {
     public String cancelRutine(Model model) {
         Rutine rutine = new Rutine(null, null, null);
         rutineRepository.save(rutine);
+        model.addAttribute("edit", false);
         model.addAttribute("id", rutine.getId());
         return "addRutine";
     }
@@ -260,6 +269,8 @@ public class RutineController implements CommandLineRunner {
         Rutine rutine = rutineRepository.findById(id).orElseThrow();
         rutineRepository.save(rutine);
         model.addAttribute("id", id);
+        model.addAttribute("exerciseList", rutine.getExercises());
+        model.addAttribute("edit", false);
         return "addRutine";
     }
     @GetMapping("/deleteRutine/{id}")
@@ -276,5 +287,55 @@ public class RutineController implements CommandLineRunner {
         userRepository.save(userSesion);
         rutineRepository.delete(rutine);
         return "redirect:/mainPage";
+    }
+    @GetMapping("/editRutine/{id}")
+    public String editRutine(@PathVariable Long id, Model model, HttpServletRequest request) {
+        Rutine rutine = rutineRepository.findById(id).orElseThrow();
+        model.addAttribute("date", rutine.getDate());
+        model.addAttribute("name", rutine.getName());
+        model.addAttribute("time", rutine.getTime());
+        model.addAttribute("exerciseList", rutine.getExercises());
+        model.addAttribute("edit", true);
+        return "/addRutine";
+    }
+    @PostMapping("/mainPage/editRutine/{id}")
+    public String editRoutine(@PathVariable Long id,
+            @RequestParam("date") Date date,
+            @RequestParam("name") String name,
+            @RequestParam("time") Integer time, Model model) {
+
+        if (date == null || name.isEmpty() || time == 0){
+            model.addAttribute("message", true);
+            model.addAttribute("erroMg", "Rutina vacía");
+            return "error";
+        }
+
+        Rutine rutine = rutineRepository.findById(id).orElseThrow();
+        rutine.setDate(date);
+        rutine.setName(name);
+        rutine.setTime(time);
+        rutineRepository.save(rutine);
+
+       
+
+        return "redirect:/mainPage";
+    }
+    @GetMapping("/deleteExRutine/{edit}/{id}")
+    public String deleteExRutine(@PathVariable Long id, @PathVariable Boolean edit, Model model, HttpServletRequest request) {
+        ExRutine exRutine = exRutineRepository.findById(id).orElseThrow();
+        Rutine rutine = rutineRepository.findByExerciseId(id).orElseThrow();
+        List<ExRutine> exercices = rutine.getExercises();
+        exercices.remove(exRutine);
+        rutineRepository.save(rutine);
+        exRutineRepository.delete(exRutine);
+       
+        model.addAttribute("exerciseList", rutine.getExercises());
+        if(edit){
+            model.addAttribute("edit", true);
+            model.addAttribute("date", rutine.getDate());
+            model.addAttribute("name", rutine.getName());
+            model.addAttribute("time", rutine.getTime());
+        }
+        return "/addRutine";
     }
 }
