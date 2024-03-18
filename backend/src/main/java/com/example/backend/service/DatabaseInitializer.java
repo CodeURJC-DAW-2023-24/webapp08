@@ -60,11 +60,12 @@ public class DatabaseInitializer {
 
 		Person person = personRepository.findByalias("user").orElseThrow();
 		Person person2 = personRepository.findByalias("1").orElseThrow();
+
 		person.getFriends().add(person2);
 		person2.getFriends().add(person);
 		personRepository.save(person);
 		personRepository.save(person2);
-
+		
 
 		/**Rutine rutine = new Rutine("hoy", new Date(), 9);
 		rutineRepository.save(rutine);
@@ -77,8 +78,8 @@ public class DatabaseInitializer {
 			newsRepository.save(news);
 			person2.getNews().add(news);	
 			
-	}**/
-	personRepository.save(person2);
+	}
+	personRepository.save(person2);**/
 		
 		
 		

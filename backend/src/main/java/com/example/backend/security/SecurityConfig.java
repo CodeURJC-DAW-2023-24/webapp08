@@ -106,6 +106,8 @@ public class SecurityConfig {
 					.requestMatchers("/css/**").permitAll()
 					.requestMatchers("/js/**").permitAll()
 					.requestMatchers("/images/**").permitAll()
+					.requestMatchers("/api/**").permitAll()
+
 
 					.requestMatchers("/index").permitAll()
 					.requestMatchers("/register").permitAll()
@@ -131,6 +133,7 @@ public class SecurityConfig {
 					.requestMatchers("/deleteUser").hasAnyRole("USER")
 					.requestMatchers("/mainPage/showRutine").hasAnyRole("USER")
 					.requestMatchers("/sendComment").hasAnyRole("USER")
+					.requestMatchers("/deleteComment").hasAnyRole("USER")
 					.requestMatchers("/mainPage/person").hasAnyRole("USER")
 					.requestMatchers("/mainPage/person/config").hasAnyRole("USER")
 					.requestMatchers("/add/**").hasAnyRole("USER")

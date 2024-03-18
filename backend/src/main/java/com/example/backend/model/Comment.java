@@ -14,6 +14,15 @@ public class Comment {
 
     private String name;
     private String content;
+    private boolean own;
+
+    public boolean isOwn() {
+        return own;
+    }
+
+    public void setOwn(boolean own) {
+        this.own = own;
+    }
 
     protected Comment() {
 
