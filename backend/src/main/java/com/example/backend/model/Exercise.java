@@ -1,5 +1,7 @@
 package com.example.backend.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -14,8 +16,11 @@ public class Exercise {
     private String video;
     private String description;
     @OneToOne(cascade = CascadeType.ALL)
+    @JsonIgnore
     private Picture image;
+    @JsonIgnore
     private boolean bImage;
+    @JsonIgnore
     private String path;
 
     protected Exercise() {
@@ -93,5 +98,9 @@ public class Exercise {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+    @Override
+    public String toString(){
+        return "Exercise [id=" +id+ ",name=" +name+ ",group= " + grp + " description=" + description +"]";
     }
 }

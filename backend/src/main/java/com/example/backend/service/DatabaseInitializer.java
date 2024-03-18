@@ -102,5 +102,6 @@ public class DatabaseInitializer {
         pictureService.loadPicturesFromFolder(pathPictureFolder);
 		List<Picture> pictures = pictureRepository.findAll();
 		pictureService.savePictures(pictures);*/
+		
 	}
 }

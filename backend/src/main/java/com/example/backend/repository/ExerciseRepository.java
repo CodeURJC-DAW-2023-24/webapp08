@@ -17,5 +17,6 @@ public interface ExerciseRepository extends JpaRepository<Exercise, Long> {
     List<Exercise> findByGrp(String grp);
     @Query("SELECT e.name FROM Exercise e WHERE e.name LIKE %:name%")
     List<String[]> getNames(@Param("name") String name);
+    List<Exercise> findAll();
 
 }
