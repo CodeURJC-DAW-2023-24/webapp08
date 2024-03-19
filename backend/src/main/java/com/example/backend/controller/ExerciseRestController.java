@@ -1,17 +1,26 @@
 package com.example.backend.controller;
 
 import com.example.backend.repository.ExerciseRepository;
+import com.example.backend.repository.PictureRepository;
 import com.example.backend.service.PictureService;
 import com.mysql.cj.x.protobuf.MysqlxCrud.Collection;
 
+import java.io.IOException;
+import java.net.URI;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
 import org.hibernate.engine.jdbc.BlobProxy;
+
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,6 +32,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+
+import static org.springframework.web.servlet.support.ServletUriComponentsBuilder.fromCurrentRequest;
 
 import com.example.backend.model.Exercise;
 import com.example.backend.model.Picture;
@@ -34,11 +46,14 @@ public class ExerciseRestController {
 
     @Autowired
     private ExerciseRepository exerciseRepository;
-
+	@Autowired
+    private PictureRepository pictureRepository;
+	@Autowired
+    private PictureService pictureService;
 	
 	@GetMapping("/")
-	public List<Exercise> getExercises() {
-		return exerciseRepository.findAll();
+	public Page<Exercise> getExercises(Pageable page) {
+		return exerciseRepository.findAll(page);
 	}
 
 	@GetMapping("/{id}")
@@ -53,10 +68,54 @@ public class ExerciseRestController {
 			return ResponseEntity.notFound().build();
 		}
 	}
-	@GetMapping("/groups/{group}")
-	public List<Exercise> getExercisesByGroup(@PathVariable String group) {
-		return exerciseRepository.findByGrp(group);
+	@GetMapping("/group/")
+	public Page<Exercise> getExercisesByGroup( String group, Pageable page) {
+		return exerciseRepository.findByGrp(group,page);
 	}
+
+	@GetMapping("/image/")
+	public ResponseEntity<byte[]> getImage(long id) throws IOException {
+		Optional exerciseOptional = exerciseRepository.findById(id);
+		if(exerciseOptional.isPresent()){
+			Exercise exercise = (Exercise) exerciseOptional.get();
+			if(!(exercise.getImage()==null)){
+				Picture picture = exercise.getImage();
+				byte[] imageData =picture.getData();
+				return ResponseEntity.ok().contentType(MediaType.IMAGE_JPEG).body(imageData);
+			} else {
+				return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+			}
+			}
+
+		
+		else{
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+		}
+		
+	}
+	@DeleteMapping("/image/")
+	public ResponseEntity<Object> deleteImage(long id){
+		Optional exerciseOptional = exerciseRepository.findById(id);
+		if(exerciseOptional.isPresent()){
+			Exercise exercise = (Exercise) exerciseOptional.get();
+			if(!(exercise.getImage()==null)){
+				Picture picture = exercise.getImage();
+				exercise.setImage(null);
+				exercise.setbImage(false);
+				exerciseRepository.save(exercise);
+				pictureRepository.delete(picture);
+				return new ResponseEntity<>(null, HttpStatus.OK);
+			} else {
+				return  new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+			}
+			}
+
+		
+		else{
+			return  new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+		}
+	}
+
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Exercise> deleteExercise(@PathVariable long id) {
 
@@ -70,14 +129,52 @@ public class ExerciseRestController {
 	}
 	@PostMapping("/")
 	@ResponseStatus(HttpStatus.CREATED)
-	public Exercise createBook(@RequestBody Exercise exercise) {
+	public ResponseEntity<Exercise> createExercise(@RequestBody Exercise exercise) {
 
 		exerciseRepository.save(exercise);
+		URI location = fromCurrentRequest().path("{id}").buildAndExpand(exercise.getId()).toUri();
 
-		return exercise;
+		return ResponseEntity.created(location).body(exercise);
 	}
+	@PostMapping("/image/")
+	@ResponseStatus(HttpStatus.CREATED)
+	public ResponseEntity<Object> createImage(long id, @RequestParam MultipartFile image) {
+		Optional exerciseOptional = exerciseRepository.findById(id);
+		URI location = fromCurrentRequest().build().toUri();
+		if(exerciseOptional.isPresent()){
+			Exercise exercise = (Exercise) exerciseOptional.get();
+			if (!image.isEmpty()) {
+				try {
+					byte[] datosImage = image.getBytes();
+
+					Picture imageN = new Picture(null);
+					imageN.setContent(image.getContentType());
+					imageN.setName(image.getOriginalFilename());
+					imageN.setData(datosImage);
+				
+					pictureService.savePicture(imageN);
+					//Thread.sleep(1000);
+
+					exercise.setImage(imageN);
+					exercise.setbImage(true);
+					exerciseRepository.save(exercise);
+					return ResponseEntity.created(location).build();
+				} catch (IOException e) {
+				}
+			}
+			else{
+				return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+			}
+        }
+		else{
+			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+		}
+		return null;
+	}
+	
+
 	@PutMapping("/{id}")
-	public ResponseEntity<Exercise> updateBook(@PathVariable long id, @RequestBody Exercise updatedExercise) throws SQLException {
+	public ResponseEntity<Exercise> updateExercise(@PathVariable long id, @RequestBody Exercise updatedExercise) throws SQLException {
 		Optional exerciseOptional = exerciseRepository.findById(id);
 		if (exerciseOptional.isPresent()) {
 
