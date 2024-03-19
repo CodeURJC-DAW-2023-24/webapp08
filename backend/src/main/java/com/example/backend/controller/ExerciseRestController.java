@@ -116,8 +116,8 @@ public class ExerciseRestController {
 		}
 	}
 
-	@DeleteMapping("/{id}")
-	public ResponseEntity<Exercise> deleteExercise(@PathVariable long id) {
+	@DeleteMapping("/")
+	public ResponseEntity<Exercise> deleteExercise(long id) {
 
 		try {
 			exerciseRepository.deleteById(id);
@@ -173,8 +173,8 @@ public class ExerciseRestController {
 	}
 	
 
-	@PutMapping("/{id}")
-	public ResponseEntity<Exercise> updateExercise(@PathVariable long id, @RequestBody Exercise updatedExercise) throws SQLException {
+	@PutMapping("/")
+	public ResponseEntity<Exercise> updateExercise( long id, @RequestBody Exercise updatedExercise) throws SQLException {
 		Optional exerciseOptional = exerciseRepository.findById(id);
 		if (exerciseOptional.isPresent()) {
 
