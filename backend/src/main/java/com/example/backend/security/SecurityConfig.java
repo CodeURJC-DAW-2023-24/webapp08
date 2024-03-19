@@ -106,7 +106,6 @@ public class SecurityConfig {
 					.requestMatchers("/css/**").permitAll()
 					.requestMatchers("/js/**").permitAll()
 					.requestMatchers("/images/**").permitAll()
-					.requestMatchers("/api/**").permitAll()
 
 
 					.requestMatchers("/index").permitAll()

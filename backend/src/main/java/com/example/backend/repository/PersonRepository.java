@@ -31,4 +31,5 @@ public interface PersonRepository extends JpaRepository<Person, Long> {
 
     @Query("SELECT n FROM Person u JOIN u.news n WHERE n IN :news")
     Page<News> findByNews(List<News> news, Pageable page);
+
 }

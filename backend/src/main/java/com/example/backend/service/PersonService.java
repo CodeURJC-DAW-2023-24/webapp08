@@ -59,5 +59,7 @@ public class PersonService {
 
 	}
 
-
+	public List<String> findAliasofFriendsByPerson(Person person){
+	return personRepository.findaliasOfFriendsByPerson(person);
+	}
 }
