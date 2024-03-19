@@ -67,7 +67,7 @@ public class DatabaseInitializer {
 		personRepository.save(person2);
 		
 
-		/**Rutine rutine = new Rutine("hoy", new Date(), 9);
+		Rutine rutine = new Rutine("hoy", new Date(), 9);
 		rutineRepository.save(rutine);
 		person.getRutines().add(rutine);
 		personRepository.save(person);
@@ -75,11 +75,12 @@ public class DatabaseInitializer {
 		for (Integer i= 0; i<12;i++){
 			News news = new News(person.getAlias());
 			news.setRutine(rutine);
+			
 			newsRepository.save(news);
 			person2.getNews().add(news);	
 			
 	}
-	personRepository.save(person2);**/
+	personRepository.save(person2);
 		
 		
 		
