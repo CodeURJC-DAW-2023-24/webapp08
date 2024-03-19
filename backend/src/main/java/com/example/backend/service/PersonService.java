@@ -7,6 +7,9 @@ import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.atomic.AtomicLong;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties.Pageable;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import com.example.backend.model.Exercise;
@@ -53,6 +56,9 @@ public class PersonService {
 	public Person findById(long id) {
 		return personRepository.findById(id).orElseThrow();
 	}
+	public Person findByAlias(String alias){
+		return personRepository.findByalias(alias).orElseThrow();
+	}
 
 	public void save(Person person) {
 		personRepository.save(person);
@@ -61,5 +67,10 @@ public class PersonService {
 
 	public List<String> findAliasofFriendsByPerson(Person person){
 	return personRepository.findaliasOfFriendsByPerson(person);
+	}
+
+	public Page<News> findNews(Person person, int iteracion){
+		return personRepository.findByNews(person.getNews(), PageRequest.of(iteracion, 10));
+
 	}
 }
