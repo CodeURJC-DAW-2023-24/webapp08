@@ -17,7 +17,7 @@ public class News {
 	private long id;
 	private String name;
 
-	@ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
+	@ManyToOne(cascade = {CascadeType.MERGE,CascadeType.REFRESH}, fetch = FetchType.EAGER)
 	private Rutine rutine;
 
 	protected News() {
