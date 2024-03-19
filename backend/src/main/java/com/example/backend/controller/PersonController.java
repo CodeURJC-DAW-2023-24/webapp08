@@ -6,6 +6,8 @@ import java.security.Principal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.security.crypto.password.PasswordEncoder;
+
+import com.example.backend.service.PersonService;
 import com.example.backend.service.PictureService;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,7 +33,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class PersonController implements CommandLineRunner {
 
 	@Autowired
-	private PersonRepository userRepository;
+	private PersonService personService;
 
 	@Autowired
 	private PictureService imageService;
@@ -64,8 +66,6 @@ public class PersonController implements CommandLineRunner {
 		return "index";
 	}
 
-
-
 	@GetMapping("/mainPage")
 	public String mainPage(Model model, HttpServletRequest request) {
 		model.addAttribute("adEx", request.isUserInRole("ADMIN"));
@@ -73,6 +73,7 @@ public class PersonController implements CommandLineRunner {
 		return "mainPage";
 	}
 
+	@SuppressWarnings("finally")
 	@PostMapping("/register")
 	public String register(@RequestParam("name") String name,
 			@RequestParam("alias") String alias,
@@ -81,40 +82,42 @@ public class PersonController implements CommandLineRunner {
 			@RequestParam("password") String password,
 			@RequestParam("password1") String password1,
 			@RequestParam("image") MultipartFile imagenFile, HttpSession session, Model model) {
-		Optional<Person> existingUserOptional = userRepository.findByalias(alias);
-		
-		if (!password.equals(password1)) {
-			// same passwords
-			model.addAttribute("message", true);
-			model.addAttribute("erroMg", "Las contraseñas no coinciden");
-			return "error";
-		}
 
-		if (existingUserOptional.isPresent()) {
+		try {
+			personService.findByAlias(alias);
 			model.addAttribute("message", true);
 			// existing user
 			model.addAttribute("erroMg", "El user ya existe");
 			return "error";
-		}
-		String pass = passwordEncoder.encode(password);
-		Person user = new Person(alias, pass, name, date, weight, "USER");
-		if (!imagenFile.isEmpty()) {
-			try {
-				// byte[] convert
-				byte[] imageData = imagenFile.getBytes();
+		} catch(Exception  e) {
 
-				// object Image
-				Picture image = new Picture(null);
-				image.setContent(imagenFile.getContentType());
-				image.setName(imagenFile.getOriginalFilename());
-				image.setData(imageData);
-				user.setImage(image);
-				imageService.savePicture(image);
-			} catch (IOException e) {
+			if (!password.equals(password1)) {
+				// same passwords
+				model.addAttribute("message", true);
+				model.addAttribute("erroMg", "Las contraseñas no coinciden");
+				return "error";
 			}
+
+			String pass = passwordEncoder.encode(password);
+			Person user = new Person(alias, pass, name, date, weight, "USER");
+			if (!imagenFile.isEmpty()) {
+				try {
+					// byte[] convert
+					byte[] imageData = imagenFile.getBytes();
+
+					// object Image
+					Picture image = new Picture(null);
+					image.setContent(imagenFile.getContentType());
+					image.setName(imagenFile.getOriginalFilename());
+					image.setData(imageData);
+					user.setImage(image);
+					imageService.savePicture(image);
+				} catch (IOException e2) {
+				}
+			}
+			personService.save(user);
+			return "index";
 		}
-		userRepository.save(user);
-		return "index";
 	}
 
 	@GetMapping("/newUser")
@@ -127,8 +130,8 @@ public class PersonController implements CommandLineRunner {
 	public String privatePage(Model model, HttpServletRequest request) throws InterruptedException {
 		model.addAttribute("search", false);
 		model.addAttribute("adEx", request.isUserInRole("ADMIN"));
-		String name = request.getUserPrincipal().getName();
-		Person user = userRepository.findByalias(name).orElseThrow();
+		String alias = request.getUserPrincipal().getName();
+		Person user = personService.findByAlias(alias);
 		Picture image = user.getImage();
 		String imagePath = "logo.jpg";
 		if (!(image == null)) {
@@ -149,7 +152,7 @@ public class PersonController implements CommandLineRunner {
 			@RequestParam String date, @RequestParam Integer weight,
 			@RequestParam MultipartFile image, HttpServletRequest request) throws InterruptedException {
 		String alias2 = request.getUserPrincipal().getName();
-		Person user = userRepository.findByalias(alias2).orElseThrow();
+		Person user = personService.findByAlias(alias2);
 		user.setName(name);
 		user.setAlias(alias);
 		user.setDate(date);
@@ -164,15 +167,15 @@ public class PersonController implements CommandLineRunner {
 				imageF.setContent(image.getContentType());
 				imageF.setName(image.getOriginalFilename());
 				imageF.setData(imageData);
-			
-                imageService.savePicture(imageF);
+
+				imageService.savePicture(imageF);
 				Thread.sleep(1000);
 
 				user.setImage(imageF);
 			} catch (IOException e) {
 			}
 		}
-		userRepository.save(user);
+		personService.save(user);
 		Picture imageN = user.getImage();
 		String imagePath = "logo.jpg";
 		if (!(imageN == null)) {
