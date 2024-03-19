@@ -67,7 +67,11 @@ public class SecurityConfig {
 		http
 			.authorizeHttpRequests(authorize -> authorize
                     // PRIVATE ENDPOINTS
-                   
+					.requestMatchers(HttpMethod.POST,"/api/exercises/").hasRole("ADMIN")
+					.requestMatchers(HttpMethod.POST,"/api/exercises/image/").hasRole("ADMIN")
+					.requestMatchers(HttpMethod.DELETE,"/api/exercises/").hasRole("ADMIN")
+					.requestMatchers(HttpMethod.PUT,"/api/exercises/").hasRole("ADMIN")
+					.requestMatchers(HttpMethod.DELETE,"/api/exercises/image/").hasRole("ADMIN")
 					// PUBLIC ENDPOINTS
 					.anyRequest().permitAll()
 			);
