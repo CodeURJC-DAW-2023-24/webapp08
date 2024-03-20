@@ -25,6 +25,7 @@ import com.example.backend.model.Rutine;
 import com.example.backend.repository.NewsRepository;
 import com.example.backend.repository.PersonRepository;
 import com.example.backend.service.ExerciseService;
+import com.example.backend.service.PersonService;
 import com.example.backend.service.PictureService;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -32,7 +33,9 @@ import jakarta.servlet.http.HttpServletRequest;
 @Controller
 public class AdminController implements CommandLineRunner {
 
-    
+    @Autowired
+    private PersonService personService;
+
     @Autowired
     private ExerciseService exerciseService;
 
@@ -57,31 +60,7 @@ public class AdminController implements CommandLineRunner {
     @PostMapping("/deleteUser")
     public @ResponseBody Boolean deleteUser(@RequestParam Long id) {
         Person user = userRepository.findById(id).orElseThrow();
-        List<Rutine> lrutines = user.getRutines();
-        for (Rutine rutine : lrutines) {
-            List<Person> lUsers = user.getFriends();
-            Optional<News> news = newsRepository.findByRutine(rutine);
-            for (Person friend : lUsers) {
-                if (news.isPresent()) {
-                    friend.getNews().remove(news.get());
-                    friend.getFriends().remove(user);
-                    userRepository.save(friend);
-                }
-            }
-            if (news.isPresent()) {
-                newsRepository.delete(news.get());
-            }
-        }
-        
-        List<Person> lAmigos =  user.getFriends();
-        for(Person amigo: lAmigos) {
-            amigo.getFriends().remove(user);
-            userRepository.save(amigo);
-        }
-
-        user.getFriends().clear();
-        userRepository.save(user);
-        userRepository.deleteById(id);
+        personService.deletePerson(user);
         return true;
     }
 

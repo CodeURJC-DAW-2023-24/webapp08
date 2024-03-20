@@ -29,7 +29,7 @@ public class Person {
 	private String date;
 	private Integer weight;
 
-	@ManyToMany (fetch = FetchType.EAGER)
+	@ManyToMany (fetch = FetchType.EAGER) //Check it
 	 @JoinTable( name = "friends", 
 	 joinColumns = @JoinColumn(name = "person_id"), 
 	 inverseJoinColumns = @JoinColumn(name = "personFriend_id") ) 

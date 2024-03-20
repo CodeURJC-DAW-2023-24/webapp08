@@ -113,14 +113,21 @@ public class RESTPersonController {
 	}
 
 	@DeleteMapping("/{id}") //TO DO/////////////
-	public ResponseEntity<PersonDTO> deletePerson(@PathVariable long id) {
+	public ResponseEntity<?> deletePerson(@PathVariable long id) {
 		try {
 			Person person = personService.findById(id);
-			PersonDTO personDTO = new PersonDTO(person, personService);
-			return ResponseEntity.ok(personDTO);
+			try {
+				personService.deletePerson(person);
+				return ResponseEntity.status(HttpStatus.OK).body(null);
+			} catch(Exception e2){
+				return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e2.getMessage());
+			}
+
 		} catch (Exception e) {
 			return ResponseEntity.notFound().build();
 		}
+
+		
 	}
 
 	@PostMapping("/{id}/newFriend/{friendId}") ///TO DO///
