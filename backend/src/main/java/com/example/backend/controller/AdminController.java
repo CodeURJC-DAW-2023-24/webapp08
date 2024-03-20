@@ -21,9 +21,10 @@ import com.example.backend.model.News;
 import com.example.backend.model.Person;
 import com.example.backend.model.Picture;
 import com.example.backend.model.Rutine;
-import com.example.backend.repository.ExerciseRepository;
+
 import com.example.backend.repository.NewsRepository;
 import com.example.backend.repository.PersonRepository;
+import com.example.backend.service.ExerciseService;
 import com.example.backend.service.PictureService;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -31,8 +32,9 @@ import jakarta.servlet.http.HttpServletRequest;
 @Controller
 public class AdminController implements CommandLineRunner {
 
+    
     @Autowired
-    private ExerciseRepository exerciseRepository;
+    private ExerciseService exerciseService;
 
     @Autowired
     private PersonRepository userRepository;
@@ -90,7 +92,7 @@ public class AdminController implements CommandLineRunner {
             @RequestParam("video") String video,
             @RequestParam("grp") String grp,
             Model model, HttpServletRequest request) throws InterruptedException {
-        Optional<Exercise> existingExOptional = exerciseRepository.findByName(name);
+        Optional<Exercise> existingExOptional = exerciseService.findByName(name);
         if (name.isEmpty() || description.isEmpty() || grp.isEmpty()) {
             model.addAttribute("erroMg", "Rellene todos los campos");
             return "error";
@@ -112,30 +114,24 @@ public class AdminController implements CommandLineRunner {
         }
         if (!image.isEmpty()) {
             try {
-                byte[] datosImage = image.getBytes();
-
+            
                 // Object Image
-                Picture imageN = new Picture(null);
-                imageN.setContent(image.getContentType());
-                imageN.setName(image.getOriginalFilename());
-                imageN.setData(datosImage);
-              
-                imageService.savePicture(imageN);
+                Picture imageN = imageService.newPicture(image);
                 Thread.sleep(1000);
-
-                exercise.setImage(imageN);
-                exercise.setbImage(true);
+                exerciseService.setImage(exercise, imageN);
             } catch (IOException e) {
             }
         }
-        exerciseRepository.save(exercise);
+        else{
+            exerciseService.save(exercise);
+        }
         Picture imageN = exercise.getImage();
         String imagePath = "logo.jpg";
         if (!(imageN == null)) {
             imagePath = imageN.getName();
 
         }
-        Exercise ex = exerciseRepository.findByName(name).orElseThrow();
+        Exercise ex = exerciseService.findByName(name).orElseThrow();
         Thread.sleep(500);
         model.addAttribute("grp", grp);
         model.addAttribute("adEx", request.isUserInRole("ADMIN"));
@@ -149,7 +145,7 @@ public class AdminController implements CommandLineRunner {
 
     @GetMapping("/deleteEx/{id}")
     public String deleteEx(@PathVariable Long id) {
-        exerciseRepository.deleteById(id);
+        exerciseService.deleteById(id);
         return "redirect:/mainPage/exerciseSearch";
     }
 
@@ -160,12 +156,12 @@ public class AdminController implements CommandLineRunner {
             @RequestParam("video") String video,
             @RequestParam("grp") String grp,
             Model model, HttpServletRequest request,@PathVariable Long id) throws InterruptedException {
-        Exercise editedEx = exerciseRepository.findById(id).orElseThrow();
+        Exercise editedEx = exerciseService.findById(id).orElseThrow();
         if (name.isEmpty() || description.isEmpty() || grp.isEmpty()) {
             model.addAttribute("erroMg", "Rellene todos los campos");
             return "error";
         }
-        Optional<Exercise> newEx= exerciseRepository.findByName(name);
+        Optional<Exercise> newEx= exerciseService.findByName(name);
         if(newEx.isPresent()){
             model.addAttribute("message", true);
 			// existing user
@@ -191,23 +187,17 @@ public class AdminController implements CommandLineRunner {
         }
         if (!image.isEmpty()) {
             try {
-                byte[] datosImage = image.getBytes();
-
+            
                 // Object Image
-                Picture imageN = new Picture(null);
-                imageN.setContent(image.getContentType());
-                imageN.setName(image.getOriginalFilename());
-                imageN.setData(datosImage);
-              
-                imageService.savePicture(imageN);
+                Picture imageN = imageService.newPicture(image);
                 Thread.sleep(1000);
-
-                editedEx.setImage(imageN);
-                editedEx.setbImage(true);
+                exerciseService.setImage(editedEx, imageN);
             } catch (IOException e) {
             }
         }
-        exerciseRepository.save(editedEx);
+        else{
+            exerciseService.save(editedEx);
+        }
         Picture imageN = editedEx.getImage();
         String imagePath = "logo.jpg";
         if (!(imageN == null)) {

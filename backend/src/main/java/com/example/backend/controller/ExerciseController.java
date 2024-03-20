@@ -1,6 +1,7 @@
 package com.example.backend.controller;
 
-import com.example.backend.repository.ExerciseRepository;
+
+import com.example.backend.service.ExerciseService;
 import com.example.backend.service.PictureService;
 import com.example.backend.model.Exercise;
 import com.example.backend.model.Picture;
@@ -26,8 +27,9 @@ public class ExerciseController implements CommandLineRunner {
     @Autowired
     private PictureService imageService;
 
+    
     @Autowired
-    private ExerciseRepository exerciseRepository;
+    private ExerciseService exerciseService;
 
     @Override
     public void run(String... args) throws Exception {
@@ -43,7 +45,7 @@ public class ExerciseController implements CommandLineRunner {
     @GetMapping("/mainPage/group/{grp}/")
     public String group2(@PathVariable String grp, Model model, HttpServletRequest request, Pageable page) {
         Pageable pageable = PageRequest.of(page.getPageNumber(), 5);
-        Page<Exercise> exs = exerciseRepository.findByGrp(grp, pageable);
+        Page<Exercise> exs = exerciseService.findByGrp(grp, pageable);
         List<Exercise> exerciseList = exs.getContent();
         for (Exercise exercise : exerciseList) {
             Picture image = exercise.getImage();
@@ -73,7 +75,7 @@ public class ExerciseController implements CommandLineRunner {
     @GetMapping("/mainPage/group/{grp}/{id}")
     public String exDetails(@PathVariable String grp, @PathVariable long id, Model model,
             HttpServletRequest request) {
-        Exercise exercise = exerciseRepository.findById(id).orElseThrow();
+        Exercise exercise = exerciseService.findById(id).orElseThrow();
         model.addAttribute("name", exercise.getName());
         model.addAttribute("description", exercise.getDescription());
         if (exercise.getVideo().equals("0")) {
@@ -99,14 +101,14 @@ public class ExerciseController implements CommandLineRunner {
     @GetMapping("/searchEx")
     public @ResponseBody List<String[]> searchNames(@RequestParam String nombre, HttpServletRequest request) {
 
-        List<String[]> names = exerciseRepository.getNames(nombre);
+        List<String[]> names =exerciseService.getNames(nombre);
         return names;
     }
 
     @GetMapping("/mainPage/exerciseSearch/exercise/{nombre}")
     public String exercseM(@PathVariable String nombre, Model model,
             HttpServletRequest request) {
-        Exercise exercise = exerciseRepository.findByName(nombre).orElseThrow();
+        Exercise exercise = exerciseService.findByName(nombre).orElseThrow();
         model.addAttribute("name", exercise.getName());
         model.addAttribute("description", exercise.getDescription());
         if (exercise.getVideo().equals("0")) {
