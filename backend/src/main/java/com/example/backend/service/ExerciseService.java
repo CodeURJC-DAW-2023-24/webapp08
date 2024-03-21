@@ -21,7 +21,7 @@ import com.example.backend.repository.ExerciseRepository;
 @Service
 public class ExerciseService {
 
-     @Autowired
+    @Autowired
     private ExerciseRepository repository;    
 
     public ExerciseService(){

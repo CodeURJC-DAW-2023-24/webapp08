@@ -9,7 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import com.example.backend.repository.RutineRepository;
+import com.example.backend.service.RutineService;
 import com.example.backend.model.Rutine;
 import com.example.backend.model.ExRutine;
 import jakarta.servlet.http.HttpServletResponse;
@@ -20,7 +20,7 @@ import java.util.List;
 @RequestMapping("/pdf")
 public class PDFController {
     @Autowired
-    private RutineRepository rutinaRepository;
+    private RutineService rutineService;
 
     @GetMapping("/download/{date}/{id}")
     public void downloadPdf(HttpServletResponse response, @PathVariable String date, @PathVariable Long id) throws IOException {
@@ -28,7 +28,7 @@ public class PDFController {
         String truncatedDate = date.substring(0, Math.min(date.length(), 10)); // date in file
         String fileName = "rutina_" + truncatedDate + ".pdf";
         response.setHeader("Content-Disposition", "attachment; filename=" + fileName);
-        Rutine rutine = rutinaRepository.findById(id).orElseThrow();
+        Rutine rutine = rutineService.findById(id).orElseThrow();
         List<ExRutine> list= rutine.getExercises();
 
         try (PDDocument document = new PDDocument()) {

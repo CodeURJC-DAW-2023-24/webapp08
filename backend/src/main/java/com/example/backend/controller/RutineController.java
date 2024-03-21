@@ -20,13 +20,12 @@ import com.example.backend.model.Exercise;
 import com.example.backend.model.News;
 import com.example.backend.model.Person;
 import com.example.backend.model.Rutine;
-import com.example.backend.repository.CommentRepository;
-import com.example.backend.repository.ExRutineRepository;
-import com.example.backend.repository.NewsRepository;
-import com.example.backend.repository.PersonRepository;
-import com.example.backend.repository.RutineRepository;
+import com.example.backend.service.NewsService;
 import com.example.backend.service.ExerciseService;
 import com.example.backend.service.PersonService;
+import com.example.backend.service.RutineService;
+import com.example.backend.service.CommentService;
+import com.example.backend.service.ExRutineService;
 
 import jakarta.servlet.http.HttpServletRequest;
 
@@ -34,26 +33,21 @@ import jakarta.servlet.http.HttpServletRequest;
 public class RutineController implements CommandLineRunner {
 
     @Autowired
-    private ExRutineRepository exRutineRepository;
+    private ExRutineService exRutineService;
 
     @Autowired
-    private PersonService userService;
-
-   
+    private PersonService personService;
     @Autowired
     private ExerciseService exerciseService;
 
     @Autowired
-    private PersonRepository userRepository;
+    private NewsService newsService;
 
     @Autowired
-    private NewsRepository newsRepository;
+    private RutineService rutineService;
 
     @Autowired
-    private RutineRepository rutineRepository;
-
-    @Autowired
-    private CommentRepository commentRepository;
+    private CommentService commentService;
 
     @Override
     public void run(String... args) throws Exception {
@@ -61,10 +55,10 @@ public class RutineController implements CommandLineRunner {
 
     @GetMapping("/mainPage/showRutine")
     public String showRutine(Model model, @RequestParam Long id, HttpServletRequest request) {
-        Person user = userRepository.findByRutineId(id).orElseThrow();
-        Rutine rutine = rutineRepository.findById(id).orElseThrow();
+        Person user = personService.findByRutineId(id).orElseThrow();
+        Rutine rutine = rutineService.findById(id).orElseThrow();
         String alias = request.getUserPrincipal().getName();
-        Person userSesion = userRepository.findByalias(alias).orElseThrow();
+        Person userSesion = personService.findByAlias(alias);
         if(user == userSesion){
             model.addAttribute("user", true);
         }
@@ -98,24 +92,24 @@ public class RutineController implements CommandLineRunner {
     public @ResponseBody Comment postMethodName(@RequestParam String comentario, @RequestParam Long id,
             HttpServletRequest request) {
         String alias = request.getUserPrincipal().getName();
-        Person user = userRepository.findByalias(alias).orElseThrow();
+        Person user = personService.findByAlias(alias);
         String aliasUser = user.getAlias();
         Comment message = new Comment(aliasUser, comentario);
-        commentRepository.save(message);
-        Rutine rutine = rutineRepository.findById(id).orElseThrow();
+        commentService.save(message);
+        Rutine rutine = rutineService.findById(id).orElseThrow();
         rutine.getMessages().add(message);
-        rutineRepository.save(rutine);
+        rutineService.save(rutine);
 
         return message;
     }
 
     @PostMapping("deleteComment")
 	public @ResponseBody void deleteRutineComment(@RequestParam Long commentId, @RequestParam Long rutineId) {
-        Rutine rutine = rutineRepository.findById(rutineId).orElseThrow();
-        Comment comment = commentRepository.findById(commentId).orElseThrow();
+        Rutine rutine = rutineService.findById(rutineId).orElseThrow();
+        Comment comment = commentService.findById(commentId);
         rutine.getMessages().remove(comment);
-        rutineRepository.save(rutine);
-        commentRepository.deleteById(commentId); 	
+        rutineService.save(rutine);
+        commentService.deleteById(commentId); 	
 		
 	}
 	
@@ -132,25 +126,25 @@ public class RutineController implements CommandLineRunner {
             return "error";
         }
         String alias = request.getUserPrincipal().getName();
-        Person user = userRepository.findByalias(alias).orElseThrow();
+        Person user = personService.findByAlias(alias);
 
-        Rutine rutine = rutineRepository.findById(id).orElseThrow();
+        Rutine rutine = rutineService.findById(id).orElseThrow();
         rutine.setDate(date);
         rutine.setName(name);
         rutine.setTime(time);
-        rutineRepository.save(rutine);
+        rutineService.save(rutine);
 
         user.getRutines().add(rutine);
-        userRepository.save(user);
+        personService.save(user);
 
         List<Person> lFriends = user.getFriends();
         if (!lFriends.isEmpty()) {
             for (Person friend : lFriends) {
             News news = new News(alias);
             news.setRutine(rutine);
-            newsRepository.save(news);
+            newsService.save(news);
             friend.getNews().add(news);
-            userRepository.save(friend);
+            personService.save(friend);
             }
         }
 
@@ -173,7 +167,7 @@ public class RutineController implements CommandLineRunner {
 
         if (series == null)
             return "error";
-        Rutine rutine = rutineRepository.findById(id).orElseThrow();
+        Rutine rutine = rutineService.findById(id).orElseThrow();
         String name = " ";
         switch (grp) {
             case "Pecho":
@@ -200,11 +194,11 @@ public class RutineController implements CommandLineRunner {
         }
         ExRutine exercise = new ExRutine(grp, name, series, weight);
         String alias = request.getUserPrincipal().getName();
-        Person user = userRepository.findByalias(alias).orElseThrow();
-        userService.increaseFreq(user, grp, name);
-        exRutineRepository.save(exercise);
+        Person user = personService.findByAlias(alias);
+        personService.increaseFreq(user, grp, name);
+        exRutineService.save(exercise);
         rutine.addExRutine(exercise);
-        rutineRepository.save(rutine);
+        rutineService.save(rutine);
         List<ExRutine> exercises = rutine.getExercises();
         model.addAttribute("id", id);
         model.addAttribute("exerciseList", exercises);
@@ -221,27 +215,27 @@ public class RutineController implements CommandLineRunner {
     @GetMapping("/mainPage/rutine/addEx/{edit}/{id}")
     public String addEX(@PathVariable Long id,@PathVariable Boolean edit, Model model, HttpServletRequest request) {
         String alias = request.getUserPrincipal().getName();
-        Person user = userRepository.findByalias(alias).orElseThrow();
+        Person user = personService.findByAlias(alias);
         List<Exercise> chest = exerciseService.findByGrp("Pecho");
-        chest = userService.order(user, "Pecho", chest);
+        chest = personService.order(user, "Pecho", chest);
         model.addAttribute("chest", chest);
         List<Exercise> back = exerciseService.findByGrp("Espalda");
-        back = userService.order(user, "Espalda", back);
+        back = personService.order(user, "Espalda", back);
         model.addAttribute("back", back);
         List<Exercise> shoulder = exerciseService.findByGrp("Hombro");
-        shoulder = userService.order(user, "Hombro", shoulder);
+        shoulder = personService.order(user, "Hombro", shoulder);
         model.addAttribute("shoulder", shoulder);
         List<Exercise> biceps = exerciseService.findByGrp("Biceps");
-        biceps = userService.order(user, "Biceps", biceps);
+        biceps = personService.order(user, "Biceps", biceps);
         model.addAttribute("biceps", biceps);
         List<Exercise> triceps = exerciseService.findByGrp("Triceps");
-        triceps = userService.order(user, "Triceps", triceps);
+        triceps = personService.order(user, "Triceps", triceps);
         model.addAttribute("triceps", triceps);
         List<Exercise> lower = exerciseService.findByGrp("Inferior");
-        lower = userService.order(user, "Inferior", lower);
+        lower = personService.order(user, "Inferior", lower);
         model.addAttribute("lower", lower);
         List<Exercise> cardio = exerciseService.findByGrp("Cardio");
-        cardio = userService.order(user, "Cardio", cardio);
+        cardio = personService.order(user, "Cardio", cardio);
         model.addAttribute("cardio", cardio);
         model.addAttribute("id", id);
         model.addAttribute("edit", edit);
@@ -251,15 +245,15 @@ public class RutineController implements CommandLineRunner {
     @SuppressWarnings("null")
     @GetMapping("/cancel/{id}")
     public String addRutine(@PathVariable Long id, Model model) {
-        Rutine rutine = rutineRepository.findById(id).orElseThrow();
-        rutineRepository.delete(rutine);
+        Rutine rutine = rutineService.findById(id).orElseThrow();
+        rutineService.delete(rutine);
         return "redirect:/mainPage";
     }
 
     @GetMapping("/mainPage/rutine/addRutine")
     public String cancelRutine(Model model) {
         Rutine rutine = new Rutine(null, null, null);
-        rutineRepository.save(rutine);
+        rutineService.save(rutine);
         model.addAttribute("edit", false);
         model.addAttribute("id", rutine.getId());
         return "addRutine";
@@ -267,8 +261,8 @@ public class RutineController implements CommandLineRunner {
 
     @GetMapping("/mainPage/rutine/{id}")
     public String rutine(@PathVariable Long id, Model model) {
-        Rutine rutine = rutineRepository.findById(id).orElseThrow();
-        rutineRepository.save(rutine);
+        Rutine rutine = rutineService.findById(id).orElseThrow();
+        rutineService.save(rutine);
         model.addAttribute("id", id);
         model.addAttribute("exerciseList", rutine.getExercises());
         model.addAttribute("edit", false);
@@ -276,22 +270,22 @@ public class RutineController implements CommandLineRunner {
     }
     @GetMapping("/deleteRutine/{id}")
     public String deleteRutine(@PathVariable Long id, Model model, HttpServletRequest request) {
-        Rutine rutine = rutineRepository.findById(id).orElseThrow();
-        List<News> listNews = (List<News>) newsRepository.findByRutineId(id);
-        userService.deleteNewsById(listNews);
+        Rutine rutine = rutineService.findById(id).orElseThrow();
+        List<News> listNews = (List<News>) newsService.findByRutineId(id);
+        personService.deleteNewsById(listNews);
         for (News news :listNews){
-            newsRepository.delete(news);
+            newsService.delete(news);
         }
         String alias = request.getUserPrincipal().getName();
-        Person userSesion = userRepository.findByalias(alias).orElseThrow();
+        Person userSesion = personService.findByAlias(alias);
         userSesion.getRutines().remove(rutine);
-        userRepository.save(userSesion);
-        rutineRepository.delete(rutine);
+        personService.save(userSesion);
+        rutineService.delete(rutine);
         return "redirect:/mainPage";
     }
     @GetMapping("/editRutine/{id}")
     public String editRutine(@PathVariable Long id, Model model, HttpServletRequest request) {
-        Rutine rutine = rutineRepository.findById(id).orElseThrow();
+        Rutine rutine = rutineService.findById(id).orElseThrow();
         model.addAttribute("date", rutine.getDate());
         model.addAttribute("name", rutine.getName());
         model.addAttribute("time", rutine.getTime());
@@ -311,11 +305,11 @@ public class RutineController implements CommandLineRunner {
             return "error";
         }
 
-        Rutine rutine = rutineRepository.findById(id).orElseThrow();
+        Rutine rutine = rutineService.findById(id).orElseThrow();
         rutine.setDate(date);
         rutine.setName(name);
         rutine.setTime(time);
-        rutineRepository.save(rutine);
+        rutineService.save(rutine);
 
        
 
@@ -323,12 +317,12 @@ public class RutineController implements CommandLineRunner {
     }
     @GetMapping("/deleteExRutine/{edit}/{id}")
     public String deleteExRutine(@PathVariable Long id, @PathVariable Boolean edit, Model model, HttpServletRequest request) {
-        ExRutine exRutine = exRutineRepository.findById(id).orElseThrow();
-        Rutine rutine = rutineRepository.findByExerciseId(id).orElseThrow();
+        ExRutine exRutine = exRutineService.findById(id);
+        Rutine rutine = rutineService.findByExerciseId(id).orElseThrow();
         List<ExRutine> exercices = rutine.getExercises();
         exercices.remove(exRutine);
-        rutineRepository.save(rutine);
-        exRutineRepository.delete(exRutine);
+        rutineService.save(rutine);
+        exRutineService.delete(exRutine);
        
         model.addAttribute("exerciseList", rutine.getExercises());
         if(edit){

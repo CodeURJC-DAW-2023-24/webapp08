@@ -18,7 +18,7 @@ public interface PersonRepository extends JpaRepository<Person, Long> {
     Optional<Person> findByalias(String name);
 
     @Query("SELECT u.id, u.alias FROM Person u WHERE u.alias LIKE %:name% AND  u.id <> :idUser AND u.id NOT IN (SELECT a.id FROM Person u JOIN u.friends a WHERE u.id = :idUser)")
-    List<String[]> getIdandAlias(@Param("name") String nombre, @Param("idUser") Long idUser);
+    List<String[]> getIdandAlias(@Param("name") String name, @Param("idUser") Long idUser);
 
     @Query("SELECT friend.alias FROM Person person JOIN person.friends friend WHERE person = :person")
     List<String> findaliasOfFriendsByPerson(Person person);

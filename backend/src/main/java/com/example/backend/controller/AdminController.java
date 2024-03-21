@@ -17,13 +17,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.example.backend.model.Exercise;
-import com.example.backend.model.News;
 import com.example.backend.model.Person;
 import com.example.backend.model.Picture;
-import com.example.backend.model.Rutine;
-
-import com.example.backend.repository.NewsRepository;
-import com.example.backend.repository.PersonRepository;
 import com.example.backend.service.ExerciseService;
 import com.example.backend.service.PersonService;
 import com.example.backend.service.PictureService;
@@ -40,13 +35,7 @@ public class AdminController implements CommandLineRunner {
     private ExerciseService exerciseService;
 
     @Autowired
-    private PersonRepository userRepository;
-
-    @Autowired
     private PictureService imageService;
-
-    @Autowired
-    private NewsRepository newsRepository;
 
     @Override
     public void run(String... args) throws Exception {
@@ -59,7 +48,7 @@ public class AdminController implements CommandLineRunner {
 
     @PostMapping("/deleteUser")
     public @ResponseBody Boolean deleteUser(@RequestParam Long id) {
-        Person user = userRepository.findById(id).orElseThrow();
+        Person user = personService.findById(id);
         personService.deletePerson(user);
         return true;
     }

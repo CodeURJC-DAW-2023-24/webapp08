@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties.Pageable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 
 import com.example.backend.model.Exercise;
@@ -111,4 +112,14 @@ public class PersonService {
 		personRepository.save(person);
 		personRepository.deleteById(person.getId());
 	}
+
+	public Optional<Person> findByRutineId(Long id){
+		return personRepository.findByRutineId(id);
+	}
+
+	public List<String[]> getIdandAlias(String name, Long id){
+		return personRepository.getIdandAlias(name, id);
+	}
+
+	
 }

@@ -4,7 +4,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-import com.example.backend.model.Person;
 import com.example.backend.model.Rutine;
 import java.util.Optional;
 
