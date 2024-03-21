@@ -1,7 +1,7 @@
 package com.example.backend.controller;
 
-import com.example.backend.repository.ExerciseRepository;
-import com.example.backend.repository.PictureRepository;
+
+import com.example.backend.service.ExerciseService;
 import com.example.backend.service.PictureService;
 import com.mysql.cj.x.protobuf.MysqlxCrud.Collection;
 
@@ -44,22 +44,22 @@ import com.example.backend.model.Picture;
 @RequestMapping("api/exercises")
 public class ExerciseRestController {
 
-    @Autowired
-    private ExerciseRepository exerciseRepository;
+
 	@Autowired
-    private PictureRepository pictureRepository;
+    private ExerciseService exerciseService;
+	
 	@Autowired
     private PictureService pictureService;
 	
 	@GetMapping("/")
 	public Page<Exercise> getExercises(Pageable page) {
-		return exerciseRepository.findAll(page);
+		return exerciseService.findAll(page);
 	}
 
 	@GetMapping("/{id}")
 	public ResponseEntity<Exercise> getExercise(@PathVariable long id) {
 
-		Optional exerciseOptional = exerciseRepository.findById(id);
+		Optional exerciseOptional = exerciseService.findById(id);
 
 		if (exerciseOptional.isPresent()) {
 			Exercise exercise = (Exercise) exerciseOptional.get();
@@ -70,12 +70,12 @@ public class ExerciseRestController {
 	}
 	@GetMapping("/group/")
 	public Page<Exercise> getExercisesByGroup( String group, Pageable page) {
-		return exerciseRepository.findByGrp(group,page);
+		return exerciseService.findByGrp(group,page);
 	}
 
 	@GetMapping("/image/")
 	public ResponseEntity<byte[]> getImage(long id) throws IOException {
-		Optional exerciseOptional = exerciseRepository.findById(id);
+		Optional exerciseOptional = exerciseService.findById(id);
 		if(exerciseOptional.isPresent()){
 			Exercise exercise = (Exercise) exerciseOptional.get();
 			if(!(exercise.getImage()==null)){
@@ -85,9 +85,7 @@ public class ExerciseRestController {
 			} else {
 				return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
 			}
-			}
-
-		
+		}
 		else{
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
 		}
@@ -95,15 +93,13 @@ public class ExerciseRestController {
 	}
 	@DeleteMapping("/image/")
 	public ResponseEntity<Object> deleteImage(long id){
-		Optional exerciseOptional = exerciseRepository.findById(id);
+		Optional exerciseOptional = exerciseService.findById(id);
 		if(exerciseOptional.isPresent()){
 			Exercise exercise = (Exercise) exerciseOptional.get();
 			if(!(exercise.getImage()==null)){
 				Picture picture = exercise.getImage();
-				exercise.setImage(null);
-				exercise.setbImage(false);
-				exerciseRepository.save(exercise);
-				pictureRepository.delete(picture);
+				exerciseService.deleteImage(exercise);
+				pictureService.delete(picture);
 				return new ResponseEntity<>(null, HttpStatus.OK);
 			} else {
 				return  new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
@@ -120,7 +116,7 @@ public class ExerciseRestController {
 	public ResponseEntity<Exercise> deleteExercise(long id) {
 
 		try {
-			exerciseRepository.deleteById(id);
+			exerciseService.deleteById(id);
 			return new ResponseEntity<>(null, HttpStatus.OK);
 
 		} catch (EmptyResultDataAccessException e) {
@@ -130,8 +126,7 @@ public class ExerciseRestController {
 	@PostMapping("/")
 	@ResponseStatus(HttpStatus.CREATED)
 	public ResponseEntity<Exercise> createExercise(@RequestBody Exercise exercise) {
-
-		exerciseRepository.save(exercise);
+		exerciseService.save(exercise);
 		URI location = fromCurrentRequest().path("{id}").buildAndExpand(exercise.getId()).toUri();
 
 		return ResponseEntity.created(location).body(exercise);
@@ -139,25 +134,14 @@ public class ExerciseRestController {
 	@PostMapping("/image/")
 	@ResponseStatus(HttpStatus.CREATED)
 	public ResponseEntity<Object> createImage(long id, @RequestParam MultipartFile image) {
-		Optional exerciseOptional = exerciseRepository.findById(id);
+		Optional exerciseOptional = exerciseService.findById(id);
 		URI location = fromCurrentRequest().build().toUri();
 		if(exerciseOptional.isPresent()){
 			Exercise exercise = (Exercise) exerciseOptional.get();
 			if (!image.isEmpty()) {
 				try {
-					byte[] datosImage = image.getBytes();
-
-					Picture imageN = new Picture(null);
-					imageN.setContent(image.getContentType());
-					imageN.setName(image.getOriginalFilename());
-					imageN.setData(datosImage);
-				
-					pictureService.savePicture(imageN);
-					//Thread.sleep(1000);
-
-					exercise.setImage(imageN);
-					exercise.setbImage(true);
-					exerciseRepository.save(exercise);
+					Picture imageN = pictureService.newPicture(image);
+					exerciseService.setImage(exercise, imageN);
 					return ResponseEntity.created(location).build();
 				} catch (IOException e) {
 				}
@@ -175,11 +159,11 @@ public class ExerciseRestController {
 
 	@PutMapping("/")
 	public ResponseEntity<Exercise> updateExercise( long id, @RequestBody Exercise updatedExercise) throws SQLException {
-		Optional exerciseOptional = exerciseRepository.findById(id);
+		Optional exerciseOptional = exerciseService.findById(id);
 		if (exerciseOptional.isPresent()) {
 
 			updatedExercise.setId(id);
-			exerciseRepository.save(updatedExercise);
+			exerciseService.save(updatedExercise);
 
 			return new ResponseEntity<>(updatedExercise, HttpStatus.OK);
 		} else	{

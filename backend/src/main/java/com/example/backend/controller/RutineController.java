@@ -22,10 +22,10 @@ import com.example.backend.model.Person;
 import com.example.backend.model.Rutine;
 import com.example.backend.repository.CommentRepository;
 import com.example.backend.repository.ExRutineRepository;
-import com.example.backend.repository.ExerciseRepository;
 import com.example.backend.repository.NewsRepository;
 import com.example.backend.repository.PersonRepository;
 import com.example.backend.repository.RutineRepository;
+import com.example.backend.service.ExerciseService;
 import com.example.backend.service.PersonService;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -39,8 +39,9 @@ public class RutineController implements CommandLineRunner {
     @Autowired
     private PersonService userService;
 
+   
     @Autowired
-    private ExerciseRepository exRepository;
+    private ExerciseService exerciseService;
 
     @Autowired
     private PersonRepository userRepository;
@@ -221,25 +222,25 @@ public class RutineController implements CommandLineRunner {
     public String addEX(@PathVariable Long id,@PathVariable Boolean edit, Model model, HttpServletRequest request) {
         String alias = request.getUserPrincipal().getName();
         Person user = userRepository.findByalias(alias).orElseThrow();
-        List<Exercise> chest = exRepository.findByGrp("Pecho");
+        List<Exercise> chest = exerciseService.findByGrp("Pecho");
         chest = userService.order(user, "Pecho", chest);
         model.addAttribute("chest", chest);
-        List<Exercise> back = exRepository.findByGrp("Espalda");
+        List<Exercise> back = exerciseService.findByGrp("Espalda");
         back = userService.order(user, "Espalda", back);
         model.addAttribute("back", back);
-        List<Exercise> shoulder = exRepository.findByGrp("Hombro");
+        List<Exercise> shoulder = exerciseService.findByGrp("Hombro");
         shoulder = userService.order(user, "Hombro", shoulder);
         model.addAttribute("shoulder", shoulder);
-        List<Exercise> biceps = exRepository.findByGrp("Biceps");
+        List<Exercise> biceps = exerciseService.findByGrp("Biceps");
         biceps = userService.order(user, "Biceps", biceps);
         model.addAttribute("biceps", biceps);
-        List<Exercise> triceps = exRepository.findByGrp("Triceps");
+        List<Exercise> triceps = exerciseService.findByGrp("Triceps");
         triceps = userService.order(user, "Triceps", triceps);
         model.addAttribute("triceps", triceps);
-        List<Exercise> lower = exRepository.findByGrp("Inferior");
+        List<Exercise> lower = exerciseService.findByGrp("Inferior");
         lower = userService.order(user, "Inferior", lower);
         model.addAttribute("lower", lower);
-        List<Exercise> cardio = exRepository.findByGrp("Cardio");
+        List<Exercise> cardio = exerciseService.findByGrp("Cardio");
         cardio = userService.order(user, "Cardio", cardio);
         model.addAttribute("cardio", cardio);
         model.addAttribute("id", id);

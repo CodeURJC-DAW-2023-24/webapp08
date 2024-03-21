@@ -13,6 +13,7 @@ import javax.sql.rowset.serial.SerialException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.example.backend.model.Picture;
 import com.example.backend.repository.PictureRepository;
@@ -70,4 +71,23 @@ public class PictureService {
         Path rutaCompleta = Paths.get(PICTURE_PATH, namefile);
         return Files.exists(rutaCompleta) && Files.isRegularFile(rutaCompleta);
     }
+    public void delete(Picture image){
+        imageRepository.delete(image);
+    }
+    public void save(Picture image){
+        imageRepository.save(image);
+    }
+    public Picture newPicture(MultipartFile imageFile) throws IOException{
+        byte[] datosImage = imageFile.getBytes();
+
+					Picture image= new Picture(null);
+					image.setContent(imageFile.getContentType());
+					image.setName(imageFile.getOriginalFilename());
+					image.setData(datosImage);
+					savePicture(image);
+                    save(image);
+                    return image;
+					
+    }
+   
 }
