@@ -10,6 +10,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -24,8 +25,11 @@ import com.example.backend.model.Person;
 import com.example.backend.model.Picture;
 import com.example.backend.model.Rutine;
 import com.example.backend.repository.PersonRepository;
+import com.example.backend.service.NotificationService;
 import com.example.backend.service.PersonService;
 import com.example.backend.service.PictureService;
+
+import jakarta.servlet.http.HttpServletRequest;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -33,20 +37,28 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.PutMapping;
 
 @RestController
 @RequestMapping("api/persons")
 public class RESTPersonController {
+
+	@Autowired
+	private PasswordEncoder passwordEncoder;
+
 	@Autowired
 	private PersonService personService;
 
 	@Autowired
 	private PictureService pictureService;
 
-	@GetMapping("/{id}")
-	public ResponseEntity<PersonDTO> getPerson(@PathVariable long id) {
+	@Autowired
+	private NotificationService notificationService;
+
+	@GetMapping("/")
+	public ResponseEntity<PersonDTO> getPerson(HttpServletRequest request) {
 		try {
-			Person person = personService.findById(id);
+			Person person = personService.findPersonByHttpRequest(request);
 			PersonDTO personDTO = new PersonDTO(person, personService);
 			return ResponseEntity.ok(personDTO);
 		} catch (Exception e) {
@@ -55,71 +67,70 @@ public class RESTPersonController {
 	}
 
 	@PostMapping("/")
-	@ResponseStatus(HttpStatus.CREATED)
 	public ResponseEntity<Person> createPerson(@RequestBody Person person) {
+		person.setEncodedPassword(passwordEncoder.encode(person.getEncodedPassword()));
 		personService.save(person);
 		URI location = fromCurrentRequest().path("{id}").buildAndExpand(person.getId()).toUri();
 
 		return ResponseEntity.created(location).body(person);
 	}
 
-	@PatchMapping("/{id}")
-	public ResponseEntity<?> editPerson(@PathVariable Long id,
+	@PatchMapping("/")
+	public ResponseEntity<?> editPerson(HttpServletRequest request,
 			@RequestParam(required = false) String alias,
 			@RequestParam(required = false) String name,
 			@RequestParam(required = false) String date,
 			@RequestParam(required = false) Integer weight,
 			@RequestParam(required = false) MultipartFile image) {
 
-		Person person;
 		try {
-			person = personService.findById(id);
+			Person person = personService.findPersonByHttpRequest(request);
+			try {
+				if (alias != null)
+					person.setAlias(alias);
+				if (name != null)
+					person.setName(name);
+				if (date != null)
+					person.setDate(date);
+
+				if (weight != null)
+					person.setWeight(weight);
+
+				if (image != null) {
+					byte[] imageData = image.getBytes();
+
+					// object Image
+					Picture imageF = new Picture(null);
+					imageF.setContent(image.getContentType());
+					imageF.setName(image.getOriginalFilename());
+					imageF.setData(imageData);
+
+					pictureService.savePicture(imageF);
+					Thread.sleep(1000);
+
+					person.setImage(imageF);
+				}
+				personService.save(person);
+				PersonDTO personDTO = new PersonDTO(person, personService);
+				return ResponseEntity.ok(personDTO);
+
+			} catch (Exception e2) {
+				return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e2.getMessage());
+			}
 		} catch (Exception e) {
 			return ResponseEntity.notFound().build();
-		}
-		try {
-			if (alias != null)
-				person.setAlias(alias);
-			if (name != null)
-				person.setName(name);
-			if (date != null)
-				person.setDate(date);
-
-			if (weight != null)
-				person.setWeight(weight);
-
-			if (image != null) {
-				byte[] imageData = image.getBytes();
-
-				// object Image
-				Picture imageF = new Picture(null);
-				imageF.setContent(image.getContentType());
-				imageF.setName(image.getOriginalFilename());
-				imageF.setData(imageData);
-
-				pictureService.savePicture(imageF);
-				Thread.sleep(1000);
-
-				person.setImage(imageF);
-			}
-			personService.save(person);
-			PersonDTO personDTO = new PersonDTO(person, personService);
-			return ResponseEntity.ok(personDTO);
-
-		} catch (Exception e) {
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
 		}
 
 	}
 
-	@DeleteMapping("/{id}") //TO DO/////////////
-	public ResponseEntity<?> deletePerson(@PathVariable long id) {
+	@DeleteMapping("/")
+	public ResponseEntity<?> deletePerson(HttpServletRequest request) {
 		try {
-			Person person = personService.findById(id);
+			Person person = personService.findPersonByHttpRequest(request);
 			try {
 				personService.deletePerson(person);
 				return ResponseEntity.status(HttpStatus.OK).body(null);
-			} catch(Exception e2){
+			} catch (Exception e2) {
 				return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e2.getMessage());
 			}
 
@@ -127,31 +138,91 @@ public class RESTPersonController {
 			return ResponseEntity.notFound().build();
 		}
 
-		
 	}
 
-	@PostMapping("/{id}/newFriend/{friendId}") ///TO DO///
-	public ResponseEntity<?> addFriend(@PathVariable long id, @PathVariable long friendId ) {
-		Person person = personService.findById(id);
-		//TODO: process POST request
-		
-		return ResponseEntity.notFound().build();
-	}
-	
-	@GetMapping("/{id}/rutines")
-	public ResponseEntity<List<Rutine>> getPersonRutines(@PathVariable long id){
+	@PostMapping("/friends/requests") /// SEND REQUEST///
+	public ResponseEntity<?> sendFriendRequest(HttpServletRequest request, @RequestParam("friendId") long friendId) {
 		try {
-			Person person = personService.findById(id);
+			Person person = personService.findPersonByHttpRequest(request);
+			Person person2 = personService.findById(friendId);
+			try {
+				Notification notification = new Notification(person.getAlias());
+				notificationService.save(notification);
+				person2.getlNotifications().add(notification);
+				personService.save(person2);
+				return ResponseEntity.ok().body(null);
+			} catch (Exception e2) {
+				return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e2.getMessage());
+			}
+		} catch (Exception e) {
+			return ResponseEntity.notFound().build();
+		}
+	}
+
+
+	@PutMapping("/friends/requests")
+	public ResponseEntity<?> processRequest(HttpServletRequest request, @RequestParam("requestId") long requestId,
+			@RequestParam("accepted") boolean accepted) {
+
+		try { 
+			Person receptor = personService.findPersonByHttpRequest(request);
+			List<Notification> notificationsUser = receptor.getLNotifications();
+			Notification notification = notificationService.findNotificationById(requestId);
+			String originalText = notification.getContent();
+			notificationsUser.remove(notification);
+			personService.save(receptor);
+			notificationService.deleteNotification(notification);
+			if (accepted) {
+				try {
+					int positionTwoPoints = originalText.indexOf(":");
+					String textAfterPoints = originalText.substring(positionTwoPoints + 1);
+					String cleanText = textAfterPoints.trim();
+					Person sender = personService.findByAlias(cleanText);
+					if (!receptor.getFriends().contains(sender)) {
+						receptor.getFriends().add(sender);
+						sender.getFriends().add(receptor);
+						personService.save(sender);
+						personService.save(receptor);
+					}
+					return ResponseEntity.ok().body(null);
+				} catch (Exception e2) {
+
+					return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e2.getMessage());
+				}
+			} else {
+				return ResponseEntity.ok().body(null);
+			}
+		} catch (Exception e) {
+			return ResponseEntity.notFound().build();
+		}
+	}
+
+	
+	@GetMapping("/requests")
+	public ResponseEntity<List<Notification>> getRequests(HttpServletRequest request) {
+		try {
+			Person person = personService.findPersonByHttpRequest(request);
+			return ResponseEntity.ok(person.getlNotifications());
+			
+		} catch (Exception e) {
+			return ResponseEntity.notFound().build();
+		}
+	}
+
+	@GetMapping("/rutines")
+	public ResponseEntity<List<Rutine>> getPersonRutines(HttpServletRequest request) {
+		try {
+			Person person = personService.findPersonByHttpRequest(request);
 			return ResponseEntity.ok(person.getRutines());
 		} catch (Exception e) {
 			return ResponseEntity.notFound().build();
 		}
 	}
 
-	@GetMapping("/{id}/news") //Added page parameter (check it)
-	public ResponseEntity<List<News>> getNews(@PathVariable long id,@RequestParam int iteracion){
+	@GetMapping("/news") // Added page parameter (check it)
+	public ResponseEntity<List<News>> getNews(HttpServletRequest request, @RequestParam int iteracion) {
 		try {
-			Person person = personService.findById(id);
+			Person person = personService.findPersonByHttpRequest(request);
 			Page<News> pNews = personService.findNews(person, iteracion);
 			List<News> page = pNews.getContent();
 			return ResponseEntity.ok(page);
@@ -160,15 +231,14 @@ public class RESTPersonController {
 		}
 	}
 
-	@GetMapping("/{id}/notifications")
-	public ResponseEntity<List<Notification>> getNotifications(@PathVariable long id){
+	@GetMapping("/notifications")
+	public ResponseEntity<List<Notification>> getNotifications(HttpServletRequest request) {
 		try {
-			Person person = personService.findById(id);
+			Person person = personService.findPersonByHttpRequest(request);
 			return ResponseEntity.ok(person.getlNotifications());
 		} catch (Exception e) {
 			return ResponseEntity.notFound().build();
 		}
 	}
 
-	
 }
