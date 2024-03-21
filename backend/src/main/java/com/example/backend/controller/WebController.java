@@ -107,7 +107,7 @@ public class WebController implements CommandLineRunner {
 		List<Notification> notificationsUser = receptor.getLNotifications();
 		notificationsUser.remove(notification);
 		personService.save(receptor);
-
+		notificationService.deleteNotification(notification);
 	}
 
 	@GetMapping("/starterNews")

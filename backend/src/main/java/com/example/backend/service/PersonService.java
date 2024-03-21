@@ -22,6 +22,8 @@ import com.example.backend.model.Rutine;
 import com.example.backend.repository.NewsRepository;
 import com.example.backend.repository.PersonRepository;
 
+import jakarta.servlet.http.HttpServletRequest;
+
 @Service
 public class PersonService {
 	@Autowired
@@ -111,6 +113,11 @@ public class PersonService {
 		person.getFriends().clear();
 		personRepository.save(person);
 		personRepository.deleteById(person.getId());
+	}
+
+	public Person findPersonByHttpRequest(HttpServletRequest request){
+		return findByAlias(request.getUserPrincipal().getName());
+		
 	}
 
 	public Optional<Person> findByRutineId(Long id){
