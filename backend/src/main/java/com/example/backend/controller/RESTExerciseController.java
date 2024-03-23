@@ -42,7 +42,7 @@ import com.example.backend.model.Picture;
 
 @RestController
 @RequestMapping("api/exercises")
-public class ExerciseRestController {
+public class RESTExerciseController {
 
 
 	@Autowired
