@@ -12,7 +12,7 @@ public class Comment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String name;
+    private String alias;
     private String content;
     private boolean own;
 
@@ -28,8 +28,8 @@ public class Comment {
 
     }
 
-    public Comment(String name, String content) {
-        this.name = name;
+    public Comment(String alias, String content) {
+        this.alias = alias;
         this.content = content;
     }
 
@@ -41,12 +41,12 @@ public class Comment {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getAlias() {
+        return alias;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setAlias(String alias) {
+        this.alias = alias;
     }
 
     public String getContent() {

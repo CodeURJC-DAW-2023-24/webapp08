@@ -13,4 +13,5 @@ public interface NewsRepository extends JpaRepository<News, Long> {
     Optional<List<News>> findByRutine(Rutine rutine);
     List<News> findByRutineId(Long rutineId);
      
+  
 }

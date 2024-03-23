@@ -67,7 +67,7 @@ public class RutineController implements CommandLineRunner {
         }
         List<Comment> lComments = rutine.getMessages();
         for (Comment comment: lComments){
-            comment.setOwn(comment.getName().equals(alias));
+            comment.setOwn(comment.getAlias().equals(alias));
         }
 
         model.addAttribute("alias", user.getAlias());
