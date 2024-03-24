@@ -44,7 +44,6 @@ import com.example.backend.model.Picture;
 @RequestMapping("api/exercises")
 public class RESTExerciseController {
 
-
 	@Autowired
     private ExerciseService exerciseService;
 	
@@ -53,6 +52,7 @@ public class RESTExerciseController {
 	
 	@GetMapping("/")
 	public Page<Exercise> getExercises(Pageable page) {
+		page = PageRequest.of(page.getPageNumber(), 5);
 		return exerciseService.findAll(page);
 	}
 
@@ -69,9 +69,10 @@ public class RESTExerciseController {
 		}
 	}
 	@GetMapping("/group/")
-	public Page<Exercise> getExercisesByGroup( String group, Pageable page) {
-		return exerciseService.findByGrp(group,page);
-	}
+	public Page<Exercise> getExercisesByGroup(String group, int page) {
+    Pageable pageable = PageRequest.of(page, 5);
+    return exerciseService.findByGrp(group, pageable);
+}
 
 	@GetMapping("/image/")
 	public ResponseEntity<byte[]> getImage(long id) throws IOException {

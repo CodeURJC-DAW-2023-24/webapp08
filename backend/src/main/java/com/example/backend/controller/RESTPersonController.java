@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.example.backend.DTO.PersonDTO;
+import com.example.backend.DTO.RutineDTO;
 import com.example.backend.model.Comment;
 import com.example.backend.model.News;
 import com.example.backend.model.Notification;
@@ -269,8 +270,8 @@ public class RESTPersonController {
 
 	}
 
-	@GetMapping("/news/{id}")
-	public ResponseEntity<News> showNotification(HttpServletRequest request, @PathVariable Long id) {
+	@GetMapping("/news/")
+	public ResponseEntity<News> showNotification(HttpServletRequest request, @RequestParam Long id) {
 		Person person = personService.findPersonByHttpRequest(request);
 		News news = newsService.findNewsById(id).orElseThrow();
 		Person person2=personService.findByAlias(news.getAlias());
@@ -282,4 +283,28 @@ public class RESTPersonController {
 
 	}
 
+	@GetMapping("/rutines")
+    public ResponseEntity<?> getSingleRutine(HttpServletRequest request, @RequestParam Long id) {
+        Person person = personService.findPersonByHttpRequest(request);
+        Rutine rutine = rutineService.findById(id).orElseThrow();
+        if(person.getRutines().contains(rutine)){
+            RutineDTO rutineDTO = new RutineDTO(rutine, personService);
+            return ResponseEntity.ok(rutineDTO);
+        } else {
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+        }
+    }
+
+	@GetMapping("/friends/rutines")
+    public ResponseEntity<?> getFriendRutine(HttpServletRequest request, @RequestParam Long id) {
+        Person person = personService.findPersonByHttpRequest(request);
+        Rutine rutine = rutineService.findById(id).orElseThrow();
+		Person owner= personService.findByRutineId(id).orElseThrow();
+        if(person.getFriends().contains(owner)){
+            RutineDTO rutineDTO = new RutineDTO(rutine, personService);
+            return ResponseEntity.ok(rutineDTO);
+        } else {
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+        }
+    }
 }
