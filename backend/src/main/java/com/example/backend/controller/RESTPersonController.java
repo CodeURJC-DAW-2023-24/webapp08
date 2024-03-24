@@ -3,6 +3,8 @@ package com.example.backend.controller;
 import static org.springframework.web.servlet.support.ServletUriComponentsBuilder.fromCurrentRequest;
 
 import java.net.URI;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
@@ -66,6 +68,9 @@ public class RESTPersonController {
 
 	@Autowired
 	private CommentService commentService;
+
+	@Autowired
+	private NewsService newsService;
 
 	@GetMapping("/")
 	public ResponseEntity<?> getPerson(HttpServletRequest request) {
@@ -151,6 +156,25 @@ public class RESTPersonController {
 			try {
 				person.getFriends().remove(friend);
 				friend.getFriends().remove(person);
+
+				Iterator<News> iterator = person.getNews().iterator();
+				while (iterator.hasNext()) {
+					News news = iterator.next();
+					if (news.getAlias().equals(friend.getAlias())) {
+						iterator.remove(); 
+						newsService.delete(news);
+					}
+				}
+
+				iterator = person.getNews().iterator();
+				while (iterator.hasNext()) {
+					News news = iterator.next();
+					if (news.getAlias().equals(person.getAlias())) {
+						iterator.remove(); 
+						newsService.delete(news);
+					}
+				}
+
 				personService.save(person);
 				personService.save(friend);
 				return ResponseEntity.ok().build();
