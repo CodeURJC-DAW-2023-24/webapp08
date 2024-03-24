@@ -1,5 +1,6 @@
 package com.example.backend.DTO;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -23,7 +24,12 @@ public class RutineDTO {
     public RutineDTO(Rutine rutine, PersonService personService){
         this.id = rutine.getId();
         this.name= rutine.getName();
-        this.date= rutine.getDate();
+        Date newRutineDate = rutine.getDate();
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(newRutineDate);
+        calendar.add(Calendar.DAY_OF_YEAR, +1);
+        newRutineDate = calendar.getTime();
+        this.date= newRutineDate;
         this.time= rutine.getTime();
         this.lComments= rutine.getMessages();
         this.exercises= rutine.getExercises();

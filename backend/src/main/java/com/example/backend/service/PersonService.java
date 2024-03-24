@@ -47,13 +47,13 @@ public class PersonService {
 	}
 
 	public void deleteNewsById(List<News> newsToDelete) {
-
 		for (News news : newsToDelete) {
 			List<Person> peoples = personRepository.findByNews(news);
 			for (Person person : peoples) {
-				person.getNews().remove(newsToDelete);
+				person.getNews().remove(news);
 				personRepository.save(person);
 			}
+			newsRepository.delete(news);
 		}
 
 	}

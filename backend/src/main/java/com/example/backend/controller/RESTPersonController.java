@@ -62,6 +62,9 @@ public class RESTPersonController {
 	private NotificationService notificationService;
 
 	@Autowired
+	NewsService newsService;
+
+	@Autowired
 	private RutineService rutineService;
 
 	@Autowired
@@ -182,77 +185,6 @@ public class RESTPersonController {
 		}
 	}
 
-	@GetMapping("/rutines/{rutineId}") // DO IT
-	public ResponseEntity<?> getRutine(@PathVariable long rutineId) {
-
-		// Copy method from below function
-		return ResponseEntity.notFound().build();
-	}
-
-	@PostMapping("/rutines/{rutineId}/comments") // Psycho method and check it
-	public ResponseEntity<?> postComment(HttpServletRequest request, @PathVariable long rutineId,
-			@RequestBody JsonNode jsonNode) {
-		String comment = jsonNode.get("comment").asText();
-
-		Person person = personService.findPersonByHttpRequest(request);
-
-		try {
-			Rutine rutine = rutineService.findById(rutineId).orElseThrow();
-			int positionRutine;
-			positionRutine = person.getRutines().indexOf(rutine);
-			if (positionRutine == -1) {
-				List<News> lnews = person.getNews();
-				int i = 0;
-				for (News news : lnews) {
-					if (news.getRutine().getId() == rutineId) {
-						positionRutine = i;
-						break; // Check it
-					}
-					i = i + 1;
-				}
-
-				if (positionRutine == -1) {
-					return ResponseEntity.status(403).body("Its not your rutine or your friends one"); // Its not your
-																										// rutine or
-																										// your friends
-																										// one
-				} else {// insert comment
-					rutine.getMessages().add(new Comment(person.getAlias(), comment));
-					rutineService.save(rutine);
-					return ResponseEntity.ok().build();
-				}
-			} else { // insert comment
-				rutine.getMessages().add(new Comment(person.getAlias(), comment));
-				rutineService.save(rutine);
-				return ResponseEntity.ok().build();
-			}
-
-		} catch (Exception e) {
-			return ResponseEntity.notFound().build();
-		}
-	}
-
-	@DeleteMapping("/rutines/{rutineId}/comments")
-	public ResponseEntity<?> deleteComment(HttpServletRequest request, @PathVariable long rutineId,
-			@RequestParam("commentId") long commentId) {
-
-		Person person = personService.findPersonByHttpRequest(request);
-		try {
-			Rutine rutine = rutineService.findById(rutineId).orElseThrow();
-			Comment comment = commentService.findById(commentId);
-			if (comment.getAlias().equals(person.getAlias())) {
-				rutine.getMessages().remove(comment);
-				rutineService.save(rutine);
-				return ResponseEntity.ok().build();
-			}
-			return ResponseEntity.status(403).body("Thats not your comment");
-
-		} catch (Exception e) {
-			return ResponseEntity.notFound().build();
-		}
-
-	}
-
 	@PutMapping("/friends/requests")
 	public ResponseEntity<?> processRequest(HttpServletRequest request, @RequestParam("requestId") long requestId,
 			@RequestParam("accepted") boolean accepted) {
@@ -298,14 +230,6 @@ public class RESTPersonController {
 
 	}
 
-	@GetMapping("/rutines")
-	public ResponseEntity<List<Rutine>> getPersonRutines(HttpServletRequest request) {
-
-		Person person = personService.findPersonByHttpRequest(request);
-		return ResponseEntity.ok(person.getRutines());
-
-	}
-
 	@GetMapping("/news") // Added page parameter (check it)
 	public ResponseEntity<List<News>> getNews(HttpServletRequest request, @RequestParam int iteracion) {
 
@@ -321,6 +245,19 @@ public class RESTPersonController {
 
 		Person person = personService.findPersonByHttpRequest(request);
 		return ResponseEntity.ok(person.getlNotifications());
+
+	}
+
+	@GetMapping("/news/{id}")
+	public ResponseEntity<News> showNotification(HttpServletRequest request, @PathVariable Long id) {
+		Person person = personService.findPersonByHttpRequest(request);
+		News news = newsService.findNewsById(id).orElseThrow();
+		Person person2=personService.findByAlias(news.getName());
+		if (person.getFriends().contains(person2)) {
+			return ResponseEntity.ok(news);
+		} else {
+			return new ResponseEntity<>(null, HttpStatus.FORBIDDEN);
+		}
 
 	}
 

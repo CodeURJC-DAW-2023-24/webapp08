@@ -273,9 +273,6 @@ public class RutineController implements CommandLineRunner {
         Rutine rutine = rutineService.findById(id).orElseThrow();
         List<News> listNews = (List<News>) newsService.findByRutineId(id);
         personService.deleteNewsById(listNews);
-        for (News news :listNews){
-            newsService.delete(news);
-        }
         String alias = request.getUserPrincipal().getName();
         Person userSesion = personService.findByAlias(alias);
         userSesion.getRutines().remove(rutine);

@@ -30,8 +30,10 @@ public class RutineService {
     }
     public void delete(Rutine rutine){
         repository.delete(rutine);
+    }    
+    public void deleteById(Long id){
+        repository.deleteById(id);
     }
-    
     public Optional<Rutine> findByExerciseId(Long id){
         return repository.findByExerciseId(id);
     }
