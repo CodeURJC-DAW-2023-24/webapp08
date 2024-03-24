@@ -15,7 +15,7 @@ public class News {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
-	private String name;
+	private String alias;
 
 	@ManyToOne(cascade = {CascadeType.MERGE,CascadeType.REFRESH}, fetch = FetchType.EAGER)
 	private Rutine rutine;
@@ -23,9 +23,9 @@ public class News {
 	protected News() {
 	}
 
-	public News(String name) {
+	public News(String alias) {
 		super();
-		this.name = name;
+		this.alias = alias;
 
 	}
 
@@ -37,8 +37,8 @@ public class News {
 		this.id = id;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setAlias(String alias) {
+		this.alias = alias;
 	}
 
 	public Rutine getRutine() {
@@ -50,7 +50,7 @@ public class News {
 	}
 
 
-	public String getName() {
-		return name;
+	public String getAlias() {
+		return alias;
 	}
 }

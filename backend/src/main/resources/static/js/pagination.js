@@ -85,7 +85,7 @@ function addElementsMainContainer(news) {
         let link = document.createElement('a');
         link.href = `/mainPage/showRutine?id=${news[i + j].rutine.id}`;
 
-        link.textContent = `Nueva rutina de: ${news[i + j].name}`;
+        link.textContent = `Nueva rutina de: ${news[i + j].alias}`;
 
         link.style.textDecoration = 'none';
 
