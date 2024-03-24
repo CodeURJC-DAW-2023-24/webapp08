@@ -72,9 +72,6 @@ public class RESTPersonController {
 	@Autowired
 	private CommentService commentService;
 
-	@Autowired
-	private NewsService newsService;
-
 	@GetMapping("/")
 	public ResponseEntity<?> getPerson(HttpServletRequest request) {
 
@@ -276,7 +273,7 @@ public class RESTPersonController {
 	public ResponseEntity<News> showNotification(HttpServletRequest request, @PathVariable Long id) {
 		Person person = personService.findPersonByHttpRequest(request);
 		News news = newsService.findNewsById(id).orElseThrow();
-		Person person2=personService.findByAlias(news.getName());
+		Person person2=personService.findByAlias(news.getAlias());
 		if (person.getFriends().contains(person2)) {
 			return ResponseEntity.ok(news);
 		} else {
