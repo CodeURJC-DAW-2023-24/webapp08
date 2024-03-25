@@ -15,7 +15,7 @@
 - **Entidades:** usuario, rutina, ejercicio, comentario.
   - Un usuario entrena un día haciendo una serie de ejercicios y los demás usuarios pueden comentar sobre su día.
 
-  <img src="demo\src\main\resources\static\images\diagram.jpg" width="400" /> 
+  <img src="READMEImages\EntityDiagram.png" width="400" /> 
 
 - **Permisos de usuario:**
   - Usuario registrado: añadir su rutina, comentar, acceder ejercicios, ver progreso.
