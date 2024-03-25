@@ -84,22 +84,15 @@
 	</dependencies>
 
 	<build>
-	  <pluginManagement>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
-			<configuration>
-			  <archive>
-                    <manifest>
-                        <addClasspath>true</addClasspath>
-                        <mainClass>com.example.backend.Application</mainClass>
-                    </manifest>
-                </archive>
-            </configuration>
+				<configuration>
+                        <mainClass>com.example.backend.Application</mainClass>       
+            	</configuration>
 			</plugin>
 		</plugins>
-		</pluginManagement>
 	</build>
 
 </project>
