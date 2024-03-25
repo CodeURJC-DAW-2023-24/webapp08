@@ -4,12 +4,9 @@
 ## Integrantes: 
 | Name | Email | Github |
 |-----------|-----------|-----------|
-| Rubén Rodríguez Redondo    | r.redondo.2020@alumnos.urjc.es |[Ruben-Rodriguez-Redondo](https://github.com/Ruben-Rodriguez-Redondo) |
-| Daniel Gómez López         | d.gomez.2021@alumnos.urjc.es   | [Daniel-Gomez487](https://github.com/Daniel-Gomez487)               |
+| Rubén Rodríguez Redondo    | r.redondo.2020@alumnos.urjc.es |[Ruben-Rodriguez-Redondo](https://github.com/Ruben-Rodriguez-Redondo) |             |
 | Victoria Orzáez de la Cruz | v.orzaez.2020@alumnos.urjc.es | [v-orzaez](https://github.com/v-orzaez)                             |
-| Noelia Berzosa Parra       | n.berzosa.2020@alumnos.urjc.es | [noeliaberzosa](https://github.com/noeliaberzosa)                   |
-|Tarek Kheir|t.kheir.2023@alumnos.urjc.es|[tarekkheir](https://github.com/tarekkheir)|
-
+| Noelia Berzosa Parra       | n.berzosa.2020@alumnos.urjc.es | [noeliaberzosa](https://github.com/noeliaberzosa)                   
 
 ## Herramienta de coordinación del equipo: 
 [Tablero de GitHub](https://github.com/users/Ruben-Rodriguez-Redondo/projects/2)
