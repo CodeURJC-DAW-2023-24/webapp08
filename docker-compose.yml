@@ -1,0 +1,18 @@
+version: "3.9"
+services: 
+  web:
+    build: .
+    ports:
+      - 8443:8443
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://db/gymguru
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=password
+    restart: on-failure
+  db:
+    image: mysql:8.0.3
+    environment:
+      - MYSQL_ROOT_PASSWORD=password
+      - MYSQL_DATABASE=test
+    volumes:
+      - ./mysql:/var/lib/mysql

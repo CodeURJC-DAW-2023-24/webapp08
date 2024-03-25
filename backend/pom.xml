@@ -79,21 +79,27 @@
 			<version>2.3.1</version>
 		</dependency>
 
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-devtools</artifactId>
-		</dependency>
-
+		
 
 	</dependencies>
 
 	<build>
+	  <pluginManagement>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+			<configuration>
+			  <archive>
+                    <manifest>
+                        <addClasspath>true</addClasspath>
+                        <mainClass>com.example.backend.Application</mainClass>
+                    </manifest>
+                </archive>
+            </configuration>
 			</plugin>
 		</plugins>
+		</pluginManagement>
 	</build>
 
 </project>
