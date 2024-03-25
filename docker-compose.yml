@@ -10,9 +10,8 @@ services:
       - SPRING_DATASOURCE_PASSWORD=password
     restart: on-failure
   db:
-    image: mysql:8.0.3
+    image: mysql:8.0.30
     environment:
       - MYSQL_ROOT_PASSWORD=password
-      - MYSQL_DATABASE=test
-    volumes:
-      - ./mysql:/var/lib/mysql
+      - MYSQL_DATABASE=gymguru
+    
