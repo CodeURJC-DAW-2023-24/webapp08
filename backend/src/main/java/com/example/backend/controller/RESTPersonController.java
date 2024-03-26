@@ -2,6 +2,7 @@ package com.example.backend.controller;
 
 import static org.springframework.web.servlet.support.ServletUriComponentsBuilder.fromCurrentRequest;
 
+import java.io.IOException;
 import java.net.URI;
 import java.util.Iterator;
 import java.util.List;
@@ -21,6 +22,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.example.backend.DTO.PersonDTO;
 import com.example.backend.DTO.RutineDTO;
+import com.example.backend.model.Exercise;
 import com.example.backend.model.News;
 import com.example.backend.model.Notification;
 import com.example.backend.model.Person;
@@ -36,6 +38,7 @@ import jakarta.servlet.http.HttpServletRequest;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -62,8 +65,6 @@ public class RESTPersonController {
 	@Autowired
 	private RutineService rutineService;
 
-
-
 	@GetMapping("/")
 	public ResponseEntity<?> getPerson(HttpServletRequest request) {
 
@@ -88,8 +89,7 @@ public class RESTPersonController {
 			@RequestParam(required = false) String alias,
 			@RequestParam(required = false) String name,
 			@RequestParam(required = false) String date,
-			@RequestParam(required = false) Integer weight,
-			@RequestParam(required = false) MultipartFile image) {
+			@RequestParam(required = false) Integer weight) {
 
 		Person person = personService.findPersonByHttpRequest(request);
 		try {
@@ -103,20 +103,6 @@ public class RESTPersonController {
 			if (weight != null)
 				person.setWeight(weight);
 
-			if (image != null) {
-				byte[] imageData = image.getBytes();
-
-				// object Image
-				Picture imageF = new Picture(null);
-				imageF.setContent(image.getContentType());
-				imageF.setName(image.getOriginalFilename());
-				imageF.setData(imageData);
-
-				pictureService.savePicture(imageF);
-				Thread.sleep(1000);
-
-				person.setImage(imageF);
-			}
 			personService.save(person);
 			PersonDTO personDTO = new PersonDTO(person, personService);
 			return ResponseEntity.ok(personDTO);
@@ -125,6 +111,21 @@ public class RESTPersonController {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e2.getMessage());
 		}
 
+	}
+
+	@PostMapping("/image")
+	public ResponseEntity<?> setUserImage(HttpServletRequest request, @RequestParam MultipartFile image) {
+		Person person = personService.findPersonByHttpRequest(request);
+		try {
+			Picture imageN = pictureService.newPicture(image);
+			person.setImage(imageN);
+			personService.save(person);
+			return ResponseEntity.ok().build();
+		} catch (IOException e) {
+
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+
+		}
 	}
 
 	@DeleteMapping("/{id}")
@@ -140,7 +141,6 @@ public class RESTPersonController {
 
 	}
 
-	
 	@GetMapping("/requests")
 	public ResponseEntity<List<Notification>> getRequests(HttpServletRequest request) {
 
@@ -205,7 +205,6 @@ public class RESTPersonController {
 		}
 	}
 
-
 	@DeleteMapping("/friends/{friendId}")
 	public ResponseEntity<?> deleteFriend(HttpServletRequest request, @PathVariable long friendId) {
 		try {
@@ -219,7 +218,7 @@ public class RESTPersonController {
 				while (iterator.hasNext()) {
 					News news = iterator.next();
 					if (news.getAlias().equals(friend.getAlias())) {
-						iterator.remove(); 
+						iterator.remove();
 						newsService.delete(news);
 					}
 				}
@@ -228,7 +227,7 @@ public class RESTPersonController {
 				while (iterator.hasNext()) {
 					News news = iterator.next();
 					if (news.getAlias().equals(person.getAlias())) {
-						iterator.remove(); 
+						iterator.remove();
 						newsService.delete(news);
 					}
 				}
@@ -255,12 +254,11 @@ public class RESTPersonController {
 
 	}
 
-
 	@GetMapping("/news/{id}")
 	public ResponseEntity<News> showNotification(HttpServletRequest request, @PathVariable Long id) {
 		Person person = personService.findPersonByHttpRequest(request);
 		News news = newsService.findNewsById(id).orElseThrow();
-		Person person2=personService.findByAlias(news.getAlias());
+		Person person2 = personService.findByAlias(news.getAlias());
 		if (person.getFriends().contains(person2)) {
 			return ResponseEntity.ok(news);
 		} else {
