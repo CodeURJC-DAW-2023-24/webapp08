@@ -200,9 +200,9 @@ public class RESTRutineController {
         }
     }
 
-    @DeleteMapping("/{rutineId}/comments")
+    @DeleteMapping("/{rutineId}/comments/{commentId}")
     public ResponseEntity<?> deleteComment(HttpServletRequest request, @PathVariable long rutineId,
-            @RequestParam("commentId") long commentId) {
+            @PathVariable long commentId) {
 
         Person person = personService.findPersonByHttpRequest(request);
         try {

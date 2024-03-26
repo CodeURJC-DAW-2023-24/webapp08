@@ -1,6 +1,5 @@
 package com.example.backend.security;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -29,10 +28,10 @@ public class SecurityConfig {
 	private JwtRequestFilter jwtRequestFilter;
 
 	@Autowired
-    public RepositoryUserDetailsService userDetailService;
+	public RepositoryUserDetailsService userDetailService;
 
 	@Autowired
-  	private UnauthorizedHandlerJwt unauthorizedHandlerJwt;
+	private UnauthorizedHandlerJwt unauthorizedHandlerJwt;
 
 	@Bean
 	public PasswordEncoder passwordEncoder() {
@@ -57,36 +56,53 @@ public class SecurityConfig {
 	@Bean
 	@Order(1)
 	public SecurityFilterChain apiFilterChain(HttpSecurity http) throws Exception {
-		
+
 		http.authenticationProvider(authenticationProvider());
-		
+
 		http
-			.securityMatcher("/api/**")
-			.exceptionHandling(handling -> handling.authenticationEntryPoint(unauthorizedHandlerJwt));
-		
+				.securityMatcher("/api/**")
+				.exceptionHandling(handling -> handling.authenticationEntryPoint(unauthorizedHandlerJwt));
+
 		http
-			.authorizeHttpRequests(authorize -> authorize
-                    // PRIVATE ENDPOINTS
-					.requestMatchers(HttpMethod.POST,"/api/exercises/").hasRole("ADMIN")
-					.requestMatchers(HttpMethod.POST,"/api/exercises/image/").hasRole("ADMIN")
-					.requestMatchers(HttpMethod.DELETE,"/api/exercises/").hasRole("ADMIN")
-					.requestMatchers(HttpMethod.PUT,"/api/exercises/").hasRole("ADMIN")
-					.requestMatchers(HttpMethod.DELETE,"/api/exercises/image/").hasRole("ADMIN")
-					// PUBLIC ENDPOINTS
-					.anyRequest().permitAll()
-			);
-		
-        // Disable Form login Authentication
-        http.formLogin(formLogin -> formLogin.disable());
+				.authorizeHttpRequests(authorize -> authorize
+						.requestMatchers(HttpMethod.POST, "/api/persons/").permitAll()
+						.requestMatchers(HttpMethod.GET, "/api/exercises/").permitAll()
+						.requestMatchers(HttpMethod.GET, "/api/exercises/{id}").permitAll()
+						.requestMatchers(HttpMethod.GET, "/api/exercises/group/").permitAll()
+						.requestMatchers(HttpMethod.GET, "/api/exercises/image/").permitAll()
 
-        // Disable CSRF protection (it is difficult to implement in REST APIs)
-        http.csrf(csrf -> csrf.disable());
+						.requestMatchers(HttpMethod.GET, "/api/persons/").hasAnyRole("USER")
+						.requestMatchers(HttpMethod.PATCH, "/api/persons/").hasAnyRole("USER")
+						.requestMatchers(HttpMethod.GET, "/api/persons/requests").hasAnyRole("USER")
+						.requestMatchers(HttpMethod.POST, "/api/persons/friends/requests").hasAnyRole("USER")
+						.requestMatchers(HttpMethod.PUT, "/api/persons/friends/requests/{requestId}").hasAnyRole("USER")
+						.requestMatchers(HttpMethod.DELETE, "/api/persons/friends/{friendId}").hasAnyRole("USER")
+						.requestMatchers(HttpMethod.GET, "/api/persons/news").hasAnyRole("USER")
+						.requestMatchers(HttpMethod.GET, "/api/persons/news/{id}").hasAnyRole("USER")
 
-        // Disable Basic Authentication
-        http.httpBasic(httpBasic -> httpBasic.disable());
+						.requestMatchers(HttpMethod.GET, "/api/rutines/").hasAnyRole("USER")
+						.requestMatchers(HttpMethod.POST, "/api/rutines/").hasAnyRole("USER")
+						.requestMatchers(HttpMethod.DELETE, "/api/rutines/{id}").hasAnyRole("USER")
+						.requestMatchers(HttpMethod.PATCH, "/api/rutines/{id}").hasAnyRole("USER")
+						.requestMatchers(HttpMethod.POST, "/api/rutines/{rutineId}/comments").hasAnyRole("USER")
+						.requestMatchers(HttpMethod.DELETE, "/api/rutines/{rutineId}/comments/{commentId}").hasAnyRole("USER")
+						.requestMatchers(HttpMethod.GET, "/api/rutines/download/{id}").hasAnyRole("USER")
 
-        // Stateless session
-        http.sessionManagement(management -> management.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
+						.requestMatchers("/api/**").hasAnyRole("ADMIN")
+
+				);
+
+		// Disable Form login Authentication
+		http.formLogin(formLogin -> formLogin.disable());
+
+		// Disable CSRF protection (it is difficult to implement in REST APIs)
+		http.csrf(csrf -> csrf.disable());
+
+		// Disable Basic Authentication
+		http.httpBasic(httpBasic -> httpBasic.disable());
+
+		// Stateless session
+		http.sessionManagement(management -> management.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 
 		// Add JWT Token filter
 		http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
@@ -95,84 +111,77 @@ public class SecurityConfig {
 	}
 
 	@Bean
-    @Order(2)
+	@Order(2)
 	public SecurityFilterChain webFilterChain(HttpSecurity http) throws Exception {
-		
+
 		http.authenticationProvider(authenticationProvider());
 		http
-          .csrf()
-          .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()); //In order to permit token in js
+				.csrf()
+				.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()); // In order to permit token in js
 
-		
 		http
-			.authorizeHttpRequests(authorize -> authorize	
+				.authorizeHttpRequests(authorize -> authorize
 
-					.requestMatchers("/css/**").permitAll()
-					.requestMatchers("/js/**").permitAll()
-					.requestMatchers("/images/**").permitAll()
+						.requestMatchers("/css/**").permitAll()
+						.requestMatchers("/js/**").permitAll()
+						.requestMatchers("/images/**").permitAll()
 
+						.requestMatchers("/index").permitAll()
+						.requestMatchers("/register").permitAll()
+						.requestMatchers("/newUser").permitAll()
+						.requestMatchers("/error").permitAll()
+						.requestMatchers("/mainPage").permitAll()
+						.requestMatchers("/mainPage/exerciseSearch").permitAll()
+						.requestMatchers("/mainPage/group/**").permitAll()
+						.requestMatchers("/searchEx").permitAll()
+						.requestMatchers("/searchEx/**").permitAll()
+						.requestMatchers("/mainPage/exerciseSearch/exercise/**").permitAll()
+						.requestMatchers("/group").permitAll()
+						.requestMatchers("/mainPage/statistics").hasAnyRole("USER")
+						.requestMatchers("/starterNews").hasAnyRole("USER")
+						.requestMatchers("/mainPage/community").hasAnyRole("USER")
+						.requestMatchers("/searchUsers").hasAnyRole("USER")
+						.requestMatchers("/sendRequest").hasAnyRole("USER")
+						.requestMatchers("/notifications").hasAnyRole("USER")
+						.requestMatchers("/processRequest").hasAnyRole("USER")
+						.requestMatchers("/loadFriends").hasAnyRole("USER")
+						.requestMatchers("/loadRutines").hasAnyRole("USER")
+						.requestMatchers("/loadCharts").hasAnyRole("USER")
+						.requestMatchers("/deleteUser").hasAnyRole("USER")
+						.requestMatchers("/mainPage/showRutine").hasAnyRole("USER")
+						.requestMatchers("/sendComment").hasAnyRole("USER")
+						.requestMatchers("/deleteComment").hasAnyRole("USER")
+						.requestMatchers("/mainPage/person").hasAnyRole("USER")
+						.requestMatchers("/mainPage/person/config").hasAnyRole("USER")
+						.requestMatchers("/add/**").hasAnyRole("USER")
+						.requestMatchers("/mainPage/rutine/addRutine").hasAnyRole("USER")
+						.requestMatchers("/mainPage/rutine/addEx/false/**").hasAnyRole("USER")
+						.requestMatchers("/mainPage/rutine/addEx/true/**").hasAnyRole("USER")
+						.requestMatchers("/mainPage/rutine/**").hasAnyRole("USER")
+						.requestMatchers("/mainPage/editRutine/**").hasAnyRole("USER")
+						.requestMatchers("/mainPage/rutine/newExercise/**").hasAnyRole("USER")
+						.requestMatchers("/cancel/**").hasAnyRole("USER")
+						.requestMatchers("/deleteRutine/**").hasAnyRole("USER")
+						.requestMatchers("/editRutine/**").hasAnyRole("USER")
+						.requestMatchers("/deleteExRutine/**").hasAnyRole("USER")
+						.requestMatchers("/pdf/download/**").hasAnyRole("USER")
+						.requestMatchers("/pdf/").hasAnyRole("USER")
+						.requestMatchers("/mainPage/newRoutine/**").hasAnyRole("USER")
+						.requestMatchers("/**").hasAnyRole("ADMIN")
 
-					.requestMatchers("/index").permitAll()
-					.requestMatchers("/register").permitAll()
-					.requestMatchers("/newUser").permitAll()
-					.requestMatchers("/error").permitAll()
-					.requestMatchers("/mainPage").permitAll()
-					.requestMatchers("/mainPage/exerciseSearch").permitAll()
-					.requestMatchers("/mainPage/group/**").permitAll()					
-					.requestMatchers("/searchEx").permitAll()
-					.requestMatchers("/searchEx/**").permitAll()
-					.requestMatchers("/mainPage/exerciseSearch/exercise/**").permitAll()
-					.requestMatchers("/group").permitAll()
-					.requestMatchers("/mainPage/statistics").hasAnyRole("USER")
-					.requestMatchers("/starterNews").hasAnyRole("USER")
-					.requestMatchers("/mainPage/community").hasAnyRole("USER")
-					.requestMatchers("/searchUsers").hasAnyRole("USER")
-					.requestMatchers("/sendRequest").hasAnyRole("USER")
-					.requestMatchers("/notifications").hasAnyRole("USER")
-					.requestMatchers("/processRequest").hasAnyRole("USER")
-					.requestMatchers("/loadFriends").hasAnyRole("USER")
-					.requestMatchers("/loadRutines").hasAnyRole("USER")
-					.requestMatchers("/loadCharts").hasAnyRole("USER")
-					.requestMatchers("/deleteUser").hasAnyRole("USER")
-					.requestMatchers("/mainPage/showRutine").hasAnyRole("USER")
-					.requestMatchers("/sendComment").hasAnyRole("USER")
-					.requestMatchers("/deleteComment").hasAnyRole("USER")
-					.requestMatchers("/mainPage/person").hasAnyRole("USER")
-					.requestMatchers("/mainPage/person/config").hasAnyRole("USER")
-					.requestMatchers("/add/**").hasAnyRole("USER")
-					.requestMatchers("/mainPage/rutine/addRutine").hasAnyRole("USER")
-					.requestMatchers("/mainPage/rutine/addEx/false/**").hasAnyRole("USER")
-					.requestMatchers("/mainPage/rutine/addEx/true/**").hasAnyRole("USER")
-					.requestMatchers("/mainPage/rutine/**").hasAnyRole("USER")
-					.requestMatchers("/mainPage/editRutine/**").hasAnyRole("USER")
-					.requestMatchers("/mainPage/rutine/newExercise/**").hasAnyRole("USER")
-					.requestMatchers("/cancel/**").hasAnyRole("USER")
-					.requestMatchers("/deleteRutine/**").hasAnyRole("USER")
-					.requestMatchers("/editRutine/**").hasAnyRole("USER")
-					.requestMatchers("/deleteExRutine/**").hasAnyRole("USER")
-					.requestMatchers("/pdf/download/**").hasAnyRole("USER")
-					.requestMatchers("/pdf/").hasAnyRole("USER")
-					.requestMatchers("/mainPage/newRoutine/**").hasAnyRole("USER")
-					.requestMatchers("/**").hasAnyRole("ADMIN")	
-						
+				)
+				.formLogin(formLogin -> formLogin
+						.loginPage("/index")
+						.failureUrl("/errorPage")
+						.defaultSuccessUrl("/mainPage")
+						.permitAll())
+				.logout(logout -> logout
+						.logoutUrl("/logout")
+						.logoutSuccessUrl("/")
+						.permitAll());
 
-			)
-			.formLogin(formLogin -> formLogin
-					.loginPage("/index")
-					.failureUrl("/errorPage")
-					.defaultSuccessUrl("/mainPage")
-					.permitAll()
-			)
-			.logout(logout -> logout
-					.logoutUrl("/logout")
-					.logoutSuccessUrl("/")
-					.permitAll()
-			);
-
-	
 		return http.build();
-		
+
 	}
-	
 
 }
