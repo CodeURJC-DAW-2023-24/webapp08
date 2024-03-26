@@ -268,29 +268,4 @@ public class RESTPersonController {
 		}
 
 	}
-
-	@GetMapping("/rutines/{id}")
-    public ResponseEntity<?> getSingleRutine(HttpServletRequest request, @PathVariable Long id) {
-        Person person = personService.findPersonByHttpRequest(request);
-        Rutine rutine = rutineService.findById(id).orElseThrow();
-        if(person.getRutines().contains(rutine)){
-            RutineDTO rutineDTO = new RutineDTO(rutine, personService);
-            return ResponseEntity.ok(rutineDTO);
-        } else {
-            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
-        }
-    }
-
-	@GetMapping("/friends/rutines/{id}")
-    public ResponseEntity<?> getFriendRutine(HttpServletRequest request, @PathVariable Long id) {
-        Person person = personService.findPersonByHttpRequest(request);
-        Rutine rutine = rutineService.findById(id).orElseThrow();
-		Person owner= personService.findByRutineId(id).orElseThrow();
-        if(person.getFriends().contains(owner)){
-            RutineDTO rutineDTO = new RutineDTO(rutine, personService);
-            return ResponseEntity.ok(rutineDTO);
-        } else {
-            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
-        }
-    }
 }
