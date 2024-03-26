@@ -11,6 +11,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -74,6 +75,8 @@ public class RESTPersonController {
 
 	}
 
+
+
 	@PostMapping("/")
 	public ResponseEntity<Person> createPerson(@RequestBody Person person) {
 		person.setEncodedPassword(passwordEncoder.encode(person.getEncodedPassword()));
@@ -127,6 +130,16 @@ public class RESTPersonController {
 
 		}
 	}
+	@GetMapping("/image")
+	public ResponseEntity<?> getImage(HttpServletRequest request) throws IOException {
+		Person person = personService.findPersonByHttpRequest(request);
+		if (person.getImage() != null){
+		return ResponseEntity.ok().contentType(MediaType.IMAGE_JPEG).body(person.getImage().getData());
+
+		}
+		return ResponseEntity.notFound().build();
+	}
+	
 
 	@DeleteMapping("/{id}")
 	public ResponseEntity<?> deletePerson(@PathVariable long id) {

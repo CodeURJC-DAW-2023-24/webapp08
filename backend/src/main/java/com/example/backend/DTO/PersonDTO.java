@@ -1,5 +1,6 @@
 package com.example.backend.DTO;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +28,7 @@ public class PersonDTO {
     private List<Notification> lNotifications;
     private List<Rutine> rutines;
     private List<News> news;
-	private Picture image;
+	
 
    
 
@@ -42,7 +43,7 @@ public class PersonDTO {
         this.lNotifications = person.getlNotifications();
         this.rutines = person.getRutines();
         this.news = person.getNews();
-        this.image = person.getImage();
+        
     }
 
 
@@ -167,16 +168,7 @@ public class PersonDTO {
 
 
 
-    public Picture getImage() {
-        return image;
-    }
-
-
-
-    public void setImage(Picture image) {
-        this.image = image;
-    }
-
+   
 
     
 }
