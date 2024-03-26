@@ -614,6 +614,27 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "GetImageProfile",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:8443/api/persons/image",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "8443",
+							"path": [
+								"api",
+								"persons",
+								"image"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
