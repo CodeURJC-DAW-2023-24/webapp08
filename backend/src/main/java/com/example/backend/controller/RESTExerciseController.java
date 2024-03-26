@@ -5,6 +5,11 @@ import com.example.backend.service.ExerciseService;
 import com.example.backend.service.PictureService;
 import com.mysql.cj.x.protobuf.MysqlxCrud.Collection;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+
 import java.io.IOException;
 import java.net.URI;
 import java.sql.SQLException;
@@ -56,6 +61,13 @@ public class RESTExerciseController {
 		return exerciseService.findAll(page);
 	}
 
+	@Operation(summary="Get an exercise by its id")
+	@ApiResponses(value={
+		@ApiResponse(responseCode = "200", description = "Found the exercise", content={
+			@Content(mediaType = "application/json")
+		})
+	}
+	)
 	@GetMapping("/{id}")
 	public ResponseEntity<Exercise> getExercise(@PathVariable long id) {
 

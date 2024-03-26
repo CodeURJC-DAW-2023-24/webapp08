@@ -65,11 +65,10 @@ public class SecurityConfig {
 
 		http
 				.authorizeHttpRequests(authorize -> authorize
-
 						.requestMatchers(HttpMethod.POST, "/api/auth/login").permitAll()
 						.requestMatchers(HttpMethod.POST, "/api/persons/").permitAll()
 						.requestMatchers(HttpMethod.GET, "/api/exercises/").permitAll()
-						.requestMatchers(HttpMethod.GET, "/api/exercises/{id}").permitAll()
+						.requestMatchers(HttpMethod.GET, "/api/exercises/**").permitAll()
 						.requestMatchers(HttpMethod.GET, "/api/exercises/group/").permitAll()
 						.requestMatchers(HttpMethod.GET, "/api/exercises/image/").permitAll()
 
@@ -84,6 +83,8 @@ public class SecurityConfig {
 						.requestMatchers(HttpMethod.DELETE, "/api/persons/friends/{friendId}").hasAnyRole("USER")
 						.requestMatchers(HttpMethod.GET, "/api/persons/news").hasAnyRole("USER")
 						.requestMatchers(HttpMethod.GET, "/api/persons/news/{id}").hasAnyRole("USER")
+						.requestMatchers(HttpMethod.POST, "/api/auth/logout").hasAnyRole("USER")
+						.requestMatchers(HttpMethod.POST, "/api/auth/refresh").hasAnyRole("USER")
 
 						.requestMatchers(HttpMethod.GET, "/api/rutines/").hasAnyRole("USER")
 						.requestMatchers(HttpMethod.POST, "/api/rutines/").hasAnyRole("USER")
