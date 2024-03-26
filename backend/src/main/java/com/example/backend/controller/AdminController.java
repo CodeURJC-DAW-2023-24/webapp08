@@ -1,10 +1,8 @@
 package com.example.backend.controller;
 
 import java.io.IOException;
-import java.util.List;
-import java.util.Optional;
-import java.util.concurrent.CompletableFuture;
 
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Controller;

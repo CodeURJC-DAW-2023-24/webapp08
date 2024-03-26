@@ -3,14 +3,12 @@ package com.example.backend.controller;
 import static org.springframework.web.servlet.support.ServletUriComponentsBuilder.fromCurrentRequest;
 
 import java.net.URI;
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -23,27 +21,21 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.example.backend.DTO.PersonDTO;
 import com.example.backend.DTO.RutineDTO;
-import com.example.backend.model.Comment;
 import com.example.backend.model.News;
 import com.example.backend.model.Notification;
 import com.example.backend.model.Person;
 import com.example.backend.model.Picture;
 import com.example.backend.model.Rutine;
-import com.example.backend.repository.PersonRepository;
-import com.example.backend.service.CommentService;
 import com.example.backend.service.NewsService;
 import com.example.backend.service.NotificationService;
 import com.example.backend.service.PersonService;
 import com.example.backend.service.PictureService;
 import com.example.backend.service.RutineService;
-import com.fasterxml.jackson.databind.JsonNode;
 
 import jakarta.servlet.http.HttpServletRequest;
 
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -70,8 +62,7 @@ public class RESTPersonController {
 	@Autowired
 	private RutineService rutineService;
 
-	@Autowired
-	private CommentService commentService;
+
 
 	@GetMapping("/")
 	public ResponseEntity<?> getPerson(HttpServletRequest request) {
@@ -136,10 +127,10 @@ public class RESTPersonController {
 
 	}
 
-	@DeleteMapping("/")
-	public ResponseEntity<?> deletePerson(HttpServletRequest request) {
+	@DeleteMapping("/{id}")
+	public ResponseEntity<?> deletePerson(@PathVariable long id) {
 
-		Person person = personService.findPersonByHttpRequest(request);
+		Person person = personService.findById(id);
 		try {
 			personService.deletePerson(person);
 			return ResponseEntity.status(HttpStatus.OK).body(null);
@@ -149,8 +140,74 @@ public class RESTPersonController {
 
 	}
 
-	@DeleteMapping("/friends")
-	public ResponseEntity<?> deleteFriend(HttpServletRequest request, @RequestParam("friendId") long friendId) {
+	
+	@GetMapping("/requests")
+	public ResponseEntity<List<Notification>> getRequests(HttpServletRequest request) {
+
+		Person person = personService.findPersonByHttpRequest(request);
+		return ResponseEntity.ok(person.getlNotifications());
+
+	}
+
+	@PostMapping("/friends/requests") /// SEND REQUEST///
+	public ResponseEntity<?> sendFriendRequest(HttpServletRequest request, @RequestParam("friendId") long friendId) {
+		try {
+			Person person = personService.findPersonByHttpRequest(request);
+			Person person2 = personService.findById(friendId);
+			try {
+				Notification notification = new Notification(person.getAlias());
+				notificationService.save(notification);
+				person2.getlNotifications().add(notification);
+				personService.save(person2);
+				return ResponseEntity.ok().body(null);
+			} catch (Exception e2) {
+				return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e2.getMessage());
+			}
+		} catch (Exception e) {
+			return ResponseEntity.notFound().build();
+		}
+	}
+
+	@PutMapping("/friends/requests/{requestId}")
+	public ResponseEntity<?> processRequest(HttpServletRequest request, @PathVariable long requestId,
+			@RequestParam("accepted") boolean accepted) {
+
+		try {
+			Person receptor = personService.findPersonByHttpRequest(request);
+			List<Notification> notificationsUser = receptor.getLNotifications();
+			Notification notification = notificationService.findNotificationById(requestId);
+			String originalText = notification.getContent();
+			notificationsUser.remove(notification);
+			personService.save(receptor);
+			notificationService.deleteNotification(notification);
+			if (accepted) {
+				try {
+					int positionTwoPoints = originalText.indexOf(":");
+					String textAfterPoints = originalText.substring(positionTwoPoints + 1);
+					String cleanText = textAfterPoints.trim();
+					Person sender = personService.findByAlias(cleanText);
+					if (!receptor.getFriends().contains(sender)) {
+						receptor.getFriends().add(sender);
+						sender.getFriends().add(receptor);
+						personService.save(sender);
+						personService.save(receptor);
+					}
+					return ResponseEntity.ok().body(null);
+				} catch (Exception e2) {
+
+					return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e2.getMessage());
+				}
+			} else {
+				return ResponseEntity.ok().body(null);
+			}
+		} catch (Exception e) {
+			return ResponseEntity.notFound().build(); // Did not found receptor
+		}
+	}
+
+
+	@DeleteMapping("/friends/{friendId}")
+	public ResponseEntity<?> deleteFriend(HttpServletRequest request, @PathVariable long friendId) {
 		try {
 			Person friend = personService.findById(friendId);
 			Person person = personService.findPersonByHttpRequest(request);
@@ -188,70 +245,6 @@ public class RESTPersonController {
 		}
 	}
 
-	@PostMapping("/friends/requests") /// SEND REQUEST///
-	public ResponseEntity<?> sendFriendRequest(HttpServletRequest request, @RequestParam("friendId") long friendId) {
-		try {
-			Person person = personService.findPersonByHttpRequest(request);
-			Person person2 = personService.findById(friendId);
-			try {
-				Notification notification = new Notification(person.getAlias());
-				notificationService.save(notification);
-				person2.getlNotifications().add(notification);
-				personService.save(person2);
-				return ResponseEntity.ok().body(null);
-			} catch (Exception e2) {
-				return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e2.getMessage());
-			}
-		} catch (Exception e) {
-			return ResponseEntity.notFound().build();
-		}
-	}
-
-	@PutMapping("/friends/requests")
-	public ResponseEntity<?> processRequest(HttpServletRequest request, @RequestParam("requestId") long requestId,
-			@RequestParam("accepted") boolean accepted) {
-
-		try {
-			Person receptor = personService.findPersonByHttpRequest(request);
-			List<Notification> notificationsUser = receptor.getLNotifications();
-			Notification notification = notificationService.findNotificationById(requestId);
-			String originalText = notification.getContent();
-			notificationsUser.remove(notification);
-			personService.save(receptor);
-			notificationService.deleteNotification(notification);
-			if (accepted) {
-				try {
-					int positionTwoPoints = originalText.indexOf(":");
-					String textAfterPoints = originalText.substring(positionTwoPoints + 1);
-					String cleanText = textAfterPoints.trim();
-					Person sender = personService.findByAlias(cleanText);
-					if (!receptor.getFriends().contains(sender)) {
-						receptor.getFriends().add(sender);
-						sender.getFriends().add(receptor);
-						personService.save(sender);
-						personService.save(receptor);
-					}
-					return ResponseEntity.ok().body(null);
-				} catch (Exception e2) {
-
-					return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e2.getMessage());
-				}
-			} else {
-				return ResponseEntity.ok().body(null);
-			}
-		} catch (Exception e) {
-			return ResponseEntity.notFound().build(); // Did not found receptor
-		}
-	}
-
-	@GetMapping("/requests")
-	public ResponseEntity<List<Notification>> getRequests(HttpServletRequest request) {
-
-		Person person = personService.findPersonByHttpRequest(request);
-		return ResponseEntity.ok(person.getlNotifications());
-
-	}
-
 	@GetMapping("/news") // Added page parameter (check it)
 	public ResponseEntity<List<News>> getNews(HttpServletRequest request, @RequestParam int iteracion) {
 
@@ -262,16 +255,9 @@ public class RESTPersonController {
 
 	}
 
-	@GetMapping("/notifications")
-	public ResponseEntity<List<Notification>> getNotifications(HttpServletRequest request) {
 
-		Person person = personService.findPersonByHttpRequest(request);
-		return ResponseEntity.ok(person.getlNotifications());
-
-	}
-
-	@GetMapping("/news/")
-	public ResponseEntity<News> showNotification(HttpServletRequest request, @RequestParam Long id) {
+	@GetMapping("/news/{id}")
+	public ResponseEntity<News> showNotification(HttpServletRequest request, @PathVariable Long id) {
 		Person person = personService.findPersonByHttpRequest(request);
 		News news = newsService.findNewsById(id).orElseThrow();
 		Person person2=personService.findByAlias(news.getAlias());
@@ -283,8 +269,8 @@ public class RESTPersonController {
 
 	}
 
-	@GetMapping("/rutines")
-    public ResponseEntity<?> getSingleRutine(HttpServletRequest request, @RequestParam Long id) {
+	@GetMapping("/rutines/{id}")
+    public ResponseEntity<?> getSingleRutine(HttpServletRequest request, @PathVariable Long id) {
         Person person = personService.findPersonByHttpRequest(request);
         Rutine rutine = rutineService.findById(id).orElseThrow();
         if(person.getRutines().contains(rutine)){
@@ -295,8 +281,8 @@ public class RESTPersonController {
         }
     }
 
-	@GetMapping("/friends/rutines")
-    public ResponseEntity<?> getFriendRutine(HttpServletRequest request, @RequestParam Long id) {
+	@GetMapping("/friends/rutines/{id}")
+    public ResponseEntity<?> getFriendRutine(HttpServletRequest request, @PathVariable Long id) {
         Person person = personService.findPersonByHttpRequest(request);
         Rutine rutine = rutineService.findById(id).orElseThrow();
 		Person owner= personService.findByRutineId(id).orElseThrow();

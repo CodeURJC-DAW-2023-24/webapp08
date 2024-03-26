@@ -19,10 +19,6 @@ import org.springframework.web.multipart.MultipartFile;
 import com.example.backend.model.Picture;
 
 import com.example.backend.model.Person;
-import com.example.backend.repository.PersonRepository;
-
-import java.util.Optional;
-import java.util.concurrent.CompletableFuture;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -73,7 +69,6 @@ public class PersonController implements CommandLineRunner {
 		return "mainPage";
 	}
 
-	@SuppressWarnings("finally")
 	@PostMapping("/register")
 	public String register(@RequestParam("name") String name,
 			@RequestParam("alias") String alias,
