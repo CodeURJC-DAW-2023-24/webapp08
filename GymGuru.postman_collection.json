@@ -16,7 +16,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"username\":\"admin\",\r\n    \"password\":\"adminpass\"\r\n}",
+							"raw": "{\r\n    \"username\":\"user\",\r\n    \"password\":\"pass\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -161,7 +161,7 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "https://localhost:8443/api/rutines/2",
+							"raw": "https://localhost:8443/api/rutines/1",
 							"protocol": "https",
 							"host": [
 								"localhost"
@@ -170,7 +170,7 @@
 							"path": [
 								"api",
 								"rutines",
-								"2"
+								"1"
 							]
 						}
 					},
@@ -633,6 +633,14 @@
 								"image"
 							]
 						}
+					},
+					"response": []
+				},
+				{
+					"name": "UserChart",
+					"request": {
+						"method": "GET",
+						"header": []
 					},
 					"response": []
 				}

@@ -28,6 +28,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import com.example.backend.DTO.RutineDTO;
 import com.example.backend.model.Comment;
 import com.example.backend.model.ExRutine;
+import com.example.backend.model.Exercise;
 import com.example.backend.model.News;
 import com.example.backend.model.Person;
 import com.example.backend.model.Rutine;
@@ -38,6 +39,11 @@ import com.example.backend.service.PersonService;
 import com.example.backend.service.RutineService;
 import com.fasterxml.jackson.databind.JsonNode;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
@@ -61,8 +67,16 @@ public class RESTRutineController {
     @Autowired
     CommentService commentService;
 
+    @Operation(summary = "Get rutine list by logged user")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Found list", content = {
+                    @Content(mediaType = "application/json", schema = @Schema(implementation = RutineDTO.class))
+            }),
+            @ApiResponse(responseCode = "404", description = "Your rutine list is empty", content = @Content),
+            @ApiResponse(responseCode = "400", description = "Invalid request", content = @Content)
+    })
     @GetMapping("/")
-    public List<RutineDTO> getRutines(HttpServletRequest request) {
+    public ResponseEntity<Object> getRutines(HttpServletRequest request) {
         Person person = personService.findPersonByHttpRequest(request);
         List<Rutine> rutines = person.getRutines();
         List<RutineDTO> rutineDTOs = new ArrayList<>();
@@ -70,10 +84,20 @@ public class RESTRutineController {
             RutineDTO rutineDTO = new RutineDTO(rutine, personService);
             rutineDTOs.add(rutineDTO);
         }
-
-        return rutineDTOs;
+        if (rutineDTOs.size() == 0) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        } else {
+            return ResponseEntity.ok(rutineDTOs);
+        }
     }
 
+    @Operation(summary = "Create new rutine by logged user")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "New rutine created", content = {
+                    @Content(mediaType = "application/json", schema = @Schema(implementation = RutineDTO.class))
+            }),
+            @ApiResponse(responseCode = "401", description = "You are not logged", content = @Content)
+    })
     @PostMapping("/")
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<RutineDTO> createRutine(HttpServletRequest request, @RequestBody Rutine rutine) {
@@ -107,10 +131,22 @@ public class RESTRutineController {
         }
     }
 
+    @Operation(summary = "Delete rutine by its id")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Rutine has been deleted", content = @Content),
+            @ApiResponse(responseCode = "401", description = "You are not the owner of that rutine", content = @Content),
+            @ApiResponse(responseCode = "404", description = "That rutine doesn't exist", content = @Content),
+            @ApiResponse(responseCode = "500", description = "You are not logged", content = @Content),
+    })
     @DeleteMapping("/{id}")
     public ResponseEntity<Rutine> deleteRutine(@PathVariable long id, HttpServletRequest request) {
-        Person user = personService.findByRutineId(id).orElseThrow();
+        List<Rutine> listRutine = rutineService.findAll();
+        int size = listRutine.size();
+        if (size == 0 || listRutine.get(size - 1).getId() < id) {
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
         try {
+            Person user = personService.findByRutineId(id).orElseThrow();
             if (user.getAlias().equals(request.getUserPrincipal().getName())) {
                 Rutine rutine = rutineService.findById(id).orElseThrow();
                 List<News> listNews = (List<News>) newsService.findByRutineId(id);
@@ -126,15 +162,28 @@ public class RESTRutineController {
             }
 
         } catch (EmptyResultDataAccessException e) {
-            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
+    @Operation(summary = "Edit rutine by its id")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Rutine has been edited", content = {
+                    @Content(mediaType = "application/json", schema = @Schema(implementation = RutineDTO.class))
+            }),
+            @ApiResponse(responseCode = "401", description = "You are not the owner of that rutine", content = @Content),
+            @ApiResponse(responseCode = "404", description = "That rutine doesn't exist", content = @Content),
+            @ApiResponse(responseCode = "500", description = "You are not logged", content = @Content),
+    })
     @PatchMapping("/{id}")
     public ResponseEntity<?> editRutine(HttpServletRequest request, @RequestBody Rutine rutine, @PathVariable Long id) {
-
-        Person person = personService.findPersonByHttpRequest(request);
+        List<Rutine> listRutine = rutineService.findAll();
+        int size = listRutine.size();
+        if (size == 0 || listRutine.get(size - 1).getId() < id) {
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
         try {
+            Person person = personService.findPersonByHttpRequest(request);
             if (person.getAlias().equals(request.getUserPrincipal().getName())) {
                 Rutine rutineEditable = rutineService.findById(id).orElseThrow();
                 if (rutine.getTime() != null)
@@ -159,6 +208,12 @@ public class RESTRutineController {
 
     }
 
+    @Operation(summary = "Post new comment by rutine id")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Comment has been posted", content = @Content),
+            @ApiResponse(responseCode = "401", description = "You are not logged", content = @Content),
+            @ApiResponse(responseCode = "404", description = "Rutine not found", content = @Content),
+    })
     @PostMapping("/{rutineId}/comments") // Psycho method and check it
     public ResponseEntity<?> postComment(HttpServletRequest request, @PathVariable long rutineId,
             @RequestBody JsonNode jsonNode) {
@@ -202,6 +257,12 @@ public class RESTRutineController {
         }
     }
 
+    @Operation(summary = "Delete comment by rutine id")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Comment has been deleted", content = @Content),
+            @ApiResponse(responseCode = "403", description = "You are not the owner of that comment", content = @Content),
+            @ApiResponse(responseCode = "404", description = "Rutine not found", content = @Content),
+    })
     @DeleteMapping("/{rutineId}/comments/{commentId}")
     public ResponseEntity<?> deleteComment(HttpServletRequest request, @PathVariable long rutineId,
             @PathVariable long commentId) {
@@ -223,6 +284,12 @@ public class RESTRutineController {
 
     }
 
+    @Operation(summary = "Download one of your rutines or one of your fiends' rutine by rutine id")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "PDF created", content = @Content),
+            @ApiResponse(responseCode = "500", description = "Bad request", content = @Content),
+            @ApiResponse(responseCode = "403", description = "You or your friends don't have that rutine", content = @Content)
+    })
     @GetMapping("/download/{id}")
     public ResponseEntity<?> downloadPDF(@PathVariable Long id, HttpServletResponse response,
             HttpServletRequest request)
@@ -289,32 +356,48 @@ public class RESTRutineController {
                 return new ResponseEntity<>(null, HttpStatus.OK);
             }
         } else {
-            return new ResponseEntity<>(null, HttpStatus.FORBIDDEN);
+            return ResponseEntity.status(403).body("That's one of your rotines or your friends' rutines");
         }
     }
 
+    @Operation(summary = "Get one of your rutines by rutine id")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Rutine found", content = {
+                    @Content(mediaType = "application/json", schema = @Schema(implementation = RutineDTO.class))
+            }),
+            @ApiResponse(responseCode = "500", description = "Bad request", content = @Content),
+            @ApiResponse(responseCode = "403", description = "You don't have that rutine", content = @Content)
+    })
     @GetMapping("/{id}")
     public ResponseEntity<?> getSingleRutine(HttpServletRequest request, @PathVariable Long id) {
         Person person = personService.findPersonByHttpRequest(request);
         Rutine rutine = rutineService.findById(id).orElseThrow();
-        if(person.getRutines().contains(rutine)){
+        if (person.getRutines().contains(rutine)) {
             RutineDTO rutineDTO = new RutineDTO(rutine, personService);
             return ResponseEntity.ok(rutineDTO);
         } else {
-            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+            return ResponseEntity.status(403).body("That's one of your rutines");
         }
     }
 
-	@GetMapping("/friends/{id}")
+    @Operation(summary = "Get friend rutine by rutine id")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Friend rutine found", content = {
+                    @Content(mediaType = "application/json", schema = @Schema(implementation = RutineDTO.class))
+            }),
+            @ApiResponse(responseCode = "500", description = "Bad request", content = @Content),
+            @ApiResponse(responseCode = "403", description = "Your friends don't have that rutine", content = @Content)
+    })
+    @GetMapping("/friends/{id}")
     public ResponseEntity<?> getFriendRutine(HttpServletRequest request, @PathVariable Long id) {
         Person person = personService.findPersonByHttpRequest(request);
         Rutine rutine = rutineService.findById(id).orElseThrow();
-		Person owner= personService.findByRutineId(id).orElseThrow();
-        if(person.getFriends().contains(owner)){
+        Person owner = personService.findByRutineId(id).orElseThrow();
+        if (person.getFriends().contains(owner)) {
             RutineDTO rutineDTO = new RutineDTO(rutine, personService);
             return ResponseEntity.ok(rutineDTO);
         } else {
-            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+            return ResponseEntity.status(403).body("That's not your friend rutine");
         }
     }
 }

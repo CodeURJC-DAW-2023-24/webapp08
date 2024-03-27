@@ -97,6 +97,7 @@ public class SecurityConfig {
 						.requestMatchers(HttpMethod.GET, "/api/rutines/download/{id}").hasAnyRole("USER")
 
 						.requestMatchers("/api/**").hasAnyRole("ADMIN")
+						
 
 				);
 
@@ -134,6 +135,7 @@ public class SecurityConfig {
 						.requestMatchers("/js/**").permitAll()
 						.requestMatchers("/images/**").permitAll()
 
+						.requestMatchers("/swagger-ui**").permitAll()
 						.requestMatchers("/index").permitAll()
 						.requestMatchers("/register").permitAll()
 						.requestMatchers("/newUser").permitAll()
