@@ -2,6 +2,7 @@ package com.example.backend.controller;
 
 
 import com.example.backend.service.ExerciseService;
+import com.example.backend.service.PersonService;
 import com.example.backend.service.PictureService;
 import com.mysql.cj.x.protobuf.MysqlxCrud.Collection;
 
@@ -10,6 +11,7 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import jakarta.servlet.http.HttpServletRequest;
 
 import java.io.IOException;
 import java.net.URI;
@@ -43,6 +45,7 @@ import org.springframework.web.multipart.MultipartFile;
 import static org.springframework.web.servlet.support.ServletUriComponentsBuilder.fromCurrentRequest;
 
 import com.example.backend.model.Exercise;
+import com.example.backend.model.Person;
 import com.example.backend.model.Picture;
 
 
@@ -55,6 +58,9 @@ public class RESTExerciseController {
 	
 	@Autowired
     private PictureService pictureService;
+
+	@Autowired
+	private PersonService personService;
 	
 	@GetMapping("/")
 	public Page<Exercise> getExercises(Pageable page) {
@@ -84,9 +90,14 @@ public class RESTExerciseController {
 		}
 	}
 	@GetMapping("/group/")
-	public Page<Exercise> getExercisesByGroup(String group, int page) {
-    Pageable pageable = PageRequest.of(page, 5);
-    return exerciseService.findByGrp(group, pageable);
+	public Page<Exercise> getExercisesByGroup(String group, int page, HttpServletRequest request) {
+		Person person = personService.findPersonByHttpRequest(request);
+		Pageable pageable = PageRequest.of(page, 5);
+		if (person == null){
+    	return exerciseService.findByGrp(group, pageable);}
+		else{
+			return exerciseService.findExerciseOrderByFrec(person.getId(),group,pageable);
+		}
 }
 
 	@GetMapping("/image/")

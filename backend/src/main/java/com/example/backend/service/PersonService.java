@@ -1,5 +1,6 @@
 package com.example.backend.service;
 
+import java.security.Principal;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
@@ -116,8 +117,14 @@ public class PersonService {
 	}
 
 	public Person findPersonByHttpRequest(HttpServletRequest request){
-		return findByAlias(request.getUserPrincipal().getName());
-		
+		//return findByAlias(request.getUserPrincipal().getName());
+		Principal principal = request.getUserPrincipal();
+		if (principal != null) {
+			return findByAlias(principal.getName());
+		} else {
+			
+			return null; 
+		}
 	}
 
 	public Optional<Person> findByRutineId(Long id){

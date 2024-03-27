@@ -53,6 +53,35 @@ public class ExerciseService {
     public Page<Exercise> findAll(Pageable page){
         return repository.findAll(page);
     }
+
+    public Page<Exercise> findExerciseOrderByFrec(Long id, String group,Pageable page){
+        switch (group) {
+			case "Pecho":
+            return repository.findExerciseChestOrderByFrec( id, page);
+               
+            case "Espalda":
+			 return repository.findExerciseBackOrderByFrec( id, page);
+
+            case "Hombro":
+			return repository.findExerciseShoulderOrderByFrec( id, page);
+              
+            case "Biceps":
+			return repository.findExerciseBicepsOrderByFrec( id, page);
+             
+            case "Triceps":
+			return repository.findExerciseTricepsOrderByFrec( id, page);
+
+            case "Inferior":
+			return repository.findExerciseLowerOrderByFrec( id, page);
+
+            default:
+			return repository.findExerciseCardioOrderByFrec( id, page);
+               
+        }
+        
+    }
+    
+
     public void deleteById(Long id){
         repository.deleteById(id);
     }
@@ -67,6 +96,31 @@ public class ExerciseService {
 					exercise.setImage(image);
 					exercise.setbImage(true);
 					save(exercise);
+    }
+    public String getFrecString(String group){
+        switch (group) {
+			case "Pecho":
+            return "chestFrec";
+               
+            case "Espalda":
+			return "backFrec";
+
+            case "Hombro":
+			return "shoulderFrec";
+              
+            case "Biceps":
+			return "bicepsFrec";
+             
+            case "Triceps":
+			return "tricepsFrec";
+          
+            case "Inferior":
+			return "lowerFrec";
+               
+            default:
+			return "cardioFrec";
+               
+        }
     }
 }
 
