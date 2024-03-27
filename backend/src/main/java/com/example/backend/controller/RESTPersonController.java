@@ -39,6 +39,11 @@ import com.example.backend.service.PersonService;
 import com.example.backend.service.PictureService;
 import com.example.backend.service.RutineService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.servlet.http.HttpServletRequest;
 
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -70,6 +75,15 @@ public class RESTPersonController {
 	@Autowired
 	private RutineService rutineService;
 
+
+
+	 @Operation(summary = "Get person by logged user")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Found person", content = {
+                    @Content(mediaType = "application/json", schema = @Schema(implementation = PersonDTO.class))
+            }),
+            @ApiResponse(responseCode = "401", description = "You are not logged", content = @Content)
+    })
 	@GetMapping("/")
 	public ResponseEntity<?> getPerson(HttpServletRequest request) {
 
@@ -80,7 +94,12 @@ public class RESTPersonController {
 	}
 
 
-
+	@Operation(summary = "Create new person")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "New person created", content = {
+                    @Content(mediaType = "application/json", schema = @Schema(implementation = Person.class))
+            }),
+		})
 	@PostMapping("/")
 	@ResponseStatus(HttpStatus.CREATED)
 	public ResponseEntity<Person> createPerson(@RequestBody Person person) {
@@ -90,7 +109,13 @@ public class RESTPersonController {
 
 		return ResponseEntity.created(location).body(person);
 	}
-
+	@Operation(summary = "Edit person by user request")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Person has been edited", content = {
+                    @Content(mediaType = "application/json", schema = @Schema(implementation = PersonDTO.class))
+            }),
+			@ApiResponse(responseCode = "401", description = "You are not logged", content = @Content)
+    })
 	@PatchMapping("/")
 	public ResponseEntity<?> editPerson(HttpServletRequest request, // check if it goes into the body and not into the
 																	// url
@@ -120,7 +145,12 @@ public class RESTPersonController {
 		}
 
 	}
-
+	@Operation(summary = "Create new image by logged user")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "New image created", content = {
+                    @Content(mediaType = "image/jpeg")}),
+            @ApiResponse(responseCode = "401", description = "You are not logged", content = @Content)
+    })
 	@PostMapping("/image")
 	@ResponseStatus(HttpStatus.CREATED)
 	public ResponseEntity<?> setUserImage(HttpServletRequest request, @RequestParam MultipartFile image) {
@@ -136,6 +166,13 @@ public class RESTPersonController {
 
 		}
 	}
+
+	@Operation(summary = "Get image by logged user ")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Found image", content = {
+                    @Content(mediaType = "image/jpeg")}),
+            @ApiResponse(responseCode = "404", description = "Image dosen´t exit", content = @Content),
+     })
 	@GetMapping("/image")
 	public ResponseEntity<?> getImage(HttpServletRequest request) throws IOException {
 		Person person = personService.findPersonByHttpRequest(request);
@@ -146,7 +183,13 @@ public class RESTPersonController {
 		return ResponseEntity.notFound().build();
 	}
 	
-
+	@Operation(summary = "Delete person by its id")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Person has been deleted", content = @Content),
+			@ApiResponse(responseCode = "403", description = "You are not admin", content = @Content),
+            @ApiResponse(responseCode = "404", description = "That person doesn't exist", content = @Content),
+            @ApiResponse(responseCode = "401", description = "You are not logged", content = @Content),
+    })
 	@DeleteMapping("/{id}")
 	public ResponseEntity<?> deletePerson(@PathVariable long id) {
 
@@ -160,6 +203,13 @@ public class RESTPersonController {
 
 	}
 
+	@Operation(summary = "Get request list by logged user")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Found list", content = {
+                    @Content(mediaType = "application/json", schema = @Schema(implementation = Notification.class))
+            }),
+            @ApiResponse(responseCode = "401", description = "You are not logged", content = @Content)
+    })
 	@GetMapping("/requests")
 	public ResponseEntity<List<Notification>> getRequests(HttpServletRequest request) {
 
@@ -167,7 +217,15 @@ public class RESTPersonController {
 		return ResponseEntity.ok(person.getlNotifications());
 
 	}
-
+	@Operation(summary = "Send request")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "New request", content = {
+                    @Content(mediaType = "application/json", schema = @Schema(implementation = Notification.class))
+            }),
+            @ApiResponse(responseCode = "401", description = "You are not logged", content = @Content),
+			@ApiResponse(responseCode = "404", description = "The person dosen´t exit", content = @Content),
+            
+    })
 	@PostMapping("/friends/requests") /// SEND REQUEST///
 	public ResponseEntity<?> sendFriendRequest(HttpServletRequest request, @RequestParam("friendId") long friendId) {
 		try {
@@ -186,7 +244,13 @@ public class RESTPersonController {
 			return ResponseEntity.notFound().build();
 		}
 	}
-
+	@Operation(summary = "Response request")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Response request", content = @Content),
+            @ApiResponse(responseCode = "401", description = "You are not logged", content = @Content),
+			@ApiResponse(responseCode = "404", description = "The person dosen´t exit", content = @Content),
+            
+    })
 	@PutMapping("/friends/requests/{requestId}")
 	public ResponseEntity<?> processRequest(HttpServletRequest request, @PathVariable long requestId,
 			@RequestParam("accepted") boolean accepted) {
@@ -224,6 +288,13 @@ public class RESTPersonController {
 		}
 	}
 
+	@Operation(summary = "Delete friend by friend id")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Delete friend", content = @Content),
+            @ApiResponse(responseCode = "401", description = "You are not logged", content = @Content),
+			@ApiResponse(responseCode = "404", description = "The person dosen´t exit", content = @Content),
+            
+    })
 	@DeleteMapping("/friends/{friendId}")
 	public ResponseEntity<?> deleteFriend(HttpServletRequest request, @PathVariable long friendId) {
 		try {
@@ -263,6 +334,13 @@ public class RESTPersonController {
 		}
 	}
 
+	@Operation(summary = "Get news list by logged user")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Found list", content = {
+                    @Content(mediaType = "application/json", schema = @Schema(implementation = News.class))
+            }),
+            @ApiResponse(responseCode = "401", description = "You are not logged", content = @Content),
+			})
 	@GetMapping("/news") // Added page parameter (check it)
 	public ResponseEntity<List<News>> getNews(HttpServletRequest request, @RequestParam int iteracion) {
 
@@ -272,7 +350,15 @@ public class RESTPersonController {
 		return ResponseEntity.ok(page);
 
 	}
-
+	@Operation(summary = "Get new by id ")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Found list", content = {
+                    @Content(mediaType = "application/json", schema = @Schema(implementation = News.class))
+            }),
+            @ApiResponse(responseCode = "401", description = "You are not logged", content = @Content),
+			@ApiResponse(responseCode = "404", description = "The new dosen´t exit", content = @Content),
+    
+    })
 	@GetMapping("/news/{id}")
 	public ResponseEntity<News> showNotification(HttpServletRequest request, @PathVariable Long id) {
 		Person person = personService.findPersonByHttpRequest(request);
@@ -285,7 +371,15 @@ public class RESTPersonController {
 		}
 
 	}
-
+	@Operation(summary = "Get chart by logged user ")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Found chart", content = {
+                    @Content(mediaType = "application/json", schema = @Schema(implementation = Map.class))
+            }),
+            @ApiResponse(responseCode = "401", description = "You are not logged", content = @Content),
+			
+    
+    })
 	@GetMapping("/charts")
 	public ResponseEntity<?> loadChart(HttpServletRequest request){
 		Map<String, Integer> map = new HashMap<>();

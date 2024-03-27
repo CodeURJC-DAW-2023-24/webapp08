@@ -44,6 +44,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import static org.springframework.web.servlet.support.ServletUriComponentsBuilder.fromCurrentRequest;
 
+
 import com.example.backend.model.Exercise;
 import com.example.backend.model.Person;
 import com.example.backend.model.Picture;
@@ -62,6 +63,14 @@ public class RESTExerciseController {
 	@Autowired
 	private PersonService personService;
 	
+
+	@Operation(summary = "Get exercise list ")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Found list", content = {
+                    @Content(mediaType = "application/json", schema = @Schema(implementation = Exercise.class))
+            }),
+            @ApiResponse(responseCode = "400", description = "Invalid request", content = @Content)
+    })
 	@GetMapping("/")
 	public Page<Exercise> getExercises(Pageable page) {
 		page = PageRequest.of(page.getPageNumber(), 5);
@@ -76,7 +85,6 @@ public class RESTExerciseController {
     @ApiResponse(responseCode = "404", description = "Exercise not found", content = @Content),
     @ApiResponse(responseCode = "400", description = "Invalid request", content = @Content)
 })
-
 	@GetMapping("/{id}")
 	public ResponseEntity<Exercise> getExercise(@PathVariable long id) {
 
@@ -89,6 +97,14 @@ public class RESTExerciseController {
 			return ResponseEntity.notFound().build();
 		}
 	}
+
+	@Operation(summary = "Get exercise list by group ")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Found list", content = {
+                    @Content(mediaType = "application/json", schema = @Schema(implementation = Exercise.class))
+            }),
+            @ApiResponse(responseCode = "400", description = "Invalid request", content = @Content)
+    })
 	@GetMapping("/group/")
 	public Page<Exercise> getExercisesByGroup(String group, int page, HttpServletRequest request) {
 		Person person = personService.findPersonByHttpRequest(request);
@@ -100,6 +116,12 @@ public class RESTExerciseController {
 		}
 }
 
+@Operation(summary = "Get image by exercise id ")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Found image", content = {
+                    @Content(mediaType = "image/jpeg")}),
+            @ApiResponse(responseCode = "404", description = "Exercise image is empty or exercise doesn't exit", content = @Content),
+     })
 	@GetMapping("/image/")
 	public ResponseEntity<byte[]> getImage(long id) throws IOException {
 		Optional exerciseOptional = exerciseService.findById(id);
@@ -118,6 +140,13 @@ public class RESTExerciseController {
 		}
 		
 	}
+
+	@Operation(summary = "Delete image by exercise id")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Exercise has been deleted", content = @Content),
+            @ApiResponse(responseCode = "404", description = "That exercise doesn't exist", content = @Content),
+            @ApiResponse(responseCode = "403", description = "You are not logged", content = @Content),
+    })
 	@DeleteMapping("/image/")
 	public ResponseEntity<Object> deleteImage(long id){
 		Optional exerciseOptional = exerciseService.findById(id);
@@ -138,7 +167,12 @@ public class RESTExerciseController {
 			return  new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
 		}
 	}
-
+	@Operation(summary = "Delete exercise by its id")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Exercise has been deleted", content = @Content),
+            @ApiResponse(responseCode = "404", description = "That exercise doesn't exist", content = @Content),
+            @ApiResponse(responseCode = "403", description = "You are not logged", content = @Content),
+    })
 	@DeleteMapping("/")
 	public ResponseEntity<Exercise> deleteExercise(long id) {
 
@@ -150,6 +184,15 @@ public class RESTExerciseController {
 			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
 		}
 	}
+
+
+	@Operation(summary = "Create new exercise by logged admin")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "New exercise created", content = {
+                    @Content(mediaType = "application/json", schema = @Schema(implementation = Exercise.class))
+            }),
+            @ApiResponse(responseCode = "403", description = "You are not logged", content = @Content)
+    })
 	@PostMapping("/")
 	@ResponseStatus(HttpStatus.CREATED)
 	public ResponseEntity<Exercise> createExercise(@RequestBody Exercise exercise) {
@@ -158,6 +201,14 @@ public class RESTExerciseController {
 
 		return ResponseEntity.created(location).body(exercise);
 	}
+
+	@Operation(summary = "Create new image by logged admin")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "New image created", content = {
+                    @Content(mediaType = "image/jpeg")}),
+            @ApiResponse(responseCode = "403", description = "You are not logged", content = @Content),
+			@ApiResponse(responseCode = "404", description = "That exercise doesn't exist", content = @Content),
+    })
 	@PostMapping("/image/")
 	@ResponseStatus(HttpStatus.CREATED)
 	public ResponseEntity<Object> createImage(long id, @RequestParam MultipartFile image) {
@@ -183,7 +234,14 @@ public class RESTExerciseController {
 		return null;
 	}
 	
-
+	@Operation(summary = "Edit exercise by its id")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Exercise has been edited", content = {
+                    @Content(mediaType = "application/json", schema = @Schema(implementation = Exercise.class))
+            }),
+            @ApiResponse(responseCode = "404", description = "That exercise doesn't exist", content = @Content),
+            @ApiResponse(responseCode = "403", description = "You are not logged", content = @Content),
+    })
 	@PutMapping("/")
 	public ResponseEntity<Exercise> updateExercise( long id, @RequestBody Exercise updatedExercise) throws SQLException {
 		Optional exerciseOptional = exerciseService.findById(id);
