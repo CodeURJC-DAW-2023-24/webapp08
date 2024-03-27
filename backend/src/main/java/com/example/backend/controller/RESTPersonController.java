@@ -82,6 +82,7 @@ public class RESTPersonController {
 
 
 	@PostMapping("/")
+	@ResponseStatus(HttpStatus.CREATED)
 	public ResponseEntity<Person> createPerson(@RequestBody Person person) {
 		person.setEncodedPassword(passwordEncoder.encode(person.getEncodedPassword()));
 		personService.save(person);
@@ -121,6 +122,7 @@ public class RESTPersonController {
 	}
 
 	@PostMapping("/image")
+	@ResponseStatus(HttpStatus.CREATED)
 	public ResponseEntity<?> setUserImage(HttpServletRequest request, @RequestParam MultipartFile image) {
 		Person person = personService.findPersonByHttpRequest(request);
 		try {
