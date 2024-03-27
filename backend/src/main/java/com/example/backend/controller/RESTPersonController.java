@@ -4,8 +4,11 @@ import static org.springframework.web.servlet.support.ServletUriComponentsBuilde
 
 import java.io.IOException;
 import java.net.URI;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +26,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.example.backend.DTO.PersonDTO;
 import com.example.backend.DTO.RutineDTO;
+import com.example.backend.model.ExRutine;
 import com.example.backend.model.Exercise;
 import com.example.backend.model.News;
 import com.example.backend.model.Notification;
@@ -278,5 +282,42 @@ public class RESTPersonController {
 			return new ResponseEntity<>(null, HttpStatus.FORBIDDEN);
 		}
 
+	}
+
+	@GetMapping("/charts")
+	public ResponseEntity<?> loadChart(HttpServletRequest request){
+		Map<String, Integer> map = new HashMap<>();
+		String[] grpMuscle = {
+				"Pecho",
+				"Espalda",
+				"Biceps",
+				"Triceps",
+				"Hombro",
+				"Tren Inferior",
+				"Cardio"
+		};
+		for (int i = 0; i < grpMuscle.length; i++) {
+			map.put(grpMuscle[i], 0);
+
+		}
+		try {
+			Person person = personService.findPersonByHttpRequest(request);
+		List<Rutine> lrutines = person.getRutines();
+		for (Rutine rutine : lrutines) {
+			List<ExRutine> lExcer = rutine.getExercises();
+			for (ExRutine exercise : lExcer) {
+				int index = Arrays.asList(grpMuscle).indexOf(exercise.getGrp());
+				int value = map.get(grpMuscle[index]);
+				value += 1;
+				map.put(grpMuscle[index], value);
+
+			}
+		}
+		return ResponseEntity.ok(map);
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+
+		}
+		
 	}
 }
