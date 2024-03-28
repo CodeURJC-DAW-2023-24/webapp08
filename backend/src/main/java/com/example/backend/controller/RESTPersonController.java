@@ -102,12 +102,12 @@ public class RESTPersonController {
 		})
 	@PostMapping("/")
 	@ResponseStatus(HttpStatus.CREATED)
-	public ResponseEntity<Person> createPerson(@RequestBody Person person) {
+	public ResponseEntity<PersonDTO> createPerson(@RequestBody Person person) {
 		person.setEncodedPassword(passwordEncoder.encode(person.getEncodedPassword()));
 		personService.save(person);
 		URI location = fromCurrentRequest().path("{id}").buildAndExpand(person.getId()).toUri();
-
-		return ResponseEntity.created(location).body(person);
+		PersonDTO personDTO = new PersonDTO(person, personService);
+		return ResponseEntity.created(location).body(personDTO);
 	}
 	@Operation(summary = "Edit person by user request")
     @ApiResponses(value = {
