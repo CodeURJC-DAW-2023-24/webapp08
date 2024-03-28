@@ -223,3 +223,30 @@ Por último, se pueden observar los comentarios que otros usuarios han publicado
 - VisualStudioCode + SpringBoot
 
 
+#
+# Fase 3
+
+## Instrucicones de ejecución de la aplicación dockerizada
+- Instalar docker
+- Abrir un consola de comandos
+- Moverse al directorio en el que se encuentra el proyecto (clonarlo previamente si es necesario), en este caso webapp08
+- Ejecutar el comando: docker-compose -f docker/docker-compose.yml up --build
+- Acceder a la página en el navegador mediante la url: https://localhost:8443/
+
+
+## Documentación para construcción de la imagen docker
+- Construir imagen dockerizada:
+  - Instalar docker.
+  - Abrir un consola de comandos.
+  - Moverse al directorio en el que se encuentra el proyecto (clonarlo previamente si es necesario), en este caso webapp08.
+  - Ejecutar el comando: docker build -t webapp08:1.0 -f docker/Dockerfile .
+
+- Ejecutar el script create_image.sh, para construir y publicar la imagen Docker:
+  - Instalar docker.
+  - Logearse en docker (docker login e insertar tus credenciales).
+  - Abrir un consola de comandos.
+  - Moverse al directorio en el que se encuentra el proyecto (clonarlo previamente si es necesario), en este caso webapp08.
+  - Ejecutar  el comando: docker/create_image.sh
+
+Observación: debes ser un contribuidor del repositorio indicado en create_image.sh, en nuestro caso rubenrr/webapp08. Y el docker login puede ser opcional según tu configuración (si se realiza automáticamente).
+
