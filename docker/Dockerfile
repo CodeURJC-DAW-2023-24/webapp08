@@ -1,17 +1,17 @@
 # Usa una imagen base de Java y Maven
-FROM maven:3.8.4-openjdk-17-slim AS build
+FROM maven:3.8.5-openjdk-17 AS build
 
 # Establece el directorio de trabajo en /app
 WORKDIR /backend
 
 # Copia el archivo pom.xml al directorio de trabajo
-COPY /backend/pom.xml ./pom.xml
+COPY ../backend/pom.xml ./pom.xml
 
 # Descarga las dependencias de Maven (esto se hace primero para que las dependencias se almacenen en caché)
 RUN mvn clean verify
 
 # Copia el resto de la aplicación al directorio de trabajo
-COPY ./backend/src ./src
+COPY ../backend/src ./src
 
 # Compila la aplicación usando Maven
 RUN mvn package -o -DskipTests=true
@@ -23,7 +23,7 @@ FROM openjdk:17-jdk-oracle AS runtime
 WORKDIR /backend
 
 # Copia el archivo JAR compilado desde la etapa de construcción al directorio de trabajo
-COPY --from=build /backend/target/backend-0.0.1-SNAPSHOT.jar .
+COPY --from=build ../backend/target/backend-0.0.1-SNAPSHOT.jar .
 
 # Expone el puerto en el que se ejecuta la aplicación
 EXPOSE 8443
