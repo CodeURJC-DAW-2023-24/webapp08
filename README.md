@@ -250,3 +250,46 @@ Por último, se pueden observar los comentarios que otros usuarios han publicado
 
 Observación: debes ser un contribuidor del repositorio indicado en create_image.sh, en nuestro caso rubenrr/webapp08. Y el docker login puede ser opcional según tu configuración (si se realiza automáticamente).
 
+## Participación
+- **<span style="color:green">Victoria Orzáez </span>:** 
+    - Tareas: 
+     - 5 commits más significativos:
+       - [Commit 1]()
+       - [Commit 2]()
+       - [Commit 3]()
+       - [Commit 4]()
+       - [Commit 5]()
+    - 5 ficheros en los que se ha participado:
+      - [Fichero 1]()
+      - [Fichero 1]()
+      - [Fichero 1]()
+      - [Fichero 1]()
+      - [Fichero 2]()
+- **<span style="color:green">Rubén Rodríguez </span>:** 
+    - Tareas: realizar el controlador REST de persona (RESTPersonControler y personDTO), desacoplar personRespository de algunos controladores (personService,PersonController) y la creación e implementación de la carpeta docker: Dockerfile, docker-compose.yml y create_image.sh.
+     - 5 commits más significativos:
+       - [Commit 1](https://github.com/CodeURJC-DAW-2023-24/webapp08/commit/44291398dea51a2fcbd38ab6dc55d10f91f7880d)
+       - [Commit 2](https://github.com/CodeURJC-DAW-2023-24/webapp08/commit/4d4983f3102710e24e53638e1f06251d2a56b410)
+       - [Commit 3](https://github.com/CodeURJC-DAW-2023-24/webapp08/commit/7daa443f05538c22900f12ef4aa992a985d35951)
+       - [Commit 4](https://github.com/CodeURJC-DAW-2023-24/webapp08/commit/59f564532b4e63ba235d54d58f32dd00054dcb9c)
+       - [Commit 5](https://github.com/CodeURJC-DAW-2023-24/webapp08/commit/252ffcc0a84e19e8e9664a77320c413c549e7aeb)
+    - 5 ficheros en los que se ha participado:
+      - [Dockerfile](https://github.com/CodeURJC-DAW-2023-24/webapp08/blob/main/docker/Dockerfile)
+      - [docker-compose.yml](https://github.com/CodeURJC-DAW-2023-24/webapp08/blob/main/docker/docker-compose.yml)
+      - [RESTPersonController.java](https://github.com/CodeURJC-DAW-2023-24/webapp08/blob/main/backend/src/main/java/com/example/backend/controller/RESTPersonController.java)
+      - [PersonDTO.java](https://github.com/CodeURJC-DAW-2023-24/webapp08/blob/main/backend/src/main/java/com/example/backend/DTO/PersonDTO.java)
+      - [PersonService.java](https://github.com/CodeURJC-DAW-2023-24/webapp08/blob/main/backend/src/main/java/com/example/backend/service/PersonService.java)
+- **<span style="color:green">Noelia Berzosa</span>:** 
+    - Tareas: 
+     - 5 commits más significativos:
+       - [Commit 1]()
+       - [Commit 2]()
+       - [Commit 3]()
+       - [Commit 4]()
+       - [Commit 5]()
+    - 5 ficheros en los que se ha participado:
+      - [Fichero 1]()
+      - [Fichero 1]()
+      - [Fichero 1]()
+      - [Fichero 1]()
+      - [Fichero 2]()
