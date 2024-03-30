@@ -1,33 +1,38 @@
-# Usa una imagen base de Java y Maven
-FROM maven:3.8.5-openjdk-17 AS build
+#################################################
+# Base image for the build container
+#################################################
+FROM  maven:3.9.6-eclipse-temurin-17 as builder
 
-# Establece el directorio de trabajo en /app
-WORKDIR /backend
+# Sets the working directory for commands to run
+WORKDIR /gymguru
 
-# Copia el archivo pom.xml al directorio de trabajo
+# Copies the project's dependencies
 COPY ../backend/pom.xml ./pom.xml
 
-# Descarga las dependencias de Maven (esto se hace primero para que las dependencias se almacenen en caché)
-RUN mvn clean verify
+# Downloads the project's dependencies
+#RUN mvn clean verify 
 
-# Copia el resto de la aplicación al directorio de trabajo
+# Copies the project's code
 COPY ../backend/src ./src
 
-# Compila la aplicación usando Maven
-RUN mvn package -o -DskipTests=true
+# Compiles the project
+RUN mvn clean package -DskipTests=true
 
-# Usa una imagen base de Java para ejecutar la aplicación compilada
-FROM openjdk:17-jdk-oracle AS runtime
 
-# Establece el directorio de trabajo en /app
-WORKDIR /backend
+#################################################
+# Base image for the application container
+#################################################
+FROM openjdk:17.0.2 AS runtime
 
-# Copia el archivo JAR compilado desde la etapa de construcción al directorio de trabajo
-COPY --from=build ../backend/target/backend-0.0.1-SNAPSHOT.jar .
+# Sets the working directory where the JAR is located
+WORKDIR /gymguru
 
-# Expone el puerto en el que se ejecuta la aplicación
+# Copies the JAR from the build container
+COPY --from=builder ../gymguru/target/backend-0.0.1-SNAPSHOT.jar .
+
+# Indicates the port that the container exposes
 EXPOSE 8443
 
-# Comando para ejecutar la aplicación al iniciar el contenedor
+# Command to run on docker run
 CMD ["java", "-jar", "backend-0.0.1-SNAPSHOT.jar"]
 

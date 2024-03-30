@@ -1,19 +1,20 @@
 version: "3.9"
 services: 
   web:
+    image: rubenrr/webapp08:latest
     build: 
        context: ../
        dockerfile: docker/Dockerfile
     ports:
       - 8443:8443
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:mysql://db/gymguru
+      - SPRING_DATASOURCE_URL=jdbc:mysql://db:3306/gymguru
       - SPRING_DATASOURCE_USERNAME=root
       - SPRING_DATASOURCE_PASSWORD=password
     restart: on-failure
   db:
-    image: mysql:8.0.30
+    image: mysql:8.0.36
+    restart: on-failure
     environment:
       - MYSQL_ROOT_PASSWORD=password
       - MYSQL_DATABASE=gymguru
-    
