@@ -250,6 +250,37 @@ Por último, se pueden observar los comentarios que otros usuarios han publicado
 
 Observación: debes ser un contribuidor del repositorio indicado en create_image.sh, en nuestro caso rubenrr/webapp08. Y el docker login puede ser opcional según tu configuración (si se realiza automáticamente).
 
+## Documentación para despliegue en la máquina virtual de la universidad 
+En nuestro caso hemos optado por usar la VPN de la universidad. Además, como nuestros sistemas son Windows nos centraremos en el despliegue en dicho sistema.
+- Conectarse a la VPN de la universidad:
+  Manual detallado: [Aquí](https://www.urjc.es/principal-intranet/documentos/general/82-configuracion-vpn-urjc/file)
+  - En el caso de Windows/Mac: [Descarga del cliente](https://vpn.urjc.es/global-protect/getsoftwarepage.esp), si es necesario introducir nuestras claves de la universidad.
+  - Otro caso: configurar nuestra VPN a través de un túnel IPSec, siguiendo los pasos indicados en el manual indicado anteriormente. 
+  - Windows: una vez descargado e instalado, introducimos _vpn.urj.es_ en la dirección del portal y le damos a **Conectar**. Si se ha iniciado sesión en otro lado con las credenciales de la universidad no hará falta introducir credenciales; en caso contrario sí hará falta.
+  - Mac u otros: ver manual anterior.
+- Despliegue de la práctica:
+  - Conectarse por SSH a la máquina remota.
+    - Descargase la clave privada proporcionada.
+    - En nuestro caso, se nos proporcionó la ip 10.100.139.122; por lo que, en el mismo sitio donde se haya descargado dicho fichero _.key_ ejecutamos el siguiente comando 
+    ```shell
+        ssh -i ficheroClave.key vmuser@10.100.139.122
+    ```
+  - Una vez conectados a la máquina virtual debemos instalar, en primer lugar [Docker](https://docs.docker.com/engine/install/ubuntu/) y, en segundo lugar, [Docker Compose](https://docs.docker.com/compose/install/linux/#install-using-the-repository) en la máquina siguiendo los pasos indicados (hay que tener en cuenta que la máquina proporcionada  dispone de un sistema operativo Ubuntu 22.04).
+  - Clonar el repositorio de vuestra práctica utilizando GIT 
+  ```shell
+        git clone https://github.com/CodeURJC-DAW-2023-24/webapp08
+    ```
+  - Nos movemos, usando el comendo _cd_ , por ejemplo, donde tengamos el fichero _docker-compose.yml_, en nuestro caso
+  ```shell
+        cd webapp08
+        cd docker
+    ```
+  - Ejecutar la aplicación utilizando el fichero docker compose mediante el comando
+  ```shell
+        sudo docker-compose up -d --build
+    ```
+  - Cuando la aplicación se encuentre en ejecución, dicha aplicación estará disponible en la url: [https://10.100.139.122:8443](https://10.100.139.122:8443).
+
 ## Participación
 - **<span style="color:green">Victoria Orzáez </span>:** 
     - Tareas: 
@@ -280,7 +311,7 @@ Observación: debes ser un contribuidor del repositorio indicado en create_image
       - [PersonDTO.java](https://github.com/CodeURJC-DAW-2023-24/webapp08/blob/main/backend/src/main/java/com/example/backend/DTO/PersonDTO.java)
       - [PersonService.java](https://github.com/CodeURJC-DAW-2023-24/webapp08/blob/main/backend/src/main/java/com/example/backend/service/PersonService.java)
 - **<span style="color:green">Noelia Berzosa</span>:** 
-    - Tareas: realizar el controlador REST de rutina (RESTRutineController y rutineDTO), desacoplar todos los repositorios, menos personRepository(Rubén), pictureRpository(Victoria) y exerciseRepository(Victoria), de los controladores. Actualizar el diagrama de clases. Documentar con OpenApi RESTRutineController. Generar la documentación con OpenAPI y PostMan.
+    - Tareas: realizar el controlador REST de rutina (RESTRutineController y rutineDTO), desacoplar todos los repositorios, menos personRepository(Rubén), pictureRpository(Victoria) y exerciseRepository(Victoria), de los controladores. Actualizar el diagrama de clases. Documentar con OpenApi RESTRutineController. Generar la documentación con OpenAPI y PostMan. Despliegue en la máquina virtual de la universidad.
      - 5 commits más significativos:
        - [Commit 1](https://github.com/CodeURJC-DAW-2023-24/webapp08/commit/09ef52a612465c49b6a71054389f85b2a05f335e)
        - [Commit 2](https://github.com/CodeURJC-DAW-2023-24/webapp08/commit/96a4b6c4b4b71c85e1d821e4b6a2dd44ff285381)
