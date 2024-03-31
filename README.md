@@ -280,6 +280,10 @@ En nuestro caso hemos optado por usar la VPN de la universidad. Además, como nu
         sudo docker-compose up -d --build
     ```
   - Cuando la aplicación se encuentre en ejecución, dicha aplicación estará disponible en la url: [https://10.100.139.122:8443](https://10.100.139.122:8443).
+    - Credenciales de ejemplo:
+      - username: admin ➔ password: adminpass
+      - username: user ➔ password: pass
+      - username: 1 ➔ password: 1
 
 ## Participación
 - **<span style="color:green">Victoria Orzáez </span>:** 
