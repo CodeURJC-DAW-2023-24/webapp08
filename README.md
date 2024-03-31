@@ -246,7 +246,7 @@ Por último, se pueden observar los comentarios que otros usuarios han publicado
   - Logearse en docker (docker login e insertar tus credenciales).
   - Abrir un consola de comandos.
   - Moverse al directorio en el que se encuentra el proyecto (clonarlo previamente si es necesario), en este caso webapp08.
-  - Ejecutar  el comando: docker/create_image.sh
+  - Ejecutar  el comando: docker/create_image.sh tag. Donde tag será el tag de la imagen, por ejemplo, docker/create_image.sh 1.0.
 
 Observación: debes ser un contribuidor del repositorio indicado en create_image.sh, en nuestro caso rubenrr/webapp08. Y el docker login puede ser opcional según tu configuración (si se realiza automáticamente).
 
