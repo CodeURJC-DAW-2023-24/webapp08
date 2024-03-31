@@ -135,6 +135,7 @@ public class SecurityConfig {
 						.requestMatchers("/js/**").permitAll()
 						.requestMatchers("/images/**").permitAll()
 
+						.requestMatchers("/v3/**").permitAll()
 						.requestMatchers("/swagger-ui/**").permitAll()
 						.requestMatchers("/index").permitAll()
 						.requestMatchers("/register").permitAll()

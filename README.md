@@ -266,7 +266,7 @@ Observación: debes ser un contribuidor del repositorio indicado en create_image
       - [Fichero 1]()
       - [Fichero 2]()
 - **<span style="color:green">Rubén Rodríguez </span>:** 
-    - Tareas: realizar el controlador REST de persona (RESTPersonControler y personDTO), desacoplar personRespository de algunos controladores (personService,PersonController) y la creación e implementación de la carpeta docker: Dockerfile, docker-compose.yml y create_image.sh.
+    - Tareas: realizar el controlador REST de persona (RESTPersonController y personDTO), desacoplar personRespository de algunos controladores (personService,PersonController) y la creación e implementación de la carpeta docker: Dockerfile, docker-compose.yml y create_image.sh.
      - 5 commits más significativos:
        - [Commit 1](https://github.com/CodeURJC-DAW-2023-24/webapp08/commit/44291398dea51a2fcbd38ab6dc55d10f91f7880d)
        - [Commit 2](https://github.com/CodeURJC-DAW-2023-24/webapp08/commit/4d4983f3102710e24e53638e1f06251d2a56b410)
@@ -280,7 +280,7 @@ Observación: debes ser un contribuidor del repositorio indicado en create_image
       - [PersonDTO.java](https://github.com/CodeURJC-DAW-2023-24/webapp08/blob/main/backend/src/main/java/com/example/backend/DTO/PersonDTO.java)
       - [PersonService.java](https://github.com/CodeURJC-DAW-2023-24/webapp08/blob/main/backend/src/main/java/com/example/backend/service/PersonService.java)
 - **<span style="color:green">Noelia Berzosa</span>:** 
-    - Tareas: 
+    - Tareas: realizar el controlador REST de rutina (RESTRutineController y rutineDTO), desacoplar todos los repositorios, menos personRepository(Rubén), pictureRpository(Victoria) y exerciseRepository(Victoria), de los controladores. Actualizar el diagrama de clases. Documentar con OpenApi RESTRutineController. Generar la documentación con OpenAPI y PostMan.
      - 5 commits más significativos:
        - [Commit 1]()
        - [Commit 2]()
