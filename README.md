@@ -282,14 +282,15 @@ Observación: debes ser un contribuidor del repositorio indicado en create_image
 - **<span style="color:green">Noelia Berzosa</span>:** 
     - Tareas: realizar el controlador REST de rutina (RESTRutineController y rutineDTO), desacoplar todos los repositorios, menos personRepository(Rubén), pictureRpository(Victoria) y exerciseRepository(Victoria), de los controladores. Actualizar el diagrama de clases. Documentar con OpenApi RESTRutineController. Generar la documentación con OpenAPI y PostMan.
      - 5 commits más significativos:
-       - [Commit 1]()
-       - [Commit 2]()
-       - [Commit 3]()
-       - [Commit 4]()
-       - [Commit 5]()
+       - [Commit 1](https://github.com/CodeURJC-DAW-2023-24/webapp08/commit/09ef52a612465c49b6a71054389f85b2a05f335e)
+       - [Commit 2](https://github.com/CodeURJC-DAW-2023-24/webapp08/commit/96a4b6c4b4b71c85e1d821e4b6a2dd44ff285381)
+       - [Commit 3](https://github.com/CodeURJC-DAW-2023-24/webapp08/commit/345f2fb57a8aa49c609737ea2624f27da5261ed7)
+       - [Commit 4](https://github.com/CodeURJC-DAW-2023-24/webapp08/commit/a2e391ec8c0f564df9858c3f3cad2bed3b6de917)
+       - [Commit 5](https://github.com/CodeURJC-DAW-2023-24/webapp08/commit/05356e4fa0e8a790cf24169f9d55a87cf65c5150)
     - 5 ficheros en los que se ha participado:
-      - [Fichero 1]()
-      - [Fichero 1]()
-      - [Fichero 1]()
-      - [Fichero 1]()
-      - [Fichero 2]()
+      - [RESTRutineController.java](https://github.com/CodeURJC-DAW-2023-24/webapp08/blob/main/backend/src/main/java/com/example/backend/controller/RESTRutineController.java)
+      - [RutineDTO.java](https://github.com/CodeURJC-DAW-2023-24/webapp08/blob/main/backend/src/main/java/com/example/backend/DTO/RutineDTO.java)
+      - [PersonService.java](https://github.com/CodeURJC-DAW-2023-24/webapp08/blob/main/backend/src/main/java/com/example/backend/controller/PersonController.java)
+      - [GymGuru.postman_collection.json](https://github.com/CodeURJC-DAW-2023-24/webapp08/blob/main/GymGuru.postman_collection.json)
+      - [RutineService.java](https://github.com/CodeURJC-DAW-2023-24/webapp08/blob/main/backend/src/main/java/com/example/backend/service/RutineService.java)
+      
