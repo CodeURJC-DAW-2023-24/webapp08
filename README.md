@@ -287,19 +287,19 @@ En nuestro caso hemos optado por usar la VPN de la universidad. Además, como nu
 
 ## Participación
 - **<span style="color:green">Victoria Orzáez </span>:** 
-    - Tareas: 
+    - Tareas: realizar el controlador REST de ejercicios (RESTExercisesController), desacoplar el exerciseRepository y el pictureRepository de los controladores. Introducir la seguridad a la hora de hacer el login. Realizar el algoritmo de consulta personalizada. Documentar con OpenApi todos los RestController, excepto el RestRutineController(noelia).
      - 5 commits más significativos:
-       - [Commit 1]()
-       - [Commit 2]()
-       - [Commit 3]()
-       - [Commit 4]()
-       - [Commit 5]()
+       - [Commit 1](https://github.com/CodeURJC-DAW-2023-24/webapp08/commit/0ab31e352fe921289324f7578d95f944bebc3fa3)
+       - [Commit 2](https://github.com/CodeURJC-DAW-2023-24/webapp08/commit/7a440f7e38ebcb40932834350cde36ca4aba5a9f)
+       - [Commit 3](https://github.com/CodeURJC-DAW-2023-24/webapp08/commit/f9ef5e4c3fabd6b91cd47da376d79ef19901fada)
+       - [Commit 4](https://github.com/CodeURJC-DAW-2023-24/webapp08/commit/cafdafc8300f62853ce92136a320b7fe92407aeb)
+       - [Commit 5](https://github.com/CodeURJC-DAW-2023-24/webapp08/commit/66c5bb77e6d8dfc63783954e806007f6d2a0d9d1)
     - 5 ficheros en los que se ha participado:
-      - [Fichero 1]()
-      - [Fichero 1]()
-      - [Fichero 1]()
-      - [Fichero 1]()
-      - [Fichero 2]()
+      - [RESTExerciseController.java](https://github.com/CodeURJC-DAW-2023-24/webapp08/blob/main/backend/src/main/java/com/example/backend/controller/RESTExerciseController.java)
+      - [SecurityConfig.java](https://github.com/CodeURJC-DAW-2023-24/webapp08/blob/main/backend/src/main/java/com/example/backend/security/SecurityConfig.java)
+      - [JWT]](https://github.com/CodeURJC-DAW-2023-24/webapp08/blob/main/backend/src/main/java/com/example/backend/security/JWT)
+      - [RESTLoginController.java](https://github.com/CodeURJC-DAW-2023-24/webapp08/blob/main/backend/src/main/java/com/example/backend/controller/RESTLoginController.java)
+      - [ExerciseRepository.java](https://github.com/CodeURJC-DAW-2023-24/webapp08/blob/main/backend/src/main/java/com/example/backend/repository/ExerciseRepository.java)
 - **<span style="color:green">Rubén Rodríguez </span>:** 
     - Tareas: realizar el controlador REST de persona (RESTPersonController y personDTO), desacoplar personRespository de algunos controladores (personService,PersonController) y la creación e implementación de la carpeta docker: Dockerfile, docker-compose.yml y create_image.sh.
      - 5 commits más significativos:
