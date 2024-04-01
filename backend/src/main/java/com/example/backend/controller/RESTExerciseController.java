@@ -4,7 +4,6 @@ package com.example.backend.controller;
 import com.example.backend.service.ExerciseService;
 import com.example.backend.service.PersonService;
 import com.example.backend.service.PictureService;
-import com.mysql.cj.x.protobuf.MysqlxCrud.Collection;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -16,10 +15,9 @@ import jakarta.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.net.URI;
 import java.sql.SQLException;
-import java.util.List;
 import java.util.Optional;
 
-import org.hibernate.engine.jdbc.BlobProxy;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 

@@ -9,7 +9,6 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -25,9 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.example.backend.DTO.PersonDTO;
-import com.example.backend.DTO.RutineDTO;
 import com.example.backend.model.ExRutine;
-import com.example.backend.model.Exercise;
 import com.example.backend.model.News;
 import com.example.backend.model.Notification;
 import com.example.backend.model.Person;
@@ -37,7 +34,6 @@ import com.example.backend.service.NewsService;
 import com.example.backend.service.NotificationService;
 import com.example.backend.service.PersonService;
 import com.example.backend.service.PictureService;
-import com.example.backend.service.RutineService;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -72,8 +68,7 @@ public class RESTPersonController {
 	@Autowired
 	NewsService newsService;
 
-	@Autowired
-	private RutineService rutineService;
+	
 
 
 

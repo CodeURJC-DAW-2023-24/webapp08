@@ -8,7 +8,6 @@ import com.example.backend.model.Comment;
 import com.example.backend.model.ExRutine;
 import com.example.backend.model.Person;
 import com.example.backend.model.Rutine;
-import com.example.backend.repository.PersonRepository;
 import com.example.backend.service.PersonService;
 
 public class RutineDTO {

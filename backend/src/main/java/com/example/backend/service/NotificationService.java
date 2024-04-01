@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.backend.model.Notification;
-import com.example.backend.model.Person;
 import com.example.backend.repository.NotificationRepository;
 
 @Service

@@ -124,9 +124,9 @@ public class SecurityConfig {
 	public SecurityFilterChain webFilterChain(HttpSecurity http) throws Exception {
 
 		http.authenticationProvider(authenticationProvider());
-		http
-				.csrf()
-				.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()); // In order to permit token in js
+        http
+                .csrf(csrf -> csrf
+                        .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())); // In order to permit token in js
 
 		http
 				.authorizeHttpRequests(authorize -> authorize

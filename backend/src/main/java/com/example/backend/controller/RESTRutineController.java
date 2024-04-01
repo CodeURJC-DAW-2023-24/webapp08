@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -28,7 +27,6 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import com.example.backend.DTO.RutineDTO;
 import com.example.backend.model.Comment;
 import com.example.backend.model.ExRutine;
-import com.example.backend.model.Exercise;
 import com.example.backend.model.News;
 import com.example.backend.model.Person;
 import com.example.backend.model.Rutine;
@@ -237,10 +235,7 @@ public class RESTRutineController {
                 }
 
                 if (positionRutine == -1) {
-                    return ResponseEntity.status(403).body("Its not your rutine or your friends one"); // Its not your
-                                                                                                       // rutine or
-                                                                                                       // your friends
-                                                                                                       // one
+                    return ResponseEntity.status(403).body("Its not your rutine or your friends one"); 
                 } else {// insert comment
                     rutine.getMessages().add(new Comment(person.getAlias(), comment));
                     rutineService.save(rutine);

@@ -3,7 +3,6 @@ import jakarta.annotation.PostConstruct;
 
 import java.sql.SQLException;
 import java.util.Date;
-import java.util.List;
 
 import javax.sql.rowset.serial.SerialException;
 
@@ -15,22 +14,16 @@ import org.springframework.stereotype.Service;
 import com.example.backend.model.Exercise;
 import com.example.backend.model.News;
 import com.example.backend.model.Person;
-import com.example.backend.model.Picture;
 import com.example.backend.model.Rutine;
 import com.example.backend.repository.ExerciseRepository;
 import com.example.backend.repository.NewsRepository;
 import com.example.backend.repository.PersonRepository;
-import com.example.backend.repository.PictureRepository;
 import com.example.backend.repository.RutineRepository;
 
 @Service
 public class DatabaseInitializer {
 
-	@Autowired
-	private PictureService pictureService;
-
-	@Autowired
-	private PictureRepository pictureRepository;
+	
 	
 			
 	@Autowired

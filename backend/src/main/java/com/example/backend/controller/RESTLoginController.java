@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.backend.model.Exercise;
 import com.example.backend.security.jwt.AuthResponse;
 import com.example.backend.security.jwt.AuthResponse.Status;
 import com.example.backend.security.jwt.LoginRequest;

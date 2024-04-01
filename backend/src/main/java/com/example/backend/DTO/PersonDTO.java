@@ -1,14 +1,11 @@
 package com.example.backend.DTO;
 
-import java.io.IOException;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 
 import com.example.backend.model.News;
 import com.example.backend.model.Notification;
 import com.example.backend.model.Person;
-import com.example.backend.model.Picture;
 import com.example.backend.model.Rutine;
 import com.example.backend.service.PersonService;
 
