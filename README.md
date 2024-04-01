@@ -244,7 +244,7 @@ Por último, se pueden observar los comentarios que otros usuarios han publicado
 - Ejecutar el script create_image.sh, para construir y publicar la imagen Docker:
   - Instalar docker.
   - Logearse en docker (docker login e insertar tus credenciales).
-  - Abrir un consola de comandos.
+  - Abrir un consola de comandos bash o análoga.
   - Moverse al directorio en el que se encuentra el proyecto (clonarlo previamente si es necesario: git clone https://github.com/CodeURJC-DAW-2023-24/webapp08), en este caso webapp08.
   - Dar permisos de ejecución al fichero con el comando: chmod +x docker/create_image.sh
   - Ejecutar  el comando: docker/create_image.sh param. Donde param será el tag que se desea asignar a la imagen , por ejemplo, docker/create_image.sh 1.0.
