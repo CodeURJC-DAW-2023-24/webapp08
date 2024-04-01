@@ -297,7 +297,7 @@ En nuestro caso hemos optado por usar la VPN de la universidad. Además, como nu
     - 5 ficheros en los que se ha participado:
       - [RESTExerciseController.java](https://github.com/CodeURJC-DAW-2023-24/webapp08/blob/main/backend/src/main/java/com/example/backend/controller/RESTExerciseController.java)
       - [SecurityConfig.java](https://github.com/CodeURJC-DAW-2023-24/webapp08/blob/main/backend/src/main/java/com/example/backend/security/SecurityConfig.java)
-      - [JWT]](https://github.com/CodeURJC-DAW-2023-24/webapp08/blob/main/backend/src/main/java/com/example/backend/security/JWT)
+      - [JWT](https://github.com/CodeURJC-DAW-2023-24/webapp08/blob/main/backend/src/main/java/com/example/backend/security/JWT)
       - [RESTLoginController.java](https://github.com/CodeURJC-DAW-2023-24/webapp08/blob/main/backend/src/main/java/com/example/backend/controller/RESTLoginController.java)
       - [ExerciseRepository.java](https://github.com/CodeURJC-DAW-2023-24/webapp08/blob/main/backend/src/main/java/com/example/backend/repository/ExerciseRepository.java)
 - **<span style="color:green">Rubén Rodríguez </span>:** 
