@@ -216,11 +216,11 @@ public class RESTPersonController {
 			@ApiResponse(responseCode = "404", description = "The person dosen´t exit", content = @Content),
             
     })
-	@PostMapping("/friends/requests/{friendId}") /// SEND REQUEST///
-	public ResponseEntity<?> sendFriendRequest(HttpServletRequest request, @PathVariable long friendId) {
+	@PostMapping("/friends/requests/{alias}") /// SEND REQUEST///
+	public ResponseEntity<?> sendFriendRequest(HttpServletRequest request, @PathVariable String alias) {
 		try {
 			Person person = personService.findPersonByHttpRequest(request);
-			Person person2 = personService.findById(friendId);
+			Person person2 = personService.findByAlias(alias);
 			try {
 				Notification notification = new Notification(person.getAlias());
 				notificationService.save(notification);
