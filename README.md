@@ -287,7 +287,7 @@ En nuestro caso hemos optado por usar la VPN de la universidad. Además, como nu
       - username: 1 ➔ password: 1
 
 ## Documentación de la API
-Acceder al [enlace] (https://rawcdn.githack.com/CodeURJC-DAW-2023-24/webapp08/a431e613c41b5a6641e4b9fd05ced0b5387862ea/backend/api-docs/api-docs.html)
+Acceder al [enlace](https://rawcdn.githack.com/CodeURJC-DAW-2023-24/webapp08/a431e613c41b5a6641e4b9fd05ced0b5387862ea/backend/api-docs/api-docs.html)
 ## Participación
 - **<span style="color:green">Victoria Orzáez </span>:** 
     - Tareas: realizar el controlador REST de ejercicios (RESTExercisesController), desacoplar el exerciseRepository y el pictureRepository de los controladores. Introducir la seguridad a la hora de hacer el login. Realizar el algoritmo de consulta personalizada. Documentar con OpenApi todos los RestController, excepto el RestRutineController(noelia).
