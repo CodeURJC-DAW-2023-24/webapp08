@@ -120,8 +120,8 @@ public class RESTExerciseController {
                     @Content(mediaType = "image/jpeg")}),
             @ApiResponse(responseCode = "404", description = "Exercise image is empty or exercise doesn't exit", content = @Content),
      })
-	@GetMapping("/image/")
-	public ResponseEntity<byte[]> getImage(long id) throws IOException {
+	@GetMapping("/image/{id}")
+	public ResponseEntity<byte[]> getImage(@PathVariable long id) throws IOException {
 		Optional exerciseOptional = exerciseService.findById(id);
 		if(exerciseOptional.isPresent()){
 			Exercise exercise = (Exercise) exerciseOptional.get();
@@ -145,8 +145,8 @@ public class RESTExerciseController {
             @ApiResponse(responseCode = "404", description = "That exercise doesn't exist", content = @Content),
             @ApiResponse(responseCode = "403", description = "You are not logged", content = @Content),
     })
-	@DeleteMapping("/image/")
-	public ResponseEntity<Object> deleteImage(long id){
+	@DeleteMapping("/image/{id}")
+	public ResponseEntity<Object> deleteImage(@PathVariable long id){
 		Optional exerciseOptional = exerciseService.findById(id);
 		if(exerciseOptional.isPresent()){
 			Exercise exercise = (Exercise) exerciseOptional.get();
@@ -171,8 +171,8 @@ public class RESTExerciseController {
             @ApiResponse(responseCode = "404", description = "That exercise doesn't exist", content = @Content),
             @ApiResponse(responseCode = "403", description = "You are not logged", content = @Content),
     })
-	@DeleteMapping("/")
-	public ResponseEntity<Exercise> deleteExercise(long id) {
+	@DeleteMapping("/{id}")
+	public ResponseEntity<Exercise> deleteExercise(@PathVariable long id) {
 
 		try {
 			exerciseService.deleteById(id);
@@ -207,9 +207,9 @@ public class RESTExerciseController {
             @ApiResponse(responseCode = "403", description = "You are not logged", content = @Content),
 			@ApiResponse(responseCode = "404", description = "That exercise doesn't exist", content = @Content),
     })
-	@PostMapping("/image/")
+	@PostMapping("/image/{id}")
 	@ResponseStatus(HttpStatus.CREATED)
-	public ResponseEntity<Object> createImage(long id, @RequestParam MultipartFile image) {
+	public ResponseEntity<Object> createImage(@PathVariable long id, @RequestParam MultipartFile image) {
 		Optional exerciseOptional = exerciseService.findById(id);
 		URI location = fromCurrentRequest().build().toUri();
 		if(exerciseOptional.isPresent()){
@@ -240,8 +240,8 @@ public class RESTExerciseController {
             @ApiResponse(responseCode = "404", description = "That exercise doesn't exist", content = @Content),
             @ApiResponse(responseCode = "403", description = "You are not logged", content = @Content),
     })
-	@PutMapping("/")
-	public ResponseEntity<Exercise> updateExercise( long id, @RequestBody Exercise updatedExercise) throws SQLException {
+	@PutMapping("/{id}")
+	public ResponseEntity<Exercise> updateExercise( @PathVariable long id, @RequestBody Exercise updatedExercise) throws SQLException {
 		Optional exerciseOptional = exerciseService.findById(id);
 		if (exerciseOptional.isPresent()) {
 

@@ -16,7 +16,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"username\":\"1\",\r\n    \"password\":\"1\"\r\n}",
+							"raw": "{\r\n    \"username\":\"admin\",\r\n    \"password\":\"adminpass\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -49,7 +49,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"username\":\"admin\",\r\n    \"password\":\"adminpass\"\r\n}",
+							"raw": "{\r\n    \"username\":\"1\",\r\n    \"password\":\"1\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -176,7 +176,7 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "https://10.100.139.122:8443/api/rutines/1",
+							"raw": "https://10.100.139.122:8443/api/rutines/2",
 							"protocol": "https",
 							"host": [
 								"10",
@@ -188,7 +188,7 @@
 							"path": [
 								"api",
 								"rutines",
-								"1"
+								"2"
 							]
 						}
 					},
@@ -209,7 +209,7 @@
 							}
 						},
 						"url": {
-							"raw": "https://10.100.139.122:8443/api/rutines/3",
+							"raw": "https://10.100.139.122:8443/api/rutines/2",
 							"protocol": "https",
 							"host": [
 								"10",
@@ -221,7 +221,7 @@
 							"path": [
 								"api",
 								"rutines",
-								"3"
+								"2"
 							]
 						}
 					},
@@ -233,7 +233,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "https://10.100.139.122:8443/api/rutines/download/3",
+							"raw": "https://10.100.139.122:8443/api/rutines/download/2",
 							"protocol": "https",
 							"host": [
 								"10",
@@ -246,7 +246,7 @@
 								"api",
 								"rutines",
 								"download",
-								"3"
+								"2"
 							]
 						}
 					},
@@ -267,7 +267,7 @@
 							}
 						},
 						"url": {
-							"raw": "https://10.100.139.122:8443/api/rutines/1/comments",
+							"raw": "https://10.100.139.122:8443/api/rutines/2/comments",
 							"protocol": "https",
 							"host": [
 								"10",
@@ -279,7 +279,7 @@
 							"path": [
 								"api",
 								"rutines",
-								"1",
+								"2",
 								"comments"
 							]
 						}
@@ -343,7 +343,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "https://10.100.139.122:8443/api/rutines/?id=2",
+							"raw": "https://10.100.139.122:8443/api/rutines/5",
 							"protocol": "https",
 							"host": [
 								"10",
@@ -355,13 +355,7 @@
 							"path": [
 								"api",
 								"rutines",
-								""
-							],
-							"query": [
-								{
-									"key": "id",
-									"value": "2"
-								}
+								"5"
 							]
 						}
 					},
@@ -401,8 +395,17 @@
 					"request": {
 						"method": "PATCH",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"weigth\": 55\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
-							"raw": "https://10.100.139.122:8443/persons/?weight=55",
+							"raw": "https://10.100.139.122:8443/api/persons/",
 							"protocol": "https",
 							"host": [
 								"10",
@@ -412,14 +415,9 @@
 							],
 							"port": "8443",
 							"path": [
+								"api",
 								"persons",
 								""
-							],
-							"query": [
-								{
-									"key": "weight",
-									"value": "55"
-								}
 							]
 						}
 					},
@@ -522,7 +520,7 @@
 						"method": "POST",
 						"header": [],
 						"url": {
-							"raw": "https://10.100.139.122:8443/api/persons/friends/requests?friendId=1",
+							"raw": "https://10.100.139.122:8443/api/persons/friends/requests/1",
 							"protocol": "https",
 							"host": [
 								"10",
@@ -535,13 +533,8 @@
 								"api",
 								"persons",
 								"friends",
-								"requests"
-							],
-							"query": [
-								{
-									"key": "friendId",
-									"value": "1"
-								}
+								"requests",
+								"1"
 							]
 						}
 					},
@@ -742,7 +735,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "https://10.100.139.122:8443/api/exercises/",
+							"raw": "https://10.100.139.122:8443/api/exercises/?page=2",
 							"protocol": "https",
 							"host": [
 								"10",
@@ -755,6 +748,12 @@
 								"api",
 								"exercises",
 								""
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "2"
+								}
 							]
 						}
 					},
@@ -832,7 +831,7 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "https://10.100.139.122:8443/api/exercises/?id=2",
+							"raw": "https://10.100.139.122:8443/api/exercises/15",
 							"protocol": "https",
 							"host": [
 								"10",
@@ -844,13 +843,7 @@
 							"path": [
 								"api",
 								"exercises",
-								""
-							],
-							"query": [
-								{
-									"key": "id",
-									"value": "2"
-								}
+								"15"
 							]
 						}
 					},
@@ -904,7 +897,7 @@
 							}
 						},
 						"url": {
-							"raw": "https://10.100.139.122:8443/api/exercises/?id=15",
+							"raw": "https://10.100.139.122:8443/api/exercises/15",
 							"protocol": "https",
 							"host": [
 								"10",
@@ -916,13 +909,7 @@
 							"path": [
 								"api",
 								"exercises",
-								""
-							],
-							"query": [
-								{
-									"key": "id",
-									"value": "15"
-								}
+								"15"
 							]
 						}
 					},
@@ -934,7 +921,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "https://10.100.139.122:8443/api/exercises/image/?id=1",
+							"raw": "https://10.100.139.122:8443/api/exercises/image/1",
 							"protocol": "https",
 							"host": [
 								"10",
@@ -947,13 +934,7 @@
 								"api",
 								"exercises",
 								"image",
-								""
-							],
-							"query": [
-								{
-									"key": "id",
-									"value": "1"
-								}
+								"1"
 							]
 						}
 					},
@@ -965,7 +946,7 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "https://10.100.139.122:8443/api/exercises/image/?id=1",
+							"raw": "https://10.100.139.122:8443/api/exercises/image/1",
 							"protocol": "https",
 							"host": [
 								"10",
@@ -978,13 +959,7 @@
 								"api",
 								"exercises",
 								"image",
-								""
-							],
-							"query": [
-								{
-									"key": "id",
-									"value": "1"
-								}
+								"1"
 							]
 						}
 					},
@@ -1006,7 +981,7 @@
 							]
 						},
 						"url": {
-							"raw": "https://10.100.139.122:8443/api/exercises/image/?id=1",
+							"raw": "https://10.100.139.122:8443/api/exercises/image/1",
 							"protocol": "https",
 							"host": [
 								"10",
@@ -1019,13 +994,7 @@
 								"api",
 								"exercises",
 								"image",
-								""
-							],
-							"query": [
-								{
-									"key": "id",
-									"value": "1"
-								}
+								"1"
 							]
 						}
 					},

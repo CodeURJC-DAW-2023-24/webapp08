@@ -2,9 +2,6 @@ version: "3.9"
 services: 
   web:
     image: rubenrr/webapp08:latest
-    build: 
-       context: ../
-       dockerfile: docker/Dockerfile
     ports:
       - 8443:8443
     environment:

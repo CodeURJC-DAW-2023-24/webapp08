@@ -114,23 +114,18 @@ public class RESTPersonController {
 	@PatchMapping("/")
 	public ResponseEntity<?> editPerson(HttpServletRequest request, // check if it goes into the body and not into the
 																	// url
-			@RequestParam(required = false) String alias,
-			@RequestParam(required = false) String name,
-			@RequestParam(required = false) String date,
-			@RequestParam(required = false) Integer weight) {
+			@RequestBody Person personE) {
 
 		Person person = personService.findPersonByHttpRequest(request);
 		try {
-			if (alias != null)
-				person.setAlias(alias);
-			if (name != null)
-				person.setName(name);
-			if (date != null)
-				person.setDate(date);
-
-			if (weight != null)
-				person.setWeight(weight);
-
+			if (personE.getAlias() != null)
+				person.setAlias(personE.getAlias());
+			if (personE.getName() != null)
+				person.setName(personE.getName());
+			if (personE.getDate() != null)
+				person.setDate(personE.getDate());
+			if (personE.getWeight() != null)
+				person.setWeight(personE.getWeight());
 			personService.save(person);
 			PersonDTO personDTO = new PersonDTO(person, personService);
 			return ResponseEntity.ok(personDTO);
@@ -221,8 +216,8 @@ public class RESTPersonController {
 			@ApiResponse(responseCode = "404", description = "The person dosen´t exit", content = @Content),
             
     })
-	@PostMapping("/friends/requests") /// SEND REQUEST///
-	public ResponseEntity<?> sendFriendRequest(HttpServletRequest request, @RequestParam("friendId") long friendId) {
+	@PostMapping("/friends/requests/{friendId}") /// SEND REQUEST///
+	public ResponseEntity<?> sendFriendRequest(HttpServletRequest request, @PathVariable long friendId) {
 		try {
 			Person person = personService.findPersonByHttpRequest(request);
 			Person person2 = personService.findById(friendId);
