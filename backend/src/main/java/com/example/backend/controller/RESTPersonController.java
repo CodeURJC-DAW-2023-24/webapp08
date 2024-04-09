@@ -285,10 +285,10 @@ public class RESTPersonController {
 			@ApiResponse(responseCode = "404", description = "The person dosen´t exit", content = @Content),
             
     })
-	@DeleteMapping("/friends/{friendId}")
-	public ResponseEntity<?> deleteFriend(HttpServletRequest request, @PathVariable long friendId) {
+	@DeleteMapping("/friends/{alias}")
+	public ResponseEntity<?> deleteFriend(HttpServletRequest request, @PathVariable String alias) {
 		try {
-			Person friend = personService.findById(friendId);
+			Person friend = personService.findByAlias(alias);
 			Person person = personService.findPersonByHttpRequest(request);
 			try {
 				person.getFriends().remove(friend);
