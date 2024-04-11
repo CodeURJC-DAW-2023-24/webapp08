@@ -88,10 +88,10 @@ public class SecurityConfig {
 						.requestMatchers(HttpMethod.POST, "/api/auth/logout").hasAnyRole("USER")
 						.requestMatchers(HttpMethod.POST, "/api/auth/refresh").hasAnyRole("USER")
 
-						.requestMatchers(HttpMethod.GET, "/api/rutines/").hasAnyRole("USER")
+						.requestMatchers(HttpMethod.GET, "/api/rutines/**").hasAnyRole("USER")
 						.requestMatchers(HttpMethod.POST, "/api/rutines/").hasAnyRole("USER")
-						.requestMatchers(HttpMethod.DELETE, "/api/rutines/{id}").hasAnyRole("USER")
-						.requestMatchers(HttpMethod.PATCH, "/api/rutines/{id}").hasAnyRole("USER")
+						.requestMatchers(HttpMethod.DELETE, "/api/rutines/**").hasAnyRole("USER")
+						.requestMatchers(HttpMethod.PATCH, "/api/rutines/**").hasAnyRole("USER")
 						.requestMatchers(HttpMethod.POST, "/api/rutines/{rutineId}/comments").hasAnyRole("USER")
 						.requestMatchers(HttpMethod.DELETE, "/api/rutines/{rutineId}/comments/{commentId}").hasAnyRole("USER")
 						.requestMatchers(HttpMethod.GET, "/api/rutines/download/{id}").hasAnyRole("USER")

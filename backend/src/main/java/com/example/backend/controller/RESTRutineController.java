@@ -371,7 +371,7 @@ public class RESTRutineController {
             RutineDTO rutineDTO = new RutineDTO(rutine, personService);
             return ResponseEntity.ok(rutineDTO);
         } else {
-            return ResponseEntity.status(403).body("That's one of your rutines");
+            return ResponseEntity.status(403).body("That's no one of your rutines");
         }
     }
 
