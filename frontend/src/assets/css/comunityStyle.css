@@ -1,0 +1,295 @@
+:root {
+  --color-yellow: #f1db25;
+  /* Set variables */
+  --color-dark: black;
+  --color-text-buttons: white;
+  --color-grey: #dad9d9;
+}
+
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Poppins", sans-serif;
+
+  background-image: url('../images/friend.jpg');
+  background-size: cover;
+  background-position: top;
+  background-repeat: no-repeat;
+  height: 100%;
+}
+
+
+.navbar-brand {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+
+
+}
+
+.navbar-brand span {
+  font-weight: bold;
+  color: #faf7f7;
+  font-size: 24px;
+}
+
+.navbar {
+  
+  margin-bottom: 20px;
+  background: linear-gradient(to right, rgb(0, 0, 0), rgba(64, 63, 63, 0.807));
+  position: fixed;
+  background-color: #000000;
+
+}
+
+.i-flex {
+  align-items: center;
+  display: flex;
+}
+
+.d-flex {
+  align-items: center;
+}
+
+
+
+.logo {
+  height: 20px;
+}
+
+.search-icon {
+
+  width: 40px;
+  height: 40px;
+  text-align: center;
+}
+
+.search .search-icon {
+  display: inline-block;
+  color: var(--color-text-buttons);
+  background-color: var(--color-yellow);
+  border-radius: 10px;
+  font-size: 24px;
+ 
+}
+
+.search input[type="text"] {
+  background-color: #f0f0f0;
+}
+
+.search button {
+  background-color: var(--color-yellow);
+  color: var(--color-text-buttons);
+  height: 40px;
+}
+
+.search button:hover {
+  background-color: var(--color-yellow);
+  color: var(--color-text-buttons);
+}
+
+
+.statistics button {
+  background-color: var(--color-yellow);
+  color: var(--color-text-buttons);
+  height: 40px;
+
+}
+
+.statistics button:hover {
+  background-color: var(--color-yellow);
+  color: var(--color-text-buttons);
+}
+
+
+.dropdown {
+  background-color: var(--color-yellow);
+  border-radius: 10px;
+}
+
+.bi-bell {
+  color: var(--color-text-buttons);
+}
+
+.comunity {
+  background-color: var(--color-yellow);
+  border-radius: 10px;
+}
+
+.bi.bi-person-plus {
+  color: var(--color-text-buttons);
+}
+
+.statistics,
+.dropdown,
+.comunity,
+.search {
+  margin-right: 0.5rem;
+}
+
+.user button.circular-btn {
+  background-color: var(--color-yellow);
+  color: var(--color-text-buttons);
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+
+}
+
+.news {
+  width: fit-content;
+  margin: auto;
+  background-color: var(--color-yellow);
+  border-radius: 5px;
+  text-align: center;
+}
+
+.news {
+  overflow: hidden;
+}
+
+.scrolling-text {
+  white-space: nowrap;
+  animation: scrollText 5s linear infinite;
+}
+
+@keyframes scrollText {
+  0% {
+    transform: translateX(100%);
+  }
+
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+.nav-item {
+  list-style: none;
+  margin-right: 20px;
+}
+
+.home-link {
+  text-decoration: none;
+  color: var(--color-yellow);
+}
+
+
+.container-fluid {
+
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+
+}
+
+.container-search {
+  padding-top: 70px;
+  margin: auto;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  width: 70%;
+  height: fit-content;
+
+}
+
+.d-flex {
+  justify-content: center;
+
+}
+
+.search1 {
+  background-color: var(--color-grey);
+  width: 50%;
+  height: 60px;
+  border-radius: 5px;
+  font-size: x-large;
+}
+
+.search-btn1 {
+
+  border-radius: 5px;
+  width: 60px;
+  background-color: var(--color-grey);
+
+}
+
+
+.bi-search1 {
+  color: var(--color-dark);
+}
+
+.container-friendlist {
+  margin: auto;
+  margin-top: 50px;
+  padding: 30px;
+  width: fit-content;
+  height: fit-content;
+  text-align: center;
+  background-color: rgba(14, 13, 13, 0.5);
+  border-radius: 5px;
+}
+
+.title-friendlist {
+  color: var(--color-yellow);
+}
+
+.list-group {
+  background-color: rgba(243, 242, 242, 0.5);
+  border-radius: 5px;
+}
+
+.list-group-item {
+  border: 1px black solid;
+  color: black;
+  font-weight: 700;
+  margin-bottom: 0px;
+  background-color: transparent;
+}
+
+.friend-container {
+
+  margin-top: 10px;
+  padding: 10px;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: auto;
+}
+
+.friend-list {
+  width: 40%;
+  padding: 0;
+  margin: 0;
+  background-color: rgba(14, 13, 13, 0.5);
+}
+
+.user-item {
+
+  margin: 5px;
+  border-radius: 5px;
+  padding: 10px;
+  background-color: rgb(212, 208, 208);
+  list-style: none;
+  border: 1px solid black;
+  font-size: larger;
+  font-weight: 600;
+  display: flex;
+  justify-content: space-between;
+
+}
+
+.request-btn {
+  border-radius: 5px;
+  font-size: x-small;
+  border: 2px solid green;
+  background-color: rgb(5, 204, 5);
+}
