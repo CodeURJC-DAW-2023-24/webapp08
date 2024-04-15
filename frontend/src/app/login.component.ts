@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
+
   styleUrls: [
     '../assets/css/style.css',
     '../assets/css/responsive.css',
@@ -10,5 +11,6 @@ import { Component } from '@angular/core';
   ]
 })
 export class LoginComponent {
+  showComponent: boolean = true;
 
 }
