@@ -1,7 +1,7 @@
 {
 	"info": {
-		"_postman_id": "461a5276-2824-48d2-bf59-8b03ab627b22",
-		"name": "GymGuru",
+		"_postman_id": "eae1bd0c-090f-4b16-b2d9-02a4f448d98d",
+		"name": "GymGuru LOCALHOST",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "33547778"
 	},
@@ -16,7 +16,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"username\":\"user\",\r\n    \"password\":\"pass\"\r\n}",
+							"raw": "{\r\n    \"username\":\"1\",\r\n    \"password\":\"1\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -111,7 +111,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": " {\r\n        \"name\": \"Pecho y Biceps\",\r\n        \"date\": \"2024-03-18\",\r\n        \"time\": 40,\r\n        \"exercises\": [\r\n            {\r\n                \"grp\": \"Hombro\",\r\n                \"exercise\": \"Eliptica\",\r\n                \"series\": \"5x5\",\r\n                \"weight\": 20\r\n            },\r\n            {\r\n                \"grp\": \"Biceps\",\r\n                \"exercise\": \"Curl de biceps con mancuerna de pie\",\r\n                \"series\": \"5x10\",\r\n                \"weight\": 10\r\n            }\r\n        ]\r\n }",
+							"raw": " {\r\n        \"name\": \"Pecho y Biceps\",\r\n        \"date\": \"2024-03-22\",\r\n        \"time\": 40,\r\n        \"exercises\": [\r\n            {\r\n                \"grp\": \"Hombro\",\r\n                \"exercise\": \"Eliptica\",\r\n                \"series\": \"5x5\",\r\n                \"weight\": 20\r\n            },\r\n            {\r\n                \"grp\": \"Biceps\",\r\n                \"exercise\": \"Curl de biceps con mancuerna de pie\",\r\n                \"series\": \"5x10\",\r\n                \"weight\": 10\r\n            }\r\n        ]\r\n }",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -161,7 +161,7 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "https://localhost:8443/api/rutines/1",
+							"raw": "https://localhost:8443/api/rutines/2",
 							"protocol": "https",
 							"host": [
 								"localhost"
@@ -170,7 +170,7 @@
 							"path": [
 								"api",
 								"rutines",
-								"1"
+								"2"
 							]
 						}
 					},
@@ -191,7 +191,7 @@
 							}
 						},
 						"url": {
-							"raw": "https://localhost:8443/api/rutines/3",
+							"raw": "https://localhost:8443/api/rutines/2",
 							"protocol": "https",
 							"host": [
 								"localhost"
@@ -200,7 +200,7 @@
 							"path": [
 								"api",
 								"rutines",
-								"3"
+								"2"
 							]
 						}
 					},
@@ -212,7 +212,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "https://localhost:8443/api/rutines/download/3",
+							"raw": "https://localhost:8443/api/rutines/download/2",
 							"protocol": "https",
 							"host": [
 								"localhost"
@@ -222,7 +222,7 @@
 								"api",
 								"rutines",
 								"download",
-								"3"
+								"2"
 							]
 						}
 					},
@@ -310,7 +310,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "https://localhost:8443/api/rutines/?id=2",
+							"raw": "https://localhost:8443/api/rutines/2",
 							"protocol": "https",
 							"host": [
 								"localhost"
@@ -319,13 +319,7 @@
 							"path": [
 								"api",
 								"rutines",
-								""
-							],
-							"query": [
-								{
-									"key": "id",
-									"value": "2"
-								}
+								"2"
 							]
 						}
 					},
@@ -362,8 +356,17 @@
 					"request": {
 						"method": "PATCH",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"weigth\": 55\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
-							"raw": "https://localhost:8443/api/persons/?weight=55",
+							"raw": "https://localhost:8443/api/persons/",
 							"protocol": "https",
 							"host": [
 								"localhost"
@@ -373,12 +376,6 @@
 								"api",
 								"persons",
 								""
-							],
-							"query": [
-								{
-									"key": "weight",
-									"value": "55"
-								}
 							]
 						}
 					},
@@ -472,7 +469,7 @@
 						"method": "POST",
 						"header": [],
 						"url": {
-							"raw": "https://localhost:8443/api/persons/friends/requests?friendId=1",
+							"raw": "https://localhost:8443/api/persons/friends/requests/admin",
 							"protocol": "https",
 							"host": [
 								"localhost"
@@ -482,13 +479,8 @@
 								"api",
 								"persons",
 								"friends",
-								"requests"
-							],
-							"query": [
-								{
-									"key": "friendId",
-									"value": "1"
-								}
+								"requests",
+								"admin"
 							]
 						}
 					},
@@ -521,7 +513,7 @@
 						"method": "PUT",
 						"header": [],
 						"url": {
-							"raw": "https://localhost:8443/api/persons/friends/requests/1?accepted=True",
+							"raw": "https://localhost:8443/api/persons/friends/requests/admin?accepted=True",
 							"protocol": "https",
 							"host": [
 								"localhost"
@@ -532,7 +524,7 @@
 								"persons",
 								"friends",
 								"requests",
-								"1"
+								"admin"
 							],
 							"query": [
 								{
@@ -599,7 +591,7 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "https://localhost:8443/api/persons/friends/1",
+							"raw": "https://localhost:8443/api/persons/friends/admin",
 							"protocol": "https",
 							"host": [
 								"localhost"
@@ -609,7 +601,7 @@
 								"api",
 								"persons",
 								"friends",
-								"1"
+								"admin"
 							]
 						}
 					},
@@ -640,7 +632,23 @@
 					"name": "UserChart",
 					"request": {
 						"method": "GET",
-						"header": []
+						"header": [],
+						"url": {
+							"raw": "https://10.100.139.122:8443/api/persons/charts",
+							"protocol": "https",
+							"host": [
+								"10",
+								"100",
+								"139",
+								"122"
+							],
+							"port": "8443",
+							"path": [
+								"api",
+								"persons",
+								"charts"
+							]
+						}
 					},
 					"response": []
 				}
@@ -655,7 +663,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "https://localhost:8443/api/exercises/",
+							"raw": "https://localhost:8443/api/exercises/?page=2",
 							"protocol": "https",
 							"host": [
 								"localhost"
@@ -665,6 +673,12 @@
 								"api",
 								"exercises",
 								""
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "2"
+								}
 							]
 						}
 					},
@@ -686,13 +700,6 @@
 								"api",
 								"exercises",
 								"10"
-							],
-							"query": [
-								{
-									"key": "id",
-									"value": "5",
-									"disabled": true
-								}
 							]
 						}
 					},
@@ -736,7 +743,7 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "https://localhost:8443/api/exercises/?id=2",
+							"raw": "https://localhost:8443/api/exercises/5",
 							"protocol": "https",
 							"host": [
 								"localhost"
@@ -745,13 +752,7 @@
 							"path": [
 								"api",
 								"exercises",
-								""
-							],
-							"query": [
-								{
-									"key": "id",
-									"value": "2"
-								}
+								"5"
 							]
 						}
 					},
@@ -802,7 +803,7 @@
 							}
 						},
 						"url": {
-							"raw": "https://localhost:8443/api/exercises/?id=15",
+							"raw": "https://localhost:8443/api/exercises/6",
 							"protocol": "https",
 							"host": [
 								"localhost"
@@ -811,13 +812,7 @@
 							"path": [
 								"api",
 								"exercises",
-								""
-							],
-							"query": [
-								{
-									"key": "id",
-									"value": "15"
-								}
+								"6"
 							]
 						}
 					},
@@ -829,7 +824,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "https://localhost:8443/api/exercises/image/?id=1",
+							"raw": "https://localhost:8443/api/exercises/image/1",
 							"protocol": "https",
 							"host": [
 								"localhost"
@@ -839,13 +834,7 @@
 								"api",
 								"exercises",
 								"image",
-								""
-							],
-							"query": [
-								{
-									"key": "id",
-									"value": "1"
-								}
+								"1"
 							]
 						}
 					},
@@ -857,7 +846,7 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "https://localhost:8443/api/exercises/image/?id=1",
+							"raw": "https://localhost:8443/api/exercises/image/1",
 							"protocol": "https",
 							"host": [
 								"localhost"
@@ -867,13 +856,7 @@
 								"api",
 								"exercises",
 								"image",
-								""
-							],
-							"query": [
-								{
-									"key": "id",
-									"value": "1"
-								}
+								"1"
 							]
 						}
 					},
@@ -895,7 +878,7 @@
 							]
 						},
 						"url": {
-							"raw": "https://localhost:8443/api/exercises/image/?id=1",
+							"raw": "https://localhost:8443/api/exercises/image/1",
 							"protocol": "https",
 							"host": [
 								"localhost"
@@ -905,13 +888,7 @@
 								"api",
 								"exercises",
 								"image",
-								""
-							],
-							"query": [
-								{
-									"key": "id",
-									"value": "1"
-								}
+								"1"
 							]
 						}
 					},

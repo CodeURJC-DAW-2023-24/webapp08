@@ -1,7 +1,7 @@
 {
 	"info": {
 		"_postman_id": "461a5276-2824-48d2-bf59-8b03ab627b22",
-		"name": "GymGuru",
+		"name": "GymGuru VM",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "33547778"
 	},
@@ -778,13 +778,6 @@
 								"api",
 								"exercises",
 								"10"
-							],
-							"query": [
-								{
-									"key": "id",
-									"value": "5",
-									"disabled": true
-								}
 							]
 						}
 					},

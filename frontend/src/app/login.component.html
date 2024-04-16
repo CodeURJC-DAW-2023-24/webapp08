@@ -35,15 +35,15 @@
                           <div class="contact_form-container">
                             <div>
                               <div>
-                                <input type="text" name="username" placeholder="Usuario" />
+                                <input type="text" #user name="username" placeholder="Usuario" />
                               </div>
                               <div>
-                                <input type="password" name="password" placeholder="Contraseña " />
+                                <input type="password" #pass name="password" placeholder="Contraseña " />
                               </div>
                              <!-- <input type="hidden" name="_csrf" value="{{token}}" />-->
                               <div class="row text-center aling-items-center">
                                 <div class="btn-box">
-                                  <button type="submit" class="btn-2">
+                                  <button type="submit" (click)="logIn($event, user.value, pass.value )" class="btn-2">
                                     Iniciar Sesión
                                   </button>
                                   <span style="margin: 0 10px;"></span>
