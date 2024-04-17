@@ -44,7 +44,6 @@ public class DatabaseInitializer {
 	@Value("${admin.password}")
     private String adminPassword;
 	
-	@SuppressWarnings("null")
 	@PostConstruct
 	public void init() throws SerialException, SQLException {
 		personRepository.save(new Person("admin", adminPassword, "paco","1993-04-06",90,"USER", "ADMIN"));
