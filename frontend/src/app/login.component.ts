@@ -1,6 +1,5 @@
 import { LoginService } from './../../services/login.service';
-import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-login',
@@ -14,6 +13,9 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent {
   constructor(public loginservice:LoginService){ }
+
+
+
   logIn(event: any, username:string, password: string){
     event.preventDefault();
     this.loginservice.logIn(username,password)
