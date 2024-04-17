@@ -13,14 +13,14 @@
 
           <div class="d-flex">
 
-              <div class="adEx">
+              <div *ngIf="admin" class="adEx">
                   <a href="/mainPage/exercForm">
                       <button class="btn">
                           <i class="bi bi-database-fill-add"></i>
                       </button>
                   </a>
               </div>
-              <div class="container-search">
+              <div *ngIf="search" class="container-search">
                   <div class="search2">
                       <div class="search-icon">
                           <i class="bi bi-search"></i>

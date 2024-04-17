@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { LoginService } from '../../services/login.service';
 
 @Component({
   selector: 'app-header',
@@ -8,6 +10,14 @@ import { Component } from '@angular/core';
     '../assets/css/responsive.css'
   ]
 })
-export class HeaderComponent {
-  
+
+
+export class HeaderComponent implements OnInit {
+  admin:boolean = false;
+  search: boolean = false;
+  constructor(public loginservice:LoginService) { }
+
+  ngOnInit(): void {
+
+  }
 }
