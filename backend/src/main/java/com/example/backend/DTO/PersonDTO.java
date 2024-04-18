@@ -43,7 +43,9 @@ public class PersonDTO {
         
     }
 
+    protected PersonDTO(){
 
+    }
 
     public long getId() {
         return id;

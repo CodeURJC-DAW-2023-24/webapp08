@@ -1,0 +1,78 @@
+
+<body>
+  <header2></header2>
+  <section class="team_section layout_paddingR">
+    <div class="container">
+      <div class="heading_container heading_left">
+        <h2>
+          Tu perfil
+        </h2>
+
+      </div>
+      <div class="row">
+        <div class="col-md-4 col-sm-6 mx-auto ">
+          <div class="box">
+            <div class="img-box">
+              <img *ngIf="imageUrl"  [src]="imageUrl " alt="" class="round-image" >
+              <img *ngIf="!imageUrl" src="assets/images/logo.jpg" alt="" class="round-image">
+            </div>
+            <div class="detail-box">
+              <h5>
+                {{person?.name}}
+              </h5>
+
+            </div>
+          </div>
+        </div>
+        <div class="col-md-7 mx-auto">
+          <div class="contact_section ">
+            <div class="">
+
+                <div class="contact_form-container">
+                  <div>
+                    <div>
+                      <label>Nombre:</label>
+                      <input type="text" id="name" name="name" *ngIf="person?.name" [(ngModel)]="person.name" [readonly]="isReadOnly" />
+                    </div>
+                    <div>
+                      <label>Alias:</label>
+                      <input type="text" id="alias" name="alias" *ngIf="person?.alias" [(ngModel)]="person.alias" [readonly]="isReadOnly" />
+                    </div>
+                    <div>
+                      <label>Fecha de Nacimiento:</label>
+                      <input type="date"  id="date" name="date" *ngIf="person?.date" [(ngModel)]="person.date" [readonly]="isReadOnly" />
+                    </div>
+                    <div>
+                      <label>Peso(kg):</label>
+                      <input type="number" onkeypress="return (event.charCode >= 48 && event.charCode <= 57)"
+                        id="weight" name="weight" *ngIf="person?.weight" [(ngModel)]="person.weight" [readonly]="isReadOnly" />
+                    </div>
+                    <div>
+                      <label for="image" name="labelImage">foto de perfil: </label>
+                      <input type='file' #image name='image'  accept=".jpg, .jpeg, .png, .HEIC" id="image"
+                        [disabled] = 'isReadOnly'>
+                    </div>
+                    <div class="btn-box">
+                      <button class="btn-2" id="save" type="submit" [style.display]="styleG" (click)="editUser($event)">
+                        Guardar
+                      </button>
+
+
+              <button class="btn-2" id="edit" type="button" (click)="change($event)" [style.display]="styleE">
+                Editar perfil
+              </button>
+              <span style="margin: 0 10px;"></span>
+
+                <button class="btn-1" type="submit" (click)="logOut($event)">
+                  Cerrar Sesión
+                </button>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+        </div>
+
+
+

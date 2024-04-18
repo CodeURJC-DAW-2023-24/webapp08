@@ -2,14 +2,15 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Person } from '../models/person.model';
 import { Router } from '@angular/router';
-
+import { catchError } from 'rxjs/operators';
+import { Observable, throwError } from 'rxjs';
 const BASE_URL = '/api/auth';
 
 @Injectable({ providedIn: 'root' })
 export class LoginService {
 
     logged: boolean;
-    user: Person | undefined;
+    user: Person ;
 
     constructor(private http: HttpClient, public router: Router) {
         this.reqIsLogged();
@@ -48,7 +49,7 @@ export class LoginService {
             .subscribe((resp: any) => {
                 console.log("LOGOUT: Successfully");
                 this.logged = false;
-                this.user = undefined;
+                this.logInReq();
             });
 
     }
@@ -64,4 +65,9 @@ export class LoginService {
     currentUser() {
         return this.user;
     }
+
+    logInReq(){
+      this.router.navigate(['../login']);
+    }
+   
 }

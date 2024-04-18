@@ -114,7 +114,7 @@ public class RESTPersonController {
 	@PatchMapping("/")
 	public ResponseEntity<?> editPerson(HttpServletRequest request, // check if it goes into the body and not into the
 																	// url
-			@RequestBody Person personE) {
+			@RequestBody PersonDTO personE) {
 
 		Person person = personService.findPersonByHttpRequest(request);
 		try {
@@ -127,8 +127,8 @@ public class RESTPersonController {
 			if (personE.getWeight() != null)
 				person.setWeight(personE.getWeight());
 			personService.save(person);
-			PersonDTO personDTO = new PersonDTO(person, personService);
-			return ResponseEntity.ok(personDTO);
+			
+			return ResponseEntity.ok(personE);
 
 		} catch (Exception e2) {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e2.getMessage());

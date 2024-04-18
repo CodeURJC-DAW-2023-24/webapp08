@@ -2,7 +2,6 @@ export interface Person{
   id?:number;
   alias:string;
   name:string;
-  encodedpassword:string;
   date:string;
   weight:number;
   friends?:string[];
