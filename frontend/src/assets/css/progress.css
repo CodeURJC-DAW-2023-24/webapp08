@@ -2,10 +2,10 @@
   padding-top: 90px;
   padding-bottom: 90px;
   background-color: #000000;
-  background-image: url('/images/progreso.jpeg');
+  background-image: url('../images/progreso.jpeg');
   background-size: cover;
   background-repeat:no-repeat;
-  background-position:center; 
+  background-position:center;
   -moz-background-size: cover;
   -o-background-size: cover;
   -webkit-background-size: cover;
@@ -18,7 +18,7 @@
 .container-grafico1{
   margin: auto;
   background-color: rgba(213, 213, 213, 0.3);
-  width: 800px; 
+  width: 800px;
   height: 600px;
 }
 

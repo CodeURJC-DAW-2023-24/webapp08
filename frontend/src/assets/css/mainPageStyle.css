@@ -9,13 +9,14 @@ body {
     padding: 0;
     padding-top: 100px;
     font-family: "Poppins", sans-serif;
-
     background-image: url('../images/gimnasio.jpg');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
 }
-
+.content{
+  padding-top: 100px;
+}
 .navbar-brand {
     display: -webkit-box;
     display: -ms-flexbox;
@@ -27,15 +28,15 @@ body {
     -webkit-box-align: center;
     -ms-flex-align: center;
     align-items: center;
-   
-  
+
+
 }
 
 .navbar-brand span {
     font-weight: bold;
     color: #faf7f7;
     font-size: 24px;
- 
+
 }
 
 .navbar {
@@ -43,7 +44,7 @@ body {
     background: linear-gradient(to right, rgb(0, 0, 0), rgba(64, 63, 63, 0.807));
     position: fixed;
     background-color: #000000;
-   
+
 }
 
 .i-flex {

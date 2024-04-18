@@ -242,7 +242,6 @@ public class RutineController implements CommandLineRunner {
         return "addExRutine";
     }
 
-    @SuppressWarnings("null")
     @GetMapping("/cancel/{id}")
     public String addRutine(@PathVariable Long id, Model model) {
         Rutine rutine = rutineService.findById(id).orElseThrow();
