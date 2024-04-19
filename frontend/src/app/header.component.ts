@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { LoginService } from '../../services/login.service';
 
 @Component({
-  selector: 'header2',
+  selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: [
     '../assets/css/style.css',
@@ -11,5 +11,12 @@ import { LoginService } from '../../services/login.service';
   ]
 })
 export class HeaderComponent {
+  admin:boolean = false;
+  search: boolean = false;
+  constructor(public loginservice:LoginService) { }
+
+  ngOnInit(): void {
+
+  }
 
 }
