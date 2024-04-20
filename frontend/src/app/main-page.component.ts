@@ -1,5 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MainPageService } from '../../services/main-page.service';
+import { LoginService } from './../../services/login.service';
+import { Person } from '../../models/person.model';
+import { PersonService } from './../../services/person.service';
 
 @Component({
   selector: 'main-page',
@@ -10,9 +13,23 @@ export class MainPageComponent {
   loadMore: number = 0;
   NUM_RESULTS: number = 10;
   data: any;
+  admin: boolean;
+  person:Person;
+  roles: String[];
 
-  constructor(public mainpageService:MainPageService) {
+  constructor(public mainpageService:MainPageService, public loginservice:LoginService,public personService: PersonService) {
   }
+
+  ngOnInit(): void {
+    if (this.loginservice.isLogged()){
+      this.person= this.loginservice.currentUser();}
+      this.roles=this.person.roles;
+      if (this.roles.includes('ADMIN')) {
+        this.admin = true;
+      }else{
+        this.admin=false;
+      }
+    }
 
     initElements(): any {
     this.loadMore = 0;
