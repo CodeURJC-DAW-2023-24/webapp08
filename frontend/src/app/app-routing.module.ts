@@ -5,6 +5,7 @@ import { MainPageComponent } from './main-page.component';
 import { StatisticsComponent } from './statistics.component';
 import { PersonComponent } from './person.component';
 import { HeaderComponent } from './header.component';
+import {SearchExerciseComponent} from './searchExercise.component';
 
 const routes: Routes = [
   {path:'mainPage', component: MainPageComponent},
@@ -12,6 +13,7 @@ const routes: Routes = [
   {path:'mainPage/statistics', component: StatisticsComponent},
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   {path: 'person', component: PersonComponent },
+  {path:'searchExercise', component:SearchExerciseComponent}
 
 ];
 

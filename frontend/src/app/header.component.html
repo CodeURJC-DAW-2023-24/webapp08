@@ -20,7 +20,7 @@
                       </button>
                   </a>
               </div>
-              <div *ngIf="search" class="container-search">
+              <div *ngIf="searchOptions.search" class="container-search">
                   <div class="search2">
                       <div class="search-icon">
                           <i class="bi bi-search"></i>
@@ -29,8 +29,8 @@
                       <ul id="searchResults"></ul>
                   </div>
               </div>
-              <div class="search">
-                  <a href="/mainPage/exerciseSearch">
+              <div *ngIf="searchOptions.search2" class="search">
+                  <a [routerLink]="['/searchExercise']">
                       <button class="btn">
                           <i class="bi bi-search"></i>
                       </button>

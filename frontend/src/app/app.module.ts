@@ -12,6 +12,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { MainPageComponent } from './main-page.component';
 import { StatisticsComponent } from './statistics.component';
 import { PersonComponent } from './person.component';
+import {SearchExerciseComponent} from './searchExercise.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { PersonComponent } from './person.component';
     LoginComponent,
     MainPageComponent,
     StatisticsComponent,
-    PersonComponent
+    PersonComponent,
+    SearchExerciseComponent
   ],
   imports: [
     BrowserModule,
