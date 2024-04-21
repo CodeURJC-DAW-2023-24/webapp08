@@ -3,6 +3,8 @@ import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { LoginService } from '../../services/login.service';
 import { Person } from '../../models/person.model';
+import { PersonService } from './../../services/person.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -14,20 +16,29 @@ import { Person } from '../../models/person.model';
 })
 export class HeaderComponent {
   @Input() searchOptions: { search: boolean, search2: boolean, admin:boolean } = { search: false, search2: true, admin:false };
-  constructor(public loginservice:LoginService, public headerService:HeaderService) { }
+  constructor(public loginservice:LoginService, public headerService:HeaderService,public personService: PersonService, public router: Router) { }
   admin: boolean;
   person:Person;
   roles: String[];
-  
+
   ngOnInit(): void {
-    if (this.loginservice.isLogged()){
-      this.person= this.loginservice.currentUser();}
-      this.roles=this.person.roles;
-      if (this.roles.includes('ADMIN')) {
-        this.admin = true;
-      }else{
-        this.admin=false;
+    this.personService.getPerson().subscribe(
+      response => {
+          this.person= response as Person;
+          this.roles=this.person.roles;
+          if (this.roles.includes('ADMIN')) {
+            this.admin = true;
+          }else{
+            this.admin=false;
+          }
+
+      },
+      error => {
+        this.router.navigate(['../login']);
+        this.person = {alias:"",name:"",date:"",weight:0, roles:[]};
+
       }
+  );
 
   }
    showNotifications(){

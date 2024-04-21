@@ -249,15 +249,15 @@ margin-top: 10px;
 }
 
 .layout_padding_exercise {
- position: relative;
+ position: absolute;
   padding-top: 90px;
   padding-bottom: 90px;
   background-color: #000000;
   background-image: url('../images/mancuerna.jpeg');
   background-size: cover;
-
   width: 100%;
   height: 100%;
+
 }
 
 .layout_paddingRA {

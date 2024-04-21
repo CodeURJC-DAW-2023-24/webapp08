@@ -14,7 +14,7 @@
           <div class="d-flex">
 
               <div *ngIf="searchOptions.admin" class="adEx">
-                  <a href="./mainPage/exercForm">
+                  <a [routerLink]="['/newExercise']">
                       <button class="btn">
                           <i class="bi bi-database-fill-add"></i>
                       </button>
