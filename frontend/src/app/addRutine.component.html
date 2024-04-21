@@ -29,7 +29,7 @@
             <div>
             <div style="position: relative; display: inline-block;" *ngFor="let ex of rutine.exercises">
             <input type="text"  style="width: 200px" class="form-control" placeholder="{{ex.exercise}}" readonly style="margin-right: 10px;">
-            <a href="/deleteExRutine/"  style="position: absolute; top: 0; right: 0;">
+            <a (click)="deleteExRutine($event,ex)" style="position: absolute; top: 0; right: 0;">
               <button class="btn" type="button" >
                   <i class="bi bi-trash"></i>
               </button>

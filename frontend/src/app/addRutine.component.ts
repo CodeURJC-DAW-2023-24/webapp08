@@ -3,8 +3,11 @@ import { Component} from '@angular/core';
 import {  OnInit , ViewChild} from '@angular/core';
 import { Rutine } from '../../models/rutine.model';
 import { RutineService } from './../../services/rutine.service';
+import { PersonService } from './../../services/person.service';
 import { Injectable } from '@angular/core';
 import { Router,ActivatedRoute } from '@angular/router';
+import { Person } from '../../models/person.model';
+import { ExRutine } from '../../models/exRutine.model';
 
 
 @Component({
@@ -21,7 +24,8 @@ import { Router,ActivatedRoute } from '@angular/router';
 export class AddRutineComponent implements OnInit{
 
 
-  constructor(private loginService: LoginService, private rutineService:RutineService, private router: Router,activatedRoute:ActivatedRoute){
+
+  constructor(private loginService: LoginService, private rutineService:RutineService, private router: Router,activatedRoute:ActivatedRoute, public personService: PersonService){
     const id = activatedRoute.snapshot.params['id'];
     if (id) {
       rutineService.getRutine(id).subscribe(
@@ -41,28 +45,29 @@ export class AddRutineComponent implements OnInit{
 
 
   ngOnInit(): void {
-    if (this.loginService.isLogged()){
-      this.rutine.person= this.loginService.currentUser().alias;
+    this.personService.getPerson().subscribe(
+      response => {
+      },
+      error => {
+        this.router.navigate(['../login']);
 
+      }
+  );
+  }
 
-  }
-  else {
-    this.loginService.logInReq();
-  }
- }
     newRutine($event: Event) {
       this.rutineService.saveRutine(this.rutine,this.isNew).subscribe(
         response=>{
           this.rutine = response as Rutine;
           this.isNew=false;
-          this.router.navigate(['/mainPage/']);
+          this.router.navigate(['/rutine/'+this.rutine.id]);
         }
 
       );
     }
 
     saveRutine($event: MouseEvent) {
-      
+
      this.rutineService.saveRutine(this.rutine,this.isNew).subscribe(
       response=>{
         this.rutine = response as Rutine;
@@ -79,6 +84,22 @@ export class AddRutineComponent implements OnInit{
     this.router.navigate(['/mainPage']);
 
     }
+
+    deleteExRutine($event: MouseEvent,ex: ExRutine) {
+      if(this.rutine.exercises){
+        const index = this.rutine.exercises?.indexOf(ex);
+        if(index !== -1){
+        this.rutine.exercises.splice(index,1);
+        this.rutineService.saveRutine(this.rutine,this.isNew).subscribe(
+          response=>{
+            this.rutine = response as Rutine;
+            this.isNew=false;
+          }
+
+        );
+        }
+      }
+      }
 
 
 

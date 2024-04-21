@@ -1,0 +1,130 @@
+
+<body class="routineB">
+<app-header></app-header>
+
+  <section class=" layout_padding">
+    <div class="row">
+      <div class="col-md-11"></div>
+      <div class="col-md-1">
+        <div class="downL">
+          <a href="/pdf/download/">
+            <button class="btn" type="button" id="generarPDFButton">
+              <i class="bi bi-download"></i>
+            </button>
+          </a>
+        </div>
+      </div>
+
+    </div>
+    <div class="container">
+      <div class="heading_container heading_left">
+        <h2>
+          RUTINA COMPLETA
+        </h2>
+
+      </div>
+
+      <div class="row">
+        <div class="col-md-4 col-sm-6 mx-auto ">
+          <div class="profile-container">
+            <img name="imagePath" *ngIf="imageUrl"  [src]="imageUrl " class="rutine-image">
+            <img name="imagePath" *ngIf="!imageUrl"  src="assets/images/logo.jpg"  class="rutine-image">
+
+            <div>
+              <p name="alias"><b>{{rutine.person}}</b></p>
+              <p name="name">{{rutine.name}}</p>
+              <p name="date" id="dateR">{{rutine.date}}</p>
+            </div>
+          </div>
+          <section class="comments">
+
+              <div class="row">
+
+                <div class="col-md-12">
+                  <h1 style="text-align: center;">Comentarios</h1>
+                  <div id="container-messages" class="message-container">
+                      <div *ngIf="rutine.lComments !== undefined">
+                      <p *ngFor="let coment of rutine.lComments" class="message-style"><b>{{coment.alias}}:</b>
+                      {{coment.content}} <button  class="btn btn-danger btn-sm ml-2 float-right"> Borrar</button></p>
+                      </div>
+                  </div>
+                </div>
+
+
+
+
+
+                    <div class="info_form ">
+
+                      <div style="display: flex; margin: auto; flex-wrap: nowrap;">
+                        <input id="comment" name="comentario" type="text" class="form-control comF"
+                          placeholder="Añade un comentario...">
+                        <div class="sendB">
+                          <button type="submit" class="btn" >
+                            <i class="bi bi-send"></i>
+                          </button>
+
+                        </div>
+                      </div>
+
+
+
+
+                    </div>
+
+
+              </div>
+          </section>
+
+        </div>
+        <div class="col-md-7 mx-auto">
+          <table>
+            <thead>
+
+                <tr >
+                <th *ngIf="!sameUser" colspan="3" class="title">{{rutine.name}}</th>
+                </tr>
+
+                <tr >
+                <th colspan="2" class="title">{{rutine.name}}</th>
+                <th  class="title">
+                  <a (click)="deleteRutine($event)">
+                    <button class="btn" type="button" >
+                        <i class="bi bi-trash"></i>
+                    </button>
+                </a>
+                <a (click)="editRutine($event)">
+                  <button class="btn" type="button" >
+                      <i class="bi bi-pencil"></i>
+                  </button>
+              </a>
+            </th>
+
+              </tr>
+              <tr>
+
+                <th> Ejercicio</th>
+                <th>Series x Repetición</th>
+                <th>Peso</th>
+              </tr>
+            </thead>
+            <tbody>
+
+              <tr *ngFor="let ex of rutine.exercises">
+                <td>{{ex.exercise}}</td>
+                <td>{{ex.series}}</td>
+                <td>{{ex.weight}} kg</td>
+              </tr>
+
+
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+
+</body>
+

@@ -4,6 +4,7 @@ import { Component} from '@angular/core';
 import {  OnInit , ViewChild} from '@angular/core';
 import { Person } from '../../models/person.model';
 import { PersonService } from './../../services/person.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -21,7 +22,7 @@ admin: boolean;
 
 
 
-  constructor(public loginservice:LoginService,public personService: PersonService){
+  constructor(public loginservice:LoginService,public personService: PersonService, public router: Router){
     this.isReadOnly = true;
     this.styleE = 'block';
     this.styleG = 'none';
@@ -36,33 +37,39 @@ admin: boolean;
   @ViewChild("image")
   image: any;
   roles:String[];
-  @Output() imageUrlChanged: EventEmitter<string > = new EventEmitter<string >();
+
 
   ngOnInit(): void {
-      if (this.loginservice.isLogged()){
-        this.person= this.loginservice.currentUser();
-        this.personService.getImage().subscribe(data => {
-          if(data){
-          const blob = new Blob([data], { type: 'image/jpeg' });
-          this.imageUrl = URL.createObjectURL(blob);
+     this.personService.getPerson().subscribe(
+      response => {
+          this.person= response as Person;
+      },
+      error => {
+        this.router.navigate(['../login']);
+        this.person = {alias:"",name:"",date:"",weight:0, roles:[]};
 
-          }
-          else{
-            this.imageUrl = undefined;
-          }
-        });
-        this.roles=this.person.roles;
-        if (this.roles.includes('ADMIN')) {
-        this.admin = true;
-          }else{
-        this.admin=false;
-        }
+      }
+  );
+    this.personService.getImage().subscribe(data => {
+      if(data){
+      const blob = new Blob([data], { type: 'image/jpeg' });
+      this.imageUrl = URL.createObjectURL(blob);
 
       }
       else{
-        this.loginservice.logInReq();
+        this.imageUrl = undefined;
       }
+    });
+    this.roles=this.person.roles;
+    if (this.roles.includes('ADMIN')) {
+    this.admin = true;
+      }else{
+    this.admin=false;
+    }
+
   }
+
+
   logOut(event: any) {
    this.loginservice.logOut();
     }

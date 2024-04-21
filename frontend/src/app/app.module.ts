@@ -16,6 +16,7 @@ import { PersonComponent } from './person.component';
 import {SearchExerciseComponent} from './searchExercise.component';
 import { AddRutineComponent } from './addRutine.component';
 import { AddExRutineComponent } from './addExRutine.component';
+import { RutineComponent } from './rutine.component';
 
 import { PersonService } from './../../services/person.service';
 import { LoginService } from './../../services/login.service';
@@ -33,7 +34,8 @@ import { ExerciseService } from './../../services/exercise.service';
     PersonComponent,
     SearchExerciseComponent,
     AddRutineComponent,
-    AddExRutineComponent
+    AddExRutineComponent,
+    RutineComponent
   ],
   imports: [
     BrowserModule,

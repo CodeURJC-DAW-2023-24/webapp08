@@ -1,5 +1,5 @@
 import { ExRutine } from "./exRutine.model";
-
+import {Comment} from "./comment.model"
 
 export interface Rutine
 {
@@ -7,7 +7,7 @@ export interface Rutine
   name: string;
   date: Date;
   time: number;
-  lComments?:object[];
+  lComments?:Comment[];
   exercises?:ExRutine[];
   person:String;
 }
