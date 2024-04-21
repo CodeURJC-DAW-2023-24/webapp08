@@ -20,7 +20,7 @@ export class MainPageService {
     return this.http.get(BASE_URL + `news?iteracion=${iteracion}`);
   }
 
-
+  
 
 private handleError(error: any) {
   console.error(error);
