@@ -29,25 +29,30 @@ export class MainPageComponent {
       }else{
         this.admin=false;
       }
-    }
+      this.initElements()
 
+    }
+                //////NEWS/////////
     initElements(): any {
     this.loadMore = 0;
     let flag: boolean = false;
-     this.mainpageService.getNews().subscribe(
-      data => data = data,
-     )
-    let news: any[] = this.data[0];
-    const MAX: boolean = this.data[1];
-    flag = MAX;
-    this.addElementsMainContainer(news);
-    let moreNews: HTMLElement | null = document.getElementById("container-loadMore");
-    if (moreNews) {
+    this.mainpageService.getNews(0).subscribe(
+      response => {
+        this.data = response;
+        let news: any[] = this.data;
+        this.addElementsMainContainer(news);
+        flag = news.length == this.NUM_RESULTS;
+        let moreNews: HTMLElement | null = document.getElementById("container-loadMore");
+      if (moreNews) {
       moreNews.style.display = flag ? "flex" : "none";
     }
+      },
+      error => {
+        console.error('Error obteniendo novedades:', error);
+      });
   }
 
-  async loadMoreFoo(): Promise<void> {
+   loadMoreFoo() {
     let flag: boolean = false;
     this.loadMore++;
     let spinnerContainer: HTMLElement | null = document.getElementById("spinner-container");
@@ -56,18 +61,23 @@ export class MainPageComponent {
       spinnerContainer.style.display = "flex";
       moreNews.style.display = "none";
     }
-    const RESPONSE: Response = await fetch(`/starterNews?iteracion=${this.loadMore}`);
-    let data: any[] = await RESPONSE.json();
-    let news: any[] = data[0];
-    const MAX: boolean = data[1];
-    flag = MAX;
-    this.addElementsMainContainer(news);
-    if (spinnerContainer) {
-      spinnerContainer.style.display = "none";
-    }
-    if (moreNews) {
-      moreNews.style.display = flag ? "flex" : "none";
-    }
+    this.mainpageService.getNews(this.loadMore).subscribe(
+      response => {
+        this.data = response;
+        let news: any[] = this.data;
+        this.addElementsMainContainer(news);
+        flag = news.length == this.NUM_RESULTS;
+        let moreNews: HTMLElement | null = document.getElementById("container-loadMore");
+        if (spinnerContainer) {
+          spinnerContainer.style.display = "none";
+        }
+        if (moreNews) {
+          moreNews.style.display = flag ? "flex" : "none";
+        }
+      },
+      error => {
+        console.error('Error obteniendo novedades:', error);
+      });
   }
 
   addElementsMainContainer(news: any[]): void {
@@ -96,7 +106,7 @@ export class MainPageComponent {
           let cardText: HTMLParagraphElement = document.createElement('p');
           cardText.classList.add('card-text');
           let link: HTMLAnchorElement = document.createElement('a');
-          link.href = `/mainPage/showRutine?id=${news[i + j].rutine.id}`;
+          link.href = `./mainPage/showRutine?id=${news[i + j].rutine.id}`;
           link.textContent = `Nueva rutina de: ${news[i + j].alias}`;
           link.style.textDecoration = 'none';
           cardText.appendChild(link);
@@ -110,4 +120,6 @@ export class MainPageComponent {
       containerNews.appendChild(row);
     }
   }
+
+            /////NOTIFICATIONS //////////
 }
