@@ -82,7 +82,7 @@ public class RESTRutineController {
             RutineDTO rutineDTO = new RutineDTO(rutine, personService);
             rutineDTOs.add(rutineDTO);
         }
-        if (rutineDTOs.size() == 0) {
+        if (rutineDTOs.size() < 0) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         } else {
             return ResponseEntity.ok(rutineDTOs);
@@ -96,6 +96,7 @@ public class RESTRutineController {
             }),
             @ApiResponse(responseCode = "401", description = "You are not logged", content = @Content)
     })
+    
     @PostMapping("/")
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<RutineDTO> createRutine(HttpServletRequest request, @RequestBody RutineDTO rutine) {
