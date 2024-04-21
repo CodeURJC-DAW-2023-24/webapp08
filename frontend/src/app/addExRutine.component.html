@@ -1,0 +1,121 @@
+
+<body class="sub_page">
+
+<app-header></app-header>
+  <div class="container-fluid layout_paddingER">
+
+    <div class="row">
+      <div class="col-md-2"></div>
+      <div class="col-md-8 ">
+
+          <div class="form-group">
+            <label for="grp">Grupo muscular </label>
+            <select class="form-select form-control" [(ngModel)]="exRutine.grp" id="group" name="grp" >
+              <option value="Pecho">Pecho</option>
+              <option value="Espalda">Espalda</option>
+              <option vale="Hombro">Hombro</option>
+              <option value="Biceps">Biceps</option>
+              <option value="Triceps">Triceps</option>
+              <option value="Inferior">Inferior</option>
+              <option value="Cardio">Cardio</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="nombre">Nombre del ejercicio:</label>
+            <select *ngIf="exRutine.grp==='Pecho'" [(ngModel)]="exRutine.exercise" class="form-select form-control" id="Pecho" name="chest">
+
+              <option *ngFor="let ex of chest" [value]="ex.name" >{{ex.name}}</option>
+
+
+            </select>
+          </div>
+          <div class="form-group">
+
+            <select *ngIf="exRutine.grp==='Espalda'" [(ngModel)]="exRutine.exercise" class="form-select form-control" id="Espalda" name="back" >
+
+              <option *ngFor="let ex of back" [value]="ex.name" >{{ex.name}}</option>
+
+
+            </select>
+          </div>
+          <div class="form-group">
+
+            <select *ngIf="exRutine.grp==='Hombro'" [(ngModel)]="exRutine.exercise" class="form-select form-control" id="Hombro" name="shoulder" >
+
+              <option *ngFor="let ex of shoulder"  [value]="ex.name">{{ex.name}}</option>
+
+
+            </select>
+          </div>
+
+          <div class="form-group">
+
+            <select *ngIf="exRutine.grp==='Biceps'" [(ngModel)]="exRutine.exercise" class="form-select form-control" id="Biceps" name="biceps" >
+
+              <option *ngFor="let ex of biceps" [value]="ex.name" >{{ex.name}}</option>
+
+
+            </select>
+          </div>
+          <div class="form-group">
+
+            <select *ngIf="exRutine.grp==='Triceps'"  [(ngModel)]="exRutine.exercise" class="form-select form-control" id="Triceps" name="triceps" >
+
+              <option *ngFor="let ex of triceps" [value]="ex.name" >{{ex.name}}</option>
+
+
+            </select>
+          </div>
+          <div class="form-group">
+
+            <select *ngIf="exRutine.grp==='Inferior'" [(ngModel)]="exRutine.exercise" class="form-select form-control" id="Inferior" name="lower" >
+
+              <option *ngFor="let ex of lower" [value]="ex.name" >{{ex.name}}</option>
+
+
+            </select>
+          </div>
+          <div class="form-group">
+            <select *ngIf="exRutine.grp==='Cardio'" [(ngModel)]="exRutine.exercise" class="form-select form-control" id="Cardio" name="cardio" >
+
+              <option *ngFor="let ex of cardio" [value]="ex.name" >{{ex.name}}</option>
+
+
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="series">Series x repetición:</label>
+            <input type="series" class="form-control" id="series" name="series" [(ngModel)]="exRutine.series"
+              placeholder="Introduce las series X repetición">
+          </div>
+
+          <div class="form-group">
+            <label for="weight">Peso:</label>
+            <input class="form-control" id="weight" name="weight" onkeypress="return (event.charCode >= 48 && event.charCode <= 57)" type="number"
+            placeholder="Introduce el peso en Kg" [(ngModel)]="exRutine.weight">
+          </div>
+          <div class="btn-box">
+            <button class="btnS" type="submit" (click)="addEx($event)">
+              GUARDAR
+            </button>
+            <span style="margin: 0 10px;"></span>
+
+          </div>
+
+        <a [routerLink]="['/addRutine',rutine.id]">
+          <div class="btn-box">
+
+            <button class="btnC">
+              Cancelar
+            </button>
+
+          </div>
+        </a>
+
+      </div>
+      <div class="col-md-2"></div>
+    </div>
+
+  </div>
+</body>
+

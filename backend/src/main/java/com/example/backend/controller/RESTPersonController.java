@@ -172,6 +172,23 @@ public class RESTPersonController {
 		}
 		return ResponseEntity.notFound().build();
 	}
+
+	@Operation(summary = "Get image by alias ")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Found image", content = {
+                    @Content(mediaType = "image/jpeg")}),
+            @ApiResponse(responseCode = "404", description = "Image dosen´t exit", content = @Content),
+     })
+	@GetMapping("/image/{alias}")
+	public ResponseEntity<?> getImageByAlias(HttpServletRequest request,@PathVariable String alias) throws IOException {
+		Person person = personService.findByAlias(alias);
+		if (person.getImage() != null){
+		return ResponseEntity.ok().contentType(MediaType.IMAGE_JPEG).body(person.getImage().getData());
+
+		}
+		return ResponseEntity.notFound().build();
+	}
+	
 	
 	@Operation(summary = "Delete person by its id")
     @ApiResponses(value = {

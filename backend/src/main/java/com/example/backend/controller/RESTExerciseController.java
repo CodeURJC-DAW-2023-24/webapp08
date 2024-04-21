@@ -15,6 +15,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.net.URI;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Optional;
 
 
@@ -96,7 +97,7 @@ public class RESTExerciseController {
 		}
 	}
 
-	@Operation(summary = "Get exercise list by group ")
+	@Operation(summary = "Get exercise list by group in pages ")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Found list", content = {
                     @Content(mediaType = "application/json", schema = @Schema(implementation = Exercise.class))
@@ -107,12 +108,36 @@ public class RESTExerciseController {
 	public Page<Exercise> getExercisesByGroup(String group, int page, HttpServletRequest request) {
 		Person person = personService.findPersonByHttpRequest(request);
 		Pageable pageable = PageRequest.of(page, 5);
+		
 		if (person == null){
     	return exerciseService.findByGrp(group, pageable);}
 		else{
 			return exerciseService.findExerciseOrderByFrec(person.getId(),group,pageable);
 		}
+	
 }
+@Operation(summary = "Get exercise list by group ")
+@ApiResponses(value = {
+		@ApiResponse(responseCode = "200", description = "Found list", content = {
+				@Content(mediaType = "application/json", schema = @Schema(implementation = Exercise.class))
+		}),
+		@ApiResponse(responseCode = "400", description = "Invalid request", content = @Content)
+})
+@GetMapping("/group/{group}")
+public List<Exercise> getExercisesGroup(@PathVariable String group,  HttpServletRequest request) {
+	Person person = personService.findPersonByHttpRequest(request);
+	
+	
+		if (person == null){
+			return exerciseService.findByGrp(group);}
+			else{
+				return exerciseService.findExerciseOrderByFrec(person.getId(),group);
+			}
+
+	
+	
+}
+
 
 @Operation(summary = "Get image by exercise id ")
     @ApiResponses(value = {
@@ -138,6 +163,8 @@ public class RESTExerciseController {
 		}
 		
 	}
+
+	
 
 	@Operation(summary = "Delete image by exercise id")
     @ApiResponses(value = {
