@@ -7,6 +7,7 @@ import { catchError } from 'rxjs/internal/operators/catchError';
 
 
 const BASE_URL = '/api/persons/';
+const BASE_URL2 = '/api/rutines/';
 
 @Injectable({
   providedIn: 'root'
@@ -20,11 +21,12 @@ export class MainPageService {
     return this.http.get(BASE_URL + `news?iteracion=${iteracion}`);
   }
 
-  
+  getRutines(){
+    return this.http.get(BASE_URL2);
 
-private handleError(error: any) {
-  console.error(error);
-  return throwError("Server error (" + error.status + "): " + error.text())
-}
+  }
+
+
+
 
 }
