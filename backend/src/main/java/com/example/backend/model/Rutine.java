@@ -2,6 +2,9 @@ package com.example.backend.model;
 
 import java.util.Date;
 import java.util.List;
+
+import com.example.backend.DTO.RutineDTO;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -28,6 +31,13 @@ public class Rutine {
         this.name = name;
         this.date = date;
         this.time = time;
+    }
+
+    public Rutine(RutineDTO rutine){
+        this.name = rutine.getName();
+        this.date = rutine.getDate();
+        this.time = rutine.getTime();
+        this.exercises = rutine.getExercises();
     }
 
     public void addExRutine(ExRutine exRutine) {

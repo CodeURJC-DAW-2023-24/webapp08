@@ -1,6 +1,6 @@
 
 import { LoginService } from './../../services/login.service';
-import { Component, EventEmitter, Output} from '@angular/core';
+import { Component} from '@angular/core';
 import {  OnInit , ViewChild} from '@angular/core';
 import { Person } from '../../models/person.model';
 import { PersonService } from './../../services/person.service';
@@ -67,13 +67,13 @@ admin: boolean;
    this.loginservice.logOut();
     }
 
-    change(event: any) {
+  change(event: any) {
       this.isReadOnly=false;
       this.styleE = 'none';
       this.styleG = 'block';
       }
 
-      editUser(event: any) {
+   editUser(event: any) {
         const image = this.image.nativeElement.files[0];
         this.personService.editPerson(this.person,image);
 

@@ -98,7 +98,7 @@ public class RESTRutineController {
     })
     @PostMapping("/")
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<RutineDTO> createRutine(HttpServletRequest request, @RequestBody Rutine rutine) {
+    public ResponseEntity<RutineDTO> createRutine(HttpServletRequest request, @RequestBody RutineDTO rutine) {
         try {
             Person person = personService.findPersonByHttpRequest(request);
             Date newRutineDate = rutine.getDate();
@@ -107,14 +107,15 @@ public class RESTRutineController {
             calendar.add(Calendar.DAY_OF_YEAR, -1);
             newRutineDate = calendar.getTime();
             rutine.setDate(newRutineDate);
-            rutineService.save(rutine);
-            person.getRutines().add(rutine);
+            Rutine newRutine = new Rutine(rutine);
+            rutineService.save(newRutine);
+            person.getRutines().add(newRutine);
             personService.save(person);
             List<Person> lFriends = person.getFriends();
             if (!lFriends.isEmpty()) {
                 for (Person friend : lFriends) {
                     News news = new News(person.getAlias());
-                    news.setRutine(rutine);
+                    news.setRutine(newRutine);
                     newsService.save(news);
                     friend.getNews().add(news);
                     personService.save(friend);
@@ -122,7 +123,7 @@ public class RESTRutineController {
             }
             URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(rutine.getId())
                     .toUri();
-            RutineDTO rutineDTO = new RutineDTO(rutine, personService);
+            RutineDTO rutineDTO = new RutineDTO(newRutine, personService);
             return ResponseEntity.created(location).body(rutineDTO);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
@@ -174,7 +175,7 @@ public class RESTRutineController {
             @ApiResponse(responseCode = "500", description = "You are not logged", content = @Content),
     })
     @PatchMapping("/{id}")
-    public ResponseEntity<?> editRutine(HttpServletRequest request, @RequestBody Rutine rutine, @PathVariable Long id) {
+    public ResponseEntity<?> editRutine(HttpServletRequest request, @RequestBody RutineDTO rutine, @PathVariable Long id) {
         List<Rutine> listRutine = rutineService.findAll();
         int size = listRutine.size();
         if (size == 0 || listRutine.get(size - 1).getId() < id) {

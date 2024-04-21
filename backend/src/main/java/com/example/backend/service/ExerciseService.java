@@ -77,7 +77,32 @@ public class ExerciseService {
         }
         
     }
-    
+    public List<Exercise> findExerciseOrderByFrec(Long id, String group){
+        switch (group) {
+			case "Pecho":
+            return repository.findExerciseChestOrderByFrec( id);
+               
+            case "Espalda":
+			 return repository.findExerciseBackOrderByFrec( id);
+
+            case "Hombro":
+			return repository.findExerciseShoulderOrderByFrec( id);
+              
+            case "Biceps":
+			return repository.findExerciseBicepsOrderByFrec( id);
+             
+            case "Triceps":
+			return repository.findExerciseTricepsOrderByFrec( id);
+
+            case "Inferior":
+			return repository.findExerciseLowerOrderByFrec( id);
+
+            default:
+			return repository.findExerciseCardioOrderByFrec( id);
+               
+        }
+        
+    }
 
     public void deleteById(Long id){
         repository.deleteById(id);

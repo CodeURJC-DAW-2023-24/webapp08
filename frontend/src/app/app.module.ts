@@ -1,3 +1,4 @@
+
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
@@ -13,6 +14,14 @@ import { MainPageComponent } from './main-page.component';
 import { StatisticsComponent } from './statistics.component';
 import { PersonComponent } from './person.component';
 import {SearchExerciseComponent} from './searchExercise.component';
+import { AddRutineComponent } from './addRutine.component';
+import { AddExRutineComponent } from './addExRutine.component';
+
+import { PersonService } from './../../services/person.service';
+import { LoginService } from './../../services/login.service';
+import { MainPageService } from '../../services/main-page.service';
+import { RutineService } from './../../services/rutine.service';
+import { ExerciseService } from './../../services/exercise.service';
 
 @NgModule({
   declarations: [
@@ -22,7 +31,9 @@ import {SearchExerciseComponent} from './searchExercise.component';
     MainPageComponent,
     StatisticsComponent,
     PersonComponent,
-    SearchExerciseComponent
+    SearchExerciseComponent,
+    AddRutineComponent,
+    AddExRutineComponent
   ],
   imports: [
     BrowserModule,
@@ -32,7 +43,12 @@ import {SearchExerciseComponent} from './searchExercise.component';
     HttpClientModule,
     NgApexchartsModule
   ],
-  providers: [],
+  providers: [PersonService,
+    LoginService,
+    MainPageComponent,
+    RutineService,
+    ExerciseService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

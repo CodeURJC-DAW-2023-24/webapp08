@@ -35,7 +35,9 @@ public class RutineDTO {
         Person user = personService.findByRutineId(id).orElseThrow();
         this.person = user.getAlias();
     }
-
+    public RutineDTO(){
+        
+    }
     public Long getId() {
         return id;
     }

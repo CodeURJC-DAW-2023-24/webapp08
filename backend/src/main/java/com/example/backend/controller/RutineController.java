@@ -176,9 +176,9 @@ public class RutineController implements CommandLineRunner {
             case "Espalda":
                 name = back;
                 break;
-           /*  case "Hombro":
+             case "Hombro":
                 name = shoulder;
-                break;*/
+                break;
             case "Biceps":
                 name = biceps;
                 break;

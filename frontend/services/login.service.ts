@@ -68,5 +68,5 @@ export class LoginService {
     logInReq(){
       this.router.navigate(['../login']);
     }
-   
+
 }
