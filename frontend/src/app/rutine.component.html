@@ -7,8 +7,8 @@
       <div class="col-md-11"></div>
       <div class="col-md-1">
         <div class="downL">
-          <a href="/pdf/download/">
-            <button class="btn" type="button" id="generarPDFButton">
+          <a >
+            <button (click)="download($event)" class="btn" type="button" id="generarPDFButton">
               <i class="bi bi-download"></i>
             </button>
           </a>
@@ -37,42 +37,29 @@
             </div>
           </div>
           <section class="comments">
-
               <div class="row">
-
                 <div class="col-md-12">
                   <h1 style="text-align: center;">Comentarios</h1>
                   <div id="container-messages" class="message-container">
                       <div *ngIf="rutine.lComments !== undefined">
                       <p *ngFor="let coment of rutine.lComments" class="message-style"><b>{{coment.alias}}:</b>
-                      {{coment.content}} <button  class="btn btn-danger btn-sm ml-2 float-right"> Borrar</button></p>
+                      {{coment.content}} <button *ngIf="person.alias===coment.alias" class="btn btn-danger btn-sm ml-2 float-right" (click)="deleteComment($event,coment)"> Borrar</button></p>
                       </div>
                   </div>
                 </div>
-
-
-
-
-
                     <div class="info_form ">
-
                       <div style="display: flex; margin: auto; flex-wrap: nowrap;">
                         <input id="comment" name="comentario" type="text" class="form-control comF"
-                          placeholder="Añade un comentario...">
-                        <div class="sendB">
-                          <button type="submit" class="btn" >
+                          placeholder="Añade un comentario..." #commentInput>
+                        <div class="sendB" >
+                          <button type="submit" (click)="newComment($event, commentInput.value, commentInput)" class="btn" >
                             <i class="bi bi-send"></i>
                           </button>
 
                         </div>
                       </div>
 
-
-
-
                     </div>
-
-
               </div>
           </section>
 
