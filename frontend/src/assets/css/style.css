@@ -1167,5 +1167,5 @@ margin-top: 10px;
 }
 
 .dropdown-menu {
-  z-index: 900000; /* Valor alto para asegurarse de que esté por encima de otros elementos */
+  z-index: 900000; 
 }

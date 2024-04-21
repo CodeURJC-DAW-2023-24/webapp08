@@ -6,21 +6,21 @@ import { throwError } from 'rxjs/internal/observable/throwError';
 import { catchError } from 'rxjs/internal/operators/catchError';
 
 
-const BASE_URL = '/api/persons';
+const BASE_URL = '/api/persons/';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MainPageService {
-  news: any;
   constructor(private http: HttpClient, public router: Router) {
 
   }
 
-  getNews(): Observable<Object[]>{
-   return this.http.get(BASE_URL + '/news') as Observable<Object[]>;
-
+  getNews(iteracion:number) {
+    return this.http.get(BASE_URL + `news?iteracion=${iteracion}`);
   }
+
+  
 
 private handleError(error: any) {
   console.error(error);
