@@ -17,6 +17,7 @@ import { PersonService } from './../../services/person.service';
   ]
 })
 export class PersonComponent implements OnInit {
+admin: boolean;
 
 
 
@@ -34,7 +35,8 @@ export class PersonComponent implements OnInit {
   imageUrl: string | undefined;
   @ViewChild("image")
   image: any;
-
+  roles:String[];
+  @Output() imageUrlChanged: EventEmitter<string > = new EventEmitter<string >();
 
   ngOnInit(): void {
       if (this.loginservice.isLogged()){
@@ -49,6 +51,12 @@ export class PersonComponent implements OnInit {
             this.imageUrl = undefined;
           }
         });
+        this.roles=this.person.roles;
+        if (this.roles.includes('ADMIN')) {
+        this.admin = true;
+          }else{
+        this.admin=false;
+        }
 
       }
       else{

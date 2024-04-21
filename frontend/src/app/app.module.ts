@@ -13,6 +13,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { MainPageComponent } from './main-page.component';
 import { StatisticsComponent } from './statistics.component';
 import { PersonComponent } from './person.component';
+import {SearchExerciseComponent} from './searchExercise.component';
 import { AddRutineComponent } from './addRutine.component';
 import { AddExRutineComponent } from './addExRutine.component';
 
@@ -30,6 +31,7 @@ import { ExerciseService } from './../../services/exercise.service';
     MainPageComponent,
     StatisticsComponent,
     PersonComponent,
+    SearchExerciseComponent,
     AddRutineComponent,
     AddExRutineComponent
   ],

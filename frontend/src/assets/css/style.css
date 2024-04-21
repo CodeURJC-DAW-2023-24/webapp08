@@ -308,7 +308,7 @@ margin-top: 10px;
   padding-top: 90px;
   padding-bottom: 90px;
   background-color: #000000;
-  background-image: url('../images/pecho.jpg');
+  background-image: url('/assets/images/pecho.jpg');
   background-size: cover;
   height: 300px;
 
@@ -318,7 +318,7 @@ margin-top: 10px;
   padding-top: 90px;
   padding-bottom: 90px;
   background-color: #000000;
-  background-image: url('../images/espalda.jpg');
+  background-image: url('/assets/images/espalda.jpg');
   background-size: cover;
   height: 300px;
 }
@@ -327,7 +327,7 @@ margin-top: 10px;
   padding-top: 90px;
   padding-bottom: 90px;
   background-color: #000000;
-  background-image: url('../images/biceps.jpg');
+  background-image: url('/assets/images/biceps.jpg');
   background-size: cover;
   height: 300px;
 }
@@ -336,7 +336,7 @@ margin-top: 10px;
   padding-top: 90px;
   padding-bottom: 90px;
   background-color: #000000;
-  background-image: url('../images/triceps.jpg');
+  background-image: url('/assets/images/triceps.jpg');
   background-size: cover;
   height: 300px;
 }
@@ -345,7 +345,7 @@ margin-top: 10px;
   padding-top: 90px;
   padding-bottom: 90px;
   background-color: #000000;
-  background-image: url('../images/cardio.jpg');
+  background-image: url('/assets/images/cardio.jpg');
   background-size: cover;
   height: 300px;
 }
@@ -354,7 +354,7 @@ margin-top: 10px;
   padding-top: 90px;
   padding-bottom: 90px;
   background-color: #000000;
-  background-image: url('../images/torsoInf.jpg');
+  background-image: url('/assets/images/torsoInf.jpg');
   background-size: cover;
   height: 300px;
 }
@@ -363,7 +363,7 @@ margin-top: 10px;
   padding-top: 90px;
   padding-bottom: 90px;
   background-color: #000000;
-  background-image: url('../images/hombro.jpg');
+  background-image: url('/assets/images/hombro.jpg');
   background-size: cover;
   height: 300px;
 }

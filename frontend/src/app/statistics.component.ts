@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {
   ApexAxisChartSeries,
   ApexChart,
@@ -11,7 +11,9 @@ import {
   ApexFill,
   ApexNonAxisChartSeries
 } from "ng-apexcharts";
-
+import { LoginService } from './../../services/login.service';
+import { Person } from '../../models/person.model';
+import { PersonService } from './../../services/person.service';
 export type ChartOptions = {
   series: ApexAxisChartSeries;
   chart: ApexChart;
@@ -29,8 +31,21 @@ export type ChartOptions = {
 })
 export class StatisticsComponent {
   public chartOptions: ChartOptions;
+  admin: boolean;
+  person:Person;
+  roles: String[];
 
-  constructor() {
+  ngOnInit(): void {
+    if (this.loginservice.isLogged()){
+      this.person= this.loginservice.currentUser();}
+      this.roles=this.person.roles;
+      if (this.roles.includes('ADMIN')) {
+        this.admin = true;
+      }else{
+        this.admin=false;
+      }
+    }
+  constructor(public loginservice:LoginService,public personService: PersonService) {
     this.chartOptions = {
       series: [
         {

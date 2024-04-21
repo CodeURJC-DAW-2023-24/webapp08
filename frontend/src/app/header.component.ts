@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { LoginService } from '../../services/login.service';
 
@@ -11,8 +11,7 @@ import { LoginService } from '../../services/login.service';
   ]
 })
 export class HeaderComponent {
-  admin:boolean = false;
-  search: boolean = false;
+  @Input() searchOptions: { search: boolean, search2: boolean, admin:boolean } = { search: false, search2: true, admin:false };
   constructor(public loginservice:LoginService) { }
 
   ngOnInit(): void {
