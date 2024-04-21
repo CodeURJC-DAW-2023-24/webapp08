@@ -1,3 +1,4 @@
+import { StatisticsService } from './../../services/statistics.service';
 import { Component, OnInit } from '@angular/core';
 import {
   ApexAxisChartSeries,
@@ -11,9 +12,6 @@ import {
   ApexFill,
   ApexNonAxisChartSeries
 } from "ng-apexcharts";
-import { LoginService } from './../../services/login.service';
-import { Person } from '../../models/person.model';
-import { PersonService } from './../../services/person.service';
 export type ChartOptions = {
   series: ApexAxisChartSeries;
   chart: ApexChart;
@@ -27,132 +25,110 @@ export type ChartOptions = {
 @Component({
   selector: 'statistics',
   templateUrl: './statistics.component.html',
-  styleUrls: ['../assets/css/bootstrap.css','../assets/css/progress.css']
+  styleUrls: ['../assets/css/bootstrap.css', '../assets/css/progress.css']
 })
 export class StatisticsComponent {
   public chartOptions: ChartOptions;
-  admin: boolean;
-  person:Person;
-  roles: String[];
+
 
   ngOnInit(): void {
-    if (this.loginservice.isLogged()){
-      this.person= this.loginservice.currentUser();}
-      this.roles=this.person.roles;
-      if (this.roles.includes('ADMIN')) {
-        this.admin = true;
-      }else{
-        this.admin=false;
-      }
-    }
-  constructor(public loginservice:LoginService,public personService: PersonService) {
-    this.chartOptions = {
-      series: [
-        {
-          name: "Inflation",
-          data: [2.3, 3.1, 4.0, 10.1, 4.0, 3.6, 3.2, 2.3, 1.4, 0.8, 0.5, 0.2]
-        }
-      ],
-      chart: {
-        height: 350,
-        type: "bar"
-      },
-      plotOptions: {
-        bar: {
-          dataLabels: {
-            position: "top" // top, center, bottom
-          }
-        }
-      },
-      dataLabels: {
-        enabled: true,
-        formatter: function(val) {
-          return val + "%";
-        },
-        offsetY: -20,
-        style: {
-          fontSize: "12px",
-          colors: ["#304758"]
-        }
-      },
+    this.loadCharts();
+  }
+  constructor(private statisticsService: StatisticsService) {
 
-      xaxis: {
-        categories: [
-          "Jan",
-          "Feb",
-          "Mar",
-          "Apr",
-          "May",
-          "Jun",
-          "Jul",
-          "Aug",
-          "Sep",
-          "Oct",
-          "Nov",
-          "Dec"
-        ],
-        position: "top",
-        labels: {
-          offsetY: -18
-        },
-        axisBorder: {
-          show: false
-        },
-        axisTicks: {
-          show: false
-        },
-        crosshairs: {
+  }
+
+  loadCharts() {
+    this.statisticsService.getCharts().subscribe(
+      response => {
+        let data = response
+        console.log(data);
+        const data2 = Object.values(data).map(value => parseFloat(value.toString().trim()));
+        const data3 = Object.keys(data);
+        this.chartOptions = {
+          series: [
+            {
+              name: "Numero de ejercicios",
+              data: data2
+            }
+          ],
+          chart: {
+            height: 600,
+            width: 800,
+            type: "bar",
+            background: '#ffffff'
+          },
+          plotOptions: {
+            bar: {
+              dataLabels: {
+                position: "top" // top, center, bottom
+              }
+            }
+          },
+          dataLabels: {
+            enabled: true,
+            formatter: function (val) {
+              return val + "";
+            },
+            offsetY: -20,
+            style: {
+              fontSize: "12px",
+              colors: ["#304758"]
+            }
+          },
+
+          xaxis: {
+            categories: data3,
+            position: "bottom",
+            labels: {
+              offsetY: 0
+            },
+            axisBorder: {
+              show: false
+            },
+            axisTicks: {
+              show: false
+            },
+            crosshairs: {
+
+
+            },
+            tooltip: {
+              enabled: true,
+              offsetY: -35
+            }
+          },
           fill: {
-            type: "gradient",
-            gradient: {
-              colorFrom: "#D8E3F0",
-              colorTo: "#BED1E6",
-              stops: [0, 100],
-              opacityFrom: 0.4,
-              opacityTo: 0.5
+            colors: ["#f1db25"]
+          },
+          yaxis: {
+            axisBorder: {
+              show: false
+            },
+            axisTicks: {
+              show: false
+            },
+            labels: {
+              show: false,
+              formatter: function (val) {
+                return val + "";
+              }
+            }
+          },
+          title: {
+            text: "Ejercicios / Grupo muscular",
+            offsetY: 0,
+            align: "center",
+            style: {
+              color: "black"
             }
           }
-        },
-        tooltip: {
-          enabled: true,
-          offsetY: -35
-        }
+        };
       },
-      fill: {
-        type: "gradient",
-        gradient: {
-          shade: "light",
-          type: "horizontal",
-          shadeIntensity: 0.25,
-          gradientToColors: undefined,
-          inverseColors: true,
-          opacityFrom: 1,
-          opacityTo: 1,
-          stops: [50, 0, 100, 100]
-        }
-      },
-      yaxis: {
-        axisBorder: {
-          show: false
-        },
-        axisTicks: {
-          show: false
-        },
-        labels: {
-          show: false,
-          formatter: function(val) {
-            return val + "%";
-          }
-        }
-      },
-      title: {
-        text: "Monthly Inflation in Argentina, 2002",
-        offsetY: 320,
-        align: "center",
-        style: {
-          color: "#444"
-        }
-      }
-    };
+      error => {
+        console.error('Error obteniendo novedades:', error);
+      });
   }
-}
+
+
+} //End class

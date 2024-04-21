@@ -23,6 +23,7 @@ import { LoginService } from './../../services/login.service';
 import { MainPageService } from '../../services/main-page.service';
 import { RutineService } from './../../services/rutine.service';
 import { ExerciseService } from './../../services/exercise.service';
+import { CommunityComponent } from './community.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { ExerciseService } from './../../services/exercise.service';
     SearchExerciseComponent,
     AddRutineComponent,
     AddExRutineComponent,
-    RutineComponent
+    RutineComponent,
+    CommunityComponent
   ],
   imports: [
     BrowserModule,

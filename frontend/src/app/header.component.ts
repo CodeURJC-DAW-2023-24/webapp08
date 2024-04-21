@@ -2,6 +2,7 @@ import { HeaderService } from './../../services/header.service';
 import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { LoginService } from '../../services/login.service';
+import { Person } from '../../models/person.model';
 
 @Component({
   selector: 'app-header',
@@ -14,8 +15,19 @@ import { LoginService } from '../../services/login.service';
 export class HeaderComponent {
   @Input() searchOptions: { search: boolean, search2: boolean, admin:boolean } = { search: false, search2: true, admin:false };
   constructor(public loginservice:LoginService, public headerService:HeaderService) { }
-
+  admin: boolean;
+  person:Person;
+  roles: String[];
+  
   ngOnInit(): void {
+    if (this.loginservice.isLogged()){
+      this.person= this.loginservice.currentUser();}
+      this.roles=this.person.roles;
+      if (this.roles.includes('ADMIN')) {
+        this.admin = true;
+      }else{
+        this.admin=false;
+      }
 
   }
    showNotifications(){

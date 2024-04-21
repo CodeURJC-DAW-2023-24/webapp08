@@ -13,24 +13,12 @@ export class MainPageComponent {
   loadMore: number = 0;
   NUM_RESULTS: number = 10;
   data: any;
-  admin: boolean;
-  person: Person;
-  roles: String[];
   shift: number = 0;
 
   constructor(public mainpageService: MainPageService, public loginservice: LoginService, public personService: PersonService) {
   }
 
   ngOnInit(): void {
-    if (this.loginservice.isLogged()) {
-      this.person = this.loginservice.currentUser();
-    }
-    this.roles = this.person.roles;
-    if (this.roles.includes('ADMIN')) {
-      this.admin = true;
-    } else {
-      this.admin = false;
-    }
     this.initElements();
     this.loadRutines();
   }

@@ -1127,6 +1127,7 @@ margin-top: 10px;
   position: relative;
 }
 
+
 .hero_bg_box {
   position: absolute;
   top: 0;
@@ -1167,5 +1168,5 @@ margin-top: 10px;
 }
 
 .dropdown-menu {
-  z-index: 900000; 
+  z-index: 900000;
 }

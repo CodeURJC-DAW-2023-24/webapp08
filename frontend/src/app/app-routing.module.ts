@@ -9,6 +9,7 @@ import { HeaderComponent } from './header.component';
 import { AddExRutineComponent } from './addExRutine.component';
 import {SearchExerciseComponent} from './searchExercise.component';
 import { RutineComponent } from './rutine.component';
+import { CommunityComponent } from './community.component';
 
 const routes: Routes = [
   {path:'mainPage', component: MainPageComponent},
@@ -21,7 +22,8 @@ const routes: Routes = [
   {path: 'addRutine/:id', component:  AddRutineComponent },
   {path: 'editRutine/:id', component:  AddRutineComponent },
   {path: 'addExRutine/:id', component:  AddExRutineComponent },
-  {path:'searchExercise', component:SearchExerciseComponent}
+  {path:'searchExercise', component:SearchExerciseComponent},
+  {path:'mainPage/community', component:CommunityComponent}
 
 ];
 
