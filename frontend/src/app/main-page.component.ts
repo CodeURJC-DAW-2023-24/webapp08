@@ -124,6 +124,12 @@ export class MainPageComponent {
       }
       containerNews.appendChild(row);
     }
+    const content: HTMLElement | null = document.querySelector('.content');
+    if (content) {
+      content.style.backgroundImage = `url('assets/images/gimnasio.jpg')`;
+      content.style.backgroundSize = 'cover';
+      content.style.backgroundRepeat = 'no-repeat';
+    }
   }
 
   /////RUTINES //////////
