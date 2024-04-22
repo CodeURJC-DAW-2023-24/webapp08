@@ -188,6 +188,13 @@ public class RESTPersonController {
 		}
 		return ResponseEntity.notFound().build();
 	}
+	@GetMapping("/names")
+	public ResponseEntity<?> searchUSer(HttpServletRequest request,@RequestParam("alias") String aliasB) {
+		Person person = personService.findPersonByHttpRequest(request);
+		List<String[]> lNameId = personService.getIdandAlias(aliasB, person.getId());
+		
+		return ResponseEntity.ok().body(lNameId);
+	}
 	
 	
 	@Operation(summary = "Delete person by its id")

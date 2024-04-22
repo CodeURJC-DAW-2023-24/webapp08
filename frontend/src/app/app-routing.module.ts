@@ -16,7 +16,7 @@ import {SingleExerciseComponent} from './singleExercise.component';
 const routes: Routes = [
   {path:'mainPage', component: MainPageComponent},
   {path: 'login', component: LoginComponent },
-  {path:'mainPage/statistics', component: StatisticsComponent},
+  {path:'statistics', component: StatisticsComponent},
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   {path: 'person', component: PersonComponent },
   {path: 'addRutine', component:  AddRutineComponent },
@@ -25,7 +25,7 @@ const routes: Routes = [
   {path: 'editRutine/:id', component:  AddRutineComponent },
   {path: 'addExRutine/:id', component:  AddExRutineComponent },
   {path:'searchExercise', component:SearchExerciseComponent},
-  {path:'mainPage/community', component:CommunityComponent},
+  {path:'community', component:CommunityComponent},
   {path:'newExercise', component: NewExerciseComponent},
   {path:'exercise/:id', component:SingleExerciseComponent}
 

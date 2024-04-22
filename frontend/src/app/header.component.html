@@ -2,7 +2,7 @@
   <nav class="navbar fixed-top">
       <div class="container-fluid">
           <div class="i-flex">
-              <a class="navbar-brand" href="./mainPage">
+              <a class="navbar-brand" [routerLink]="['/mainPage']">
                   <span>
                       GYMGURU
                       <img src="assets/images/pesa.png" class="logo" />
@@ -37,7 +37,7 @@
                   </a>
               </div>
               <div class="statistics">
-                 <a href="./mainPage/statistics"> <button class="btn">
+                 <a [routerLink]="['/statistics']"> <button class="btn">
                       <i class="bi bi-bar-chart"></i>
                   </button>
               </a>
@@ -54,7 +54,7 @@
               </div>
 
               <div class="comunity">
-                  <a href="./mainPage/community">
+                  <a [routerLink]="['/community']">
                       <button class="btn"><i class="bi bi-person-plus"></i></button>
                   </a>
               </div>
