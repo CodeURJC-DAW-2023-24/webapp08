@@ -14,6 +14,9 @@ export class MainPageComponent {
   NUM_RESULTS: number = 10;
   data: any;
   shift: number = 0;
+  admin: boolean;
+ person:Person;
+ roles: String[];
 
   constructor(public mainpageService: MainPageService, public loginservice: LoginService, public personService: PersonService) {
   }
@@ -21,6 +24,18 @@ export class MainPageComponent {
   ngOnInit(): void {
     this.initElements();
     this.loadRutines();
+    this.personService.getPerson().subscribe(
+      response => {
+          this.person= response as Person;
+          this.roles=this.person.roles;
+          if (this.roles.includes('ADMIN')) {
+            this.admin = true;
+          }else{
+            this.admin=false;
+          }
+
+      },
+  );
   }
   //////NEWS/////////
   initElements(): any {

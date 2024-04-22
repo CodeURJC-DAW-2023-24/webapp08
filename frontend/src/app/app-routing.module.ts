@@ -10,6 +10,8 @@ import { AddExRutineComponent } from './addExRutine.component';
 import {SearchExerciseComponent} from './searchExercise.component';
 import { RutineComponent } from './rutine.component';
 import { CommunityComponent } from './community.component';
+import {NewExerciseComponent} from './newExercise.component';
+import {SingleExerciseComponent} from './singleExercise.component';
 
 const routes: Routes = [
   {path:'mainPage', component: MainPageComponent},
@@ -23,7 +25,9 @@ const routes: Routes = [
   {path: 'editRutine/:id', component:  AddRutineComponent },
   {path: 'addExRutine/:id', component:  AddExRutineComponent },
   {path:'searchExercise', component:SearchExerciseComponent},
-  {path:'mainPage/community', component:CommunityComponent}
+  {path:'mainPage/community', component:CommunityComponent},
+  {path:'newExercise', component: NewExerciseComponent},
+  {path:'exercise/:id', component:SingleExerciseComponent}
 
 ];
 
