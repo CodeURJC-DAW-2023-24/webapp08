@@ -14,18 +14,19 @@ export class CommunityService {
   }
 
 
-	sendFriendRequest(alias:string) {
-	return	this.http.post(BASE_URL+`friends/requests/${alias}`,undefined)
-  }
+
   searchUsers(alias:string){
-    return alias;
+    return this.http.get(BASE_URL+`names?alias=${alias}`)
   }
 
-  deleteUser(id:string){
-
+  sendFriendRequest(alias:string) {
+    return	this.http.post(BASE_URL+`friends/requests/${alias}`,undefined)
+    }
+    
+  deleteUser(id:number){
+    return this.http.delete(BASE_URL+`${id}`)
   }
 
-  loadFriends(){
 
-  }
+
 }

@@ -11,151 +11,159 @@ import { Router } from '@angular/router';
 })
 export class CommunityComponent {
   admin: boolean;
-  person:Person;
+  person: Person;
   roles: String[];
 
-   ngOnInit(): void {
-     this.personService.getPerson().subscribe(
-       response => {
-           this.person= response as Person;
-           this.roles=this.person.roles;
-           if (this.roles.includes('ADMIN')) {
-             this.admin = true;
-           }else{
-             this.admin=false;
-           }
-
-       },
-       error => {
-         this.router.navigate(['../login']);
-         this.person = {alias:"",name:"",date:"",weight:0, roles:[]};
-
-       }
-     )
-   }
-   constructor(public loginservice:LoginService,public personService: PersonService,public router: Router,public communityService: CommunityService) {
-   //this.loadFriends();
-
-   }
-
-
-  /*search(event: any): void {
-    const friendContainer: HTMLElement | null = document.getElementById("friend-container");
-    let name = event.target.value;
-    if (friendContainer) {
-        friendContainer.innerHTML = "";
-        friendContainer.style.color = "black";
-        friendContainer.style.fontSize = "20px";
-
-        if (name.trim() !== "") {
-            fetch(`/searchUsers?nombre=${name}`)
-                .then(response => response.json())
-                .then(data => {
-                    let names: string[][] = data.lNameId;
-                    let admin: boolean = data.bAdmin;
-                    this.addElementsMainContainer(names, admin);
-                });
+  ngOnInit(): void {
+    this.personService.getPerson().subscribe(
+      response => {
+        this.person = response as Person;
+        this.roles = this.person.roles;
+        if (this.roles.includes('ADMIN')) {
+          this.admin = true;
+        } else {
+          this.admin = false;
         }
-    }
-}
+        this.loadFriends();
+      },
+      error => {
+        this.router.navigate(['../login']);
+        this.person = { alias: "", name: "", date: "", weight: 0, roles: [] };
 
- searchValueInput(): void {
+      }
+    )
+
+  }
+  constructor(public loginservice: LoginService, public personService: PersonService, public router: Router, public communityService: CommunityService) {
+
+  }
+
+
+  search(event: any): void {
+    const friendContainer: HTMLElement | null = document.getElementById("friend-container");
+    let name: string;
+    try {
+      name = event.target.value;
+    } catch (error) {
+      name = event;
+    }
+    if (friendContainer) {
+      friendContainer.innerHTML = "";
+      friendContainer.style.color = "black";
+      friendContainer.style.fontSize = "20px";
+
+      if (name.trim() !== "") {
+        this.communityService.searchUsers(name).subscribe(
+          response => {
+            let names: any = response as any;
+            this.addElementsMainContainer(names, this.admin);
+          },
+          error => {
+            console.error('Error buscando usuario:', error);
+          });
+      }
+    }
+  }
+
+  searchValueInput(): void {
     const valueInput: string = (document.getElementById("searchInput") as HTMLInputElement).value;
     this.search(valueInput);
-}
+  }
 
- addElementsMainContainer(names: string[][], admin: boolean): void {
+  addElementsMainContainer(names: string[][], admin: boolean): void {
     const friendContainer: HTMLElement | null = document.getElementById("friend-container");
     if (friendContainer) {
-        const ulElement: HTMLUListElement = document.createElement("ul");
-        ulElement.classList.add("friend-list");
+      const ulElement: HTMLUListElement = document.createElement("ul");
+      ulElement.classList.add("friend-list");
 
-        for (let i = 0; i < names.length; i++) {
-            const liElement: HTMLLIElement = document.createElement("li");
-            liElement.classList.add("user-item");
-            liElement.textContent = `${names[i][1]}`;
+      for (let i = 0; i < names.length; i++) {
+        const liElement: HTMLLIElement = document.createElement("li");
+        liElement.classList.add("user-item");
+        liElement.textContent = `${names[i][1]}`;
 
-            const buttonElement: HTMLButtonElement = document.createElement("button");
-            buttonElement.classList.add("request-btn");
-            buttonElement.textContent = "Enviar solicitud";
-            let that = this
-            buttonElement.addEventListener("click", function() {
-                that.sendRequest(names[i][0]);
-            });
+        const buttonElement: HTMLButtonElement = document.createElement("button");
+        buttonElement.classList.add("request-btn");
+        buttonElement.textContent = "Enviar solicitud";
+        let that = this
+        buttonElement.addEventListener("click", function () {
+          that.sendRequest(names[i][1]);
+        });
 
-            const buttonContainer: HTMLDivElement = document.createElement("div");
-            buttonContainer.appendChild(buttonElement);
+        const buttonContainer: HTMLDivElement = document.createElement("div");
+        buttonContainer.appendChild(buttonElement);
 
-            if (admin) {
-                const deleteButton: HTMLButtonElement = document.createElement("button");
-                deleteButton.classList.add("btn", "btn-danger", "btn-sm", "ml-2");
-                deleteButton.innerHTML = '<i class="bi bi-trash"></i>';
-                buttonContainer.appendChild(deleteButton);
+        if (admin) {
+          const deleteButton: HTMLButtonElement = document.createElement("button");
+          deleteButton.classList.add("btn", "btn-danger", "btn-sm", "ml-2");
+          deleteButton.innerHTML = '<i class="bi bi-trash"></i>';
+          buttonContainer.appendChild(deleteButton);
 
-                deleteButton.addEventListener("click", function() {
-                    that.deleteUser(names[i][0]);
-                });
-            }
-
-            liElement.appendChild(buttonContainer);
-            ulElement.appendChild(liElement);
+          deleteButton.addEventListener("click", function () {
+            that.deleteUser(parseInt(names[i][0]));
+          });
         }
 
-        friendContainer.appendChild(ulElement);
+        liElement.appendChild(buttonContainer);
+        ulElement.appendChild(liElement);
+      }
+
+      friendContainer.appendChild(ulElement);
     }
-}
+  }
 
-  deleteUser(id: string) {
-    let csrfToken: string | null = (document.querySelector('input[name="_csrf"]') as HTMLInputElement)?.value;
+  deleteUser(id: number) {
 
-    const RESPONSE = await fetch(`/deleteUser?id=${id}`,{
-        method: 'POST',
-        headers: { 'X-XSRF-TOKEN': csrfToken }
-    });
-
-    let names = await RESPONSE.json();
-    if (names == true) {
-        var friendContainer = document.getElementById("friend-container");
-        if (friendContainer) {
+    this.communityService.deleteUser(id).subscribe(
+      response => {
+        let name = response;
+        if (name == null) {
+          var friendContainer = document.getElementById("friend-container");
+          if (friendContainer) {
             friendContainer.innerHTML = "Usuario eliminado con exito";
             friendContainer.style.fontSize = "30px";
             friendContainer.style.color = "crimson";
+          }
         }
-    }
-}
+      },
+      error => {
+        console.error('Error borrando usuario:', error);
 
-  sendRequest(id: string) {
-    let csrfToken: string | null = (document.querySelector('input[name="_csrf"]') as HTMLInputElement)?.value;
+      });
+  }
 
-    const RESPONSE = await fetch(`/sendRequest?id=${id}`,{
-        method: 'POST',
-        headers: { 'X-XSRF-TOKEN': csrfToken }
+  sendRequest(alias: string) {
+    this.communityService.sendFriendRequest(alias).subscribe(
+      response =>{
+     let names = response
+     if (names == null) {
+         var friendContainer = document.getElementById("friend-container");
+         if (friendContainer) {
+             friendContainer.innerHTML = "Solicitud Mandada con Exito";
+             friendContainer.style.fontSize = "30px";
+             friendContainer.style.color = "limegreen";
+         }
+     }},
+     error => {
+      console.error('Error borrando usuario:', error);
+
     });
+  }
 
-    let names = await RESPONSE.json();
-    if (names == true) {
-        var friendContainer = document.getElementById("friend-container");
-        if (friendContainer) {
-            friendContainer.innerHTML = "Solicitud Mandada con Exito";
-            friendContainer.style.fontSize = "30px";
-            friendContainer.style.color = "limegreen";
-        }
-    }
-}
+  loadFriends() {
 
-  loadFriends()  {
-    const RESPONSE = await fetch("/loadFriends");
-    let lFriends = await RESPONSE.json();
+    let lFriends = this.person.friends;
 
     var ulElement = document.getElementById("list-group") as HTMLElement;
 
-    lFriends.forEach(function(friend: string) {
+    if (lFriends !== undefined) {
+      lFriends.forEach(function (friend: string) {
         var liElement = document.createElement("li");
         liElement.className = "list-group-item";
         liElement.textContent = friend;
 
         ulElement.appendChild(liElement);
-    });
-}
-*/
+      });
+    }
+  }
+
 }
