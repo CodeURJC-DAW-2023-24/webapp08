@@ -4,7 +4,6 @@ import {  OnInit , ViewChild} from '@angular/core';
 import { Rutine } from '../../models/rutine.model';
 import { RutineService } from './../../services/rutine.service';
 import { PersonService } from './../../services/person.service';
-import { Injectable } from '@angular/core';
 import { Router,ActivatedRoute } from '@angular/router';
 import { Person } from '../../models/person.model';
 import { ExRutine } from '../../models/exRutine.model';
@@ -20,7 +19,6 @@ import { ExRutine } from '../../models/exRutine.model';
     '../assets/css/bootstrap.css'
   ]
 })
-@Injectable({providedIn: 'root'})
 export class AddRutineComponent implements OnInit{
 
 

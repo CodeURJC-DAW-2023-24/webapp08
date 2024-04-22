@@ -33,11 +33,6 @@ export class HeaderComponent {
           }
 
       },
-      error => {
-        this.router.navigate(['../login']);
-        this.person = {alias:"",name:"",date:"",weight:0, roles:[]};
-
-      }
   );
 
   }

@@ -1,10 +1,38 @@
 import { Component } from '@angular/core';
-
+import { LoginService } from './../../services/login.service';
+import { Person } from '../../models/person.model';
+import { PersonService } from './../../services/person.service';
+import { Router } from '@angular/router';
 @Component({
   selector: 'community',
   templateUrl: './community.component.html',
   styleUrl: '../assets/css/comunityStyle.css'
 })
 export class CommunityComponent {
+  admin: boolean;
+  person:Person;
+  roles: String[];
 
+   ngOnInit(): void {
+     this.personService.getPerson().subscribe(
+       response => {
+           this.person= response as Person;
+           this.roles=this.person.roles;
+           if (this.roles.includes('ADMIN')) {
+             this.admin = true;
+           }else{
+             this.admin=false;
+           }
+
+       },
+       error => {
+         this.router.navigate(['../login']);
+         this.person = {alias:"",name:"",date:"",weight:0, roles:[]};
+
+       }
+     )
+   }
+   constructor(public loginservice:LoginService,public personService: PersonService,public router: Router) {
+
+   }
 }
