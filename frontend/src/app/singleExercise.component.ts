@@ -7,6 +7,8 @@ import { LoginService } from '../../services/login.service';
 import { Person } from '../../models/person.model';
 import { PersonService } from '../../services/person.service';
 import { Exercise } from '../../models/exercise.model';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+
 
 @Component({
   selector: 'exercise',
@@ -18,14 +20,18 @@ import { Exercise } from '../../models/exercise.model';
   ]
 })
 export class SingleExerciseComponent {
-  admin: boolean;
+admin: boolean;
  person:Person;
  eVideo:boolean;
  roles: String[];
-  constructor(private loginservice: LoginService, private personService:PersonService, exerciseService:ExerciseService, public router: Router,activatedRoute:ActivatedRoute){
+ editMode:boolean=false;
+ exercise:Exercise;
+ safeVideo:SafeResourceUrl;
+  constructor(private loginservice: LoginService, private personService:PersonService, private exerciseService:ExerciseService, public router: Router,activatedRoute:ActivatedRoute,private sanitizer: DomSanitizer){
     const id = activatedRoute.snapshot.params['id'];
     exerciseService.getExerciseById(id).subscribe(
-      response => {this.exercise = response as Exercise
+      response => {this.exercise = response as Exercise;
+        this.safeVideo =this.sanitizer.bypassSecurityTrustResourceUrl(this.exercise.video);
         if (this.exercise.video===''){
           this.eVideo=false;
         }else{
@@ -33,7 +39,7 @@ export class SingleExerciseComponent {
         }
       }
     );}
-  exercise:Exercise;
+
   ngOnInit(): void {
     this.personService.getPerson().subscribe(
       response => {
@@ -51,5 +57,18 @@ export class SingleExerciseComponent {
         this.person = {alias:"",name:"",date:"",weight:0, roles:[]};
 
       });
+  }
+  editExerciseMode($event: Event){
+    this.editMode=true
+  }
+  deleteExercise($event:  MouseEvent){
+    this.exerciseService.deleteExerciseById(this.exercise.id);
+    this.router.navigate(['/mainPage']);
+  }
+
+  editExercise($event: Event){
+    this.editMode=false;
+    this.exerciseService.editExerciseById(this.exercise.id,this.exercise).subscribe();
+    this.router.navigate(['/exercise/'+this.exercise.id]);
   }
 }

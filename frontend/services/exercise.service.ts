@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
 import { Exercise } from '../models/exercise.model';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
-
+import { of } from 'rxjs';
 const BASE_URL = '/api/exercises/';
 
 @Injectable({providedIn: 'root'})
@@ -23,6 +23,16 @@ export class ExerciseService{
   }
   getExerciseById(id: number){
     return this.http.get(BASE_URL+ id);
+  }
+  deleteExerciseById(id:number| undefined){
+    if(id !== undefined ){
+    }
+    return this.http.delete(BASE_URL+id).subscribe();
+  }
+  editExerciseById(id:number| undefined, exercise: Exercise){
+    if(id !== undefined ){
+    }
+    return this.http.put(BASE_URL+id,exercise);
   }
 
 

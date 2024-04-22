@@ -1,4 +1,4 @@
-<body class=" layout_padding_exercise">
+<body class="layout_padding_exercise">
   <app-header [searchOptions]="{ search: false, search2: true, admin: admin}"></app-header>
   <section class="team_section">
       <div *ngIf='admin' class="row">
@@ -6,7 +6,7 @@
           <div class="col-md-1">
               <div class="trash">
                   <a >
-                      <button class="btn" type="button">
+                      <button class="btn" type="button" (click)="deleteExercise($event)">
                           <i class="bi bi-trash"></i>
                       </button>
                   </a>
@@ -15,25 +15,25 @@
           <div class="col-md-1">
               <div class="downL">
 
-                      <button class="btn" type="button" onclick="editExercise()">
+                      <button class="btn" type="button" (click)="editExerciseMode($event)">
                           <i class="bi bi-pencil-fill"></i>
                       </button>
 
               </div>
           </div>
       </div>
-      <div class="container" id="editContainer" style="display: none;">
+      <div class="container" id="editContainer" *ngIf='editMode'>
           <section role="form" class="formAd"  method="post" id="formulario"
               enctype="multipart/form-data" >
               <div class="form-group ">
                   <label for="name">Nombre del ejercicio: </label>
                   <input type="text" name="name" class="form-control" id="name"
-                      value="{{exercise.name}}">
+                      value="{{exercise.name}}" [(ngModel)]="exercise.name">
               </div>
               <div class="form-group">
                   <label for="description">Descripción del ejercicio:</label>
                   <input class="form-control" name="description" id="description" rows="3"
-                  value="{{exercise.description}}">
+                  value="{{exercise.description}}" [(ngModel)]="exercise.description">
               </div>
               <div class="form-group ">
                   <label for="image">Imagen: </label>
@@ -42,11 +42,11 @@
 
               <div class="form-group">
                   <label for="video">URL del video (opcional):</label>
-                  <input type="url" class="form-control" id="video" name="video" value="{exercise.{video}}">
+                  <input type="url" class="form-control" id="video" name="video" value="{{exercise.video}}" [(ngModel)]="exercise.video">
               </div>
               <div class="form-group">
                   <label for="grp">Grupo muscular </label>
-                  <select class="form-select form-control" id="grp" name="grp">
+                  <select class="form-select form-control" id="grp" name="grp" [(ngModel)]="exercise.grp">
                       <option  selected>{{exercise.grp}}</option>
                       <option>Pecho</option>
                       <option>Espalda</option>
@@ -58,13 +58,12 @@
                   </select>
               </div>
               <div class="btn-box">
-                  <button class="btnS" type="submit">
+                  <button class="btnS" type="submit" (click)="editExercise($event)">
                       CONFIRMAR EDICIÓN
                   </button>
                   <span style="margin: 0 10px;"></span>
               </div>
           </section>
-
       </div>
       <div class="container">
           <div class="heading_container heading_left">
@@ -76,8 +75,6 @@
           <div class="row">
               <div class="col-md-4 col-sm-6 mx-auto ">
                   <div class="box">
-
-                      <!--<img src="/images/{{image}}" alt="" class="round-image2"> -->
 
                   </div>
               </div>
@@ -101,18 +98,19 @@
           </div>
 
 
-          <div class="videoS" *ngIf='eVideo'>
-              <div class="heading_container heading_left">
-                  <h2>
-                      Vídeo de ayuda
-                  </h2>
-                  <div class="video-center">
-                      <iframe width="560" height="315" src="{{exercise.video}}" title="YouTube video player" frameborder="0"
-                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                          allowfullscreen></iframe>
-                  </div>
-              </div>
-          </div>
+          <div class="videoS" *ngIf="eVideo">
+            <div class="heading_container heading_left">
+                <h2>
+                    Vídeo de ayuda
+                </h2>
+                <div class="video-center">
+                    <iframe width="560" height="315" [src]="safeVideo" title="YouTube video player" frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        allowfullscreen></iframe>
+                </div>
+            </div>
+        </div>
+
 
       </div>
 
