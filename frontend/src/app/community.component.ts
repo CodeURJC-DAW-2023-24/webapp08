@@ -8,10 +8,10 @@ import { Component } from '@angular/core';
 export class CommunityComponent {
 
   constructor(){
-   this.loadFriends();
+   //this.loadFriends();
   }
 
-  search(event: any): void {
+  /*search(event: any): void {
     const friendContainer: HTMLElement | null = document.getElementById("friend-container");
     let name = event.target.value;
     if (friendContainer) {
@@ -129,5 +129,5 @@ export class CommunityComponent {
         ulElement.appendChild(liElement);
     });
 }
-
+*/
 }
