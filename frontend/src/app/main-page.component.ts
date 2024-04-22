@@ -168,7 +168,7 @@ export class MainPageComponent {
 
     rutines.forEach(rutine => {
       let rutineDate: Date = new Date(rutine.date.split('T')[0]);
-      rutineDate.setDate(rutineDate.getDate() + 1); // due to the format
+      rutineDate.setDate(rutineDate.getDate()); // due to the format
 
       todayDate.setUTCHours(0, 0, 0, 0);
       rutineDate.setUTCHours(0, 0, 0, 0);
