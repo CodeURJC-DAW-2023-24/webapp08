@@ -1,3 +1,4 @@
+import { CommunityService } from './../../services/community.service';
 import { Component } from '@angular/core';
 
 @Component({
@@ -7,11 +8,11 @@ import { Component } from '@angular/core';
 })
 export class CommunityComponent {
 
-  constructor(){
-   //this.loadFriends();
+  constructor(public communityService: CommunityService){
+   this.loadFriends();
   }
 
-  /*search(event: any): void {
+  search(event: any): void {
     const friendContainer: HTMLElement | null = document.getElementById("friend-container");
     let name = event.target.value;
     if (friendContainer) {
@@ -20,13 +21,14 @@ export class CommunityComponent {
         friendContainer.style.fontSize = "20px";
 
         if (name.trim() !== "") {
-            fetch(`/searchUsers?nombre=${name}`)
+            this.communityService.searchUsers(name)
+/*
                 .then(response => response.json())
                 .then(data => {
                     let names: string[][] = data.lNameId;
                     let admin: boolean = data.bAdmin;
                     this.addElementsMainContainer(names, admin);
-                });
+                });*/
         }
     }
 }
@@ -78,14 +80,10 @@ export class CommunityComponent {
 }
 
   deleteUser(id: string) {
-    let csrfToken: string | null = (document.querySelector('input[name="_csrf"]') as HTMLInputElement)?.value;
 
-    const RESPONSE = await fetch(`/deleteUser?id=${id}`,{
-        method: 'POST',
-        headers: { 'X-XSRF-TOKEN': csrfToken }
-    });
+    this.communityService.deleteUser(id);
 
-    let names = await RESPONSE.json();
+    /*let names = await RESPONSE.json();
     if (names == true) {
         var friendContainer = document.getElementById("friend-container");
         if (friendContainer) {
@@ -93,31 +91,33 @@ export class CommunityComponent {
             friendContainer.style.fontSize = "30px";
             friendContainer.style.color = "crimson";
         }
-    }
+    }*/
 }
 
   sendRequest(id: string) {
-    let csrfToken: string | null = (document.querySelector('input[name="_csrf"]') as HTMLInputElement)?.value;
-
-    const RESPONSE = await fetch(`/sendRequest?id=${id}`,{
-        method: 'POST',
-        headers: { 'X-XSRF-TOKEN': csrfToken }
-    });
-
-    let names = await RESPONSE.json();
-    if (names == true) {
-        var friendContainer = document.getElementById("friend-container");
-        if (friendContainer) {
-            friendContainer.innerHTML = "Solicitud Mandada con Exito";
-            friendContainer.style.fontSize = "30px";
-            friendContainer.style.color = "limegreen";
+    this.communityService.sendFriendRequest(id).subscribe(
+      response => {
+        let names = response; //check it
+        if (names == true) {
+            var friendContainer = document.getElementById("friend-container");
+            if (friendContainer) {
+                friendContainer.innerHTML = "Solicitud Mandada con Exito";
+                friendContainer.style.fontSize = "30px";
+                friendContainer.style.color = "limegreen";
+            }
         }
-    }
+    },
+    error => {
+      console.error('Error mandando la solicitud:', error);
+    });
 }
 
+
+
+
   loadFriends()  {
-    const RESPONSE = await fetch("/loadFriends");
-    let lFriends = await RESPONSE.json();
+    this.communityService.loadFriends();
+   /* let lFriends = await RESPONSE.json();
 
     var ulElement = document.getElementById("list-group") as HTMLElement;
 
@@ -127,7 +127,7 @@ export class CommunityComponent {
         liElement.textContent = friend;
 
         ulElement.appendChild(liElement);
-    });
+    });*/
 }
-*/
+
 }

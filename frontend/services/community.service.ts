@@ -13,7 +13,19 @@ export class CommunityService {
   constructor(private http: HttpClient, public router: Router) {
   }
 
-  getNews(iteracion:number) {
-    return this.http.get(BASE_URL + `news?iteracion=${iteracion}`);
+
+	sendFriendRequest(alias:string) {
+	return	this.http.post(BASE_URL+`friends/requests/${alias}`,undefined)
+  }
+  searchUsers(alias:string){
+    return alias;
+  }
+
+  deleteUser(id:string){
+
+  }
+
+  loadFriends(){
+
   }
 }
