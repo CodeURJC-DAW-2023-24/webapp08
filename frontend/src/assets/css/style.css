@@ -1169,3 +1169,15 @@ margin-top: 10px;
 .dropdown-menu {
   z-index: 900000;
 }
+
+button.show {
+  border: none;
+}
+.dropdown-toggle.btn:focus {
+  outline: none;
+  border-color: transparent !important;
+}
+
+.dropdown-toggle.btn:focus + .btn {
+  border-color: transparent !important;
+}
