@@ -44,6 +44,7 @@ export class HeaderComponent {
       let notifications: any[] = response as any;
       this.addElements(notifications);
       if (notifications.length === 0) {
+        
         dropdownMenu.innerHTML = "NO TIENES NIGUNA NOTIFICACION";
     }
       },
