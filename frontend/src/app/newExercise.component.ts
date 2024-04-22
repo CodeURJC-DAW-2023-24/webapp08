@@ -3,7 +3,6 @@ import { Router,ActivatedRoute } from '@angular/router';
 import { LoginService } from './../../services/login.service';
 import { PersonService } from './../../services/person.service';
 import { Exercise } from '../../models/exercise.model';
-import { Injectable } from '@angular/core';
 import { ExerciseService } from '../../services/exercise.service';
 @Component({
   selector: 'newExercise',
@@ -14,7 +13,6 @@ import { ExerciseService } from '../../services/exercise.service';
     '../assets/css/bootstrap.css'
   ]
 })
-@Injectable({providedIn: 'root'})
 export class NewExerciseComponent {
   exercise:Exercise;
 

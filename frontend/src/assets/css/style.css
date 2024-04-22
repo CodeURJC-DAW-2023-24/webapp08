@@ -36,7 +36,7 @@ td {
 }
 
 .guest {
-  color: var(--warning);
+  color: #f1db25;
   text-align: center;
 }
 .guest2 {
@@ -52,7 +52,7 @@ td {
 
 .reg2:hover {
   text-decoration-line: none;
-  color: var(--warning);
+  color: #f1db25;
   text-align: center;
 }
 
@@ -64,7 +64,7 @@ td {
 
 .reg {
   text-align: center;
-  color: var(--warning);
+  color: #f1db25;
 }
 
 .logo {
@@ -1064,7 +1064,7 @@ margin-top: 10px;
   -webkit-transition: all 0.3s;
   transition: all 0.3s;
   border: 1px solid transparent;
-  margin-left: 25%;
+  margin-left: 10%;
   width: 250px;
 }
 

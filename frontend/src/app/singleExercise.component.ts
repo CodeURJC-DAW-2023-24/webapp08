@@ -17,7 +17,6 @@ import { Exercise } from '../../models/exercise.model';
     '../assets/css/bootstrap.css'
   ]
 })
-@Injectable({providedIn: 'root'})
 export class SingleExerciseComponent {
   admin: boolean;
  person:Person;

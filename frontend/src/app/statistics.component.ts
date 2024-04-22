@@ -12,6 +12,10 @@ import {
   ApexFill,
   ApexNonAxisChartSeries
 } from "ng-apexcharts";
+import { LoginService } from './../../services/login.service';
+import { Person } from '../../models/person.model';
+import { PersonService } from './../../services/person.service';
+import { Router } from '@angular/router';
 export type ChartOptions = {
   series: ApexAxisChartSeries;
   chart: ApexChart;
@@ -29,12 +33,31 @@ export type ChartOptions = {
 })
 export class StatisticsComponent {
   public chartOptions: ChartOptions;
-
+  admin: boolean;
+ person:Person;
+ roles: String[];
 
   ngOnInit(): void {
     this.loadCharts();
+    this.personService.getPerson().subscribe(
+      response => {
+          this.person= response as Person;
+          this.roles=this.person.roles;
+          if (this.roles.includes('ADMIN')) {
+            this.admin = true;
+          }else{
+            this.admin=false;
+          }
+
+      },
+      error => {
+        this.router.navigate(['../login']);
+        this.person = {alias:"",name:"",date:"",weight:0, roles:[]};
+
+      }
+    )
   }
-  constructor(private statisticsService: StatisticsService) {
+  constructor(private statisticsService: StatisticsService,public loginservice:LoginService,public personService: PersonService,public router: Router) {
 
   }
 

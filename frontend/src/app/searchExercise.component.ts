@@ -32,11 +32,6 @@ export class SearchExerciseComponent {
           }
 
       },
-      error => {
-        this.router.navigate(['../login']);
-        this.person = {alias:"",name:"",date:"",weight:0, roles:[]};
-
-      }
   );
   }
 
