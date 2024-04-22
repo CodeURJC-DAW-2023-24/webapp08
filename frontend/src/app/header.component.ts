@@ -44,7 +44,7 @@ export class HeaderComponent {
       let notifications: any[] = response as any;
       this.addElements(notifications);
       if (notifications.length === 0) {
-        
+
         dropdownMenu.innerHTML = "NO TIENES NIGUNA NOTIFICACION";
     }
       },
@@ -83,18 +83,20 @@ export class HeaderComponent {
 }
 
  processRequest(notification: any, accepted: boolean) {
-   /*   this.headerService.proccessRequest(notification.id,accepted).subscribe(
+     this.headerService.proccessRequest(notification.id,accepted).subscribe(
         response => {
         let notifications: any[] = response as any;
-        this.addElements(notifications);
-        if (notifications.length === 0) {
+
+        if (notifications == null) {
           const dropdownMenu = document.getElementById("dropdown-menu") as HTMLDivElement;
           dropdownMenu.innerHTML = "NO TIENES NIGUNA NOTIFICACION";
+      } else {
+        this.showNotifications();
       }
         },
         error => {
-          console.error('Error obteniendo novedades:', error);
-        });*/
+          console.error('Error aceptando la solicitud:', error);
+        });
   }
 
 }

@@ -32,7 +32,7 @@ export type ChartOptions = {
   styleUrls: ['../assets/css/bootstrap.css', '../assets/css/progress.css']
 })
 export class StatisticsComponent {
-  public chartOptions: ChartOptions;
+   chartOptions: ChartOptions;
   admin: boolean;
  person:Person;
  roles: String[];
@@ -65,7 +65,6 @@ export class StatisticsComponent {
     this.statisticsService.getCharts().subscribe(
       response => {
         let data = response
-        console.log(data);
         const data2 = Object.values(data).map(value => parseFloat(value.toString().trim()));
         const data3 = Object.keys(data);
         this.chartOptions = {
