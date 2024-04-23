@@ -27,8 +27,9 @@ COPY ../backend/pom.xml ./pom.xml
 
 # Copies the project's code
 COPY ../backend/src ./src
-COPY --from=builderFront ./frontend/dist ./src/main/resources/public/new
-# Compiles the project
+COPY --from=builderFront ./frontend/dist/frontend ./src/main/resources/public/new
+#Check if the name is ./frontend/dist or ./frontend/dist/frontend
+# Compiles the project 
 RUN mvn clean package -DskipTests=true
 
 
