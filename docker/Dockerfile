@@ -5,7 +5,8 @@ WORKDIR /frontend
 #Can put another name
 COPY ../frontend .
 #Not sure if theya re correclty named
-RUN npm install --ng build
+RUN npm install --ng build --configuration=production --base-href="/spa/"
+
 # Test it if the firts doent's work  npx ng build 
 ##Prduction mode to ensure css
 #
