@@ -38,9 +38,8 @@ cardio: Exercise[];
   constructor( private rutineService:RutineService, private exerciseService: ExerciseService,public router:Router
     ,activatedRoute:ActivatedRoute){
     this.exRutine={grp:"Pecho",exercise:"",series:"",weight:0};
-
-
     const id = activatedRoute.snapshot.params['id'];
+    this.rutine={id:id,name:"",date:new Date('2024-04-21'),time:0,person:""}
     this.rutineService.getRutine(id).subscribe(
       response=>
         this.rutine = response as Rutine

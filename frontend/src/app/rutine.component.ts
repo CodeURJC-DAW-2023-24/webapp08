@@ -23,17 +23,12 @@ import { Comment } from '../../models/comment.model';
 export class RutineComponent implements OnInit{
 
 
-  constructor(private loginservice: LoginService, private personService:PersonService, private rutineService:RutineService, public router: Router,activatedRoute:ActivatedRoute){
+  constructor(private loginservice: LoginService, private personService:PersonService, private rutineService:RutineService, public router: Router,public activatedRoute:ActivatedRoute){
     const id = activatedRoute.snapshot.params['id'];
     this.sameUser=false;
-    if (id) {
-      rutineService.getRutine(id).subscribe(
-        response => {this.rutine = response as Rutine
-        this.person = {alias:"",name:"",date:"",weight:0, roles:[]}
-        }
-      );
-
-    } else {
+    this.person = {alias:"",name:"",date:"",weight:0, roles:[]};
+    this.rutine={id:id,name:"",date:new Date('2024-04-21'),time:0,person:""};
+    if (!id) {
       this.router.navigate(['/mainPage/']);
     }
   }
@@ -48,20 +43,25 @@ export class RutineComponent implements OnInit{
 
 
   ngOnInit(): void {
-    this.personService.getPerson().subscribe(
-      response => {
-          this.person= response as Person;
 
-          if(this.person.alias===this.rutine.person){
-            this.sameUser=true;
-          }
-      },
-      error => {
-        this.person = {alias:"",name:"",date:"",weight:0, roles:[]};
-        this.sameUser=false;
+  const id = this.activatedRoute.snapshot.params['id'];
+  this.rutineService.getRutine(id).subscribe(
+    response => {this.rutine = response as Rutine
+      this.personService.getPerson().subscribe(
+        response => {
+            this.person= response as Person;
 
-      }
-  );
+            if(this.person.alias===this.rutine.person){
+              this.sameUser=true;
+            }
+        },
+        error => {
+          this.person = {alias:"",name:"",date:"",weight:0, roles:[]};
+          this.sameUser=false;
+
+        }
+    );
+
       this.personService.getImageByAlias(this.rutine.person).subscribe(data => {
         if(data){
         const blob = new Blob([data], { type: 'image/jpeg' });
@@ -74,6 +74,9 @@ export class RutineComponent implements OnInit{
       });
 
     }
+  );
+
+}
     deleteRutine($event: MouseEvent) {
       this.rutineService.deleteRutine(this.rutine.id);
       this.router.navigate(['/mainPage']);
@@ -86,7 +89,7 @@ export class RutineComponent implements OnInit{
       newComment($event: MouseEvent,newComment:string, input: HTMLInputElement) {
         this.rutine.lComments?.push({alias:this.person.alias, content:newComment});
         this.rutineService.addComment(this.rutine.id, newComment).subscribe(
-      
+
         );
         input.value="";
         input.placeholder="Añade un comentario...";
