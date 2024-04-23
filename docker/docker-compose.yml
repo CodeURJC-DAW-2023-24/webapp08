@@ -1,7 +1,10 @@
 version: "3.9"
 services: 
   web:
-    image: rubenrr/webapp08:3.0
+    #image: rubenrr/webapp08:3.0 #if you want to use a concrete image
+    build: 
+      context: ..
+      dockerfile: ./docker/Dockerfile
     ports:
       - 8443:8443
     environment:

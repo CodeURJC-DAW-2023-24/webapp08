@@ -65,6 +65,8 @@ public class SecurityConfig {
 
 		http
 				.authorizeHttpRequests(authorize -> authorize
+
+
 						.requestMatchers(HttpMethod.POST, "/api/auth/login").permitAll()
 						.requestMatchers(HttpMethod.POST, "/api/persons/").permitAll()
 						.requestMatchers(HttpMethod.GET, "/api/exercises/").permitAll()
@@ -150,6 +152,8 @@ public class SecurityConfig {
 						.requestMatchers("/searchEx/**").permitAll()
 						.requestMatchers("/mainPage/exerciseSearch/exercise/**").permitAll()
 						.requestMatchers("/group").permitAll()
+						.requestMatchers("/new/**").permitAll()
+
 						.requestMatchers("/mainPage/statistics").hasAnyRole("USER")
 						.requestMatchers("/starterNews").hasAnyRole("USER")
 						.requestMatchers("/mainPage/community").hasAnyRole("USER")

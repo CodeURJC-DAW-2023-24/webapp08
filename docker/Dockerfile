@@ -5,7 +5,7 @@ WORKDIR /frontend
 #Can put another name
 COPY ../frontend .
 #Not sure if theya re correclty named
-RUN npm install --ng build --configuration=production --base-href="/spa/"
+RUN npm install --ng build --configuration=production --base-href="/new/"
 
 # Test it if the firts doent's work  npx ng build 
 ##Prduction mode to ensure css
@@ -27,8 +27,8 @@ COPY ../backend/pom.xml ./pom.xml
 
 # Copies the project's code
 COPY ../backend/src ./src
-COPY --from=builderFront ./frontend/dist/frontend ./src/main/resources/public/new
-#Check if the name is ./frontend/dist or ./frontend/dist/frontend
+COPY --from=builderFront ./frontend/dist/frontend/browser/ ./src/main/resources/static/new
+#Check if the name is ./frontend/dist or ./frontend/dist/frontend or ./frontend/dist/frontend/browser
 # Compiles the project 
 RUN mvn clean package -DskipTests=true
 
