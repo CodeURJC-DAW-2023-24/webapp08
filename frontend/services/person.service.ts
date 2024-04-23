@@ -29,12 +29,11 @@ export class PersonService{
     if(image){
       let formData = new FormData();
       formData.append("image", image);
-      this.http.post(BASE_URL+ 'image',formData).subscribe(()=>{
-        this.http.patch(BASE_URL,person);
-      })
+      this.http.patch(BASE_URL,person);
+      return this.http.post(BASE_URL+ 'image',formData);
     }
     else{
-      this.http.patch(BASE_URL,person);
+      return this.http.patch(BASE_URL,person);
     }
 
 

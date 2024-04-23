@@ -209,6 +209,7 @@ margin-top: 10px;
   background-size: cover;
   background-position: top;
   width: 95vw;
+  min-width: 100%;
 }
 
 .layout_padding{
@@ -1167,6 +1168,7 @@ margin-top: 10px;
 }
 
 .dropdown-menu {
+  z-index: 900000;
   z-index: 900000;
 }
 
