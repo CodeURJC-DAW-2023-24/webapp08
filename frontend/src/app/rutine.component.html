@@ -33,7 +33,7 @@
             <div>
               <p name="alias"><b>{{rutine.person}}</b></p>
               <p name="name">{{rutine.name}}</p>
-              <p name="date" id="dateR">{{rutine.date}}</p>
+              <p name="date" id="dateR">{{rutine.date | date:"MM/dd/yy"}}</p>
             </div>
           </div>
           <section class="comments">
@@ -48,7 +48,7 @@
                   </div>
                 </div>
                     <div class="info_form ">
-                      <div style="display: flex; margin: auto; flex-wrap: nowrap;">
+                      <div style="display: flex; flex-wrap: nowrap;">
                         <input id="comment" name="comentario" type="text" class="form-control comF"
                           placeholder="Añade un comentario..." #commentInput>
                         <div class="sendB" >
@@ -73,8 +73,8 @@
                 </tr>
 
                 <tr >
-                <th colspan="2" class="title">{{rutine.name}}</th>
-                <th  class="title">
+                <th *ngIf="sameUser" colspan="2" class="title">{{rutine.name}}</th>
+                <th  *ngIf="sameUser" class="title">
                   <a (click)="deleteRutine($event)">
                     <button class="btn" type="button" >
                         <i class="bi bi-trash"></i>

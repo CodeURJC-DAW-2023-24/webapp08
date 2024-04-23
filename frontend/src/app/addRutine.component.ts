@@ -25,6 +25,7 @@ export class AddRutineComponent implements OnInit{
 
   constructor(private loginService: LoginService, private rutineService:RutineService, private router: Router,activatedRoute:ActivatedRoute, public personService: PersonService){
     const id = activatedRoute.snapshot.params['id'];
+    this.rutine={id:id,name:"",date:new Date('2024-04-21'),time:0,person:""};
     if (id) {
       rutineService.getRutine(id).subscribe(
         response => this.rutine = response as Rutine

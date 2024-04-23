@@ -29,7 +29,7 @@ import { SingleExerciseComponent } from './singleExercise.component';
 import { HeaderService } from '../../services/header.service';
 import { CommunityService } from '../../services/community.service';
 import { StatisticsService } from '../../services/statistics.service';
-
+import {ExerciseListComponent} from './exerciseList.component';
 
 @NgModule({
   declarations: [
@@ -46,6 +46,7 @@ import { StatisticsService } from '../../services/statistics.service';
     CommunityComponent,
     NewExerciseComponent,
     SingleExerciseComponent,
+    ExerciseListComponent,
   ],
   imports: [
     BrowserModule,

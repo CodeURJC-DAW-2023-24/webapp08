@@ -1,3 +1,4 @@
+import { catchError } from 'rxjs/operators';
 
 import { LoginService } from './../../services/login.service';
 import { Component, EventEmitter, Output} from '@angular/core';
@@ -26,7 +27,8 @@ admin: boolean;
     this.isReadOnly = true;
     this.styleE = 'block';
     this.styleG = 'none';
-
+    this.person = {alias:"",name:"",date:"",weight:0, roles:[]}
+    this.imageUrl= undefined;
 
    }
   person: Person ;
@@ -57,7 +59,7 @@ admin: boolean;
 
       }
   );
-    this.personService.getImage().subscribe(data => {
+    this.personService.getImage().subscribe((data) => {
       if(data){
       const blob = new Blob([data], { type: 'image/jpeg' });
       this.imageUrl = URL.createObjectURL(blob);
@@ -66,7 +68,11 @@ admin: boolean;
       else{
         this.imageUrl = undefined;
       }
-    });
+    },
+    (catchError)=> {this.imageUrl = undefined;
+      
+    }
+  );
   }
 
 
@@ -84,7 +90,7 @@ admin: boolean;
         const image = this.image.nativeElement.files[0];
         this.personService.editPerson(this.person,image).subscribe(()=>
 
-        this.personService.getImage().subscribe(data => {
+        this.personService.getImage().subscribe((data )=> {
           if(data){
           const blob = new Blob([data], { type: 'image/jpeg' });
           this.imageUrl = URL.createObjectURL(blob);
@@ -98,7 +104,12 @@ admin: boolean;
             this.styleE = 'block';
             this.styleG = 'none';
           }
-        }));
+        },
+        (error)=>{ this.imageUrl = undefined;
+          this.isReadOnly=true;
+          this.styleE = 'block';
+          this.styleG = 'none';}
+      ));
 
 
       }
