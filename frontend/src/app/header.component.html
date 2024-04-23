@@ -42,13 +42,13 @@
                   </button>
               </a>
               </div>
-
-              <div class="dropdown">
+    
+              <div ngbDropdown class="dropdown">
                   <button class="btn dropdown-toggle" (click)="showNotifications()" data-bs-toggle="dropdown"
-                      aria-expanded="false">
+                      aria-expanded="false" ngbDropdownToggle>
                       <i class="bi bi-bell"></i>
                   </button>
-                  <ul id="dropdown-menu" class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
+                  <ul ngbDropdownMenu id="dropdown-menu" class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
 
                   </ul>
               </div>

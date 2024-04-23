@@ -26,6 +26,9 @@ import { ExerciseService } from './../../services/exercise.service';
 import { CommunityComponent } from './community.component';
 import { NewExerciseComponent } from './newExercise.component';
 import { SingleExerciseComponent } from './singleExercise.component';
+import { HeaderService } from '../../services/header.service';
+import { CommunityService } from '../../services/community.service';
+import { StatisticsService } from '../../services/statistics.service';
 import {ExerciseListComponent} from './exerciseList.component';
 
 @NgModule({
@@ -55,9 +58,12 @@ import {ExerciseListComponent} from './exerciseList.component';
   ],
   providers: [PersonService,
     LoginService,
-    MainPageComponent,
+    MainPageService,
     RutineService,
-    ExerciseService
+    ExerciseService,
+    HeaderService,
+    CommunityService,
+    StatisticsService
   ],
   bootstrap: [AppComponent]
 })

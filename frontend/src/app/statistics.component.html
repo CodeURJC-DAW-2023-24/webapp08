@@ -1,7 +1,7 @@
 <app-header [searchOptions]="{ search: false, search2: true, admin: admin}"></app-header>
 <section class="team_section layout_padding_progress">
 <div class="container-grafico1">
-<apx-chart
+<apx-chart *ngIf="chartOptions"
     [series]="chartOptions.series"
     [chart]="chartOptions.chart"
     [dataLabels]="chartOptions.dataLabels"

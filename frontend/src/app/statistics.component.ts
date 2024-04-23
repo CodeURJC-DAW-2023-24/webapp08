@@ -3,14 +3,12 @@ import { Component, OnInit } from '@angular/core';
 import {
   ApexAxisChartSeries,
   ApexChart,
-  ChartComponent,
   ApexDataLabels,
   ApexPlotOptions,
   ApexYAxis,
   ApexTitleSubtitle,
   ApexXAxis,
-  ApexFill,
-  ApexNonAxisChartSeries
+  ApexFill
 } from "ng-apexcharts";
 import { LoginService } from './../../services/login.service';
 import { Person } from '../../models/person.model';
@@ -32,8 +30,8 @@ export type ChartOptions = {
   styleUrls: ['../assets/css/bootstrap.css', '../assets/css/progress.css']
 })
 export class StatisticsComponent {
-  public chartOptions: ChartOptions;
-  admin: boolean;
+ chartOptions: ChartOptions;
+ admin: boolean;
  person:Person;
  roles: String[];
 
@@ -65,7 +63,6 @@ export class StatisticsComponent {
     this.statisticsService.getCharts().subscribe(
       response => {
         let data = response
-        console.log(data);
         const data2 = Object.values(data).map(value => parseFloat(value.toString().trim()));
         const data3 = Object.keys(data);
         this.chartOptions = {
@@ -111,10 +108,6 @@ export class StatisticsComponent {
             },
             axisTicks: {
               show: false
-            },
-            crosshairs: {
-
-
             },
             tooltip: {
               enabled: true,

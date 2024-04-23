@@ -18,9 +18,9 @@ export class HeaderService {
 
   }
 
- /* proccessRequest(notification:number, accepted:boolean){
-    return this.http.put(BASE_URL + `friends/requests/{notification}?accepted=${accepted}`);
+ proccessRequest(notification:number, accepted:boolean){
+    return this.http.put(BASE_URL + `friends/requests/${notification}?accepted=${accepted}`,undefined);
 
-  }*/
+  }
 
 }
