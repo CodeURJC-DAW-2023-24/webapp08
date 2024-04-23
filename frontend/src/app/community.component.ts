@@ -75,19 +75,37 @@ export class CommunityComponent {
     if (friendContainer) {
       const ulElement: HTMLUListElement = document.createElement("ul");
       ulElement.classList.add("friend-list");
+      ulElement.style.width = '40%';
+      ulElement.style.padding = '0';
+      ulElement.style.margin = '0';
+      ulElement.style.backgroundColor = 'rgba(14, 13, 13, 0.5)';
 
       for (let i = 0; i < names.length; i++) {
         const liElement: HTMLLIElement = document.createElement("li");
         liElement.classList.add("user-item");
         liElement.textContent = `${names[i][1]}`;
+        liElement.style.margin = '5px';
+        liElement.style.borderRadius = '5px';
+        liElement.style.padding = '10px';
+        liElement.style.backgroundColor = 'rgb(212, 208, 208)';
+        liElement.style.listStyle = 'none';
+        liElement.style.border = '1px solid black';
+        liElement.style.fontSize = 'larger';
+        liElement.style.fontWeight = '600';
+        liElement.style.display = 'flex';
+        liElement.style.justifyContent = 'space-between';
 
         const buttonElement: HTMLButtonElement = document.createElement("button");
         buttonElement.classList.add("request-btn");
         buttonElement.textContent = "Enviar solicitud";
-        let that = this
+        let that = this;
         buttonElement.addEventListener("click", function () {
           that.sendRequest(names[i][1]);
         });
+        buttonElement.style.borderRadius = '5px';
+        buttonElement.style.fontSize = 'x-small';
+        buttonElement.style.border = '2px solid green';
+        buttonElement.style.backgroundColor = 'rgb(5, 204, 5)';
 
         const buttonContainer: HTMLDivElement = document.createElement("div");
         buttonContainer.appendChild(buttonElement);
@@ -111,6 +129,8 @@ export class CommunityComponent {
     }
   }
 
+
+
   deleteUser(id: number) {
 
     this.communityService.deleteUser(id).subscribe(
@@ -133,20 +153,21 @@ export class CommunityComponent {
 
   sendRequest(alias: string) {
     this.communityService.sendFriendRequest(alias).subscribe(
-      response =>{
-     let names = response
-     if (names == null) {
-         var friendContainer = document.getElementById("friend-container");
-         if (friendContainer) {
-             friendContainer.innerHTML = "Solicitud Mandada con Exito";
-             friendContainer.style.fontSize = "30px";
-             friendContainer.style.color = "limegreen";
-         }
-     }},
-     error => {
-      console.error('Error borrando usuario:', error);
+      response => {
+        let names = response
+        if (names == null) {
+          var friendContainer = document.getElementById("friend-container");
+          if (friendContainer) {
+            friendContainer.innerHTML = "Solicitud Mandada con Exito";
+            friendContainer.style.fontSize = "30px";
+            friendContainer.style.color = "limegreen";
+          }
+        }
+      },
+      error => {
+        console.error('Error borrando usuario:', error);
 
-    });
+      });
   }
 
   loadFriends() {
@@ -159,6 +180,11 @@ export class CommunityComponent {
       lFriends.forEach(function (friend: string) {
         var liElement = document.createElement("li");
         liElement.className = "list-group-item";
+        liElement.style.border = '1px black solid';
+        liElement.style.color = 'black';
+        liElement.style.fontWeight = '700';
+        liElement.style.marginBottom = '0px';
+        liElement.style.backgroundColor = 'transparent';
         liElement.textContent = friend;
 
         ulElement.appendChild(liElement);

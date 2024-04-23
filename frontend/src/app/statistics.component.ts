@@ -32,8 +32,8 @@ export type ChartOptions = {
   styleUrls: ['../assets/css/bootstrap.css', '../assets/css/progress.css']
 })
 export class StatisticsComponent {
-   chartOptions: ChartOptions;
-  admin: boolean;
+ chartOptions: ChartOptions;
+ admin: boolean;
  person:Person;
  roles: String[];
 
