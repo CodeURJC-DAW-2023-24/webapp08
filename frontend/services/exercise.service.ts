@@ -34,6 +34,9 @@ export class ExerciseService{
     }
     return this.http.put(BASE_URL+id,exercise);
   }
+  getExercisesByGroupPageable(grp:string, page:number){
+    return this.http.get(BASE_URL+`group/?group=${grp}&page=${page}`);
+  }
 
 
 }

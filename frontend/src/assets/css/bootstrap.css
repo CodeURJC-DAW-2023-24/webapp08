@@ -2780,11 +2780,10 @@ textarea.form-control.is-invalid {
   padding-bottom: 10px;
   width: 150px;
   text-align: center;
-  background-color: var(--warning);
+  background-color: #f1db25;
   color: #ffffff;
   -webkit-transition: all 0.3s;
   transition: all 0.3s;
-  border: 1px solid transparent;
   font-family: "Poppins", sans-serif;
   font-weight: bold;
   text-align: center;
@@ -11309,5 +11308,3 @@ a.text-dark:focus {
     border-color: #dee2e6;
   }
 }
-
-

@@ -35,4 +35,9 @@ export class SearchExerciseComponent {
   );
   }
 
+  sendToList($event: Event, grp:string){
+    this.router.navigate(['../exercisesList/'+grp+'/'+0]);
+
+  }
+
 }
