@@ -82,21 +82,23 @@ admin: boolean;
 
    editUser(event: any) {
         const image = this.image.nativeElement.files[0];
-        this.personService.editPerson(this.person,image);
+        this.personService.editPerson(this.person,image).subscribe(()=>
 
         this.personService.getImage().subscribe(data => {
           if(data){
           const blob = new Blob([data], { type: 'image/jpeg' });
           this.imageUrl = URL.createObjectURL(blob);
+          this.isReadOnly=true;
+          this.styleE = 'block';
+          this.styleG = 'none';
           }
           else{
             this.imageUrl = undefined;
+            this.isReadOnly=true;
+            this.styleE = 'block';
+            this.styleG = 'none';
           }
-        });
-
-        this.isReadOnly=true;
-        this.styleE = 'block';
-        this.styleG = 'none';
+        }));
 
 
       }

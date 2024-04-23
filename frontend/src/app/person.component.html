@@ -29,7 +29,7 @@
             <div class="">
 
                 <div class="contact_form-container">
-                  <div>
+                  <div class="formUsu">
                     <div>
                       <label>Nombre:</label>
                       <input type="text" id="name" name="name" *ngIf="person?.name" [(ngModel)]="person.name" [readonly]="isReadOnly" />
@@ -52,10 +52,13 @@
                       <input type='file' #image name='image'  accept=".jpg, .jpeg, .png, .HEIC" id="image"
                         [disabled] = 'isReadOnly'>
                     </div>
+
                     <div class="btn-box">
                       <button class="btn-2" id="save" type="submit" [style.display]="styleG" (click)="editUser($event)">
                         Guardar
                       </button>
+
+
 
 
               <button class="btn-2" id="edit" type="button" (click)="change($event)" [style.display]="styleE">
@@ -66,7 +69,7 @@
                 <button class="btn-1" type="submit" (click)="logOut($event)">
                   Cerrar Sesión
                 </button>
-
+              </div>
             </div>
           </div>
         </div>
