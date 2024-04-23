@@ -2,7 +2,7 @@
   <nav class="navbar fixed-top">
       <div class="container-fluid">
           <div class="i-flex">
-              <a class="navbar-brand" href="./mainPage">
+              <a class="navbar-brand" [routerLink]="['/mainPage']">
                   <span>
                       GYMGURU
                       <img src="assets/images/pesa.png" class="logo" />
@@ -14,7 +14,7 @@
           <div class="d-flex">
 
               <div *ngIf="searchOptions.admin" class="adEx">
-                  <a href="/mainPage/exercForm">
+                  <a [routerLink]="['/newExercise']">
                       <button class="btn">
                           <i class="bi bi-database-fill-add"></i>
                       </button>
@@ -37,24 +37,24 @@
                   </a>
               </div>
               <div class="statistics">
-                 <a routerLink="statistics"> <button class="btn">
+                 <a [routerLink]="['/statistics']"> <button class="btn">
                       <i class="bi bi-bar-chart"></i>
                   </button>
               </a>
               </div>
-
-              <div class="dropdown">
+    
+              <div ngbDropdown class="dropdown">
                   <button class="btn dropdown-toggle" (click)="showNotifications()" data-bs-toggle="dropdown"
-                      aria-expanded="false">
+                      aria-expanded="false" ngbDropdownToggle>
                       <i class="bi bi-bell"></i>
                   </button>
-                  <ul id="dropdown-menu" class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
+                  <ul ngbDropdownMenu id="dropdown-menu" class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
 
                   </ul>
               </div>
 
               <div class="comunity">
-                  <a href="/mainPage/community">
+                  <a [routerLink]="['/community']">
                       <button class="btn"><i class="bi bi-person-plus"></i></button>
                   </a>
               </div>

@@ -2,6 +2,9 @@ import { HeaderService } from './../../services/header.service';
 import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { LoginService } from '../../services/login.service';
+import { Person } from '../../models/person.model';
+import { PersonService } from './../../services/person.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -13,9 +16,24 @@ import { LoginService } from '../../services/login.service';
 })
 export class HeaderComponent {
   @Input() searchOptions: { search: boolean, search2: boolean, admin:boolean } = { search: false, search2: true, admin:false };
-  constructor(public loginservice:LoginService, public headerService:HeaderService) { }
+  constructor(public loginservice:LoginService, public headerService:HeaderService,public personService: PersonService, public router: Router) { }
+  admin: boolean;
+  person:Person;
+  roles: String[];
 
   ngOnInit(): void {
+    this.personService.getPerson().subscribe(
+      response => {
+          this.person= response as Person;
+          this.roles=this.person.roles;
+          if (this.roles.includes('ADMIN')) {
+            this.admin = true;
+          }else{
+            this.admin=false;
+          }
+
+      },
+  );
 
   }
    showNotifications(){
@@ -26,6 +44,7 @@ export class HeaderComponent {
       let notifications: any[] = response as any;
       this.addElements(notifications);
       if (notifications.length === 0) {
+
         dropdownMenu.innerHTML = "NO TIENES NIGUNA NOTIFICACION";
     }
       },
@@ -64,18 +83,20 @@ export class HeaderComponent {
 }
 
  processRequest(notification: any, accepted: boolean) {
-   /*   this.headerService.proccessRequest(notification.id,accepted).subscribe(
+     this.headerService.proccessRequest(notification.id,accepted).subscribe(
         response => {
         let notifications: any[] = response as any;
-        this.addElements(notifications);
-        if (notifications.length === 0) {
+
+        if (notifications == null) {
           const dropdownMenu = document.getElementById("dropdown-menu") as HTMLDivElement;
           dropdownMenu.innerHTML = "NO TIENES NIGUNA NOTIFICACION";
+      } else {
+        this.showNotifications();
       }
         },
         error => {
-          console.error('Error obteniendo novedades:', error);
-        });*/
+          console.error('Error aceptando la solicitud:', error);
+        });
   }
 
 }

@@ -78,6 +78,7 @@ public class SecurityConfig {
 						.requestMatchers(HttpMethod.GET, "/api/persons/image").hasAnyRole("USER")
 						.requestMatchers(HttpMethod.GET, "/api/persons/image/**").hasAnyRole("USER")
 						.requestMatchers(HttpMethod.GET, "/api/persons/charts").hasAnyRole("USER")
+						.requestMatchers(HttpMethod.GET, "/api/persons/names").hasAnyRole("USER")
 
 
 						.requestMatchers(HttpMethod.GET, "/api/persons/requests").hasAnyRole("USER")

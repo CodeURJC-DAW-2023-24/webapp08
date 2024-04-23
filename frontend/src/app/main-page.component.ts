@@ -13,26 +13,29 @@ export class MainPageComponent {
   loadMore: number = 0;
   NUM_RESULTS: number = 10;
   data: any;
-  admin: boolean;
-  person: Person;
-  roles: String[];
   shift: number = 0;
+  admin: boolean;
+ person:Person;
+ roles: String[];
 
   constructor(public mainpageService: MainPageService, public loginservice: LoginService, public personService: PersonService) {
   }
 
   ngOnInit(): void {
-    if (this.loginservice.isLogged()) {
-      this.person = this.loginservice.currentUser();
-    }
-    this.roles = this.person.roles;
-    if (this.roles.includes('ADMIN')) {
-      this.admin = true;
-    } else {
-      this.admin = false;
-    }
     this.initElements();
     this.loadRutines();
+    this.personService.getPerson().subscribe(
+      response => {
+          this.person= response as Person;
+          this.roles=this.person.roles;
+          if (this.roles.includes('ADMIN')) {
+            this.admin = true;
+          }else{
+            this.admin=false;
+          }
+
+      },
+  );
   }
   //////NEWS/////////
   initElements(): any {
@@ -121,6 +124,12 @@ export class MainPageComponent {
       }
       containerNews.appendChild(row);
     }
+    const content: HTMLElement | null = document.querySelector('.content');
+    if (content) {
+      content.style.backgroundImage = `url('assets/images/gimnasio.jpg')`;
+      content.style.backgroundSize = 'cover';
+      content.style.backgroundRepeat = 'no-repeat';
+    }
   }
 
   /////RUTINES //////////
@@ -165,7 +174,7 @@ export class MainPageComponent {
 
     rutines.forEach(rutine => {
       let rutineDate: Date = new Date(rutine.date.split('T')[0]);
-      rutineDate.setDate(rutineDate.getDate() + 1); // due to the format
+      rutineDate.setDate(rutineDate.getDate()); // due to the format
 
       todayDate.setUTCHours(0, 0, 0, 0);
       rutineDate.setUTCHours(0, 0, 0, 0);

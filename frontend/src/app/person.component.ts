@@ -43,6 +43,13 @@ admin: boolean;
      this.personService.getPerson().subscribe(
       response => {
           this.person= response as Person;
+          this.roles=this.person.roles;
+          if (this.roles.includes('ADMIN')) {
+            this.admin = true;
+          }else{
+            this.admin=false;
+          }
+
       },
       error => {
         this.router.navigate(['../login']);
@@ -60,13 +67,6 @@ admin: boolean;
         this.imageUrl = undefined;
       }
     });
-    this.roles=this.person.roles;
-    if (this.roles.includes('ADMIN')) {
-    this.admin = true;
-      }else{
-    this.admin=false;
-    }
-
   }
 
 

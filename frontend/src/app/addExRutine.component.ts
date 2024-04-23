@@ -5,7 +5,6 @@ import {  OnInit , ViewChild} from '@angular/core';
 import { Rutine } from '../../models/rutine.model';
 import { RutineService } from './../../services/rutine.service';
 import { ExerciseService } from './../../services/exercise.service';
-import { Injectable } from '@angular/core';
 import { ExRutine } from '../../models/exRutine.model';
 import { Exercise } from '../../models/exercise.model';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -22,7 +21,6 @@ import { ActivatedRoute, Router } from '@angular/router';
     '../assets/css/bootstrap.css'
   ]
 })
-@Injectable({providedIn: 'root'})
 export class AddExRutineComponent implements OnInit{
 
 exRutine: ExRutine;
@@ -40,7 +38,7 @@ cardio: Exercise[];
   constructor( private rutineService:RutineService, private exerciseService: ExerciseService,public router:Router
     ,activatedRoute:ActivatedRoute){
     this.exRutine={grp:"Pecho",exercise:"",series:"",weight:0};
-    
+
 
     const id = activatedRoute.snapshot.params['id'];
     this.rutineService.getRutine(id).subscribe(

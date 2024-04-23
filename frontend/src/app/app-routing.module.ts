@@ -9,11 +9,14 @@ import { HeaderComponent } from './header.component';
 import { AddExRutineComponent } from './addExRutine.component';
 import {SearchExerciseComponent} from './searchExercise.component';
 import { RutineComponent } from './rutine.component';
+import { CommunityComponent } from './community.component';
+import {NewExerciseComponent} from './newExercise.component';
+import {SingleExerciseComponent} from './singleExercise.component';
 
 const routes: Routes = [
   {path:'mainPage', component: MainPageComponent},
   {path: 'login', component: LoginComponent },
-  {path:'mainPage/statistics', component: StatisticsComponent},
+  {path:'statistics', component: StatisticsComponent},
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   {path: 'person', component: PersonComponent },
   {path: 'addRutine', component:  AddRutineComponent },
@@ -21,7 +24,10 @@ const routes: Routes = [
   {path: 'addRutine/:id', component:  AddRutineComponent },
   {path: 'editRutine/:id', component:  AddRutineComponent },
   {path: 'addExRutine/:id', component:  AddExRutineComponent },
-  {path:'searchExercise', component:SearchExerciseComponent}
+  {path:'searchExercise', component:SearchExerciseComponent},
+  {path:'community', component:CommunityComponent},
+  {path:'newExercise', component: NewExerciseComponent},
+  {path:'exercise/:id', component:SingleExerciseComponent}
 
 ];
 

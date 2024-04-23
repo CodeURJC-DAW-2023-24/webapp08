@@ -23,6 +23,13 @@ import { LoginService } from './../../services/login.service';
 import { MainPageService } from '../../services/main-page.service';
 import { RutineService } from './../../services/rutine.service';
 import { ExerciseService } from './../../services/exercise.service';
+import { CommunityComponent } from './community.component';
+import { NewExerciseComponent } from './newExercise.component';
+import { SingleExerciseComponent } from './singleExercise.component';
+import { HeaderService } from '../../services/header.service';
+import { CommunityService } from '../../services/community.service';
+import { StatisticsService } from '../../services/statistics.service';
+
 
 @NgModule({
   declarations: [
@@ -35,7 +42,10 @@ import { ExerciseService } from './../../services/exercise.service';
     SearchExerciseComponent,
     AddRutineComponent,
     AddExRutineComponent,
-    RutineComponent
+    RutineComponent,
+    CommunityComponent,
+    NewExerciseComponent,
+    SingleExerciseComponent,
   ],
   imports: [
     BrowserModule,
@@ -47,9 +57,12 @@ import { ExerciseService } from './../../services/exercise.service';
   ],
   providers: [PersonService,
     LoginService,
-    MainPageComponent,
+    MainPageService,
     RutineService,
-    ExerciseService
+    ExerciseService,
+    HeaderService,
+    CommunityService,
+    StatisticsService
   ],
   bootstrap: [AppComponent]
 })
