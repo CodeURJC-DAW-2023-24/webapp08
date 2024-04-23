@@ -3,14 +3,12 @@ import { Component, OnInit } from '@angular/core';
 import {
   ApexAxisChartSeries,
   ApexChart,
-  ChartComponent,
   ApexDataLabels,
   ApexPlotOptions,
   ApexYAxis,
   ApexTitleSubtitle,
   ApexXAxis,
-  ApexFill,
-  ApexNonAxisChartSeries
+  ApexFill
 } from "ng-apexcharts";
 import { LoginService } from './../../services/login.service';
 import { Person } from '../../models/person.model';
@@ -110,10 +108,6 @@ export class StatisticsComponent {
             },
             axisTicks: {
               show: false
-            },
-            crosshairs: {
-
-
             },
             tooltip: {
               enabled: true,
