@@ -3,7 +3,7 @@ FROM  node:lts-alpine3.19 as builderFront
 
 WORKDIR /frontend
 #Can put another name
-COPY ../frontend .
+COPY ../frontend /frontend/
 #Not sure if theya re correclty named
 RUN npm install --ng build --configuration=production --base-href="/new/"
 
@@ -27,7 +27,7 @@ COPY ../backend/pom.xml ./pom.xml
 
 # Copies the project's code
 COPY ../backend/src ./src
-COPY --from=builderFront ./frontend/dist/frontend/browser/ ./src/main/resources/static/new
+COPY --from=builderFront /frontend/dist/frontend/browser/ ./src/main/resources/static/new
 #Check if the name is ./frontend/dist or ./frontend/dist/frontend or ./frontend/dist/frontend/browser
 # Compiles the project 
 RUN mvn clean package -DskipTests=true

@@ -153,6 +153,7 @@ public class SecurityConfig {
 						.requestMatchers("/mainPage/exerciseSearch/exercise/**").permitAll()
 						.requestMatchers("/group").permitAll()
 						.requestMatchers("/new/**").permitAll()
+						
 
 						.requestMatchers("/mainPage/statistics").hasAnyRole("USER")
 						.requestMatchers("/starterNews").hasAnyRole("USER")
