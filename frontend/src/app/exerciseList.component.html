@@ -1,0 +1,58 @@
+<body class="bodyEx">
+  <app-header [searchOptions]="{ search: false, search2: true, admin: admin}"></app-header>
+  <div class="container py-5">
+
+    <div class="row">
+      <div class="col-lg-8 mx-auto">
+
+        <!-- List group-->
+        <ul *ngIf="list!=undefined" class="list-group shadow">
+          <!-- list group item-->
+          <li *ngFor="let ex of list.content" class="list-group-item" >
+            <!-- Custom content-->
+            <div>
+              <div >
+                <div class="row">
+                  <div class="col-md-1"> </div>
+                  <div class="col-md-3">
+                    <a >
+                    </a>
+                  </div>
+                  <div class="col-md-1"> </div>
+
+                  <div class="col-md-6" >
+                    <a class="aEx" *ngIf='person' >
+                      <h5 class="nameEx">{{ex[0].name}}</h5>
+                    </a>
+                    <a class="aEx" *ngIf='!person'  >
+                      <h5 class="nameEx">{{ex.name}}</h5>
+                    </a>
+                  </div>
+                  <div class="col-md-1"> </div>
+                </div>
+              </div>
+            </div>
+            <!-- End -->
+          </li>
+          <!-- Esta etiqueta está cerrando la sección 'exs' -->
+          <!-- End -->
+        </ul>
+        <!-- End -->
+      </div>
+    </div>
+
+    <a *ngIf="previous" (click)="previousPage($event)">
+      <button class="btnPag">
+        Anterior
+      </button>
+    </a>
+    <span style="margin: 0 415px;"></span>
+    <a *ngIf="next" (click)="nextPage($event)">
+      <button class="btnPag">
+        Siguiente
+      </button>
+    </a>
+
+  </div>
+
+</body>

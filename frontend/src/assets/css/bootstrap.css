@@ -2780,11 +2780,10 @@ textarea.form-control.is-invalid {
   padding-bottom: 10px;
   width: 150px;
   text-align: center;
-  background-color: var(--warning);
+  background-color: #f1db25;
   color: #ffffff;
   -webkit-transition: all 0.3s;
   transition: all 0.3s;
-  border: 1px solid transparent;
   font-family: "Poppins", sans-serif;
   font-weight: bold;
   text-align: center;
@@ -4718,7 +4717,7 @@ input[type="button"].btn-block {
   align-items: center;
   -ms-flex-pack: justify;
   justify-content: space-between;
-  padding: 0.5rem 1rem; 
+  padding: 0.5rem 1rem;
 }
 
 .navbar>.container,
