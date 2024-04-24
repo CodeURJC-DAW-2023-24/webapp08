@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Person } from '../models/person.model';
 import { PersonRegister } from '../models/personRegister.model';
 import { Router } from '@angular/router';
+import { ErrorService } from '../services/error.service';
 
 import { throwError } from 'rxjs';
 import { LoginService } from './login.service';
@@ -14,7 +15,7 @@ export class PersonService {
 
   person: Person
 
-  constructor(private http: HttpClient, public router: Router, public loginService: LoginService) {
+  constructor(private http: HttpClient, public router: Router, public loginService: LoginService, private errorService: ErrorService) {
 
   }
 
@@ -32,7 +33,10 @@ export class PersonService {
         if (image) {
           let formData = new FormData();
           formData.append("image", image);
-          this.http.post(BASE_URL + 'image', formData).subscribe()}});}
+          this.http.post(BASE_URL + 'image', formData).subscribe()}});},
+          error => {
+            this.errorService.setexistingUser(true);
+            this.router.navigate(['../error']);}
       );
 
 
