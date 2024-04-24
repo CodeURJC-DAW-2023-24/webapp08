@@ -8,33 +8,37 @@
         <!-- List group-->
         <ul *ngIf="list!=undefined" class="list-group shadow">
           <!-- list group item-->
-          <li *ngFor="let ex of list.content" class="list-group-item" >
+          <li *ngFor="let ex of list.content" class="list-group-item">
             <!-- Custom content-->
             <div>
-              <div >
+              <div>
                 <div class="row">
                   <div class="col-md-1"> </div>
                   <div class="col-md-3">
-                    <a>
-                    <div *ngIf="person">
-                    <img *ngIf="getExerciseImageUrl(ex[0].id)" [src]="getExerciseImageUrl(ex[0].id)" alt="Generic placeholder image" class="imgEx">
-                    <img *ngIf="!getExerciseImageUrl(ex[0].id)" src="assets/images/logo.jpg" alt="Generic placeholder image" class="imgEx">
-                  </div>
-                  <div *ngIf="!person">
-                    <img *ngIf="getExerciseImageUrl(ex.id)" [src]="getExerciseImageUrl(ex.id)" alt="Generic placeholder image" class="imgEx">
-                    <img *ngIf="!getExerciseImageUrl(ex.id)" src="assets/images/logo.jpg" alt="Generic placeholder image" class="imgEx">
-                  </div>
-
-                  </a>
+                    <a class="imgEx">
+                      <div *ngIf="person">
+                        <img *ngIf="getExerciseImageUrl(ex[0].id)" [src]="getExerciseImageUrl(ex[0].id)"
+                          alt="Generic placeholder image" class="imgEx">
+                        <img *ngIf="!getExerciseImageUrl(ex[0].id)" src="assets/images/logo.jpg"
+                          alt="Generic placeholder image" class="imgEx">
+                      </div>
+                      <div *ngIf="!person">
+                        <img *ngIf="getExerciseImageUrl(ex.id)" [src]="getExerciseImageUrl(ex.id)"
+                          alt="Generic placeholder image" class="imgEx">
+                        <img *ngIf="!getExerciseImageUrl(ex.id)" src="assets/images/logo.jpg"
+                          alt="Generic placeholder image" class="imgEx">
+                      </div>
+                    </a>
                   </div>
                   <div class="col-md-1"> </div>
-                  <div>
-                  <a class="aEx" *ngIf="person" (click)="sendToExercise(ex[0].id)">
-                    <h5 class="nameEx">{{ ex[0].name }}</h5>
-                  </a>
-                  <a class="aEx" *ngIf="!person" (click)="sendToExercise(ex.id)">
-                    <h5 class="nameEx">{{ ex.name }}</h5>
-                  </a></div>
+                  <div  class="col-md-6">
+                    <a class="aEx" *ngIf="person" (click)="sendToExercise(ex[0].id)">
+                      <h5 class="nameEx">{{ ex[0].name }}</h5>
+                    </a>
+                    <a class="aEx" *ngIf="!person" (click)="sendToExercise(ex.id)">
+                      <h5 class="nameEx">{{ ex.name }}</h5>
+                    </a>
+                  </div>
                   <div class="col-md-1"> </div>
                 </div>
               </div>
