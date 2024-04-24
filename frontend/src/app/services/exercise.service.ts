@@ -21,6 +21,15 @@ export class ExerciseService{
   saveExercise(newExercise: Exercise) {
       return this.http.post(BASE_URL,newExercise);
   }
+  saveImage(image: File, id:number){
+    let formData = new FormData();
+    formData.append("image", image);
+    return this.http.post(BASE_URL +'image/'+id,formData);
+  }
+
+  getImage(id:number){
+    return this.http.get(BASE_URL +'image/'+id, { responseType: 'arraybuffer' });
+  }
   getExerciseById(id: number){
     return this.http.get(BASE_URL+ id);
   }

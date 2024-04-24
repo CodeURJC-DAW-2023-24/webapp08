@@ -37,7 +37,7 @@
               </div>
               <div class="form-group ">
                   <label for="image">Imagen: </label>
-                  <input type='file' name='image' accept=".jpg, .jpeg, .png, .HEIC" id="image">
+                  <input type='file' #image name='image' accept=".jpg, .jpeg, .png, .HEIC" id="image">
               </div>
 
               <div class="form-group">
@@ -75,7 +75,8 @@
           <div class="row">
               <div class="col-md-4 col-sm-6 mx-auto ">
                   <div class="box">
-
+                    <img *ngIf="imageUrl"  [src]="imageUrl " alt=""  >
+                    <img *ngIf="!imageUrl" src="assets/images/logo.jpg" alt="" >
                   </div>
               </div>
               <div class="col-md-7 mx-auto">

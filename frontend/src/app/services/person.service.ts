@@ -5,6 +5,7 @@ import { PersonRegister } from '../models/personRegister.model';
 import { Router } from '@angular/router';
 
 import { throwError } from 'rxjs';
+import { LoginService } from './login.service';
 
 const BASE_URL = '/api/persons/';
 
@@ -13,7 +14,7 @@ export class PersonService {
 
   person: Person
 
-  constructor(private http: HttpClient, public router: Router) {
+  constructor(private http: HttpClient, public router: Router, public loginService: LoginService) {
 
   }
 
@@ -24,7 +25,18 @@ export class PersonService {
 
 
   }
+  newPerson(person:PersonRegister, image:File){
 
+      this.http.post(BASE_URL, person).subscribe(()=>{
+        this.http.post( "/api/auth/login", { username: person.alias, password: person.encodedPassword }).subscribe(()=>{
+        if (image) {
+          let formData = new FormData();
+          formData.append("image", image);
+          this.http.post(BASE_URL + 'image', formData).subscribe()}});}
+      );
+
+
+  }
   savePerson(person:PersonRegister, image:File){
     if (image) {
       let formData = new FormData();

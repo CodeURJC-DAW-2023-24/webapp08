@@ -48,8 +48,9 @@ export class NewPersonComponent {
 
     if (this.personRegister.encodedPassword === this.encodedpassword2) {
       const image = this.image.nativeElement.files[0];
-      this.personService.savePerson(this.personRegister, image).subscribe();
-      this.router.navigate(['../login']);
+      this.personService.newPerson(this.personRegister, image);
+        this.router.navigate(['../mainPage']);
+
     }
 
   }

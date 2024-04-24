@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { Router,ActivatedRoute } from '@angular/router';
 import { LoginService } from '../services/login.service';
 import { PersonService } from '../services/person.service';
@@ -15,6 +15,8 @@ import { ExerciseService } from '../services/exercise.service';
 })
 export class NewExerciseComponent {
   exercise:Exercise;
+  @ViewChild("image")
+  image: any;
 
   constructor(private loginService: LoginService, private router: Router,activatedRoute:ActivatedRoute, public personService: PersonService, private exerciseService: ExerciseService) {
     const id = activatedRoute.snapshot.params['id'];
@@ -33,10 +35,16 @@ export class NewExerciseComponent {
   }
 
   addExercise($event: Event){
+    const image = this.image.nativeElement.files[0];
     this.exerciseService.saveExercise(this.exercise).subscribe(
       response=>{
         this.exercise = response as Exercise;
-        this.router.navigate(['/exercise/'+this.exercise.id]);
+        if(image && this.exercise.id !== undefined){
+        this.exerciseService.saveImage(image,this.exercise.id).subscribe(()=>{
+          this.router.navigate(['/exercise/'+this.exercise.id]);
+        })}
+        else{
+        this.router.navigate(['/exercise/'+this.exercise.id]);}
       }
 
     );

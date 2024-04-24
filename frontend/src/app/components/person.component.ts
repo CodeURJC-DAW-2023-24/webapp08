@@ -20,6 +20,14 @@ import { Router } from '@angular/router';
 })
 export class PersonComponent implements OnInit {
 admin: boolean;
+person: Person ;
+isReadOnly: boolean;
+styleG: string;
+styleE: string;
+imageUrl: string | undefined;
+@ViewChild("image")
+image: any;
+roles:String[];
 
 
 
@@ -31,14 +39,6 @@ admin: boolean;
     this.imageUrl= undefined;
 
    }
-  person: Person ;
-  isReadOnly: boolean;
-  styleG: string;
-  styleE: string;
-  imageUrl: string | undefined;
-  @ViewChild("image")
-  image: any;
-  roles:String[];
 
 
   ngOnInit(): void {

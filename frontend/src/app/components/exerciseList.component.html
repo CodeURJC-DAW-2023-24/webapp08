@@ -15,8 +15,17 @@
                 <div class="row">
                   <div class="col-md-1"> </div>
                   <div class="col-md-3">
-                    <a >
-                    </a>
+                    <a>
+                    <div *ngIf="person">
+                    <img *ngIf="getExerciseImageUrl(ex[0].id)" [src]="getExerciseImageUrl(ex[0].id)" alt="Generic placeholder image" class="imgEx">
+                    <img *ngIf="!getExerciseImageUrl(ex[0].id)" src="assets/images/logo.jpg" alt="Generic placeholder image" class="imgEx">
+                  </div>
+                  <div *ngIf="!person">
+                    <img *ngIf="getExerciseImageUrl(ex.id)" [src]="getExerciseImageUrl(ex.id)" alt="Generic placeholder image" class="imgEx">
+                    <img *ngIf="!getExerciseImageUrl(ex.id)" src="assets/images/logo.jpg" alt="Generic placeholder image" class="imgEx">
+                  </div>
+
+                  </a>
                   </div>
                   <div class="col-md-1"> </div>
                   <div>

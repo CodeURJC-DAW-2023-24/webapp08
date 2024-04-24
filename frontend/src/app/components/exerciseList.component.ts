@@ -28,6 +28,7 @@ export class ExerciseListComponent implements OnInit, OnDestroy {
   pageN: number;
   routerSubscription: Subscription;
   id:any;
+  imagesUrlMap: Map<number, string> = new Map<number, string>();
 
   constructor(
     public loginservice: LoginService,
@@ -49,6 +50,7 @@ export class ExerciseListComponent implements OnInit, OnDestroy {
     this.personService.getPerson().subscribe((response) => {
       this.person = response as Person;
       this.roles = this.person.roles;
+      this.loadExercises();
       if (this.roles.includes('ADMIN')) {
         this.admin = true;
       } else {
@@ -74,9 +76,43 @@ export class ExerciseListComponent implements OnInit, OnDestroy {
         } else {
           this.previous = false;
         }
-      });
-  }
+        if(this.person == undefined){
+        this.list.content.forEach((ex:Exercise) => {
+          if(ex.id !== undefined){
+          this.exerciseService.getImage(ex.id).subscribe((data)=>{
+            if(data){
+              const blob = new Blob([data], { type: 'image/jpeg' });
+              const imageUrl = URL.createObjectURL(blob);
+              if(ex.id !== undefined){
+              this.imagesUrlMap.set(ex.id, imageUrl);}
+              }
 
+          });
+          }
+        })
+        }
+        else{
+          this.list.content.forEach((exAux:[Exercise,number]) => {
+            const ex = exAux[0];
+            if(ex.id !== undefined){
+            this.exerciseService.getImage(ex.id).subscribe((data)=>{
+              if(data){
+                const blob = new Blob([data], { type: 'image/jpeg' });
+                const imageUrl = URL.createObjectURL(blob);
+                if(ex.id !== undefined){
+                this.imagesUrlMap.set(ex.id, imageUrl);}
+                }
+
+            });
+            }
+          })
+        }
+     });
+
+  }
+  getExerciseImageUrl(exerciseId: number): string | undefined {
+    return this.imagesUrlMap.get(exerciseId);
+  }
   previousPage($event: Event) {
     this.pageN = this.pageN - 1;
     this.router.navigate(['../exercisesList', this.group, this.pageN]);
