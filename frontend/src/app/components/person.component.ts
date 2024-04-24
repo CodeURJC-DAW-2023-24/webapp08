@@ -1,10 +1,10 @@
 import { catchError } from 'rxjs/operators';
 
-import { LoginService } from './../../services/login.service';
+import { LoginService } from '../services/login.service';
 import { Component, EventEmitter, Output} from '@angular/core';
 import {  OnInit , ViewChild} from '@angular/core';
-import { Person } from '../../models/person.model';
-import { PersonService } from './../../services/person.service';
+import { Person } from '../models/person.model';
+import { PersonService } from '../services/person.service';
 import { Router } from '@angular/router';
 
 
@@ -13,9 +13,9 @@ import { Router } from '@angular/router';
   templateUrl: './person.component.html',
 
   styleUrls: [
-    '../assets/css/style.css',
-    '../assets/css/responsive.css',
-    '../assets/css/bootstrap.css'
+    '../../assets/css/style.css',
+    '../../assets/css/responsive.css',
+    '../../assets/css/bootstrap.css'
   ]
 })
 export class PersonComponent implements OnInit {
@@ -70,7 +70,7 @@ admin: boolean;
       }
     },
     (catchError)=> {this.imageUrl = undefined;
-      
+
     }
   );
   }

@@ -1,12 +1,12 @@
-import { LoginService } from './../../services/login.service';
+import { LoginService } from '../services/login.service';
 import { Component} from '@angular/core';
 import {  OnInit , ViewChild} from '@angular/core';
-import { Rutine } from '../../models/rutine.model';
-import { RutineService } from './../../services/rutine.service';
-import { PersonService } from './../../services/person.service';
+import { Rutine } from '../models/rutine.model';
+import { RutineService } from '../services/rutine.service';
+import { PersonService } from '../services/person.service';
 import { Router,ActivatedRoute } from '@angular/router';
-import { Person } from '../../models/person.model';
-import { ExRutine } from '../../models/exRutine.model';
+import { Person } from '../models/person.model';
+import { ExRutine } from '../models/exRutine.model';
 
 
 @Component({
@@ -14,9 +14,9 @@ import { ExRutine } from '../../models/exRutine.model';
   templateUrl: './addRutine.component.html',
 
   styleUrls: [
-    '../assets/css/style.css',
-    '../assets/css/responsive.css',
-    '../assets/css/bootstrap.css'
+    '../../assets/css/style.css',
+    '../../assets/css/responsive.css',
+    '../../assets/css/bootstrap.css'
   ]
 })
 export class AddRutineComponent implements OnInit{

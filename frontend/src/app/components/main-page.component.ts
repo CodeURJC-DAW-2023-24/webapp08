@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { MainPageService } from '../../services/main-page.service';
-import { LoginService } from './../../services/login.service';
-import { Person } from '../../models/person.model';
-import { PersonService } from './../../services/person.service';
+import { MainPageService } from '../services/main-page.service';
+import { LoginService } from '../services/login.service';
+import { Person } from '../models/person.model';
+import { PersonService } from '../services/person.service';
 
 @Component({
   selector: 'main-page',
   templateUrl: './main-page.component.html',
-  styleUrl: '../assets/css/mainPageStyle.css'
+  styleUrl: '../../assets/css/mainPageStyle.css'
 })
 export class MainPageComponent {
   loadMore: number = 0;
@@ -15,8 +15,8 @@ export class MainPageComponent {
   data: any;
   shift: number = 0;
   admin: boolean;
- person:Person;
- roles: String[];
+  person: Person;
+  roles: String[];
 
   constructor(public mainpageService: MainPageService, public loginservice: LoginService, public personService: PersonService) {
   }
@@ -26,16 +26,16 @@ export class MainPageComponent {
     this.loadRutines();
     this.personService.getPerson().subscribe(
       response => {
-          this.person= response as Person;
-          this.roles=this.person.roles;
-          if (this.roles.includes('ADMIN')) {
-            this.admin = true;
-          }else{
-            this.admin=false;
-          }
+        this.person = response as Person;
+        this.roles = this.person.roles;
+        if (this.roles.includes('ADMIN')) {
+          this.admin = true;
+        } else {
+          this.admin = false;
+        }
 
       },
-  );
+    );
   }
   //////NEWS/////////
   initElements(): any {
@@ -146,7 +146,7 @@ export class MainPageComponent {
   }
 
   agregarElementosCalendario(rutines: any[]) {
-    let dayPairs: NodeListOf<Element> = document.querySelectorAll('.day-pair') ;
+    let dayPairs: NodeListOf<Element> = document.querySelectorAll('.day-pair');
     let reversedDayPairs: Element[] = Array.from(dayPairs).reverse();
 
     let todayDate: Date = new Date();

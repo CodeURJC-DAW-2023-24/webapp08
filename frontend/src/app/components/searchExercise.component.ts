@@ -1,15 +1,15 @@
 import { Component,Input, Output, EventEmitter } from '@angular/core';
-import { LoginService } from './../../services/login.service';
-import { Person } from '../../models/person.model';
-import { PersonService } from './../../services/person.service';
+import { LoginService } from '../services/login.service';
+import { Person } from '../models/person.model';
+import { PersonService } from '../services/person.service';
 import { Router } from '@angular/router';
 @Component({
   selector: 'searchExercise',
   templateUrl: './searchExercise.component.html',
   styleUrls: [
-    '../assets/css/style.css',
-    '../assets/css/responsive.css',
-    '../assets/css/bootstrap.css'
+    '../../assets/css/style.css',
+    '../../assets/css/responsive.css',
+    '../../assets/css/bootstrap.css'
   ]
 })
 export class SearchExerciseComponent {

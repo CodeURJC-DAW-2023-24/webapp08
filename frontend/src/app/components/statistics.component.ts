@@ -1,4 +1,4 @@
-import { StatisticsService } from './../../services/statistics.service';
+import { StatisticsService } from '../services/statistics.service';
 import { Component, OnInit } from '@angular/core';
 import {
   ApexAxisChartSeries,
@@ -10,9 +10,9 @@ import {
   ApexXAxis,
   ApexFill
 } from "ng-apexcharts";
-import { LoginService } from './../../services/login.service';
-import { Person } from '../../models/person.model';
-import { PersonService } from './../../services/person.service';
+import { LoginService } from '../services/login.service';
+import { Person } from '../models/person.model';
+import { PersonService } from '../services/person.service';
 import { Router } from '@angular/router';
 export type ChartOptions = {
   series: ApexAxisChartSeries;
@@ -27,7 +27,7 @@ export type ChartOptions = {
 @Component({
   selector: 'statistics',
   templateUrl: './statistics.component.html',
-  styleUrls: ['../assets/css/bootstrap.css', '../assets/css/progress.css']
+  styleUrls: ['../../assets/css/bootstrap.css', '../../assets/css/progress.css']
 })
 export class StatisticsComponent {
  chartOptions: ChartOptions;

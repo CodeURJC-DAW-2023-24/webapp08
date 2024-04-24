@@ -1,4 +1,4 @@
-import { LoginService } from './../../services/login.service';
+import { LoginService } from '../services/login.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -6,9 +6,9 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './login.component.html',
 
   styleUrls: [
-    '../assets/css/style.css',
-    '../assets/css/responsive.css',
-    '../assets/css/bootstrap.css'
+    '../../assets/css/style.css',
+    '../../assets/css/responsive.css',
+    '../../assets/css/bootstrap.css'
   ]
 })
 export class LoginComponent {

@@ -1,20 +1,20 @@
-import { Exercise } from './../../models/exercise.model';
+import { Exercise } from '../models/exercise.model';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
-import { LoginService } from './../../services/login.service';
-import { PersonService } from './../../services/person.service';
-import { Person } from '../../models/person.model';
-import { Page } from '../../models/page.model';
-import { ExerciseService } from '../../services/exercise.service';
+import { LoginService } from '../services/login.service';
+import { PersonService } from '../services/person.service';
+import { Person } from '../models/person.model';
+import { Page } from '../models/page.model';
+import { ExerciseService } from '../services/exercise.service';
 import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'exercisesList',
   templateUrl: './exerciseList.component.html',
   styleUrls: [
-    '../assets/css/style.css',
-    '../assets/css/responsive.css',
-    '../assets/css/bootstrap.css'
+    '../../assets/css/style.css',
+    '../../assets/css/responsive.css',
+    '../../assets/css/bootstrap.css'
   ]
 })
 export class ExerciseListComponent implements OnInit, OnDestroy {

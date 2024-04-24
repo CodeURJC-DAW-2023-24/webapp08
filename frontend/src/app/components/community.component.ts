@@ -1,13 +1,13 @@
-import { CommunityService } from './../../services/community.service';
+import { CommunityService } from '../services/community.service';
 import { Component } from '@angular/core';
-import { LoginService } from './../../services/login.service';
-import { Person } from '../../models/person.model';
-import { PersonService } from './../../services/person.service';
+import { LoginService } from '../services/login.service';
+import { Person } from '../models/person.model';
+import { PersonService } from '../services/person.service';
 import { Router } from '@angular/router';
 @Component({
   selector: 'community',
   templateUrl: './community.component.html',
-  styleUrl: '../assets/css/comunityStyle.css'
+  styleUrl: '../../assets/css/comunityStyle.css'
 })
 export class CommunityComponent {
   admin: boolean;

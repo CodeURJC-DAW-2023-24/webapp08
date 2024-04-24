@@ -1,17 +1,17 @@
-import { HeaderService } from './../../services/header.service';
+import { HeaderService } from '../services/header.service';
 import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { LoginService } from '../../services/login.service';
-import { Person } from '../../models/person.model';
-import { PersonService } from './../../services/person.service';
+import { LoginService } from '../services/login.service';
+import { Person } from '../models/person.model';
+import { PersonService } from '../services/person.service';
 import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: [
-    '../assets/css/style.css',
-    '../assets/css/responsive.css'
+    '../../assets/css/style.css',
+    '../../assets/css/responsive.css'
   ]
 })
 export class HeaderComponent {

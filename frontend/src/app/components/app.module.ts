@@ -18,17 +18,17 @@ import { AddRutineComponent } from './addRutine.component';
 import { AddExRutineComponent } from './addExRutine.component';
 import { RutineComponent } from './rutine.component';
 
-import { PersonService } from './../../services/person.service';
-import { LoginService } from './../../services/login.service';
-import { MainPageService } from '../../services/main-page.service';
-import { RutineService } from './../../services/rutine.service';
-import { ExerciseService } from './../../services/exercise.service';
+import { PersonService } from '../services/person.service';
+import { LoginService } from '../services/login.service';
+import { MainPageService } from '../services/main-page.service';
+import { RutineService } from '../services/rutine.service';
+import { ExerciseService } from '../services/exercise.service';
 import { CommunityComponent } from './community.component';
 import { NewExerciseComponent } from './newExercise.component';
 import { SingleExerciseComponent } from './singleExercise.component';
-import { HeaderService } from '../../services/header.service';
-import { CommunityService } from '../../services/community.service';
-import { StatisticsService } from '../../services/statistics.service';
+import { HeaderService } from '../services/header.service';
+import { CommunityService } from '../services/community.service';
+import { StatisticsService } from '../services/statistics.service';
 import {ExerciseListComponent} from './exerciseList.component';
 import { NewPersonComponent } from './newPerson.component';
 

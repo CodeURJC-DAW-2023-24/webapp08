@@ -1,22 +1,22 @@
 import { Component} from '@angular/core';
 import {  OnInit } from '@angular/core';
-import { Rutine } from '../../models/rutine.model';
-import { RutineService } from './../../services/rutine.service';
+import { Rutine } from '../models/rutine.model';
+import { RutineService } from '../services/rutine.service';
 import { Injectable } from '@angular/core';
 import { Router,ActivatedRoute } from '@angular/router';
-import { LoginService } from './../../services/login.service';
-import { Person } from '../../models/person.model';
-import { PersonService } from './../../services/person.service';
-import { Comment } from '../../models/comment.model';
+import { LoginService } from '../services/login.service';
+import { Person } from '../models/person.model';
+import { PersonService } from '../services/person.service';
+import { Comment } from '../models/comment.model';
 
 @Component({
   selector: 'rutine',
   templateUrl: './rutine.component.html',
 
   styleUrls: [
-    '../assets/css/style.css',
-    '../assets/css/responsive.css',
-    '../assets/css/bootstrap.css'
+    '../../assets/css/style.css',
+    '../../assets/css/responsive.css',
+    '../../assets/css/bootstrap.css'
   ]
 })
 @Injectable({providedIn: 'root'})

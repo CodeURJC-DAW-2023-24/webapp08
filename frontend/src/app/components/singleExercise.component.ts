@@ -1,12 +1,12 @@
-import { ExerciseService } from './../../services/exercise.service';
+import { ExerciseService } from '../services/exercise.service';
 import { Component} from '@angular/core';
 import {  OnInit } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { Router,ActivatedRoute } from '@angular/router';
-import { LoginService } from '../../services/login.service';
-import { Person } from '../../models/person.model';
-import { PersonService } from '../../services/person.service';
-import { Exercise } from '../../models/exercise.model';
+import { LoginService } from '../services/login.service';
+import { Person } from '../models/person.model';
+import { PersonService } from '../services/person.service';
+import { Exercise } from '../models/exercise.model';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 
@@ -14,9 +14,9 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
   selector: 'exercise',
   templateUrl: './singleExercise.component.html',
   styleUrls: [
-    '../assets/css/style.css',
-    '../assets/css/responsive.css',
-    '../assets/css/bootstrap.css'
+    '../../assets/css/style.css',
+    '../../assets/css/responsive.css',
+    '../../assets/css/bootstrap.css'
   ]
 })
 export class SingleExerciseComponent {
