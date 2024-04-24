@@ -2841,16 +2841,16 @@ textarea.form-control.is-invalid {
   text-align: center;
   font-size: 50px;
   font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-  color: var(--warning);
+  color: #ffc107;
 }
 
 .errorA {
-  color: var(--white);
+  color: white;
   text-decoration-line: none;
 }
 
 .errorA:hover {
-  color: var(--warning);
+  color: #ffc107;
   text-decoration-line: none;
 }
 
@@ -2865,7 +2865,7 @@ textarea.form-control.is-invalid {
   font-size: 20;
   font-family: "Poppins", sans-serif;
   font-weight: bold;
-  color: var(--red);
+  color:rgb(195, 24, 24);
 }
 
 
