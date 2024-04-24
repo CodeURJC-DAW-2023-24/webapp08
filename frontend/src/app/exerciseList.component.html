@@ -19,25 +19,19 @@
                     </a>
                   </div>
                   <div class="col-md-1"> </div>
-
-                  <div class="col-md-6" >
-                    <a class="aEx" *ngIf='person' >
-                      <h5 class="nameEx">{{ex[0].name}}</h5>
-                    </a>
-                    <a class="aEx" *ngIf='!person'  >
-                      <h5 class="nameEx">{{ex.name}}</h5>
-                    </a>
-                  </div>
+                  <div>
+                  <a class="aEx" *ngIf="person" (click)="sendToExercise(ex[0].id)">
+                    <h5 class="nameEx">{{ ex[0].name }}</h5>
+                  </a>
+                  <a class="aEx" *ngIf="!person" (click)="sendToExercise(ex.id)">
+                    <h5 class="nameEx">{{ ex.name }}</h5>
+                  </a></div>
                   <div class="col-md-1"> </div>
                 </div>
               </div>
             </div>
-            <!-- End -->
           </li>
-          <!-- Esta etiqueta está cerrando la sección 'exs' -->
-          <!-- End -->
         </ul>
-        <!-- End -->
       </div>
     </div>
 

@@ -51,12 +51,7 @@ admin: boolean;
             this.admin=false;
           }
 
-      },
-      error => {
-        this.router.navigate(['../login']);
-        this.person = {alias:"",name:"",date:"",weight:0, roles:[]};
-
-      });
+      },);
   }
   editExerciseMode($event: Event){
     this.editMode=true

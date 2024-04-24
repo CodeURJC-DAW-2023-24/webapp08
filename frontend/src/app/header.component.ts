@@ -98,6 +98,64 @@ export class HeaderComponent {
           console.error('Error aceptando la solicitud:', error);
         });
   }
+  onKeyDown(event: KeyboardEvent) {
+    if (event.keyCode === 13) {
+      // Si se presiona Enter, llamar a la función searchEx con el valor del campo de entrada
+      const inputValue = (event.target as HTMLInputElement).value;
+      this.searchEx(inputValue, event);
+    }
+  }
+  searchEx(value:string, event:any){
+      const container: HTMLElement | null = document.getElementById("friend-container");
+      let name: string;
+      try {
+        name = event.target.value;
+      } catch (error) {
+        name = event;
+      }
+      if (container) {
+        container.innerHTML = "";
+        container.style.color = "black";
+        container.style.fontSize = "20px";
+
+        if (name.trim() !== "") {
+         // this.communityService.searchUsers(name).subscribe(
+         //   response => {
+         //     let names: any = response as any;
+         //     this.addElementsMainContainer(names);
+         //   },)
+        }
+      }
+
+  }
+  addElementsMainContainer(names: string[]): void {
+      const exC = document.getElementById("exs-container");
+      const container: HTMLElement | null = document.getElementById("overlay-container");
+      if(container){
+      container.style.display = 'block';
+      const finalHeight = names.length * 2; // Add 2px for each element
+      container.style.height = finalHeight + 'px';
+
+      const ulElement = document.createElement("ul");
+      ulElement.className = "ulEl";
+      ulElement.classList.add("exs-list");
+
+      for (let i = 0; i < names.length; i++) {
+          const liElement = document.createElement("li");
+          liElement.classList.add("exercise-item");
+
+          const aElement = document.createElement("a");
+          aElement.textContent = names[i];
+          aElement.href = "/mainPage/exerciseSearch/exercise/" + names[i]; // Establecer la URL a la que debe dirigirse cuando se haga clic
+
+          liElement.appendChild(aElement);
+          ulElement.appendChild(liElement);
+      }
+      if(exC){exC.appendChild(ulElement);}
+  }
+
+  }
+
 
 }
 

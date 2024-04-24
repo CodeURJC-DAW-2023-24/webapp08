@@ -27,6 +27,7 @@ export class ExerciseListComponent implements OnInit, OnDestroy {
   group: string;
   pageN: number;
   routerSubscription: Subscription;
+  id:any;
 
   constructor(
     public loginservice: LoginService,
@@ -88,4 +89,12 @@ export class ExerciseListComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.routerSubscription.unsubscribe();
   }
+
+  sendToExercise(exerciseId: any) {
+    if (exerciseId) {
+      this.router.navigate(['../exercise',exerciseId])
+    }
+  }
+
+
 }

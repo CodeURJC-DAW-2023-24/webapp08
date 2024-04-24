@@ -7,44 +7,55 @@ import { throwError } from 'rxjs';
 
 const BASE_URL = '/api/persons/';
 
-@Injectable({providedIn: 'root'})
-export class PersonService{
+@Injectable({ providedIn: 'root' })
+export class PersonService {
 
- person:Person
+  person: Person
 
-  constructor(private http: HttpClient,public router: Router){
+  constructor(private http: HttpClient, public router: Router) {
 
   }
 
 
-  getPerson(){
+  getPerson() {
 
     return this.http.get('/api/persons/', { withCredentials: true })
 
 
-}
+  }
 
-  editPerson(person: Person, image: File){
-
-    if(image){
+  savePerson(person:Person, image:File){
+    if (image) {
       let formData = new FormData();
       formData.append("image", image);
-      this.http.patch(BASE_URL,person);
-      return this.http.post(BASE_URL+ 'image',formData);
+      this.http.post(BASE_URL, person);
+      return this.http.post(BASE_URL + 'image', formData);
     }
-    else{
-      return this.http.patch(BASE_URL,person);
+    else {
+      return this.http.post(BASE_URL, person);
+    }
+  }
+  editPerson(person: Person, image: File) {
+
+    if (image) {
+      let formData = new FormData();
+      formData.append("image", image);
+      this.http.patch(BASE_URL, person);
+      return this.http.post(BASE_URL + 'image', formData);
+    }
+    else {
+      return this.http.patch(BASE_URL, person);
     }
 
 
 
-}
+  }
 
-  getImage(){
+  getImage() {
     return this.http.get(BASE_URL + 'image', { responseType: 'arraybuffer' })
   }
-  getImageByAlias(alias:String){
-    return this.http.get(BASE_URL + 'image/'+alias, { responseType: 'arraybuffer' })
+  getImageByAlias(alias: String) {
+    return this.http.get(BASE_URL + 'image/' + alias, { responseType: 'arraybuffer' })
   }
 
 

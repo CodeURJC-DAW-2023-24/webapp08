@@ -13,6 +13,7 @@ import { CommunityComponent } from './community.component';
 import {NewExerciseComponent} from './newExercise.component';
 import {SingleExerciseComponent} from './singleExercise.component';
 import {ExerciseListComponent} from './exerciseList.component';
+import{NewPersonComponent} from './newPerson.component';
 
 const routes: Routes = [
   {path:'mainPage', component: MainPageComponent},
@@ -30,6 +31,7 @@ const routes: Routes = [
   {path:'newExercise', component: NewExerciseComponent},
   {path:'exercise/:id', component:SingleExerciseComponent},
   {path:'exercisesList/:grp/:page', component: ExerciseListComponent},
+  {path:'register', component:NewPersonComponent},
 
 ];
 

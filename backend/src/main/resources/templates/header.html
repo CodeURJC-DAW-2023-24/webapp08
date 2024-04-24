@@ -57,7 +57,7 @@
                         <div class="search-icon">
                             <i class="bi bi-search"></i>
                         </div>
-                        <input class="form-control" type="text" placeholder="Buscar Ejercicios..." onkeydown="if(event.keyCode === 13) { searchEx(this.value); return false; }">
+                        <input class="form-control" type="text" placeholder="Buscar Ejercicios..." (ng-keydown)="onKeyDown($event)">
                         <ul id="searchResults"></ul>
                     </div>
                 </div>

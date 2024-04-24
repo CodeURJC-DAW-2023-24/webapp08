@@ -664,6 +664,10 @@ margin-top: 10px;
   font-size: 30pt;
   position: relative;
   top: -25%;
+  color: black;
+}
+.nameEx:hover{
+  color:#f1db25;
 }
 .imgEx{
   padding-top: 15px;
@@ -709,7 +713,7 @@ margin-top: 10px;
 
 
 .aEx{
-  color: black;
+  color: white;
 }
 .aEx:hover{
   text-decoration-line: none;

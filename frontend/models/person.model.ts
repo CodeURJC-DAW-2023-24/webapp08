@@ -8,5 +8,7 @@ export interface Person{
   roles:string[];
   lNotificatios?:Object[];
   rutines?:Object[];
-  news?:Object[]
+  news?:Object[];
+  encodedPassword?:string;
+  encodedpassword2?:string;
 }
