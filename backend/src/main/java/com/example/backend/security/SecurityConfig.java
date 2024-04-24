@@ -166,6 +166,7 @@ public class SecurityConfig {
 						.requestMatchers("/loadRutines").hasAnyRole("USER")
 						.requestMatchers("/loadCharts").hasAnyRole("USER")
 						.requestMatchers("/deleteUser").hasAnyRole("USER")
+						.requestMatchers("/deleteFriend").hasAnyRole("USER")
 						.requestMatchers("/mainPage/showRutine").hasAnyRole("USER")
 						.requestMatchers("/sendComment").hasAnyRole("USER")
 						.requestMatchers("/deleteComment").hasAnyRole("USER")

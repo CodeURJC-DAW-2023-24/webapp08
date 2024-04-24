@@ -22,11 +22,14 @@ export class CommunityService {
   sendFriendRequest(alias:string) {
     return	this.http.post(BASE_URL+`friends/requests/${alias}`,undefined)
     }
-    
+
   deleteUser(id:number){
     return this.http.delete(BASE_URL+`${id}`)
   }
 
+  deleteFriend(alias:string){
+    return this.http.delete(BASE_URL+`friends/${alias}`)
+  }
 
 
 }

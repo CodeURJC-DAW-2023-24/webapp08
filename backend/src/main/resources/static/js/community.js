@@ -115,11 +115,39 @@ async function loadFriends(){
     lFriends.forEach(function(friend) {
         var liElement = document.createElement("li");
         liElement.className = "list-group-item";
+        liElement.style.display = "flex";
+        liElement.style.justifyContent = "space-between";
         liElement.textContent = friend;
+
+        var buttonContainer = document.createElement("div");
+        var deleteButton = document.createElement("button");
+        deleteButton.classList.add("btn", "btn-danger", "btn-sm", "ml-2");
+        deleteButton.innerHTML = '<i class="bi bi-trash"></i>'; 
+        buttonContainer.appendChild(deleteButton);
     
+         deleteButton.addEventListener("click", function() {
+                deleteFriend(friend);
+            });
+    
+        liElement.appendChild(buttonContainer);
        
         ulElement.appendChild(liElement);
     });
+}
+
+async function deleteFriend(alias){
+    let csrfToken = document.querySelector('input[name="_csrf"]').value;
+
+     await fetch(`/deleteFriend?alias=${alias}`,{
+        method: 'POST',
+        headers: { 'X-XSRF-TOKEN': csrfToken }
+
+      });
+      var ulElement = document.getElementById("list-group");
+      ulElement.innerHTML = "";
+      loadFriends();
+  
+  
 }
 
 loadFriends();

@@ -177,9 +177,11 @@ export class CommunityComponent {
     var ulElement = document.getElementById("list-group") as HTMLElement;
 
     if (lFriends !== undefined) {
-      lFriends.forEach(function (friend: string) {
+      lFriends.forEach( (friend: string) => {
         var liElement = document.createElement("li");
         liElement.className = "list-group-item";
+        liElement.style.display = "flex";
+        liElement.style.justifyContent = "space-between";
         liElement.style.border = '1px black solid';
         liElement.style.color = 'black';
         liElement.style.fontWeight = '700';
@@ -187,9 +189,42 @@ export class CommunityComponent {
         liElement.style.backgroundColor = 'transparent';
         liElement.textContent = friend;
 
+        var buttonContainer = document.createElement("div");
+        var deleteButton = document.createElement("button");
+        deleteButton.classList.add("btn", "btn-danger", "btn-sm", "ml-2");
+        deleteButton.innerHTML = '<i class="bi bi-trash"></i>';
+        buttonContainer.appendChild(deleteButton);
+
+         deleteButton.addEventListener("click", () => {
+                this.deleteFriend(friend);
+            });
+
+        liElement.appendChild(buttonContainer);
+
         ulElement.appendChild(liElement);
       });
     }
   }
+
+  deleteFriend(alias: string) {
+    this.communityService.deleteFriend(alias).subscribe(
+      response => {
+        if (response ==null){
+          const index = this.person.friends?.indexOf(alias);
+          if (index !== -1 && index != undefined) {
+          this.person.friends?.splice(index, 1);}
+        var ulElement = document.getElementById("list-group") as HTMLElement;
+        ulElement.innerHTML = "";
+        this.loadFriends();
+        }
+      },
+      error => {
+        console.error('Error borrando amigo:', error);
+
+      });
+
+
+    }
+
 
 }
