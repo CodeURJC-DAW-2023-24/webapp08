@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Person } from '../models/person.model';
+import { PersonRegister } from '../models/personRegister.model';
 import { Router } from '@angular/router';
 
 import { throwError } from 'rxjs';
@@ -24,7 +25,7 @@ export class PersonService {
 
   }
 
-  savePerson(person:Person, image:File){
+  savePerson(person:PersonRegister, image:File){
     if (image) {
       let formData = new FormData();
       formData.append("image", image);

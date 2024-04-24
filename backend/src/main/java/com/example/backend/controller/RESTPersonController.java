@@ -99,6 +99,7 @@ public class RESTPersonController {
 	@ResponseStatus(HttpStatus.CREATED)
 	public ResponseEntity<PersonDTO> createPerson(@RequestBody Person person) {
 		person.setEncodedPassword(passwordEncoder.encode(person.getEncodedPassword()));
+		person.setRoles(Arrays.asList("USER"));
 		personService.save(person);
 		URI location = fromCurrentRequest().path("{id}").buildAndExpand(person.getId()).toUri();
 		PersonDTO personDTO = new PersonDTO(person, personService);

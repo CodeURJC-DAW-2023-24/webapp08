@@ -3,6 +3,7 @@ import { LoginService } from './../../services/login.service';
 import { Person } from '../../models/person.model';
 import { PersonService } from './../../services/person.service';
 import { Router } from '@angular/router';
+import { PersonRegister } from '../../models/personRegister.model';
 import { OnInit, ViewChild } from '@angular/core';
 @Component({
   selector: 'newPerson',
@@ -16,6 +17,7 @@ import { OnInit, ViewChild } from '@angular/core';
 export class NewPersonComponent {
   admin: boolean;
   person: Person;
+  personRegister: PersonRegister;
   roles: String[];
   encodedpassword2: string;
   @ViewChild("image")
@@ -37,17 +39,16 @@ export class NewPersonComponent {
 
       },
       error => {
-        this.person = { alias: "", name: "", date: "", weight: 0, roles: [] };
-
+        this.personRegister = { alias: "", name: "", date: "", weight: 0, encodedPassword:""};
       }
     );
   }
 
   registerPerson($event: Event) {
 
-    if (this.person.encodedPassword === this.encodedpassword2) {
+    if (this.personRegister.encodedPassword === this.encodedpassword2) {
       const image = this.image.nativeElement.files[0];
-      this.personService.savePerson(this.person, image).subscribe();
+      this.personService.savePerson(this.personRegister, image).subscribe();
       this.router.navigate(['../login']);
     }
 

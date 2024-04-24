@@ -1,5 +1,6 @@
 package com.example.backend.DTO;
 
+import java.util.Arrays;
 import java.util.List;
 
 
@@ -36,16 +37,13 @@ public class PersonDTO {
         this.date= person.getDate();
         this.weight = person.getWeight();
         this.friends = personService.findAliasofFriendsByPerson(person); 
-        this.roles = person.getRoles();
         this.lNotifications = person.getlNotifications();
         this.rutines = person.getRutines();
         this.news = person.getNews();
-        
+        this.roles=person.getRoles();
     }
 
-    protected PersonDTO(){
-
-    }
+ 
 
     public long getId() {
         return id;
