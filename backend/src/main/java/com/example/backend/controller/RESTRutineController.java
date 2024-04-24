@@ -82,10 +82,12 @@ public class RESTRutineController {
             RutineDTO rutineDTO = new RutineDTO(rutine, personService);
             rutineDTOs.add(rutineDTO);
         }
-        if (rutineDTOs.size() < 0) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
-        } else {
+        if (rutineDTOs.size() >= 0) {
             return ResponseEntity.ok(rutineDTOs);
+
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+
         }
     }
 

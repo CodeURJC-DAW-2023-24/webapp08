@@ -1,6 +1,7 @@
 package com.example.backend.controller;
 
-import java.sql.Date;
+import java.util.Date;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
@@ -116,10 +117,12 @@ public class RutineController implements CommandLineRunner {
 
     @PostMapping("/mainPage/newRoutine/{id}")
     public String newRoutine(@PathVariable Long id,
-            @RequestParam("date") Date date,
+            @RequestParam("date") String dateS,
             @RequestParam("name") String name,
-            @RequestParam("time") Integer time, HttpServletRequest request, Model model) {
+            @RequestParam("time") Integer time, HttpServletRequest request, Model model) throws ParseException {
 
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Date date = dateFormat.parse(dateS);
         if (date == null || name.isEmpty() || time == 0){
             model.addAttribute("message", true);
             model.addAttribute("erroMg", "Rutina vacía");
