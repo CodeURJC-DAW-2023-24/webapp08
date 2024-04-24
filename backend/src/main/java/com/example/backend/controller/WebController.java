@@ -3,6 +3,7 @@ package com.example.backend.controller;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -21,12 +22,13 @@ import com.example.backend.model.News;
 import com.example.backend.model.Notification;
 import com.example.backend.model.Person;
 import com.example.backend.model.Rutine;
-
-
+import com.example.backend.service.NewsService;
 import com.example.backend.service.NotificationService;
 import com.example.backend.service.PersonService;
 
 import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.web.bind.annotation.RequestBody;
+
 
 @Controller
 public class WebController implements CommandLineRunner {
@@ -35,6 +37,9 @@ public class WebController implements CommandLineRunner {
 
 	@Autowired
 	private NotificationService notificationService;
+
+	@Autowired
+	private NewsService newsService;
 
 	@Override
 	public void run(String... args) throws Exception {
@@ -110,6 +115,7 @@ public class WebController implements CommandLineRunner {
 		notificationService.deleteNotification(notification);
 	}
 
+
 	@GetMapping("/starterNews")
 	public @ResponseBody List<Object> getNews(@RequestParam int iteracion, HttpServletRequest request) {
 		String alias = request.getUserPrincipal().getName();
@@ -176,5 +182,38 @@ public class WebController implements CommandLineRunner {
 		}
 		return map;
 	}
+
+@PostMapping("/deleteFriend")
+public @ResponseBody void  deleteFriend( HttpServletRequest request,@RequestParam String alias) {
+	
+		Person friend = personService.findByAlias(alias);
+		Person person = personService.findPersonByHttpRequest(request);
+		
+			person.getFriends().remove(friend);
+			friend.getFriends().remove(person);
+
+			Iterator<News> iterator = person.getNews().iterator();
+			while (iterator.hasNext()) {
+				News news = iterator.next();
+				if (news.getAlias().equals(friend.getAlias())) {
+					iterator.remove();
+					newsService.delete(news);
+				}
+			}
+
+			iterator = person.getNews().iterator();
+			while (iterator.hasNext()) {
+				News news = iterator.next();
+				if (news.getAlias().equals(person.getAlias())) {
+					iterator.remove();
+					newsService.delete(news);
+				}
+			}
+
+			personService.save(person);
+			personService.save(friend);
+
+		
+}
 
 }

@@ -5,6 +5,7 @@ import { PersonService } from '../services/person.service';
 import { Router } from '@angular/router';
 import { PersonRegister } from '../models/personRegister.model';
 import { OnInit, ViewChild } from '@angular/core';
+import { ErrorService } from '../services/error.service';
 @Component({
   selector: 'newPerson',
   templateUrl: './newPerson.component.html',
@@ -23,7 +24,7 @@ export class NewPersonComponent {
   @ViewChild("image")
   image: any;
 
-  constructor(public loginservice: LoginService, public personService: PersonService, public router: Router) {
+  constructor(public loginservice: LoginService, public personService: PersonService, public router: Router, private errorService: ErrorService) {
   }
 
   ngOnInit(): void {
@@ -45,8 +46,12 @@ export class NewPersonComponent {
   }
 
   registerPerson($event: Event) {
-
-    if (this.personRegister.encodedPassword === this.encodedpassword2) {
+    if(this.personRegister.alias==='' || this.personRegister.name===''|| this.personRegister.date===''||this.personRegister.weight===0 || this.personRegister.encodedPassword===''|| this.encodedpassword2===''){
+      this.router.navigate(['../error']);
+      this.errorService.setblanks(true);
+      this.errorService.setincorrectUserPass(false);
+      this.errorService.setIncorrectPU(false);
+    }else if (this.personRegister.encodedPassword === this.encodedpassword2) {
       const image = this.image.nativeElement.files[0];
       this.personService.newPerson(this.personRegister, image);
         this.router.navigate(['../mainPage']);

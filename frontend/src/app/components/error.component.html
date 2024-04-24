@@ -1,0 +1,12 @@
+<body class="errorBody">
+  <div class="error-container">
+    <p class="errorP">Volver a la <a class="errorA" [routerLink]="['/mainPage']">Página principal</a> o <span class="errorA"><a
+          onclick="window.history.back()">Atrás</a></span></p>
+    <p class="errorM">Error</p>
+    <p *ngIf="incorrectPU" class="desE">Las contraseñas no coinciden</p>
+    <p *ngIf="blanks" class="desE">Rellene todos los campos</p>
+    <p *ngIf="incorrectUserPass" class="desE">Usuario o contraseña incorrectos</p>
+    <p *ngIf="existingUser" class="desE">El usuario ya existe</p>
+    <p *ngIf="existingEx" class="desE">El ejercicio ya existe</p>
+  </div>
+</body>
