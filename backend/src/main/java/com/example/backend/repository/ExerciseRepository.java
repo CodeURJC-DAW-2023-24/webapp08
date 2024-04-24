@@ -12,6 +12,8 @@ import org.springframework.data.repository.query.Param;
 
 public interface ExerciseRepository extends JpaRepository<Exercise, Long> {
     Optional<Exercise> findByName(String name);
+    @Query("SELECT e FROM Exercise e WHERE e.name = :name")
+    Exercise searchByName(@Param("name") String name);
     Optional<Exercise> findById(long id);
     Page<Exercise> findByGrp(String grp, Pageable page);
     List<Exercise> findByGrp(String grp);

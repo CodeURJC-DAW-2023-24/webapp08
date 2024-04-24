@@ -31,6 +31,7 @@ import { CommunityService } from '../services/community.service';
 import { StatisticsService } from '../services/statistics.service';
 import {ExerciseListComponent} from './exerciseList.component';
 import { NewPersonComponent } from './newPerson.component';
+import {ErrorComponent} from './error.component';
 
 @NgModule({
   declarations: [
@@ -49,6 +50,7 @@ import { NewPersonComponent } from './newPerson.component';
     SingleExerciseComponent,
     ExerciseListComponent,
     NewPersonComponent,
+    ErrorComponent,
   ],
   imports: [
     BrowserModule,

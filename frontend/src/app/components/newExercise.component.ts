@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
-import { Router,ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { LoginService } from '../services/login.service';
 import { PersonService } from '../services/person.service';
 import { Exercise } from '../models/exercise.model';
 import { ExerciseService } from '../services/exercise.service';
+import { ErrorService } from '../services/error.service';
 @Component({
   selector: 'newExercise',
   templateUrl: './newExercise.component.html',
@@ -14,11 +15,11 @@ import { ExerciseService } from '../services/exercise.service';
   ]
 })
 export class NewExerciseComponent {
-  exercise:Exercise;
+  exercise: Exercise;
 
-  constructor(private loginService: LoginService, private router: Router,activatedRoute:ActivatedRoute, public personService: PersonService, private exerciseService: ExerciseService) {
+  constructor(private loginService: LoginService, private router: Router, activatedRoute: ActivatedRoute, public personService: PersonService, private exerciseService: ExerciseService, private errorService: ErrorService) {
     const id = activatedRoute.snapshot.params['id'];
-    this.exercise={name:"",description:"", video:"", grp:""};
+    this.exercise = { name: "", description: "", video: "", grp: "" };
   }
 
   ngOnInit(): void {
@@ -29,17 +30,26 @@ export class NewExerciseComponent {
         this.router.navigate(['../login']);
 
       }
-  );
+    );
   }
 
-  addExercise($event: Event){
-    this.exerciseService.saveExercise(this.exercise).subscribe(
-      response=>{
-        this.exercise = response as Exercise;
-        this.router.navigate(['/exercise/'+this.exercise.id]);
-      }
+  addExercise($event: Event) {
+    if (this.exercise.name=== ""|| this.exercise.description=== "" || this.exercise.grp==="" ) {
+      this.router.navigate(['../error']);
+          this.errorService.setblanks(true);
+    }else {
+      this.exerciseService.saveExercise(this.exercise).subscribe(
+        (response) => {
+          this.exercise = response as Exercise;
+          this.router.navigate(['/exercise/' + this.exercise.id]);
+        },
+        (error) => {
+          this.router.navigate(['../error']);
+          this.errorService.setexistingEx(true);
+        }
 
-    );
+      );
+    }
   }
 
 }

@@ -30,6 +30,9 @@ public class ExerciseService {
     public Optional<Exercise> findByName(String name){
         return repository.findByName(name);
     }
+    public Exercise SearchByName(String name){
+        return repository.searchByName(name);
+    }
 
     public Optional<Exercise> findById(long id){
         return repository.findById(id);

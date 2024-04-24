@@ -1,3 +1,4 @@
+import { ErrorService } from './error.service';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Person } from '../models/person.model';
@@ -12,7 +13,7 @@ export class LoginService {
     logged: boolean;
     user: Person ;
 
-    constructor(private http: HttpClient, public router: Router) {
+    constructor(private http: HttpClient, public router: Router, private errorService: ErrorService) {
     }
 
     reqIsLogged() {
@@ -37,7 +38,9 @@ export class LoginService {
         this.http.post(BASE_URL + "/login", { username: user, password: pass }, { withCredentials: true })
             .subscribe(
                 (response) => this.reqIsLogged(),
-                (error) => alert("Wrong credentials")
+                (error) => {
+                this.router.navigate(['../error']);
+                this.errorService.setincorrectUserPass(true);}
             );
 
     }
