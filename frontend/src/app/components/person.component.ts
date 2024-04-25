@@ -1,7 +1,5 @@
-import { catchError } from 'rxjs/operators';
-
 import { LoginService } from '../services/login.service';
-import { Component, EventEmitter, Output} from '@angular/core';
+import { Component} from '@angular/core';
 import {  OnInit , ViewChild} from '@angular/core';
 import { Person } from '../models/person.model';
 import { PersonService } from '../services/person.service';

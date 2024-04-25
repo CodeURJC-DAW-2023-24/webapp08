@@ -1,7 +1,5 @@
 import { ExerciseService } from '../services/exercise.service';
 import { Component, ViewChild} from '@angular/core';
-import {  OnInit } from '@angular/core';
-import { Injectable } from '@angular/core';
 import { Router,ActivatedRoute } from '@angular/router';
 import { LoginService } from '../services/login.service';
 import { Person } from '../models/person.model';

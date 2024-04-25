@@ -4,8 +4,6 @@ import { Person } from '../models/person.model';
 import { PersonRegister } from '../models/personRegister.model';
 import { Router } from '@angular/router';
 import { ErrorService } from '../services/error.service';
-
-import { throwError } from 'rxjs';
 import { LoginService } from './login.service';
 
 const BASE_URL = '/api/persons/';

@@ -1,5 +1,5 @@
 import { StatisticsService } from '../services/statistics.service';
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import {
   ApexAxisChartSeries,
   ApexChart,

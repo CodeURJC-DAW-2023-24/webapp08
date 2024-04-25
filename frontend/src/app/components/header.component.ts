@@ -1,7 +1,6 @@
 import { ExerciseService } from './../services/exercise.service';
 import { HeaderService } from '../services/header.service';
-import { Component, OnInit, Input } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component, Input } from '@angular/core';
 import { LoginService } from '../services/login.service';
 import { Person } from '../models/person.model';
 import { PersonService } from '../services/person.service';

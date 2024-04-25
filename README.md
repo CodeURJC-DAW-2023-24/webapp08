@@ -331,4 +331,52 @@ Acceder al [enlace](https://rawcdn.githack.com/CodeURJC-DAW-2023-24/webapp08/a43
       - [PersonService.java](https://github.com/CodeURJC-DAW-2023-24/webapp08/blob/main/backend/src/main/java/com/example/backend/controller/PersonController.java)
       - [GymGuru.postman_collection.json](https://github.com/CodeURJC-DAW-2023-24/webapp08/blob/main/GymGuru.postman_collection.json)
       - [RutineService.java](https://github.com/CodeURJC-DAW-2023-24/webapp08/blob/main/backend/src/main/java/com/example/backend/service/RutineService.java)
-      
+
+#
+# Fase 4
+## Diagrama de clases y templates de la SPA
+<img src="READMEImages/SPAdiagram.png" width="1000" /> 
+
+## Participación
+- **<span style="color:green">Victoria Orzáez </span>:** 
+    - Tareas: 
+    - 5 commits más significativos:
+       - [Commit 1]()
+       - [Commit 2]()
+       - [Commit 3]()
+       - [Commit 4]()
+       - [Commit 5]()
+    - 5 ficheros en los que se ha participado:
+      - [Fichero]()
+      - [Fichero]()
+      - [Fichero]()
+      - [Fichero]()
+      - [Fichero]()
+- **<span style="color:green">Rubén Rodríguez </span>:** 
+   - Tareas: 
+    - 5 commits más significativos:
+       - [Commit 1]()
+       - [Commit 2]()
+       - [Commit 3]()
+       - [Commit 4]()
+       - [Commit 5]()
+    - 5 ficheros en los que se ha participado:
+      - [Fichero]()
+      - [Fichero]()
+      - [Fichero]()
+      - [Fichero]()
+      - [Fichero]()
+- **<span style="color:green">Noelia Berzosa</span>:** 
+    - Tareas: 
+     - 5 commits más significativos:
+       - [Commit 1]()
+       - [Commit 2]()
+       - [Commit 3]()
+       - [Commit 4]()
+       - [Commit 5]()
+    - 5 ficheros en los que se ha participado:
+      - [Fichero]()
+      - [Fichero]()
+      - [Fichero]()
+      - [Fichero]()
+      - [Fichero]()

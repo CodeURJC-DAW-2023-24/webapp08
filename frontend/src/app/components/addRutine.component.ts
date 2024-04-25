@@ -1,11 +1,10 @@
 import { LoginService } from '../services/login.service';
 import { Component } from '@angular/core';
-import { OnInit, ViewChild } from '@angular/core';
+import { OnInit} from '@angular/core';
 import { Rutine } from '../models/rutine.model';
 import { RutineService } from '../services/rutine.service';
 import { PersonService } from '../services/person.service';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Person } from '../models/person.model';
 import { ExRutine } from '../models/exRutine.model';
 import { ErrorService } from '../services/error.service';
 

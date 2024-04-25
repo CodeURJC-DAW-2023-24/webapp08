@@ -1,8 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { LoginService } from '../services/login.service';
-import { Person } from '../models/person.model';
-import { PersonService } from '../services/person.service';
-import { Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
 import { ErrorService } from '../services/error.service';
 @Component({
   selector: 'error',

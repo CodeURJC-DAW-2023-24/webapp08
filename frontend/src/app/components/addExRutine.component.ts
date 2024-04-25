@@ -1,7 +1,6 @@
 
-import { LoginService } from '../services/login.service';
 import { Component} from '@angular/core';
-import {  OnInit , ViewChild} from '@angular/core';
+import {  OnInit } from '@angular/core';
 import { Rutine } from '../models/rutine.model';
 import { RutineService } from '../services/rutine.service';
 import { ExerciseService } from '../services/exercise.service';

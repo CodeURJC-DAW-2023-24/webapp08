@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core';
 import { Exercise } from '../models/exercise.model';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
-import { of } from 'rxjs';
 const BASE_URL = '/api/exercises/';
 
 @Injectable({providedIn: 'root'})

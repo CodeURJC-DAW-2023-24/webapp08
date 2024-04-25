@@ -5,7 +5,6 @@ import { LoginComponent } from './login.component';
 import { MainPageComponent } from './main-page.component';
 import { StatisticsComponent } from './statistics.component';
 import { PersonComponent } from './person.component';
-import { HeaderComponent } from './header.component';
 import { AddExRutineComponent } from './addExRutine.component';
 import {SearchExerciseComponent} from './searchExercise.component';
 import { RutineComponent } from './rutine.component';

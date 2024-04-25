@@ -1,10 +1,10 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component } from '@angular/core';
 import { LoginService } from '../services/login.service';
 import { Person } from '../models/person.model';
 import { PersonService } from '../services/person.service';
 import { Router } from '@angular/router';
 import { PersonRegister } from '../models/personRegister.model';
-import { OnInit, ViewChild } from '@angular/core';
+import {  ViewChild } from '@angular/core';
 import { ErrorService } from '../services/error.service';
 @Component({
   selector: 'newPerson',
