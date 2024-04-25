@@ -1,5 +1,4 @@
 import { Observable } from 'rxjs';
-
 import { Injectable } from '@angular/core';
 import { Exercise } from '../models/exercise.model';
 import { Router } from '@angular/router';
@@ -45,6 +44,14 @@ export class ExerciseService{
   }
   getExercisesByGroupPageable(grp:string, page:number){
     return this.http.get(BASE_URL+`group/?group=${grp}&page=${page}`);
+  }
+
+  getExercisesName(nameEx:string){
+    return this.http.get(BASE_URL + `names?nameEx=${nameEx}`)
+  }
+
+  getExerciseByName(nameEx:string){
+    return this.http.get(BASE_URL + `namesEx?nameEx=${nameEx}`)
   }
 
 

@@ -279,4 +279,18 @@ public class RESTExerciseController {
 		}
 	}
 
+	@GetMapping("/names")
+	public ResponseEntity<?> searcExs(@RequestParam("nameEx") String name) {
+		List<String[]> lName= exerciseService.getNames(name);
+
+		return ResponseEntity.ok().body(lName);
+	}
+	@GetMapping("/namesEx")
+	public ResponseEntity<?> searchExByName(@RequestParam("nameEx") String name) {
+		Exercise exer= exerciseService.SearchByName(name);
+
+		return ResponseEntity.ok().body(exer);
+	}
+
+
 }

@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { MainPageService } from '../services/main-page.service';
 import { LoginService } from '../services/login.service';
@@ -18,7 +19,7 @@ export class MainPageComponent {
   person: Person;
   roles: String[];
 
-  constructor(public mainpageService: MainPageService, public loginservice: LoginService, public personService: PersonService) {
+  constructor(public mainpageService: MainPageService, public loginservice: LoginService, public personService: PersonService, public ruter: Router) {
   }
 
   ngOnInit(): void {
