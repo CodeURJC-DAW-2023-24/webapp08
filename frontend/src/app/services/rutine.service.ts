@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Rutine } from '../models/rutine.model';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
-import { of } from 'rxjs';
+import { catchError, of, throwError } from 'rxjs';
 
 const BASE_URL = '/api/rutines/';
 
@@ -20,7 +20,17 @@ export class RutineService{
     this.router.navigate(['../mainPage']);
   }
   getRutine(id: number) {
-   return this.http.get(BASE_URL+id);
+    return this.http.get(BASE_URL + id).pipe(
+      catchError(error => {
+        if (error.status === 403) {
+          // Realizar acción si se recibe un código de estado "403 Forbidden"
+          return this.http.get(BASE_URL + "/friends/" + id);
+        } else {
+          // Reenviar el error para que sea manejado por el suscriptor
+          return throwError(error);
+        }
+      })
+    );
   }
   saveRutine(rutine: Rutine,isNew: boolean) {
     if(isNew){

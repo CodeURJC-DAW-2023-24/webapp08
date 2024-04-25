@@ -104,6 +104,10 @@ export class MainPageComponent {
           col.classList.add('col-md-6');
           let card: HTMLDivElement = document.createElement('div');
           card.classList.add('card', 'mb-3');
+          card.style.cssText = `
+    transform-origin: center;
+    animation: tiltAnimation 0.5s infinite alternate;
+`;
           let cardBody: HTMLDivElement = document.createElement('div');
           cardBody.classList.add('card-body');
           let cardTitle: HTMLHeadingElement = document.createElement('h5');
@@ -112,9 +116,14 @@ export class MainPageComponent {
           let cardText: HTMLParagraphElement = document.createElement('p');
           cardText.classList.add('card-text');
           let link: HTMLAnchorElement = document.createElement('a');
-          link.href = `./mainPage/showRutine?id=${news[i + j].rutine.id}`;
           link.textContent = `Nueva rutina de: ${news[i + j].alias}`;
-          link.style.textDecoration = 'none';
+          link.style.cursor = 'pointer';
+          link.style.color = '#0d6efd';
+
+          link.addEventListener("click", () => {
+            this.loadRutine(news[i + j].rutine.id);
+          });
+
           cardText.appendChild(link);
           cardBody.appendChild(cardTitle);
           cardBody.appendChild(cardText);
@@ -194,7 +203,17 @@ export class MainPageComponent {
         let containerDay: Element | null = reversedDayPairs[daysDiff];
         let calendaryContent: Element | null = containerDay?.querySelector('.day-calendary-content');
         if (calendaryContent) {
-          calendaryContent.innerHTML += `<a href="/mainPage/showRutine?id=${rutine.id}" style="text-decoration: none; color: black;">${rutine.name}</a>`;
+          let aElement = document.createElement('a');
+          aElement.style.textDecoration = 'none';
+          aElement.style.color = 'black';
+          aElement.textContent = rutine.name;
+          aElement.style.cursor = 'pointer';
+
+          aElement.addEventListener("click", () => {
+            this.loadRutine(rutine.id);
+          });
+
+          calendaryContent.appendChild(aElement);
         }
       }
     });
@@ -215,6 +234,8 @@ export class MainPageComponent {
     this.loadRutines();
   }
 
-
+  loadRutine(id: number) {
+    this.ruter.navigate(['/rutine/' + id]);
+  }
 
 }

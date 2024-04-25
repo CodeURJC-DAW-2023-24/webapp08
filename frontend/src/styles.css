@@ -37,3 +37,14 @@ body{
   min-width: 100%;
   min-height: 100%;
 }
+
+@keyframes tiltAnimation {
+  0% {
+      transform: rotateZ(-1deg);
+  }
+
+  100% {
+      transform: rotateZ(1deg);
+ 
+ }
+}

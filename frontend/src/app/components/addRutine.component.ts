@@ -65,7 +65,7 @@ export class AddRutineComponent implements OnInit {
         response => {
           this.rutine = response as Rutine;
           this.isNew = false;
-          this.router.navigate(['/rutine/' + this.rutine.id]);
+          this.router.navigate(['/mainPage']);
         },
       );
     }
