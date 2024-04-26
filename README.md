@@ -367,16 +367,16 @@ Acceder al [enlace](https://rawcdn.githack.com/CodeURJC-DAW-2023-24/webapp08/a43
       - [Fichero]()
       - [Fichero]()
 - **<span style="color:green">Noelia Berzosa</span>:** 
-    - Tareas: 
+    - Tareas: componentes (tanto html, ts, servicios y modelos necesarios) de listas de ejercicio y grupos musculares, ejercicio específicio, creación nuevo ejercicio, buscador de ejercicios, registro de persona, botones en función de si eres administrador, control de errores (componente error). Diagrama SPA. 
      - 5 commits más significativos:
-       - [Commit 1]()
-       - [Commit 2]()
-       - [Commit 3]()
-       - [Commit 4]()
-       - [Commit 5]()
+       - [Commit 1](https://github.com/CodeURJC-DAW-2023-24/webapp08/commit/edd24f6f9fe279bfa08225ee8abeec0f724edc65)
+       - [Commit 2](https://github.com/CodeURJC-DAW-2023-24/webapp08/commit/82efc9fa76bed87aa518d39beffabfda41cadcd2)
+       - [Commit 3](https://github.com/CodeURJC-DAW-2023-24/webapp08/commit/aa58b5cbf724a0babd3ff0680a4da25abde781c9)
+       - [Commit 4](https://github.com/CodeURJC-DAW-2023-24/webapp08/commit/4052a7cdcc8544384d97e029978df31a3f4e8fea)
+       - [Commit 5](https://github.com/CodeURJC-DAW-2023-24/webapp08/commit/91b9cfe2d0f79c8426cf837a609de043945cfff9)
     - 5 ficheros en los que se ha participado:
-      - [Fichero]()
-      - [Fichero]()
-      - [Fichero]()
-      - [Fichero]()
-      - [Fichero]()
+      - [header.component.ts](https://github.com/CodeURJC-DAW-2023-24/webapp08/blob/main/frontend/src/app/components/header.component.ts)
+      - [exerciseList.component.ts](https://github.com/CodeURJC-DAW-2023-24/webapp08/blob/main/frontend/src/app/components/exerciseList.component.ts)
+      - [newPerson.component.ts](https://github.com/CodeURJC-DAW-2023-24/webapp08/blob/main/frontend/src/app/components/newPerson.component.ts)
+      - [singleExercise.component.ts](https://github.com/CodeURJC-DAW-2023-24/webapp08/blob/main/frontend/src/app/components/singleExercise.component.ts)
+      - [error.service.ts](https://github.com/CodeURJC-DAW-2023-24/webapp08/blob/main/frontend/src/app/services/error.service.ts)
