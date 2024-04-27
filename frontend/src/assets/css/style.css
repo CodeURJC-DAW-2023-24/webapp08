@@ -649,21 +649,23 @@ margin-top: 10px;
 }
 
 .list-group {
+  padding-top: 50pt;
   border: none;
+
 }
 
-.list-group-item {
+.list-group-item2 {
   background-color: #ffffff;
-  border: none;
-  margin-bottom: 15px;
+  border-radius: 5px;
+  margin-bottom: 20pt;
+  height: 150pt;
 }
 .nameEx {
-  padding-top: 25%;
+  margin-top: 40pt;
   text-align: center;
   font-family: fantasy;
   font-size: 30pt;
   position: relative;
-  top: -25%;
   color: black;
 }
 .nameEx:hover{
