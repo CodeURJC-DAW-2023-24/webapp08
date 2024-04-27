@@ -3,6 +3,8 @@
 #################################################
 FROM  node:lts-alpine3.19 as builderFront
 
+ENV TZ=Europe/Madrid
+
 WORKDIR /frontend
 
 COPY ../frontend/package*.json ../frontend/angular.json ../frontend/tsconfig*.json  /frontend/

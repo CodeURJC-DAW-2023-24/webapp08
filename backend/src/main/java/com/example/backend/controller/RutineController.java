@@ -1,5 +1,6 @@
 package com.example.backend.controller;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -60,21 +61,28 @@ public class RutineController implements CommandLineRunner {
         Rutine rutine = rutineService.findById(id).orElseThrow();
         String alias = request.getUserPrincipal().getName();
         Person userSesion = personService.findByAlias(alias);
-        if(user == userSesion){
+        if (user == userSesion) {
             model.addAttribute("user", true);
-        }
-        else{
+        } else {
             model.addAttribute("user", false);
         }
         List<Comment> lComments = rutine.getMessages();
-        for (Comment comment: lComments){
+        for (Comment comment : lComments) {
             comment.setOwn(comment.getAlias().equals(alias));
         }
 
         model.addAttribute("alias", user.getAlias());
-        model.addAttribute("nameUser", user.getName());
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        String formatedDate = sdf.format(rutine.getDate());
+        model.addAttribute("nameUser", rutine.getName());
+        Date date = rutine.getDate();
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+
+        Date updatedDate = calendar.getTime();
+
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yy");
+        String formatedDate = sdf.format(updatedDate);
+
         model.addAttribute("date", formatedDate);
         model.addAttribute("pathName", rutine.getName());
         model.addAttribute("exercises", rutine.getExercises());
@@ -105,15 +113,14 @@ public class RutineController implements CommandLineRunner {
     }
 
     @PostMapping("deleteComment")
-	public @ResponseBody void deleteRutineComment(@RequestParam Long commentId, @RequestParam Long rutineId) {
+    public @ResponseBody void deleteRutineComment(@RequestParam Long commentId, @RequestParam Long rutineId) {
         Rutine rutine = rutineService.findById(rutineId).orElseThrow();
         Comment comment = commentService.findById(commentId);
         rutine.getMessages().remove(comment);
         rutineService.save(rutine);
-        commentService.deleteById(commentId); 	
-		
-	}
-	
+        commentService.deleteById(commentId);
+
+    }
 
     @PostMapping("/mainPage/newRoutine/{id}")
     public String newRoutine(@PathVariable Long id,
@@ -123,7 +130,7 @@ public class RutineController implements CommandLineRunner {
 
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Date date = dateFormat.parse(dateS);
-        if (date == null || name.isEmpty() || time == 0){
+        if (date == null || name.isEmpty() || time == 0) {
             model.addAttribute("message", true);
             model.addAttribute("erroMg", "Rutina vacía");
             return "error";
@@ -143,11 +150,11 @@ public class RutineController implements CommandLineRunner {
         List<Person> lFriends = user.getFriends();
         if (!lFriends.isEmpty()) {
             for (Person friend : lFriends) {
-            News news = new News(alias);
-            news.setRutine(rutine);
-            newsService.save(news);
-            friend.getNews().add(news);
-            personService.save(friend);
+                News news = new News(alias);
+                news.setRutine(rutine);
+                newsService.save(news);
+                friend.getNews().add(news);
+                personService.save(friend);
             }
         }
 
@@ -156,11 +163,11 @@ public class RutineController implements CommandLineRunner {
 
     @PostMapping("/mainPage/rutine/newExercise/{edit}/{id}")
     public String addExRutine(@PathVariable Long id,
-    @PathVariable Boolean edit,
+            @PathVariable Boolean edit,
             @RequestParam("grp") String grp,
             @RequestParam("chest") String chest,
             @RequestParam("back") String back,
-           @RequestParam("shoulder") String shoulder,
+            @RequestParam("shoulder") String shoulder,
             @RequestParam("biceps") String biceps,
             @RequestParam("triceps") String triceps,
             @RequestParam("lower") String lower,
@@ -179,7 +186,7 @@ public class RutineController implements CommandLineRunner {
             case "Espalda":
                 name = back;
                 break;
-             case "Hombro":
+            case "Hombro":
                 name = shoulder;
                 break;
             case "Biceps":
@@ -205,7 +212,7 @@ public class RutineController implements CommandLineRunner {
         List<ExRutine> exercises = rutine.getExercises();
         model.addAttribute("id", id);
         model.addAttribute("exerciseList", exercises);
-        if(edit){
+        if (edit) {
             model.addAttribute("edit", true);
             model.addAttribute("date", rutine.getDate());
             model.addAttribute("name", rutine.getName());
@@ -216,7 +223,7 @@ public class RutineController implements CommandLineRunner {
     }
 
     @GetMapping("/mainPage/rutine/addEx/{edit}/{id}")
-    public String addEX(@PathVariable Long id,@PathVariable Boolean edit, Model model, HttpServletRequest request) {
+    public String addEX(@PathVariable Long id, @PathVariable Boolean edit, Model model, HttpServletRequest request) {
         String alias = request.getUserPrincipal().getName();
         Person user = personService.findByAlias(alias);
         List<Exercise> chest = exerciseService.findByGrp("Pecho");
@@ -270,6 +277,7 @@ public class RutineController implements CommandLineRunner {
         model.addAttribute("edit", false);
         return "addRutine";
     }
+
     @GetMapping("/deleteRutine/{id}")
     public String deleteRutine(@PathVariable Long id, Model model, HttpServletRequest request) {
         Rutine rutine = rutineService.findById(id).orElseThrow();
@@ -282,6 +290,7 @@ public class RutineController implements CommandLineRunner {
         rutineService.delete(rutine);
         return "redirect:/mainPage";
     }
+
     @GetMapping("/editRutine/{id}")
     public String editRutine(@PathVariable Long id, Model model, HttpServletRequest request) {
         Rutine rutine = rutineService.findById(id).orElseThrow();
@@ -292,13 +301,14 @@ public class RutineController implements CommandLineRunner {
         model.addAttribute("edit", true);
         return "/addRutine";
     }
+
     @PostMapping("/mainPage/editRutine/{id}")
     public String editRoutine(@PathVariable Long id,
             @RequestParam("date") Date date,
             @RequestParam("name") String name,
             @RequestParam("time") Integer time, Model model) {
 
-        if (date == null || name.isEmpty() || time == 0){
+        if (date == null || name.isEmpty() || time == 0) {
             model.addAttribute("message", true);
             model.addAttribute("erroMg", "Rutina vacía");
             return "error";
@@ -310,21 +320,21 @@ public class RutineController implements CommandLineRunner {
         rutine.setTime(time);
         rutineService.save(rutine);
 
-       
-
         return "redirect:/mainPage";
     }
+
     @GetMapping("/deleteExRutine/{edit}/{id}")
-    public String deleteExRutine(@PathVariable Long id, @PathVariable Boolean edit, Model model, HttpServletRequest request) {
+    public String deleteExRutine(@PathVariable Long id, @PathVariable Boolean edit, Model model,
+            HttpServletRequest request) {
         ExRutine exRutine = exRutineService.findById(id);
         Rutine rutine = rutineService.findByExerciseId(id).orElseThrow();
         List<ExRutine> exercices = rutine.getExercises();
         exercices.remove(exRutine);
         rutineService.save(rutine);
         exRutineService.delete(exRutine);
-       
+
         model.addAttribute("exerciseList", rutine.getExercises());
-        if(edit){
+        if (edit) {
             model.addAttribute("edit", true);
             model.addAttribute("date", rutine.getDate());
             model.addAttribute("name", rutine.getName());

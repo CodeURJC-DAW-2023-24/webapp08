@@ -1,5 +1,5 @@
 
-import { NgModule } from '@angular/core';
+import { LOCALE_ID, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
@@ -32,6 +32,10 @@ import { StatisticsService } from '../services/statistics.service';
 import {ExerciseListComponent} from './exerciseList.component';
 import { NewPersonComponent } from './newPerson.component';
 import {ErrorComponent} from './error.component';
+import { registerLocaleData } from '@angular/common';
+import localeEs from '@angular/common/locales/es';
+
+registerLocaleData(localeEs);
 
 @NgModule({
   declarations: [
@@ -67,7 +71,8 @@ import {ErrorComponent} from './error.component';
     ExerciseService,
     HeaderService,
     CommunityService,
-    StatisticsService
+    StatisticsService,
+    { provide: LOCALE_ID, useValue: 'es-ES' }
   ],
   bootstrap: [AppComponent]
 })

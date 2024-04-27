@@ -26,7 +26,7 @@ public class RutineDTO {
         Date newRutineDate = rutine.getDate();
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(newRutineDate);
-        calendar.add(Calendar.DAY_OF_YEAR, +1);
+        //calendar.add(Calendar.DAY_OF_YEAR, +1);
         newRutineDate = calendar.getTime();
         this.date= newRutineDate;
         this.time= rutine.getTime();
