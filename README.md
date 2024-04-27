@@ -336,6 +336,13 @@ Acceder al [enlace](https://rawcdn.githack.com/CodeURJC-DAW-2023-24/webapp08/a43
 # Fase 4
 ## Diagrama de clases y templates de la SPA
 <img src="READMEImages/SPAdiagram.png" width="1000" /> 
+## Desplegar la aplicación en la MV
+-Se sigue el mismo procedimiento que en la [Fase3](#documentación-para-despliegue-en-la-máquina-virtual-de-la-universidad)
+- Cuando la aplicación se encuentre en ejecución, dicha aplicación estará disponible en la url: [https://10.100.139.122:8443](https://10.100.139.122:8443) y la parte de Angular estará disponible en [https://10.100.139.122:8443/new/](https://10.100.139.122:8443/new/)
+    - Credenciales de ejemplo:
+      - username: admin ➔ password: adminpass
+      - username: user ➔ password: pass
+      - username: 1 ➔ password: 1
 
 ## Participación
 - **<span style="color:green">Victoria Orzáez </span>:** 
@@ -367,7 +374,7 @@ Acceder al [enlace](https://rawcdn.githack.com/CodeURJC-DAW-2023-24/webapp08/a43
       - [Fichero]()
       - [Fichero]()
 - **<span style="color:green">Noelia Berzosa</span>:** 
-    - Tareas: componentes (tanto html, ts, servicios y modelos necesarios) de listas de ejercicio y grupos musculares, ejercicio específicio, creación nuevo ejercicio, buscador de ejercicios, registro de persona, botones en función de si eres administrador, control de errores (componente error). Diagrama SPA. 
+    - Tareas: componentes (tanto html, ts, servicios y modelos necesarios) de listas de ejercicio y grupos musculares, ejercicio específicio, creación nuevo ejercicio, buscador de ejercicios, registro de persona, botones en función de si eres administrador, control de errores (componente error). Diagrama SPA. Desplegar la aplicación en la MV.
      - 5 commits más significativos:
        - [Commit 1](https://github.com/CodeURJC-DAW-2023-24/webapp08/commit/edd24f6f9fe279bfa08225ee8abeec0f724edc65)
        - [Commit 2](https://github.com/CodeURJC-DAW-2023-24/webapp08/commit/82efc9fa76bed87aa518d39beffabfda41cadcd2)
