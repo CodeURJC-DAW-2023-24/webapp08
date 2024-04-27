@@ -3,7 +3,7 @@
 #################################################
 FROM  node:lts-alpine3.19 as builderFront
 
-ENV TZ=Europe/Madrid
+#ENV TZ=Europe/Madrid
 
 WORKDIR /frontend
 
