@@ -336,8 +336,9 @@ Acceder al [enlace](https://rawcdn.githack.com/CodeURJC-DAW-2023-24/webapp08/a43
 # Fase 4
 ## Diagrama de clases y templates de la SPA
 <img src="READMEImages/SPAdiagram.png" width="1000" /> 
+
 ## Desplegar la aplicación en la MV
--Se sigue el mismo procedimiento que en la [Fase3](#documentación-para-despliegue-en-la-máquina-virtual-de-la-universidad)
+- Se sigue el mismo procedimiento que en la [Fase3](#documentación-para-despliegue-en-la-máquina-virtual-de-la-universidad)
 - Cuando la aplicación se encuentre en ejecución, dicha aplicación estará disponible en la url: [https://10.100.139.122:8443](https://10.100.139.122:8443) y la parte de Angular estará disponible en [https://10.100.139.122:8443/new/](https://10.100.139.122:8443/new/)
     - Credenciales de ejemplo:
       - username: admin ➔ password: adminpass
