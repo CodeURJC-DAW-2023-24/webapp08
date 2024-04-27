@@ -361,19 +361,19 @@ Acceder al [enlace](https://rawcdn.githack.com/CodeURJC-DAW-2023-24/webapp08/a43
       - [Fichero]()
       - [Fichero]()
 - **<span style="color:green">Rubén Rodríguez </span>:** 
-   - Tareas: 
+   - Tareas: componentes (html,ts, servicios y modelos necesarios) de mainPage, community, parte del header y statistics (modificando los charts para que se realicen con bibliotecas de angular). Ampliación y configuración de la carpeta docker.
     - 5 commits más significativos:
-       - [Commit 1]()
-       - [Commit 2]()
-       - [Commit 3]()
-       - [Commit 4]()
-       - [Commit 5]()
+       - [Commit 1](https://github.com/CodeURJC-DAW-2023-24/webapp08/commit/a355c4e807eeadd21140a148f46532cba3911539)
+       - [Commit 2](https://github.com/CodeURJC-DAW-2023-24/webapp08/commit/f56fd041dcfd70b603ae0d80f8cf82908fcdd8d4)
+       - [Commit 3](https://github.com/CodeURJC-DAW-2023-24/webapp08/commit/853b7024f4bce208caa2e626457f15470bf71f80)
+       - [Commit 4](https://github.com/CodeURJC-DAW-2023-24/webapp08/commit/c0a252e6a86e2f8cd064aca1ff599b65a5f6ae08)
+       - [Commit 5](https://github.com/CodeURJC-DAW-2023-24/webapp08/commit/25b448586cdcc387e079b3c2f0602b6382ef9b7c)
     - 5 ficheros en los que se ha participado:
-      - [Fichero]()
-      - [Fichero]()
-      - [Fichero]()
-      - [Fichero]()
-      - [Fichero]()
+      - [Dockerfile](https://github.com/CodeURJC-DAW-2023-24/webapp08/blob/main/docker/Dockerfile)
+      - [community.component.ts](https://github.com/CodeURJC-DAW-2023-24/webapp08/blob/main/frontend/src/app/components/community.component.ts)
+      - [header.component.ts](https://github.com/CodeURJC-DAW-2023-24/webapp08/blob/main/frontend/src/app/components/header.component.ts)
+      - [main-page.component.ts](https://github.com/CodeURJC-DAW-2023-24/webapp08/blob/main/frontend/src/app/components/main-page.component.ts)
+      - [statistics.component.ts](https://github.com/CodeURJC-DAW-2023-24/webapp08/blob/main/frontend/src/app/components/statistics.component.ts)
 - **<span style="color:green">Noelia Berzosa</span>:** 
     - Tareas: componentes (tanto html, ts, servicios y modelos necesarios) de listas de ejercicio y grupos musculares, ejercicio específicio, creación nuevo ejercicio, buscador de ejercicios, registro de persona, botones en función de si eres administrador, control de errores (componente error). Diagrama SPA. Desplegar la aplicación en la MV.
      - 5 commits más significativos:
