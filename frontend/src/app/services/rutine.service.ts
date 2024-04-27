@@ -24,7 +24,7 @@ export class RutineService{
       catchError(error => {
         if (error.status === 403) {
           // Realizar acción si se recibe un código de estado "403 Forbidden"
-          return this.http.get(BASE_URL + "/friends/" + id);
+          return this.http.get(BASE_URL + "friends/" + id);
         } else {
           // Reenviar el error para que sea manejado por el suscriptor
           return throwError(error);
