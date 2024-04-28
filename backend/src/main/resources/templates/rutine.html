@@ -65,7 +65,7 @@
                   <h1 style="text-align: center;">Comentarios</h1>
                   <div id="container-messages" class="message-container">
                     {{#messages}} 
-                      <p class="message-style"><b>{{name}}:</b>
+                      <p class="message-style"><b>{{alias}}:</b>
                       {{content}} {{#own}}<button  class="btn btn-danger btn-sm ml-2 float-right" onclick="deleteComment(event, `{{id}}`)"> Borrar</button>{{/own}} </p>
                         
                     {{/messages}}

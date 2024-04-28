@@ -12,9 +12,9 @@ async function sendComment(){
 
           });
      
-    let comments = await RESPONSE.json();
+    let comment = await RESPONSE.json();
     document.getElementById('comment').value="";
-    addComments(comments)
+    addComments(comment)
     }
     }
 
@@ -25,7 +25,7 @@ async function sendComment(){
 
         let p = document.createElement('p');
         let b = document.createElement('b');
-        b.textContent = comment.name + ": ";
+        b.textContent = comment.alias + ": ";
         p.appendChild(b);
         p.appendChild(document.createTextNode(comment.content));
         p.style.color="black"
