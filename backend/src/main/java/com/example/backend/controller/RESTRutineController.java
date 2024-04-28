@@ -98,7 +98,7 @@ public class RESTRutineController {
             }),
             @ApiResponse(responseCode = "401", description = "You are not logged", content = @Content)
     })
-    
+
     @PostMapping("/")
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<RutineDTO> createRutine(HttpServletRequest request, @RequestBody RutineDTO rutine) {
@@ -107,7 +107,10 @@ public class RESTRutineController {
             Date newRutineDate = rutine.getDate();
             Calendar calendar = Calendar.getInstance();
             calendar.setTime(newRutineDate);
-            calendar.add(Calendar.DAY_OF_YEAR, -1);
+            calendar.set(Calendar.HOUR_OF_DAY, 0); // Establece la hora a 00:00
+            calendar.set(Calendar.MINUTE, 0); // Establece los minutos a 00
+            calendar.set(Calendar.SECOND, 0); // Establece los segundos a 00
+            calendar.set(Calendar.MILLISECOND, 0); // Establece los milisegundos a 00
             newRutineDate = calendar.getTime();
             rutine.setDate(newRutineDate);
             Rutine newRutine = new Rutine(rutine);
@@ -178,7 +181,8 @@ public class RESTRutineController {
             @ApiResponse(responseCode = "500", description = "You are not logged", content = @Content),
     })
     @PatchMapping("/{id}")
-    public ResponseEntity<?> editRutine(HttpServletRequest request, @RequestBody RutineDTO rutine, @PathVariable Long id) {
+    public ResponseEntity<?> editRutine(HttpServletRequest request, @RequestBody RutineDTO rutine,
+            @PathVariable Long id) {
         List<Rutine> listRutine = rutineService.findAll();
         int size = listRutine.size();
         if (size == 0 || listRutine.get(size - 1).getId() < id) {
@@ -239,7 +243,7 @@ public class RESTRutineController {
                 }
 
                 if (positionRutine == -1) {
-                    return ResponseEntity.status(403).body("Its not your rutine or your friends one"); 
+                    return ResponseEntity.status(403).body("Its not your rutine or your friends one");
                 } else {// insert comment
                     rutine.getMessages().add(new Comment(person.getAlias(), comment));
                     rutineService.save(rutine);

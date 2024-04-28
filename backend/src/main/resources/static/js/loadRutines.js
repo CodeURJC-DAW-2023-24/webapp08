@@ -40,7 +40,7 @@ async function agregarElementosCalendario(rutines) {
         let rutineDate = rutine.date;
         rutineDate = rutineDate.split('T')[0];
         rutineDate = new Date(rutineDate);
-        rutineDate.setDate(rutineDate.getDate() + 1); //due to the format
+        rutineDate.setDate(rutineDate.getDate()); //due to the format
 
         todayDate.setUTCHours(0, 0, 0, 0);
         rutineDate.setUTCHours(0, 0, 0, 0);

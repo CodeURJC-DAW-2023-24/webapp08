@@ -8,9 +8,10 @@ services:
     ports:
       - 8443:8443
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:mysql://db:3306/gymguru
+      - SPRING_DATASOURCE_URL=jdbc:mysql://db:3306/gymguru?serverTimezone=Europe/Madrid
       - SPRING_DATASOURCE_USERNAME=root
       - SPRING_DATASOURCE_PASSWORD=password
+      - SPRING_JACKSON_TIMEZONE=Europe/Madrid
     restart: on-failure
   db:
     image: mysql:8.0.36
