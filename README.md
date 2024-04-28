@@ -1,6 +1,9 @@
 
 # Nombre de la aplicación: GymGuru 🏋️
 
+## Video explicativo de la aplicación
+Acceder al [enlace](https://www.youtube.com/watch?v=ixs79PK5sfI)
+
 ## Integrantes: 
 | Name | Email | Github |
 |-----------|-----------|-----------|
@@ -347,19 +350,19 @@ Acceder al [enlace](https://rawcdn.githack.com/CodeURJC-DAW-2023-24/webapp08/a43
 
 ## Participación
 - **<span style="color:green">Victoria Orzáez </span>:** 
-    - Tareas: 
+    - Tareas: componentes (tanto html, ts, servicios y modelos necesarios) tanto del perfil del usuario, crear rutina, añadir ejercicios a la rutina y mostrar la rutina, tratamiento de imagenes y realización del video explicativo.
     - 5 commits más significativos:
-       - [Commit 1]()
-       - [Commit 2]()
-       - [Commit 3]()
-       - [Commit 4]()
-       - [Commit 5]()
+       - [Commit 1](https://github.com/CodeURJC-DAW-2023-24/webapp08/commit/066583e1ac32820eaeb94e3e817d8953b37fc2ac)
+       - [Commit 2](https://github.com/CodeURJC-DAW-2023-24/webapp08/commit/e9372c2189a86b91c3d3143adcb8c4e2fb2b2326)
+       - [Commit 3](https://github.com/CodeURJC-DAW-2023-24/webapp08/commit/949b11cdf6cb935ff5451e6d8b32e59baa503cfc)
+       - [Commit 4](https://github.com/CodeURJC-DAW-2023-24/webapp08/commit/d79b792215ddf691f7c0c61cf78d2177ef81226d)
+       - [Commit 5](https://github.com/CodeURJC-DAW-2023-24/webapp08/commit/f3a8ff115393fba98b3d4b5fcb10e47043245b94)
     - 5 ficheros en los que se ha participado:
-      - [Fichero]()
-      - [Fichero]()
-      - [Fichero]()
-      - [Fichero]()
-      - [Fichero]()
+      - [addExRutine.component.ts](https://github.com/CodeURJC-DAW-2023-24/webapp08/blob/main/frontend/src/app/components/addExRutine.component.ts)
+      - [addRutine.component.ts](https://github.com/CodeURJC-DAW-2023-24/webapp08/blob/main/frontend/src/app/components/addRutine.component.ts)
+      - [person.component.ts](https://github.com/CodeURJC-DAW-2023-24/webapp08/blob/main/frontend/src/app/components/person.component.ts)
+      - [rutine.component.ts](https://github.com/CodeURJC-DAW-2023-24/webapp08/blob/main/frontend/src/app/components/rutine.component.ts)
+      - [rutine.service.ts](https://github.com/CodeURJC-DAW-2023-24/webapp08/blob/main/frontend/src/app/services/rutine.service.ts)
 - **<span style="color:green">Rubén Rodríguez </span>:** 
    - Tareas: componentes (html,ts, servicios y modelos necesarios) de mainPage, community, parte del header y statistics (modificando los charts para que se realicen con bibliotecas de angular). Ampliación y configuración de la carpeta docker.
     - 5 commits más significativos:
