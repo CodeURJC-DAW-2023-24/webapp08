@@ -40,9 +40,12 @@ export class RutineService{
     return this.http.patch(BASE_URL+rutine.id,rutine);
     }
 }
-deleteRutine(id: number|undefined ) {
-  if(id !==undefined){}
-  this.http.delete(BASE_URL+id).subscribe();
+deleteRutine(id: number|undefined) {
+  if(id !==undefined){
+  return this.http.delete(BASE_URL+id)}
+  else{
+    return of();
+  }
 }
 
 deleteComment(idRutina: number | undefined, id1Comment: number | undefined) {

@@ -5,13 +5,12 @@ import { PersonRegister } from '../models/personRegister.model';
 import { Router } from '@angular/router';
 import { ErrorService } from '../services/error.service';
 import { LoginService } from './login.service';
+import { of} from 'rxjs';
 
 const BASE_URL = '/api/persons/';
 
 @Injectable({ providedIn: 'root' })
 export class PersonService {
-
-  person: Person
 
   constructor(private http: HttpClient, public router: Router, public loginService: LoginService, private errorService: ErrorService) {
 
@@ -51,15 +50,15 @@ export class PersonService {
     }
   }
   editPerson(person: Person, image: File) {
-
+    this.http.patch(BASE_URL, person).subscribe();
     if (image) {
       let formData = new FormData();
       formData.append("image", image);
-      this.http.patch(BASE_URL, person);
+      this.http.patch(BASE_URL, person).subscribe();
       return this.http.post(BASE_URL + 'image', formData);
     }
     else {
-      return this.http.patch(BASE_URL, person);
+      return of();
     }
 
 

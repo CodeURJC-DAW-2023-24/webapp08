@@ -9,6 +9,4 @@ export interface Person{
   lNotificatios?:Object[];
   rutines?:Object[];
   news?:Object[];
-  encodedPassword?:string;
-  encodedpassword2?:string;
 }

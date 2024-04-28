@@ -28,7 +28,9 @@ public class PersonDTO {
     private List<News> news;
 	
 
-   
+   public PersonDTO(){
+    
+   }
 
     public PersonDTO(Person person, PersonService personService){
         this.id = person.getId();

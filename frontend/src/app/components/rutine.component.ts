@@ -78,8 +78,11 @@ export class RutineComponent implements OnInit{
 
 }
     deleteRutine($event: MouseEvent) {
-      this.rutineService.deleteRutine(this.rutine.id);
-      this.router.navigate(['/mainPage']);
+      if(this.rutine.id !== undefined){
+      this.rutineService.deleteRutine(this.rutine.id).subscribe(()=>
+        this.router.navigate(['/mainPage'])
+      );
+      }
 
     }
     editRutine($event: MouseEvent) {
@@ -87,12 +90,17 @@ export class RutineComponent implements OnInit{
       }
 
       newComment($event: MouseEvent,newComment:string, input: HTMLInputElement) {
-        this.rutine.lComments?.push({alias:this.person.alias, content:newComment});
-        this.rutineService.addComment(this.rutine.id, newComment).subscribe(
-
+        //this.rutine.lComments?.push({alias:this.person.alias, content:newComment});
+        this.rutineService.addComment(this.rutine.id, newComment).subscribe(()=>{
+          const id = this.activatedRoute.snapshot.params['id'];
+          this.rutineService.getRutine(id).subscribe(
+          response => {this.rutine = response as Rutine
+            input.value="";
+          input.placeholder="Añade un comentario...";
+          });
+          }
         );
-        input.value="";
-        input.placeholder="Añade un comentario...";
+
         }
         deleteComment($event: MouseEvent, com: Comment) {
           if(this.rutine.lComments){

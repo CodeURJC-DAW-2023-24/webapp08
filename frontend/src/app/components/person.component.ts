@@ -86,8 +86,8 @@ roles:String[];
 
    editUser(event: any) {
         const image = this.image.nativeElement.files[0];
-        this.personService.editPerson(this.person,image).subscribe(()=>
-
+        this.personService.editPerson(this.person,image).subscribe(()=>{
+        if(image){
         this.personService.getImage().subscribe((data )=> {
           if(data){
           const blob = new Blob([data], { type: 'image/jpeg' });
@@ -96,19 +96,18 @@ roles:String[];
           this.styleE = 'block';
           this.styleG = 'none';
           }
-          else{
-            this.imageUrl = undefined;
-            this.isReadOnly=true;
-            this.styleE = 'block';
-            this.styleG = 'none';
-          }
+        });
+      }
+
         },
-        (error)=>{ this.imageUrl = undefined;
+        (error)=>{
           this.isReadOnly=true;
           this.styleE = 'block';
           this.styleG = 'none';}
-      ));
-
+      );
+      this.isReadOnly=true;
+      this.styleE = 'block';
+      this.styleG = 'none';
 
       }
 
