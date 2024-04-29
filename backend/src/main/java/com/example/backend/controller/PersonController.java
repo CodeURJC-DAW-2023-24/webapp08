@@ -67,8 +67,7 @@ public class PersonController implements CommandLineRunner {
 	public String mainPage(Model model, HttpServletRequest request) {
 		model.addAttribute("adEx", request.isUserInRole("ADMIN"));
 		model.addAttribute("search", false);
-		Date date = new Date();
-		System.out.println("FECHAAAAAAAAAAAAAAAAAAAAAAAAAA" + date);
+		
 		return "mainPage";
 	}
 

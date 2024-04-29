@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.TimeZone;
 
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
@@ -76,8 +77,7 @@ public class RESTRutineController {
     @GetMapping("/")
     public ResponseEntity<Object> getRutines(HttpServletRequest request) {
         Person person = personService.findPersonByHttpRequest(request);
-        Date date = new Date();
-		System.out.println(date);
+      
         List<Rutine> rutines = person.getRutines();
         List<RutineDTO> rutineDTOs = new ArrayList<>();
         for (Rutine rutine : rutines) {
@@ -107,12 +107,15 @@ public class RESTRutineController {
         try {
             Person person = personService.findPersonByHttpRequest(request);
             Date newRutineDate = rutine.getDate();
+        
             Calendar calendar = Calendar.getInstance();
+            calendar.setTimeZone(TimeZone.getTimeZone("Europe/Madrid"));
             calendar.setTime(newRutineDate);
             calendar.set(Calendar.HOUR_OF_DAY, 0); // Establece la hora a 00:00
             calendar.set(Calendar.MINUTE, 0); // Establece los minutos a 00
             calendar.set(Calendar.SECOND, 0); // Establece los segundos a 00
             calendar.set(Calendar.MILLISECOND, 0); // Establece los milisegundos a 00
+
             newRutineDate = calendar.getTime();
             rutine.setDate(newRutineDate);
             Rutine newRutine = new Rutine(rutine);
@@ -376,6 +379,7 @@ public class RESTRutineController {
     @GetMapping("/{id}")
     public ResponseEntity<?> getSingleRutine(HttpServletRequest request, @PathVariable Long id) {
         Person person = personService.findPersonByHttpRequest(request);
+       
         Rutine rutine = rutineService.findById(id).orElseThrow();
         if (person.getRutines().contains(rutine)) {
             RutineDTO rutineDTO = new RutineDTO(rutine, personService);
