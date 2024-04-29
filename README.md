@@ -337,6 +337,29 @@ Acceder al [enlace](https://rawcdn.githack.com/CodeURJC-DAW-2023-24/webapp08/a43
 
 #
 # Fase 4
+
+## Desarrollo en Anguglar
+Se necesita:
+ - Node.js: Asegúrate de que Node.js esté instalado en tu sistema. Puedes descargarlo desde el sitio web oficial de [Node.js official website](https://nodejs.org/en).
+ - Angular CLI: Instala Angular CLI globalmente usando npm:
+  ```bash
+   npm install -g @angular/cli
+   ```
+Iniciar Angular:
+ - Clona el proyecto
+   ```bash
+   https://github.com/CodeURJC-DAW-2023-24/webapp08.git
+   ```
+ - Asegurarse de que está corriendo el backend
+ - Instalar los módulos necesarios
+  ```bash
+   npm install
+   ```
+ - Correr SPA
+   ```bash
+   npm start
+   ```
+   Disponible en [http://localhost:4200/](http://localhost:4200/) 
 ## Diagrama de clases y templates de la SPA
 <img src="READMEImages/SPAdiagram.png" width="1000" /> 
 
