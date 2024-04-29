@@ -338,7 +338,7 @@ Acceder al [enlace](https://rawcdn.githack.com/CodeURJC-DAW-2023-24/webapp08/a43
 #
 # Fase 4
 
-## Desarrollo en Anguglar
+## Desarrollo en Angular
 Se necesita:
  - Node.js: Asegúrate de que Node.js esté instalado en tu sistema. Puedes descargarlo desde el sitio web oficial de [Node.js official website](https://nodejs.org/en).
  - Angular CLI: Instala Angular CLI globalmente usando npm:
