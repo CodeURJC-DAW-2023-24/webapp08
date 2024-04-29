@@ -18,6 +18,8 @@ export class LoginComponent {
 
   logIn(event: any, username:string, password: string){
     event.preventDefault();
+    const currentDate: Date = new Date();
+    console.log(currentDate);
     this.loginservice.logIn(username,password)
   }
 

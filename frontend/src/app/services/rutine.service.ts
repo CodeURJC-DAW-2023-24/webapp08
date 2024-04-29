@@ -34,9 +34,11 @@ export class RutineService{
   }
   saveRutine(rutine: Rutine,isNew: boolean) {
     if(isNew){
+      console.log(rutine.date)
       return this.http.post(BASE_URL,rutine)
     }
     else{
+    console.log(rutine.date)
     return this.http.patch(BASE_URL+rutine.id,rutine);
     }
 }

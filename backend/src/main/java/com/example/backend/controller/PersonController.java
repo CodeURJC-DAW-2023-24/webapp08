@@ -2,6 +2,7 @@ package com.example.backend.controller;
 
 import java.io.IOException;
 import java.security.Principal;
+import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -66,6 +67,8 @@ public class PersonController implements CommandLineRunner {
 	public String mainPage(Model model, HttpServletRequest request) {
 		model.addAttribute("adEx", request.isUserInRole("ADMIN"));
 		model.addAttribute("search", false);
+		Date date = new Date();
+		System.out.println("FECHAAAAAAAAAAAAAAAAAAAAAAAAAA" + date);
 		return "mainPage";
 	}
 

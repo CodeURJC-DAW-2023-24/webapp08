@@ -76,6 +76,8 @@ public class RESTRutineController {
     @GetMapping("/")
     public ResponseEntity<Object> getRutines(HttpServletRequest request) {
         Person person = personService.findPersonByHttpRequest(request);
+        Date date = new Date();
+		System.out.println(date);
         List<Rutine> rutines = person.getRutines();
         List<RutineDTO> rutineDTOs = new ArrayList<>();
         for (Rutine rutine : rutines) {
